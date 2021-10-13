@@ -28,6 +28,4 @@ public class LoydController {
 		model.addAttribute("list",list);
 		return "/list";
 	}
-	
-	
 }
