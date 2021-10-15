@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="utf-8" %>
 <html>
@@ -8,6 +9,7 @@
 
 <section class="container">
     <h1>샘플 페이지</h1>
+    <a href="<c:url value="/member/list"/>">멤버 리스트 페이지 이동</a>
 
     <hr>
 

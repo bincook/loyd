@@ -10,7 +10,7 @@
 
 <h1 align="center">수정 페이지</h1>
 
-<form action="<c:url value="/member/update.do"/>" method="post">
+<form align="center" action="<c:url value="/member/update.do"/>" method="post">
         <input type="hidden" name="id" value="${member.id}">
 
     <p>

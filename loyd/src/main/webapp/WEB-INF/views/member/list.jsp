@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<section class="list" >
+<section class="list col-12" >
     <h1 align="center">리스트 페이지</h1>
 
     <table border="1" align="center" width="500">

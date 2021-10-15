@@ -42,11 +42,9 @@
     <page:applyDecorator name="header" />
 
     <main class="container-fluid">
-        <section class="row">
+        <section style="min-height: 83vh">
             <%-- 요청한 page 의 <body></body> 에 작성했던 내용이 온다 --%>
-            <div style="min-height: 83vh">
                 <decorator:body />
-            </div>
         </section>
     </main>
 
