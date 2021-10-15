@@ -1,4 +1,4 @@
-package kr.co.loyd;
+package kr.co.loyd.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
