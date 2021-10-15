@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<section class="list col-12" >
+<section>
     <h1 align="center">리스트 페이지</h1>
 
     <table border="1" align="center" width="500">
@@ -23,15 +23,15 @@
             </tr>
         </c:forEach>
 
+            <tr>
+                <td colspan="2" class="text-center">
+                    <a href="<c:url value="/member/write"/>">작성하기</a>
+                </td>
+            </tr>
     </table>
 
 </section>
 
-<script>
-
-    console.log($)
-
-</script>
 
 </body>
 </html>

@@ -10,7 +10,7 @@
 <body>
 
 
-<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel" data-interval="2500">
+<div id="carouselExampleIndicators" class="carousel slide " data-pause="false" data-ride="carousel" data-interval="3800">
 	<ol class="carousel-indicators">
 		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
