@@ -7,6 +7,7 @@ pageEncoding="utf-8" %>
 </head>
 <body>
 
+
 <h1 align="center">상세 페이지</h1>
 
 

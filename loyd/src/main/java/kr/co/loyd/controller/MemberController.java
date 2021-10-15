@@ -20,6 +20,12 @@ public class MemberController {
         return sqlSession.getMapper(clazz);
     }
 
+    /** 샘플 페이지 */
+    @RequestMapping(value = "/sample", method = RequestMethod.GET)
+    public String samplePage() {
+        return "member/sample";
+    }
+
     /** 회원 상세 페이지 */
     @RequestMapping(value = "/member/{id}", method = RequestMethod.GET)
     public String memberDetailPage(@PathVariable("id") Long id, Model model) {

@@ -1,0 +1,20 @@
+.container {
+    max-width: 1440px;
+}
+
+.table-bordered {
+    border: 1px solid #000000
+}
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #000000
+}
+
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 2px
+}
+
+/* 그레이 스케일 */
+
+/* 브랜드/세컨더리 컬러 */
+

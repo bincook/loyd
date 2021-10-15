@@ -8,21 +8,30 @@
 </head>
 <body>
 
-<h1 align="center">리스트 페이지</h1>
+<section class="list col-12" >
+    <h1 align="center">리스트 페이지</h1>
 
-<table border="1" align="center" width="500">
-    <c:forEach items="${members}" var="member">
-    <tr>
-        <td>이메일</td>
-        <td>
-            <a href="<c:url value="/member/${member.id}" />">
-                ${member.email}
-            </a>
-        </td>
-    </tr>
-    </c:forEach>
+    <table border="1" align="center" width="500">
+        <c:forEach items="${members}" var="member">
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <a href="<c:url value="/member/${member.id}" />">
+                            ${member.email}
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
 
-</table>
+    </table>
+
+</section>
+
+<script>
+
+    console.log($)
+
+</script>
 
 </body>
 </html>
