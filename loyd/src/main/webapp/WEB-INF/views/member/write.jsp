@@ -10,7 +10,7 @@
 
 <h1 align="center">작성 페이지</h1>
 
-<form action="<c:url value="/member/write.do"/>" method="post">
+<form align="center" action="<c:url value="/member/write.do"/>" method="post">
 
     <p>
         이메일
