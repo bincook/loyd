@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script>
@@ -73,11 +74,10 @@
 		<span style="color:red;">중복되는 이메일이 입력되었습니다</span>
 	</c:if><p>
 		<input type="hidden" name="email_check" value="1">
-		이메일<input type="text" name="email" placeholder="이메일을 작성하세요" onblur="check()">
-		<input type="button" value="이메일 조회" onclick="check()">
+		이메일<input type="text" name="email" placeholder="이메일을 작성하세요" onkeyup="check()">
 		<div id="email_chk"></div>
 		<p>
-		이름<input type="text" name="name" placeholder="이름을 작성하세요"><p>
+		이름<input type="text" name="name" placeholder="이름을 작성하세요">
 		핸드폰번호<input type="text" name="phone" placeholder="핸드폰번호를 작성하세요"><p>
 		비밀번호      <input type="password" name="pwd" placeholder="비밀번호를 작성하세요"><p>
 		비밀번호     <input type="password"  name="pwd2" placeholder="비밀번호 재확인" onkeyup="pwdchk()"><div id="pwdchk"></div>
