@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.ReviewsDao">
+
+
+	<!-- 구매 후기 작성 -->
+	<insert id = "writeOk" parameterType="kr.co.loyd.dto.ReviewsDto">
+		insert into reviews(member_id, watch_id, content, writeday)
+		values(#{memberId},#{watchId},#{content}, now())
+	
+	</insert>
+
+	<!-- 조건 + 페이징 -->
+
+</mapper>
+
+
