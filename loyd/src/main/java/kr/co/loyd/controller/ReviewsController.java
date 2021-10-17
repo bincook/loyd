@@ -55,6 +55,7 @@ public class ReviewsController {
 
 	}
 	
+	// 학원에서 pull받기
 	
 
 	
