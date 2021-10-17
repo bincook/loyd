@@ -4,27 +4,13 @@
 
 <mapper namespace="kr.co.loyd.dao.ReviewsDao">
 
-	<select id="one" parameterType="Long" resultType="kr.co.loyd.dto.MemberDto">
-		select * from member where id = #{id}
-	</select>
 
-	<select id="list" resultType="kr.co.loyd.dto.MemberDto">
-		select * from member
-	</select>
-
-	<insert id="insert">
-		insert into
-		member(email, pwd, name, phone, register_date)
-		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
+	<!-- 구매 후기 작성 -->
+	<insert id = "writeOk" parameterType="kr.co.loyd.dto.ReviewsDto">
+		insert into reviews(member_id, watch_id, content, writeday)
+		values(#{memberId},#{watchId},#{content}, now())
+	
 	</insert>
-
-	<update id="update">
-		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
-	</update>
-
-	<delete id="delete" parameterType="Long">
-		delete from member where id = #{id}
-	</delete>
 
 	<!-- 조건 + 페이징 -->
 
