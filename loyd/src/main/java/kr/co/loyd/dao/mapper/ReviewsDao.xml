@@ -5,11 +5,16 @@
 <mapper namespace="kr.co.loyd.dao.ReviewsDao">
 
 
+	<!-- 구매 후기 보기 -->
+	<select id="one" parameterType="int" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews where Review_id = #{id}
+	</select>
+
 	<!-- 구매 후기 작성 -->
 	<insert id = "writeOk" parameterType="kr.co.loyd.dto.ReviewsDto">
 		insert into reviews(member_id, watch_id, content, writeday)
 		values(#{memberId},#{watchId},#{content}, now())
-	
+
 	</insert>
 
 	<!-- 조건 + 페이징 -->
