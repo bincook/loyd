@@ -11,6 +11,13 @@
 		values(#{memberId},#{watchId},#{content}, now())
 	
 	</insert>
+	<select id="list" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews order by review_id desc
+				
+	
+	</select>
+	
+	
 
 	<!-- 조건 + 페이징 -->
 

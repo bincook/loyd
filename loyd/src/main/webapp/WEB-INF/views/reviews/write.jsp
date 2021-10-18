@@ -6,6 +6,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>구매후기</title>
+
+<!-- <script> src = "http://code.jquery.com/jquery.js"></script>
+<script>
+	var size=1;
+	function add() {
+		size ++;
+		var imgAcd = document.getElementById("imgAcd");
+		imgAcd.innerHTML = imgAcd.innerHTML + "<p class='iname'><input type='file' name='iname"+size+"'></p>";
+	}
+	function del() {
+		if(size>1) {
+			${".iname"}.eq(size-1).remove();
+			size--;
+		}
+	}
+
+</script> -->
+
+
+
+
+
 </head>
 <body>
 
@@ -13,8 +35,8 @@
         <h1> {watch} 구매후기 </h1>
         <p> {watch}에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
       </div>
-    <div class="container bg-light" style="height: 500px;">
-        <form name="writeForm" method="post" action="write_ok">
+    <div class="container bg-light" style="height: 800px;">
+        <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
                  
             <table class="table table-bordered">
 	                <tr>
@@ -35,8 +57,12 @@
 	                </tr>
 	                <tr>
 	                    <td>이미지 첨부하기</td>
-	                    <div id="imgEdit">
-	                        <td><input type="file" name="iname"></td>
+	                    <div id="imgAcd">
+<!-- 	                    <td><input type="file" name="iname1"></td> -->
+							<td>
+							<p class="iname"><input type="file" name="file"></p>
+							</td>
+	                        
 	                        <td><input type="button" onclick="add()" value='사진추가'></td>
 	                        <td><input type="button" onclick="del()" value='사진삭제'></td>               
 	                    </div>

@@ -1,9 +1,12 @@
 package kr.co.loyd.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReviewsDto {
 	
 	private int reviewId, memberId, watchId;
 	private String content, writeday;
+	
 	
 	public int getReviewId() {
 		return reviewId;
@@ -35,7 +38,7 @@ public class ReviewsDto {
 	public void setWriteday(String writeday) {
 		this.writeday = writeday;
 	}
-	
+
 
 	
 }
