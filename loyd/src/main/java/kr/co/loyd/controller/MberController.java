@@ -72,7 +72,7 @@ public class MberController {
 			session.setAttribute("email",dto2.getEmail() );
 			session.setAttribute("name",dto2.getName());
 			
-			return "/index";
+			return "redirect:/";
 		}
 
 	}
@@ -82,7 +82,7 @@ public class MberController {
 		
 		session.invalidate();
 		
-		return "/index";
+		return "redirect:/";
 	}
 	
 	
