@@ -91,6 +91,8 @@ public class ReviewsController {
 		return "/reviews/list";
 	}
 	
+	// 집에서 push 받기
+	
 	
 	
 	
