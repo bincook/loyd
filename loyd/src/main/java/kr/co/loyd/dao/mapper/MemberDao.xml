@@ -26,6 +26,10 @@
 		delete from member where id = #{id}
 	</delete>
 
+	<select id="listPage" resultType="kr.co.loyd.dto.MemberDto">
+		select id, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
+	</select>
+	
 	<!-- 조건 + 페이징 -->
 
 </mapper>
