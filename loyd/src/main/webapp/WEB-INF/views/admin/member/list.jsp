@@ -25,30 +25,40 @@
   }
   
   table{
-  margin-top:50px;
   width:500px;
   align:center;
   margin:auto;
   }
+  
+  .table-search
+  {
+    margin:auto;
+	text-decoration:none;
+	border-radius:10px;
+	background-color: skyblue;
+	
+  }
+  
+   .table-search tr td:nth-child(1)
+  {
+  	padding-left: 12px;
+  }
+
  </style>
  
- <script>
- window.onload=function()
- {
-	 document.pkc.search_field.value="${search_field}";
- }
-</script>
+
 </head>
 <body>
  <div id=whole>
   <header><h1>회원관리</h1></header>
    <p>
-   <div>
-   	<table>
-   	 <tr>
-   	  <td colspan="3">
-   	   <form name="pkc" method="post" action="list">
-   	    <select name="search_field" placeholder="33">
+   <div class="mb-3">
+   
+    <form name="search" method="post" action="list">
+    
+    	<input type="hidden" name="page" value="${page}" />
+   	    <select name="search_field">
+   	     <option value="sel" >선택</option>
    	     <option value="id">회원번호</option>
  	     <option value="name">회원이름</option>
 	     <option value="email">회원이메일</option>
@@ -56,11 +66,24 @@
    	    
    	     <input type="text" name="search_word" placeholder="상세 조회">
    	     <input type="submit"  value="검색" size="50">
-   	   </form>   	   
-   	  </td>
-   	 </tr>   	 
+   	</form>  	 
+   	   
+   	<table class="table-search">
+   	   	 <tr colspan="3">
+	   	 <td >회원번호</td>
+		 <td>회원이름</td>
+	 	 <td >회원이메일</td>
+   	 </tr>
+   	<c:forEach items="${searchMemberList}" var="mdto">
+   	 <tr colspan="3">
+	     <td>${mdto.id}</td>
+	     <td>${mdto.name}</td>
+	     <td>${mdto.email}</td>
+   	 </tr> 
+   	 </c:forEach>
    </table>
-   
+ </div> 
+ <div>
    <table border="1">	 
    	 <tr colspan="3">
 	   	 <td>회원번호</td>
@@ -124,7 +147,7 @@
    </tr>
    </table>
 
-   <table>
+   <table margin-tottom="40">
    <tr>
     <td colspan="3" align="center">
         <a href="dash-board">관리자 홈으로</a>  
@@ -134,5 +157,14 @@
    </div>
   
  </div>
+ 
+  <script>
+ window.onload=function()
+ {
+	 console.log("print -> ${search_field}")
+	 document.search.search_field.value="${search_field}";
+	 
+ }
+</script>
 </body>
 </html>

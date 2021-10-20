@@ -11,7 +11,6 @@ public interface MemberDao {
 
 	/** 멤버 리스트 조회 */
 	ArrayList<MemberDto> list();
-	public ArrayList<MemberDto> list(int index);
 
 	/** 멤버 생성 */
 	void insert(MemberDto memberDto);
@@ -22,7 +21,10 @@ public interface MemberDao {
 	/** 멤버 삭제 */
 	void delete(Long id);
 	
-	/** 멤버 페이지 정보 조회 */
+	/** 멤버 페이지 조회 */
 	public ArrayList<MemberDto> listdetail(String search_field, String search_word);
 	public Integer get_cnt();
+	public ArrayList<MemberDto> list(int index);
+	public String listsearch();
+
 }
