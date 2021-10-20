@@ -10,6 +10,10 @@ public interface ReviewsDao {
 	
 	public ArrayList<ReviewsDto> list(ReviewsDto rdto);
 	
+	public void readnum(int reviewId);
+	
+	
+	
 	
 	
 	

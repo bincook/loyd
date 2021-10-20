@@ -7,15 +7,23 @@
 
 	<!-- 구매 후기 작성 -->
 	<insert id = "writeOk" parameterType="kr.co.loyd.dto.ReviewsDto">
-		insert into reviews(member_id, watch_id, content, writeday)
-		values(#{memberId},#{watchId},#{content}, now())
+		insert into reviews(member_id, watch_id, content, writeday,rate)
+		values(#{member_id},#{watch_id},#{content}, now(),#{rate})
 	
 	</insert>
 	<select id="list" resultType="kr.co.loyd.dto.ReviewsDto">
 		select * from reviews order by review_id desc
-				
-	
 	</select>
+	
+	<update id="readnum"> <!-- result, parameter -->
+		update reviews set view=view+1 where review_id=#{param1}
+	</update>
+	
+	
+	
+	
+	
+	
 	
 	
 

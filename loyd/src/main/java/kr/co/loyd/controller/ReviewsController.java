@@ -44,41 +44,25 @@ public class ReviewsController {
 	}
 	
 	/** 리뷰 작성 ok */
-	@RequestMapping ("/reviews/write_ok")
-	public String write_ok (MultipartHttpServletRequest request){
-		
-		String content = request.getParameter("content");
-		
-		MultipartFile file = request.getFile("file");
-		
-		System.out.println(content);
-		System.out.println(file.getName());
-		System.out.println(file.getOriginalFilename());
-		
-		File f = new File("D:\\spring_suup\\.me/tadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\loyd\\resources\\img\\", file.getOriginalFilename());
-		
-		//String p = request.getRealPath("/img");
-		//System.out.println("path -> " + p);
-			
-		// File f = new File(request.getRealPath("/img"), file.getOriginalFilename());		
-		try {
-			FileCopyUtils.copy(file.getBytes(), f);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("에러");
-		}			
+	   @RequestMapping ("/reviews/write_ok")
+	   public String write_ok (ReviewsDto dto,  MultipartHttpServletRequest request) throws IOException {
 
-//		ReviewsDto rdto=new ReviewsDto();
-//		rdto.setTitle(multi.getParameter("title"));
-		
-//		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-//		rdao.writeOk(dto);
+		  
+	      MultipartFile multipartFile = request.getFile("file");
+	      if(!multipartFile.isEmpty()) {
+		      String realPath = request.getSession().getServletContext().getRealPath("resources/img");	
+		      File file = new File(realPath, multipartFile.getOriginalFilename());
+		      FileCopyUtils.copy(multipartFile.getBytes(), file);
+	      }
+	      
+	      ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+	      rdao.writeOk(dto);
 
-		return  "redirect:/reviews/list"; 
+	      return  "redirect:/reviews/list"; 
 
-	}
+	   }
 	
+	  
 	/** 리뷰 목록 페이지 */
 	@RequestMapping("/reviews/list")
 	public String listPage(Model model,ReviewsDto rdto) {
@@ -86,12 +70,27 @@ public class ReviewsController {
 
 		ArrayList<ReviewsDto> list = rdao.list(rdto);
 
-		model.addAttribute("", list);
+		model.addAttribute("reviews", list);
 		
 		return "/reviews/list";
 	}
 	
-	// 집에서 push 받기
+	@RequestMapping("/reviews/readnum")
+	public String view(HttpServletRequest request) {
+		
+		
+		int reviewId = Integer.parseInt(request.getParameter("review_id"));
+		
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		rdao.readnum(reviewId);
+		
+		return "redirect:/reviews/content?review_id="+reviewId;
+	}
+	
+	@RequestMapping ("reviews/")
+	public String view
+
+	
 	
 	
 	

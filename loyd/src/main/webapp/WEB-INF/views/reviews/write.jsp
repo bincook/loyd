@@ -2,10 +2,62 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>구매후기</title>
+
+
+<style>
+.rate-area {
+  float: left;
+  border-style: none;
+}
+
+.rate-area:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0,0,0,0);
+}
+
+.rate-area:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 200%;
+  line-height: 1.2;
+  color: lightgrey;
+  text-shadow: 1px 1px #bbb;
+}
+
+.rate-area:not(:checked) > label:before { content: '★ '; }
+
+.rate-area > input:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px #c60;
+  font-size: 200% !important;
+}
+
+.rate-area:not(:checked) > label:hover, .rate-area:not(:checked) > label:hover ~ label { color: gold; }
+
+.rate-area > input:checked + label:hover, .rate-area > input:checked + label:hover ~ label, .rate-area > input:checked ~ label:hover, .rate-area > input:checked ~ label:hover ~ label, .rate-area > label:hover ~ input:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area > label:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
+}
+
+</style>
+
 
 <!-- <script> src = "http://code.jquery.com/jquery.js"></script>
 <script>
@@ -46,14 +98,20 @@
                 
 	                <tr>
 	                    <td>작성자</td>
-	                    <td><input name="memberId" value="1" placeholder="작성자 아이디 넣기"></td>  
-	                    <td>작성일</td>
-	                    <td><input type placeholder="오늘날짜 넣기"></td>
+	                    <td colspan="3"><input name="memberId" value="1" placeholder="작성자 아이디 넣기"></td>  
+	                    
 	                </tr>
 	            
 	                <tr>
 	                    <td>만족도</td>  
-	                    <td colspan="3"><input placeholder="별 1~5개"></td>
+	                    <td colspan="3">
+	                    <ul class="rate-area pl-0 mb-0">
+						  <input type="radio" id="5-star" name="rate" value="5" /><label for="5-star" title="Amazing">5 stars</label>
+						  <input type="radio" id="4-star" name="rate" value="4" /><label for="4-star" title="Good">4 stars</label>
+						  <input type="radio" id="3-star" name="rate" value="3" /><label for="3-star" title="Average">3 stars</label>
+						  <input type="radio" id="2-star" name="rate" value="2" /><label for="2-star" title="Not Good">2 stars</label>
+						  <input type="radio" id="1-star" name="rate" value="1" /><label for="1-star" title="Bad">1 star</label>
+						</ul></td>
 	                </tr>
 	                <tr>
 	                    <td>이미지 첨부하기</td>
@@ -75,7 +133,7 @@
 	                </tr>
 	                
 	                <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
-	                <input type="text" name="watchId" value="659">
+	                <input type="text" name="watch_id" value="659">
             </table>
             <div align="center">
                     <a class="btn btn-primary" href="javascript:document.writeForm.submit()">
