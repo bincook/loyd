@@ -91,14 +91,14 @@
         <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
                  
             <table class="table table-bordered">
-	                <tr>
-	                    <td >제목</td>
-	                    <td colspan="3"><input type="text" name="title" size="100" placeholder="제목을 작성해주세요"></td>
-	                </tr>
-                
+					 <tr>
+						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
+		                 <td>구매한 시계</td>
+		                 <td colspan="3"><input type="text" name="watch_id" value="659"></td>
+                	</tr>
 	                <tr>
 	                    <td>작성자</td>
-	                    <td colspan="3"><input name="memberId" value="1" placeholder="작성자 아이디 넣기"></td>  
+	                    <td colspan="3"><input name="member_id" value="1" placeholder="작성자 아이디 넣기"></td>  
 	                    
 	                </tr>
 	            
@@ -118,7 +118,7 @@
 	                    <div id="imgAcd">
 <!-- 	                    <td><input type="file" name="iname1"></td> -->
 							<td>
-							<p class="iname"><input type="file" name="file"></p>
+							<p class="iname"><input type="file" name="NAME"></p>
 							</td>
 	                        
 	                        <td><input type="button" onclick="add()" value='사진추가'></td>
@@ -132,8 +132,7 @@
 	                    </td>
 	                </tr>
 	                
-	                <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
-	                <input type="text" name="watch_id" value="659">
+	               
             </table>
             <div align="center">
                     <a class="btn btn-primary" href="javascript:document.writeForm.submit()">

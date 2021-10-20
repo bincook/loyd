@@ -111,18 +111,6 @@
 					 	☆
 				       </c:forEach>
 		        </td>
-
-					
-					
-
-
-		        	</ul>
-		        
-		        
-		        
-		        
-		        
-		        
 		        <td><a href="readnum?review_id=${review.review_id}">${review.content}</a></td>
 		        <td>${review.view}</td>
 		        <td>${review.writeday}</td>
@@ -138,3 +126,7 @@
 
 </body>
 </html>
+
+
+
+

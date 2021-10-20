@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import kr.co.loyd.dao.ReviewsDao;
+import kr.co.loyd.dto.AddfileDto;
 import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.ReviewsMultipartDto;
 
@@ -45,10 +46,11 @@ public class ReviewsController {
 	
 	/** 리뷰 작성 ok */
 	   @RequestMapping ("/reviews/write_ok")
-	   public String write_ok (ReviewsDto dto,  MultipartHttpServletRequest request) throws IOException {
+	   public String write_ok (ReviewsDto dto,  MultipartHttpServletRequest request, ReviewsMultipartDto rmdto) throws IOException {
 
 		  
-	      MultipartFile multipartFile = request.getFile("file");
+		   MultipartFile multipartFile = request.getFile("NAME");
+//	      MultipartFile multipartFile = request.getFile("localhost/loyd/reviews/list"+"file");
 	      if(!multipartFile.isEmpty()) {
 		      String realPath = request.getSession().getServletContext().getRealPath("resources/img");	
 		      File file = new File(realPath, multipartFile.getOriginalFilename());
@@ -56,11 +58,26 @@ public class ReviewsController {
 	      }
 	      
 	      ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-	      rdao.writeOk(dto);
+	      rdao.writeOk1(dto);
+
 
 	      return  "redirect:/reviews/list"; 
 
 	   }
+	   
+	   @RequestMapping ("/reviews/reviewfiles_ok")
+	   public String reviewfiles_ok (AddfileDto adto) {
+		   
+		   ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		   rdao.writeOk2(adto);
+		   
+		   
+		   
+		   return "redirect:/reviews/list";
+		   
+	   }
+	   
+	   
 	
 	  
 	/** 리뷰 목록 페이지 */
@@ -87,9 +104,13 @@ public class ReviewsController {
 		return "redirect:/reviews/content?review_id="+reviewId;
 	}
 	
-	@RequestMapping ("reviews/")
-	public String view
+	@RequestMapping ("/reviews/content")
+	public String content() {
+		
+		return "redirect:/reviews/content";
+	}
 
+	
 	
 	
 	
