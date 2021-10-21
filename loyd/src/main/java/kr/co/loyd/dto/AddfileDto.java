@@ -32,5 +32,8 @@ public class AddfileDto {
 		this.size = size;
 	}
 	
+	
+	
+	
 
 }

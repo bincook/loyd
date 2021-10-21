@@ -1,15 +1,38 @@
 package kr.co.loyd.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class ReviewsDto {
 	
-	private int review_id, member_id, watch_id, rate, view;
-	private String content, writeday;
+	private int review_id, member_id, watch_id, rate, view, file_id, id;
+	private String content, writeday, name, path;
 	
 	
 	public int getView() {
 		return view;
+	}
+	public int getFile_id() {
+		return file_id;
+	}
+	public void setFile_id(int file_id) {
+		this.file_id = file_id;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	public void setView(int view) {
 		this.view = view;

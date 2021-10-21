@@ -91,6 +91,7 @@
 		      <tr>
 		        <th>글번호</th>
 		        <th>시계이름</th>
+		        <th>이미지</th>
 		        <th>만족도</th>
 		        <th>내용</th>
 		        <th>조회수</th>
@@ -100,9 +101,15 @@
 		    <tbody>
 		    
 		    <c:forEach items="${reviews }" var="review">
+		    
 		      <tr>
 		        <td>${review.review_id}</td>
 		        <td>${review.watch_id}</td>
+		        <td>
+		        	
+		        	
+		        	<img src="<c:url value="/${review.path }/${review.name }" />"  onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+		        </td>
 		        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
 		   		       <c:forEach begin="1" end="${review.rate}"> 
 					 	★
@@ -115,12 +122,96 @@
 		        <td>${review.view}</td>
 		        <td>${review.writeday}</td>
 		      </tr>
+
 		      </c:forEach>
 		    </tbody>
+		    
+		    
+		    <!--  여기서부터 페이징 -->
+		    
+		    <tr>
+		    	<td colspan="7" align="center">
+		    	
+		    <c:if test="${pstart !=1 }">
+					
+					<a class="mr-2" href="list?page=${pstart-1 }">◀◀ </a>
+				
+				</c:if>
+				<c:if test="${pstart ==1 }">
+					
+					<a class="mr-2" style="color:grey">◀◀ </a>
+				
+				</c:if>
+				
+				
+				<!-- 클릭시 현재 페이지 기준으로 이전 1페이지 이동 -->
+				
+				
+				<c:if test="${page!= 1 }">
+				
+					<a href="list?page=${page-1 }"> ◀ </a>
+				</c:if>
+				<c:if test="${page == 1 }">
+					<a style="color:grey">◀ </a>
+				</c:if>
+				
+					<!-- 현재 페이지 기준으로 이동할수 있는 페이지 -->
+					<c:forEach begin="${pstart }" end="${pend }" var="i">
+					
+					
+					<!-- 현제 페이지 색은 다르게 => 빨강 -->
+						<c:if test="${page !=i }">
+							<a href="list?page=${i }">${i }</a>
+						</c:if>
+						<c:if test="${page ==i }">
+							<a href="list?page=${i }" style="color:red">${i }</a>
+						</c:if>
+						
+					
+					</c:forEach>
+			
+					<!-- 클릭시 현재 페이지 기준 다음 1페이지 이동 -->
+					
+					<c:if test="${page != page_cnt }">
+						<a href="list?page=${page+1 }"> ▶ </a>
+					</c:if>
 
+<%-- 					${page_cnt } (마지막 페이지 몇인지 궁금할때 실행시켜보는거)					 --%>
+					
+					<c:if test="${page == page_cnt }">
+						<form> ▶ </form>
+					</c:if>
+					
+					<!-- 클릭시 현재 페이지 기준 다음 10페이지 이동 -->
+					<c:if test="${pend !=page_cnt }">
+					
+						<a class="ml-2" href="list?page=${pend+1 }">▶▶</a>
+				
+					</c:if>
+					
+					<c:if test="${pend ==page_cnt }">
+						<a class="ml-2" style="color:grey">▶▶</a>
+	
+					</c:if>
+			
+		    	    
+				
+				</td>
 		  </table>
 		  	<a href="write">리뷰 작성하기</a>
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 
