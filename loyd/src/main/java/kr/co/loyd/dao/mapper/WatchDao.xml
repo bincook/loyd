@@ -27,5 +27,11 @@
 	</delete>
 
 	<!-- 조건 + 페이징 -->
+	
+	<!-- 관리자 상품 등록 -->
+	<insert id="upload_ok" >
+		insert into watch(name,brand,price,category,content,discount,picture,kind) 
+		values(#{name},#{brand},#{price},#{category},#{content},#{discount},#{picture},#{kind})
+	</insert>
 
 </mapper>

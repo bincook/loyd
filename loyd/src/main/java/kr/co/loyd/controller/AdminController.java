@@ -118,7 +118,24 @@ public class AdminController {
 		return  "redirect:/admin/member/list";
 	}
 	
+	/** 관리자 상품 등록(파일 3개만 등록가능) */
+	@RequestMapping(value = "/watch/upload")
+	public String upload()
+	{
+		
+		return "/admin/watch/upload";
+	}
+
+	@RequestMapping(value = "/watch/upload_ok")
+	public String upload_ok(HttpServletRequest request) throws Exception
+	{
+		String path=request.getRealPath("resources/img");
+		int max=1024*1024*10;				
 	
+		
+		
+		return "/admin/watch/upload_ok";
+	}
 
 	
 	
