@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <table width="600" align="center">
+준비중
+<%--   <table width="600" align="center">
   <tr>
    <td> 이름 </td>
    <td> 제목 </td>
@@ -26,6 +27,6 @@
    <td> ${udto.name} </td>
   </tr>
   </c:forEach> 
- </table>  
+ </table>   --%>
 </body>
 </html>

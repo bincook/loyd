@@ -1,17 +1,18 @@
 package kr.co.loyd.dto;
 
-public class WatchDto {
+  /** 사진 배열처리 */
+public class WatchDto_admin {
 
 	private int id;
 	private int price;
-	private Double discount;
+	private int discount;
 	private String name;
 	private String brand;
 	private String category;
 	private String content;
-	private String picture;
 	private String kind;
 		
+	private String[] picture;
 	
 	public int getId() {
 		return id;
@@ -19,20 +20,18 @@ public class WatchDto {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public Double getDiscount() {
-		return discount;
-	}
-	public void setDiscount(Double discount) {
-		this.discount = discount;
-	}
 	public int getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
 	public String getName() {
 		return name;
 	}
@@ -57,12 +56,7 @@ public class WatchDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getPicture() {
-		return picture;
-	}
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+
 	public String getKind() {
 		return kind;
 	}

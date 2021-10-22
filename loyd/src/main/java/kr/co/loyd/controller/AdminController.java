@@ -1,6 +1,7 @@
 package kr.co.loyd.controller;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.loyd.dao.MemberDao;
+import kr.co.loyd.dao.WatchDao;
 import kr.co.loyd.dto.MemberDto;
+import kr.co.loyd.dto.WatchDto;
 
 @Controller
 @RequestMapping("/admin")
@@ -126,19 +131,39 @@ public class AdminController {
 		return "/admin/watch/upload";
 	}
 
-	@RequestMapping(value = "/watch/upload_ok")
+	@RequestMapping("/watch/upload_ok")
 	public String upload_ok(HttpServletRequest request) throws Exception
 	{
-		String path=request.getRealPath("resources/img");
-		int max=1024*1024*10;				
-	
 		
+		   String imgPath = "resources/img";
 		
-		return "/admin/watch/upload_ok";
+		   String path=request.getRealPath(imgPath);
+		   System.out.println("path" + path);
+			
+		   int max=1024*1024*10;
+		   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
+
+		   String fileName = multi.getFilesystemName("picture");
+		   System.out.println("fileName" + fileName);
+		   
+		   
+		   WatchDto wdto=new WatchDto();
+		   wdto.setName(multi.getParameter("name"));
+		   wdto.setBrand(multi.getParameter("brand"));
+		   wdto.setPrice(Integer.parseInt(multi.getParameter("price")));
+		   wdto.setCategory(multi.getParameter("category"));
+		   wdto.setContent(multi.getParameter("content"));
+		   wdto.setDiscount(Double.parseDouble(multi.getParameter("discount")));
+		   wdto.setPicture(imgPath + "/" + fileName);
+		   wdto.setKind(multi.getParameter("kind"));
+		   
+		   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+		   wdao.upload_ok(wdto);		  
+		
+		  
+		return "/watch/watch_list";
 	}
 
-	
-	
 	
 	
 		
