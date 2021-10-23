@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="list" resultType="kr.co.loyd.dto.MemberDto">
-		select * from member
+		select * from member order by id desc limit #{param1},10
 	</select>
 
 	<insert id="insert">
@@ -26,10 +26,13 @@
 		delete from member where id = #{id}
 	</delete>
 
-	<select id="listPage" resultType="kr.co.loyd.dto.MemberDto">
-		select id, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
+<select id="listdetail" resultType="kr.co.loyd.dto.MemberDto">
+		select id, name, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
 	</select>
-	
+	<select id="get_cnt" resultType="Integer">
+ 		select ceil(count(*)/10)as cnt from member
+	</select>
+
 	<!-- 조건 + 페이징 -->
 
 </mapper>

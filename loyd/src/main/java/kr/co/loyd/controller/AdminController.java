@@ -23,28 +23,106 @@ public class AdminController {
 	private SqlSession sqlSession;
 	
 	private final String module="/admin/member";
+	
+	/** 관리자 특정회원 조회 페이지 */
+	@RequestMapping(value = "/member/list")
+	public String list(Model model, HttpServletRequest request) {
+		String search_field = request.getParameter("search_field");
+		String search_word;
+		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
 		
-	/** 관리자 회원 목록 조회 페이지 */
-	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
-	public String list(Model model,HttpServletRequest request) {
-		String search_field,search_word;
-		if(request.getParameter("search_field")==null)
+		// 검색을 안했을 때
+		if(search_field==null || search_field.equals("sel"))
 		{
-			search_field="''";
+			search_field="sel";
 			search_word="";
+			
 		}
+		// 검색을 했을 때
 		else
 		{
 			search_field=request.getParameter("search_field");
 			search_word=request.getParameter("search_word");
+			// 검색된 회원 정보
+			ArrayList<MemberDto> searchMemberList = mdao.listdetail(search_field, search_word);
+			model.addAttribute("searchMemberList", searchMemberList);
+			
+		}	
+		model.addAttribute("search_field",search_field);
+		
+		// 모든 회원정보
+		int page;
+		if(request.getParameter("page")==null)
+		{
+			page=1;
 		}
+		else
+		{
+			page=Integer.parseInt(request.getParameter("page"));
+		}
+		int page_cnt=mdao.get_cnt();
+		int index=(page-1)*10;			
 		
-		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
+		int pstart=page/10;
+		if(page%10 == 0)
+			pstart=pstart-1;
+		pstart=(pstart*10)+1;
+		int pend=pstart+9;		
 		
-		ArrayList<MemberDto> list=mdao.listPage(search_field, search_word);
+		if(pend>page_cnt)
+			pend=page_cnt;
 		
+		ArrayList<MemberDto> list = mdao.list(index);
+		model.addAttribute("pstart",pstart);
+		model.addAttribute("pend",pend);
+		model.addAttribute("page_cnt",page_cnt);
+		model.addAttribute("page",page);
 		model.addAttribute("list",list);
 		
-		return module + "/list";
+		return  "/admin/member/list";
 	}
+
+	
+	/** 관리자 회원 전체목록 조회 */
+	@RequestMapping(value = "/member/listdetail", method = RequestMethod.GET)
+	public String listdetail(Model model,HttpServletRequest request) {
+		
+		MemberDao mdao=sqlSession.getMapper(MemberDao.class);
+		int page;
+		if(request.getParameter("page")==null)
+		{
+			page=1;
+		}
+		else
+		{
+			page=Integer.parseInt(request.getParameter("page"));
+		}
+		int page_cnt=mdao.get_cnt();
+		int index=(page-1)*10;			
+		
+		int pstart=page/10;
+		if(page%10 == 0)
+			pstart=pstart-1;
+		pstart=(pstart*10)+1;
+		int pend=pstart+9;		
+		
+		if(pend>page_cnt)
+			pend=page_cnt;
+		
+		ArrayList<MemberDto> list=mdao.list(index);
+		model.addAttribute("pstart",pstart);
+		model.addAttribute("pend",pend);
+		model.addAttribute("page_cnt",page_cnt);
+		model.addAttribute("page",page);
+		model.addAttribute("list",list);		
+		return  "redirect:/admin/member/list";
+	}
+	
+	
+
+	
+	
+	
+	
+		
 }

@@ -21,6 +21,10 @@ public interface MemberDao {
 	/** 멤버 삭제 */
 	void delete(Long id);
 	
-	/** 멤버 패이지 조회 */
-	public ArrayList<MemberDto> listPage(String search_field, String search_word);
+	/** 멤버 페이지 조회 */
+	public ArrayList<MemberDto> listdetail(String search_field, String search_word);
+	public Integer get_cnt();
+	public ArrayList<MemberDto> list(int index);
+	public String listsearch();
+
 }
