@@ -104,13 +104,11 @@ public class ReviewsController {
 		}
 		else {
 			page=Integer.parseInt(request.getParameter("page"));
+			
 		}
-		
-		int index=(page-1)*5;  // 인덱스 값 구하고 arraylist로 가기
-		// parameter -> param
+		int index=(page-1)*5;
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-		ArrayList<ReviewsDto> list = rdao.list(index);	
-		
+		ArrayList<ReviewsDto> list = rdao.list(index);
 		
 		// page, pstart, pend, page_cnt
 		// 페이지  , 페이지 시작 , 페이지끝, 페이지 카운트
@@ -118,8 +116,7 @@ public class ReviewsController {
 		// pstart = 1, 11, 21, 31
 		// pend = 10, 20, 30, 40
 		
-		int pstart = page / 5;
-		
+		int pstart = page/10;
 		
 		// pstart = 11 / 10 = 1 start 1
 		// pend = 1 + 9 = 10 end 10
@@ -128,36 +125,34 @@ public class ReviewsController {
 		// pend = 1 + 4 = 5  end = 5
 
 		// 27 행 / 5개씩 =  5
-		
-		
-		
+
 		// 0 % 5 = 0  true
-		if(page%5 == 0)
-			// 1-1 = 0 
-			pstart = pstart-1;
 		
-		// 
-		pstart = (pstart*5)+1;
-		
-		int pend = pstart + 4;
+		if (page%10 ==0)
+			pstart=pstart-1;
+		pstart = (pstart*10)+1;
+		int pend = pstart +9;
 		int page_cnt = rdao.get_pagecount();
 		
 		if (pend>page_cnt)
 			pend = page_cnt;
-		
 		
 		model.addAttribute("page",page);
 		model.addAttribute("pstart",pstart);
 		model.addAttribute("pend",pend);
 		model.addAttribute("page_cnt",page_cnt);
 		model.addAttribute("pstart",pstart);
-
-		model.addAttribute("reviews", list);
+		
+		model.addAttribute("reviews",list);
+		
+		
+		
+		
 		
 		return "/reviews/list";
 		
-	
 	}
+
 	
 	@RequestMapping("/reviews/readnum")
 	public String view(HttpServletRequest request) {
@@ -171,14 +166,16 @@ public class ReviewsController {
 		return "redirect:/reviews/content?review_id="+reviewId;
 	}
 	
-	@RequestMapping ("/reviews/content")
+
+
+	/**내용 페이지**/
+	@RequestMapping("/reviews/content")
 	public String content() {
 		
-		return "redirect:/reviews/content";
+		return "reviews/content";
+//		<a href="javascript:win_open()">
+		
 	}
-
-	
-	
 	
 	
 	

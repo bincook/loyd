@@ -26,7 +26,7 @@
 		LEFT JOIN add_file af
 		ON r.file_id = af.id
 		order by review_id DESC
-		limit #{param1}, 5
+		limit #{param1}, 9
 		 
 	</select>
 	

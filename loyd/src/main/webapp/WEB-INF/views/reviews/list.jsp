@@ -80,14 +80,13 @@
 			</tr>
 	</table> --%>
 	
-	    		<table width="500" align="center" border="1">
-			<div class="container">
+	    <table width="500" align="center" border="1">
+		<div class="container">
 		  <h2 class="mb-4" align=center>후기 게시판</h2>
 		  <div align=center>텍스트 리뷰 / 포토리뷰  </div>
 		  <div class="mb-3" align=center>200point / 500 point </div>            
 		  <table class="table table-striped">
 		    <thead>
-		    
 		      <tr>
 		        <th>글번호</th>
 		        <th>시계이름</th>
@@ -100,30 +99,34 @@
 		    </thead>
 		    <tbody>
 		    
-		    <c:forEach items="${reviews }" var="review">
-		    
-		      <tr>
-		        <td>${review.review_id}</td>
-		        <td>${review.watch_id}</td>
-		        <td>
-		        	
-		        	
-		        	<img src="<c:url value="/${review.path }/${review.name }" />"  onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
-		        </td>
-		        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
-		   		       <c:forEach begin="1" end="${review.rate}"> 
-					 	★
-				       </c:forEach>
-				       <c:forEach begin="1" end="${5-review.rate}"> 
-					 	☆
-				       </c:forEach>
-		        </td>
-		        <td><a href="readnum?review_id=${review.review_id}">${review.content}</a></td>
-		        <td>${review.view}</td>
-		        <td>${review.writeday}</td>
-		      </tr>
+		    <c:set var="i" value="0" />
+		    <c:set var="j" value="3" />
+			    <c:forEach items="${reviews }" var="review">
+    			    <c:if test="${i%j==0 }">
+					      <tr>
+					</c:if>
 
-		      </c:forEach>
+					        <td>${review.review_id}</td>
+					        <td>${review.watch_id}</td>
+					        <td>
+					        	<img src="<c:url value="/${review.path }/${review.name }" />"  onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+					        </td>
+					        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
+					   		       <c:forEach begin="1" end="${review.rate}"> 
+								 	★
+							       </c:forEach>
+							       <c:forEach begin="1" end="${5-review.rate}"> 
+								 	☆
+							       </c:forEach>
+					        </td>
+					        <td><a href="readnum?review_id=${review.review_id}">${review.content}</a></td>
+					        <td>${review.view}</td>
+					        <td>${review.writeday}</td>
+
+					      </tr>
+
+	
+			      </c:forEach>
 		    </tbody>
 		    
 		    
@@ -132,7 +135,7 @@
 		    <tr>
 		    	<td colspan="7" align="center">
 		    	
-		    <c:if test="${pstart !=1 }">
+		    	<c:if test="${pstart !=1 }">
 					
 					<a class="mr-2" href="list?page=${pstart-1 }">◀◀ </a>
 				
@@ -142,7 +145,7 @@
 					<a class="mr-2" style="color:grey">◀◀ </a>
 				
 				</c:if>
-				
+	
 				
 				<!-- 클릭시 현재 페이지 기준으로 이전 1페이지 이동 -->
 				
@@ -197,6 +200,10 @@
 		    	    
 				
 				</td>
+				<c:if test="${i%j==j-1 }"> 
+			</tr>
+		    	 </c:if>
+		     	<c:set var="i" value="$i+1" />
 		  </table>
 		  	<a href="write">리뷰 작성하기</a>
 		</div>
