@@ -25,6 +25,33 @@
 	<delete id="delete" parameterType="Long">
 		delete from member where id = #{id}
 	</delete>
+	
+	<!-- 카트 리스트 -->
+	<select id="cart_list" resultType="kr.co.loyd.dto.CartDto">
+	SELECT A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
+	FROM cart A, watch B 
+	WHERE A.watch_id =  B.id AND member_id = 19
+	</select>
+	
+	<select id="cart_sum" resultType="integer">
+	WITH cart AS
+	(SELECT (A.item_count*B.price*B.discount) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.member_id = 19 )
+	SELECT SUM(hap) AS chong  FROM cart 
+	</select>
+	
+	<select id="change" resultType="kr.co.loyd.dto.CartDto"> 
+		SELECT A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
+		FROM cart A, watch B 
+		WHERE A.watch_id =  B.id AND member_id = 19 and watch_id = #{param1}
+	</select>
+	
+	<update id="minus" >
+		update cart set item_count=item_count-1 where watch_id = #{param1} 
+	</update>
+	
+	<update id="plus" >
+		update cart set item_count=item_count+1 where watch_id = #{param1} 
+	</update>
 
 	<!-- 조건 + 페이징 -->
 

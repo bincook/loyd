@@ -48,7 +48,6 @@ public class MberController {
 		int chk = mdao.get_check(email);
 		out.print(chk);
 
-		
 	}
 	
 	
