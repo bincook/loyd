@@ -27,7 +27,7 @@ public class AdminController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private final String module="/admin/member";
+	private final String module="/admin";
 	
 	/** 관리자 특정회원 조회 페이지 */
 	@RequestMapping(value = "/member/list")
@@ -123,7 +123,8 @@ public class AdminController {
 		return  "redirect:/admin/member/list";
 	}
 	
-	/** 관리자 상품 등록(파일 3개만 등록가능) */
+	
+	/** 관리자 상품 등록(하나의 이미지 등록) */
 	@RequestMapping(value = "/watch/upload")
 	public String upload()
 	{
@@ -161,16 +162,19 @@ public class AdminController {
 		   wdao.upload_ok(wdto);		  
 		
 		  
-		return "/watch/list";
+		return "redirect:admin/watch/watch_list";
 	}
 	
 	 @RequestMapping("/watch/watch_list")
-	   public String list(Model model)
+	   public String watch_list(Model model,HttpServletRequest request)
 	   {
 		   WatchDao wdao=sqlSession.getMapper(WatchDao.class); 
-		   ArrayList<WatchDto> list=wdao.list();
-		   model.addAttribute("list",list);
-		   return "/list";
+		   
+		   
+		   
+		   ArrayList<WatchDto> watch_list=wdao.watch_list();
+		   model.addAttribute("watch_list",watch_list);
+		   return "admin/watch/watch_list";
 	   }
 
 	

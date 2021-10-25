@@ -28,13 +28,13 @@
 
 	<!-- 조건 + 페이징 -->
 	
-	<!-- 관리자 상품 등록 -->
+	<!-- 관리자가 상품 등록 -->
 	<insert id="upload_ok" parameterType="kr.co.loyd.dto.WatchDto">
 		insert into watch(name,brand,price,category,content,discount,picture,kind) 
 		values(#{name},#{brand},#{price},#{category},#{content},#{discount},#{picture},#{kind})
 	</insert>
-	
-	<select id="list" resultType="kr.co.loyd.dto.WatchDto">
+	<!-- 관리자 등록한 상품 목록보기 -->
+	<select id="watch_list" resultType="kr.co.loyd.dto.WatchDto">
 		select * from watch order by id desc
 	</select>
 	

@@ -6,8 +6,16 @@ import kr.co.loyd.dto.WatchDto;
 
 public interface WatchDao {
 	
+	/** 상품 등록 */
 	void upload_ok(WatchDto paramWatchDto);
 	
-	ArrayList<WatchDto> list();
+	/** 등록한 상품 목록 */
+	ArrayList<WatchDto> watch_list();
+	
+	/** 상품 목록 페이징*/
+	public Integer get_cnt();
+	public ArrayList<WatchDto> watch_list(int index);
+	
+	
 	
 }
