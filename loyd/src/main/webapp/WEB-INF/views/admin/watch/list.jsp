@@ -20,7 +20,7 @@
    <td> 이미지 </td>
    <td> 종류(가죽/메탈) </td>
   </tr>
-   <c:forEach items="${watch_list}" var="wdto">
+   <c:forEach items="${list}" var="wdto">
   <tr>
   <td> ${wdto.name} </td>
    <td> ${wdto.brand} </td>
@@ -28,7 +28,6 @@
    <td> ${wdto.category} </td>
    <td> ${wdto.content} </td>
    <td> ${wdto.discount} </td>
-    <td> ${wdto.picture} </td>
    <td> ${wdto.kind} </td>
    <td> <img src="resources/img/${wdto.picture}" width="100"> </td>
   </tr>

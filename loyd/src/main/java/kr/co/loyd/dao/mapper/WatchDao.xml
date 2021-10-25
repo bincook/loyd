@@ -34,7 +34,7 @@
 		values(#{name},#{brand},#{price},#{category},#{content},#{discount},#{picture},#{kind})
 	</insert>
 	
-	<select id="watch_list" resultType="kr.co.loyd.dto.WatchDto">
+	<select id="list" resultType="kr.co.loyd.dto.WatchDto">
 		select * from watch order by id desc
 	</select>
 	

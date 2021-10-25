@@ -161,8 +161,17 @@ public class AdminController {
 		   wdao.upload_ok(wdto);		  
 		
 		  
-		return "/watch/watch_list";
+		return "/watch/list";
 	}
+	
+	 @RequestMapping("/watch/watch_list")
+	   public String list(Model model)
+	   {
+		   WatchDao wdao=sqlSession.getMapper(WatchDao.class); 
+		   ArrayList<WatchDto> list=wdao.list();
+		   model.addAttribute("list",list);
+		   return "/list";
+	   }
 
 	
 	

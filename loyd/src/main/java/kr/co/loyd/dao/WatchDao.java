@@ -8,6 +8,6 @@ public interface WatchDao {
 	
 	void upload_ok(WatchDto paramWatchDto);
 	
-	ArrayList<WatchDto> watch_list();
+	ArrayList<WatchDto> list();
 	
 }
