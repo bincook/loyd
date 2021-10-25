@@ -10,9 +10,21 @@
 <body>
   <h1>이메일(아이디) 찾기</h1>
   <form method="post" action="emailfind_ok">
-	  이름<input type="text" name="name"><p>
-	  핸드폰번호<input type="text" name="phone"><p>
-	  <input type="submit" value="찾기">
+  <table>
+  	<tr>
+  		<td>이름</td>
+  		<td><input type="text" name="name"></td>
+  	</tr>
+  	<tr>
+  		<td>핸드폰번호</td>
+  		<td><input type="text" name="phone"></td>
+  	</tr>
+  	<tr>
+  		<td colspan="2" align="center">
+  			<input type="submit" value="찾기">
+  		</td>
+  	</tr>
+  </table>
   </form>
   
   
