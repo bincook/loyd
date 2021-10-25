@@ -95,7 +95,10 @@
 						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
 						 
 			                 <td>구매한 시계</td>
-			                 <td colspan="3">${watchId}</td>
+			                 <td colspan="3"><input type="hidden" name="watch_id" value="659">
+			                 	${watchId}
+			                 </td>
+			                 
 		                 
                 	</tr>
 	                <tr>
@@ -121,7 +124,7 @@
 	                    <div id="imgAcd">
 <!-- 	                    <td><input type="file" name="iname1"></td> -->
 							<td>
-							<p class="iname"><input type="file" name="name" value="imgtest"></p>
+								<p class="iname"><input type="file" name="name" value="imgtest"></p>
 							</td>
 	                        
 	                        <td><input type="button" onclick="add()" value='사진추가'></td>

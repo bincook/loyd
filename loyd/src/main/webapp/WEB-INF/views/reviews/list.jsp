@@ -55,6 +55,15 @@
 }
 
 </style>
+<script>
+
+// function win_open() {
+	
+// // 	readnum?review_id=${review.review_id}
+// 	open("readnum?review_id=${review.review_id}","r","width=400, height=300");
+// }
+
+</script>
 
 
 
@@ -105,27 +114,23 @@
     			    <c:if test="${i%j==0 }">
 					      <tr>
 					</c:if>
-
-					        <td>${review.review_id}</td>
-					        <td>${review.watch_id}</td>
-					        <td>
-					        	<img src="<c:url value="/${review.path }/${review.name }" />"  onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
-					        </td>
-					        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
-					   		       <c:forEach begin="1" end="${review.rate}"> 
-								 	★
-							       </c:forEach>
-							       <c:forEach begin="1" end="${5-review.rate}"> 
-								 	☆
-							       </c:forEach>
-					        </td>
-					        <td><a href="readnum?review_id=${review.review_id}">${review.content}</a></td>
-					        <td>${review.view}</td>
-					        <td>${review.writeday}</td>
-
+						        <td>${review.review_id}</td>
+						        <td>${review.watch_id}</td>
+						        <td>
+						        	<img wdith="100" height="100"  src="<c:url value="/${review.path }/${review.name }" />"  onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+						        </td>
+						        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
+						   		       <c:forEach begin="1" end="${review.rate}"> 
+									 	★
+								       </c:forEach>
+								       <c:forEach begin="1" end="${5-review.rate}"> 
+									 	☆
+								       </c:forEach>
+						        </td>
+								<td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', '','width=700, height=900'))">${review.content}</a></td>
+						        <td>${review.view}</td>
+						        <td>${review.writeday}</td>
 					      </tr>
-
-	
 			      </c:forEach>
 		    </tbody>
 		    
