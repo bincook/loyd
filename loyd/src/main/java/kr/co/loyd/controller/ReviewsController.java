@@ -178,6 +178,7 @@ public class ReviewsController {
 	/** 내용 페이지 **/
 	@RequestMapping("/reviews/content")
 	public String content() {
+		content
 
 		return "/reviews/content";
 	}

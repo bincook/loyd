@@ -37,17 +37,19 @@
 	</table>
 	</div>
 	
-	<div class="card" style="width:400px">
-  <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image">
-  <div class="card-body">
-    <h4 class="card-title">별점</h4>
+	
+<!-- bs4 -->
+<!-- <div class="card" style="width:400px"> -->
+<!--   <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
+<!--   <div class="card-body"> -->
+<!--     <h4 class="card-title">별점</h4> -->
     
-    <p class="card-text">시계 아이디</p>
-    <p class="card-text">내용 1</p>
-    <p class="card-text">내용 2</p>
-    <a href="#" class="btn btn-primary">See Profile</a>
-  </div>
-</div>
+<!--     <p class="card-text">시계 아이디</p> -->
+<!--     <p class="card-text">내용 1</p> -->
+<!--     <p class="card-text">내용 2</p> -->
+<!--     <a href="#" class="btn btn-primary">See Profile</a> -->
+<!--   </div> -->
+<!-- </div> -->
 
 
 
