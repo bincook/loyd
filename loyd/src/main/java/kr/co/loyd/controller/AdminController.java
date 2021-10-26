@@ -159,10 +159,9 @@ public class AdminController {
 		   wdto.setKind(multi.getParameter("kind"));
 		   
 		   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
-		   wdao.upload_ok(wdto);		  
-		
+		   wdao.upload_ok(wdto);		 	
 		  
-		return "redirect:admin/watch/watch_list";
+		return "redirect:/admin/watch/watch_list";
 	}
 	
 	 @RequestMapping("/watch/watch_list")
@@ -170,14 +169,46 @@ public class AdminController {
 	   {
 		   WatchDao wdao=sqlSession.getMapper(WatchDao.class); 
 		   
-		   
+		   int page;
+			if(request.getParameter("page")==null)
+			{
+				page=1;
+			}
+			else
+			{
+				page=Integer.parseInt(request.getParameter("page"));
+			}
+			int page_cnt=wdao.get_cnt();
+			int index=(page-1)*10;			
+			
+			int pstart=page/10;
+			if(page%10 == 0)
+				pstart=pstart-1;
+			pstart=(pstart*10)+1;
+			int pend=pstart+9;		
+			
+			if(pend>page_cnt)
+				pend=page_cnt;		   
 		   
 		   ArrayList<WatchDto> watch_list=wdao.watch_list();
+		   model.addAttribute("pstart",pstart);
+		   model.addAttribute("pend",pend);
+		   model.addAttribute("page_cnt",page_cnt);
+		   model.addAttribute("page",page);
 		   model.addAttribute("watch_list",watch_list);
 		   return "admin/watch/watch_list";
 	   }
 
-	
+     @RequestMapping("/watch/content")
+     public String content(Model model,HttpServletRequest request) throws Exception
+     {
+      String id=request.getParameter("id");
+      WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+      WatchDto wdto=wdao.content(id);
+      model.addAttribute("wdto",wdto);
+      
+      return "admin/watch/content";
+     }
 	
 		
 }

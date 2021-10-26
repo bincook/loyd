@@ -33,10 +33,17 @@
 		insert into watch(name,brand,price,category,content,discount,picture,kind) 
 		values(#{name},#{brand},#{price},#{category},#{content},#{discount},#{picture},#{kind})
 	</insert>
-	<!-- 관리자 등록한 상품 목록보기 -->
+	<!-- 등록한 상품 목록보기 -->
 	<select id="watch_list" resultType="kr.co.loyd.dto.WatchDto">
 		select * from watch order by id desc
 	</select>
+		<!-- 상품 목록(페이징) -->
+	<select id="get_cnt" resultType="Integer">
+ 		select ceil(count(*)/10)as cnt from watch
+	</select>
 	
+    <select id="content">
+        select * from watch where id=#{param1}
+    </select>
 
 </mapper>

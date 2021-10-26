@@ -15,6 +15,8 @@ public interface WatchDao {
 	/** 상품 목록 페이징*/
 	public Integer get_cnt();
 	public ArrayList<WatchDto> watch_list(int index);
+
+	public WatchDto content(String id);
 	
 	
 	
