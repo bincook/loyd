@@ -98,40 +98,38 @@ public class ReviewsController {
 
 	}
 
-	/*
-	 * @RequestMapping ("/reviews/reviewfiles_ok") public String reviewfiles_ok
-	 * (AddfileDto adto,Model model) {
-	 * 
-	 * ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-	 * rdao.writeOk2(adto); // model.addAttribute("reviewfiles",img);
-	 * 
-	 * return "redirect:/reviews/list";
-	 * 
-	 * }
-	 */
 
 	/** 리뷰 목록 페이지 */
 	@RequestMapping("/reviews/list")
 	public String listPage(HttpServletRequest request, Model model, ReviewsDto rdto) {
-
+		
+		// 페이징 하기
 		int page;
 		if (request.getParameter("page") == null) {
 			page = 1;
-		} else {
+		} else {  // page가 최소 널이 아닐때.
 			page = Integer.parseInt(request.getParameter("page"));
-
 		}
 		int index = (page - 1) * 5;
+			// 4페이지라고 가정하면  index = 4 - 1 * 5 == 15?
+		
+		
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		ArrayList<ReviewsDto> list = rdao.list(index);
+			//배열에 담기
 
+		
 		// page, pstart, pend, page_cnt
 		// 페이지 , 페이지 시작 , 페이지끝, 페이지 카운트
 
-		// pstart = 1, 11, 21, 31
-		// pend = 10, 20, 30, 40
+		// pstart = 1, 11, 21, 31 !!
+		// pend = 10, 20, 30, 40  !!
 
 		int pstart = page / 10;
+			// page가 4이면
+			// pstart = 4/10 = 0
+		
+		// 그럼 pend는 ?  
 
 		// pstart = 11 / 10 = 1 start 1
 		// pend = 1 + 9 = 10 end 10
@@ -144,8 +142,11 @@ public class ReviewsController {
 		// 0 % 5 = 0 true
 
 		if (page % 10 == 0)
+				// if  페이지(4)  % 10 == 0?
 			pstart = pstart - 1;
+				// pstart = 0-1 
 		pstart = (pstart * 10) + 1;
+		
 		int pend = pstart + 9;
 		int page_cnt = rdao.get_pagecount();
 
@@ -159,8 +160,41 @@ public class ReviewsController {
 		model.addAttribute("pstart", pstart);
 
 		model.addAttribute("reviews", list);
+		
+		
+		// -------search 하기--------
+		String field, word; // 변수선언은 제어문 이전에 하기
+		if(request.getParameter("field")==null) {
+			field="content";
+			word="";
+		}
+		else {
+			field=request.getParameter("field");
+			word=request.getParameter("word");
+		}
+		
+		ArrayList<ReviewsDto> list2 = rdao.list2(field,word);
+		model.addAttribute("list2",list2);
+		model.addAttribute("field",field);
+		model.addAttribute("word",word);
+	
+		
+		// 1. 검색했을 때 (if)
+		//   1-1. 검색 필드랑(field) 값(word) 가져오기
+		//   1-2. select * from reviews where ${param1} like concat('%', ${param2} ,'%')
+		//   1-3. 총 페이지 수 구하기 (where 포함)
+		//        select count(*) from reviews where ${param1} like concat('%', ${param2} ,'%')
+		//   1-4. 1-3 에서 가져온 총 페이지수로  페이지 계산하기 (page, pstart, pend, page_cnt 등)
+		//   1-5. 1-2 에서 가져온 reviews 를  model 에 담기 => model.addAttribute("reviews", 1-3에서 가져온 reviews ArrayList 변수)
+		// 
+		// 2. 검색안했을 때(else)
+		// 2-1. 1에서  word가 없다면 전체 조회 되기 때문에 따로 처리할 필요 없음
+		
+		
 
+		
 		return "/reviews/list";
+		
 
 	}
 
@@ -178,7 +212,7 @@ public class ReviewsController {
 	/** 내용 페이지 **/
 	@RequestMapping("/reviews/content")
 	public String content() {
-		content
+//		content
 
 		return "/reviews/content";
 	}

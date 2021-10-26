@@ -33,20 +33,20 @@
 	<update id="readnum"> <!-- result, parameter -->
 		update reviews set view=view+1 where review_id=#{param1}
 	</update>
-
+	
+	<!-- 페이징 카운트 --><!-- 조건 + 페이징 -->
 	<select id="get_pagecount" resultType="Integer">
 		select ceil (count(*)/5)
 		from reviews
 	</select>
+	
+	<!-- 검색기능 -->
+	<select id="list2" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews where ${param1} like concat('%', #{param2}, '%')
+	</select>
+	
 
-
-
-
-
-
-
-
-	<!-- 조건 + 페이징 -->
+	
 
 </mapper>
 

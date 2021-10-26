@@ -6,9 +6,9 @@
 <mapper namespace="kr.co.loyd.dao.AddfileDao">
 
 	<select id="insert" parameterType="kr.co.loyd.dto.AddfileDto" resultType="integer">
-    insert into add_file (name, path, size)
-		values(#{name},#{path}, 0)
-    RETURNING id;
+	    insert into add_file (name, path, size)
+			values(#{name},#{path}, 0)
+	    RETURNING id;
 	</select>
 
 
