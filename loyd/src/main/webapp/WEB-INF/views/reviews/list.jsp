@@ -67,7 +67,6 @@ window.onload=function() {
 </head>
 <body>
 
-
 	<!-- 타이틀 부분 -->
 	    <table width="500" align="center" border="1">
 			<div class="container">
@@ -85,9 +84,10 @@ window.onload=function() {
 		        <th>시계이름</th>
 		        <th width="110px">이미지</th>
 		        <th width="150px";>만족도</th>
+		        <th width="150">작성자 아이디</th>
 		        <th width="800px">내용</th>
-		        <th>조회수</th>
-		        <th>작성일</th>
+		        <th width="150">조회수</th>
+		        <th width="150">작성일</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -98,7 +98,7 @@ window.onload=function() {
 						        <td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', 
 						        			'','width=700, 
 						        			height=900'))">
-						        		<img wdith="100" height="100"  
+						        		<img wdith="100" height="50"  
 						        			src="<c:url value="/${review.path }/${review.name }" />"  
 						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
 						        	</a>
@@ -111,6 +111,7 @@ window.onload=function() {
 									 	☆
 								       </c:forEach>
 						        </td>
+						        <td>${review.member_id }</td>
 								<td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', '','width=700, height=900'))">
 									${review.content}
 									</a>
@@ -130,12 +131,12 @@ window.onload=function() {
 	    	
 		    	<c:if test="${pstart !=1 }">
 					
-					<a class="mr-2" href="list?page=${pstart-1 }">◀◀ </a>
+					<a class="mr-2" href="list?page=${pstart-1 }&field=${field}&word=${word}">◀◀ </a>
 				
 				</c:if>
 				<c:if test="${pstart ==1 }">
 					
-					<a class="mr-2" style="color:grey">◀◀ </a>
+					<a style="color:grey " >◀◀ </a>
 				
 				</c:if>
 	
@@ -145,7 +146,7 @@ window.onload=function() {
 				
 				<c:if test="${page!= 1 }">
 				
-					<a href="list?page=${page-1 }"> ◀ </a>
+					<a href="list?page=${page-1 }&field=${field}&word=${word}"> ◀ </a>
 				</c:if>
 				<c:if test="${page == 1 }">
 					<a style="color:grey">◀ </a>
@@ -157,10 +158,10 @@ window.onload=function() {
 					
 					<!-- 현제 페이지 색은 다르게 => 빨강 -->
 						<c:if test="${page !=i }">
-							<a href="list?page=${i }">${i }</a>
+							<a href="list?page=${i }&field=${field}&word=${word}">${i }</a>
 						</c:if>
 						<c:if test="${page ==i }">
-							<a href="list?page=${i }" style="color:red">${i }</a>
+							<a href="list?page=${i }&field=${field}&word=${word}" style="color:red">${i }</a>
 						</c:if>
 						
 					
@@ -169,24 +170,28 @@ window.onload=function() {
 					<!-- 클릭시 현재 페이지 기준 다음 1페이지 이동 -->
 					
 					<c:if test="${page != page_cnt }">
-						<a href="list?page=${page+1 }"> ▶ </a>
+						<a href="list?page=${page+1 }&field=${field}&word=${word}" > ▶ </a>
 					</c:if>
 
 <%-- 					${page_cnt } (마지막 페이지 몇인지 궁금할때 실행시켜보는거)					 --%>
 					
 					<c:if test="${page == page_cnt }">
-						<form> ▶ </form>
+						<a> ▶ </a>
 					</c:if>
 					
 					<!-- 클릭시 현재 페이지 기준 다음 10페이지 이동 -->
 					<c:if test="${pend !=page_cnt }">		
-						<a class="ml-2" href="list?page=${pend+1 }">▶▶</a>			
+						<a class="ml-2" href="list?page=${pend+1 }&field=${field}&word=${word}">▶▶</a>			
 					</c:if>	
-					<c:if test="${pend ==page_cnt }">
-						<a class="ml-2" style="color:grey">▶▶</a>
+					
+					<c:if test="${pend == page_cnt }">
+						<a style="color:grey">▶▶</a>
 					</c:if>	
 				</td>
 			</tr>
+			
+			<p>${pend }</p>
+			<p>${page_cnt }</p>
 
 
 	     	
@@ -200,9 +205,9 @@ window.onload=function() {
 			    		<select name="field">
 			    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 
 			    				시계이름에 ( watch_id ) 넘겨주기 -->
-<!-- 			    			<option value="content">시계이름</option> -->
+			    			<option value="watch_id">시계이름</option>
 			    			<option value="content">내용</option>
-<!-- 			    			<option value="content">작성자</option> -->
+			    			<option value="member_id">작성자</option>
 			    		</select>
 			    		<input type="text" name="word" value="${word }">
 			    		<input type="submit" value="검색">

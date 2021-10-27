@@ -26,7 +26,7 @@
 		ON r.file_id = af.id
 		order by review_id DESC
 		limit
-		#{param1}, 9
+		#{param1}, 10
 
 	</select>
 
@@ -36,13 +36,28 @@
 	
 	<!-- 페이징 카운트 --><!-- 조건 + 페이징 -->
 	<select id="get_pagecount" resultType="Integer">
-		select ceil (count(*)/5)
-		from reviews
+		select ceil (count(*)/10) from reviews where ${param1} like concat('%', #{param2} ,'%')
+						
 	</select>
 	
 	<!-- 검색기능 -->
 	<select id="list2" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews where ${param1} like concat('%', #{param2}, '%')
+		select * from reviews  r
+		LEFT JOIN add_file af
+		ON r.file_id = af.id 
+		where r.${param1} like concat('%', #{param2}, '%')
+		order by review_id DESC
+		limit
+		#{param3}, 10
+	</select>
+	
+	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews r
+		left join add_file af
+		on r.file_id = af.id
+		where review_id=#{param1}
+		
+	
 	</select>
 	
 

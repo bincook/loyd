@@ -14,10 +14,12 @@ public interface ReviewsDao {
 
 	public ArrayList<ReviewsDto> list(int index);  // 리스트 출력
 	
-	public Integer get_pagecount();  // 페이징 카운트
-	public ArrayList<ReviewsDto> list2(String field, String word);  // search 하기
+	public Integer get_pagecount(String field, String word);  // 페이징 카운트
+	public ArrayList<ReviewsDto> list2(String field, String word, int index);  // search 하기
 
 	public void readnum(int reviewId);
+	
+	public ReviewsDto content(int review_id); // content 페이지
 
 	
 	
