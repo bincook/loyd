@@ -1,5 +1,7 @@
 package kr.co.loyd.controller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -10,8 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -133,34 +140,46 @@ public class AdminController {
 	}
 
 	@RequestMapping("/watch/upload_ok")
-	public String upload_ok(HttpServletRequest request) throws Exception
+	public String upload_ok( MultipartHttpServletRequest request) throws Exception
 	{
 		
 		   String imgPath = "resources/img";
-		
 		   String path=request.getRealPath(imgPath);
-		   System.out.println("path" + path);
+		   MultipartFile multipartFile = request.getFile("picture");
 			
-		   int max=1024*1024*10;
-		   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
+		   // 파일이 있는 경우
+		   if(!multipartFile.isEmpty()) {
+			   File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
+			   String fileName = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+			   FileCopyUtils.copy(multipartFile.getBytes(), file);
+			   
+//			   int max=1024*1024*10;
+//			   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
 
-		   String fileName = multi.getFilesystemName("picture");
-		   System.out.println("fileName" + fileName);
+//			   String fileName = multi.getFilesystemName("picture");
+//			   System.out.println("fileName" + fileName);
+			   
+			   
+			   WatchDto wdto=new WatchDto();
+			   wdto.setName(request.getParameter("name"));
+			   wdto.setBrand(request.getParameter("brand"));
+			   wdto.setPrice(Integer.parseInt(request.getParameter("price")));
+			   wdto.setCategory(request.getParameter("category"));
+			   wdto.setContent(request.getParameter("content"));
+			   wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
+			   wdto.setPicture(imgPath + "/" + fileName);
+			   wdto.setKind(request.getParameter("kind"));
+			   
+			   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+			   wdao.upload_ok(wdto);
+			   
+			// 파일이 없을 때
+		   } else {
+			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
+			   
+			   return "redirect:/admin/watch/upload?error="+encodeResult;			   
+		   }
 		   
-		   
-		   WatchDto wdto=new WatchDto();
-		   wdto.setName(multi.getParameter("name"));
-		   wdto.setBrand(multi.getParameter("brand"));
-		   wdto.setPrice(Integer.parseInt(multi.getParameter("price")));
-		   wdto.setCategory(multi.getParameter("category"));
-		   wdto.setContent(multi.getParameter("content"));
-		   wdto.setDiscount(Double.parseDouble(multi.getParameter("discount")));
-		   wdto.setPicture(imgPath + "/" + fileName);
-		   wdto.setKind(multi.getParameter("kind"));
-		   
-		   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
-		   wdao.upload_ok(wdto);		 	
-		  
 		return "redirect:/admin/watch/watch_list";
 	}
 	

@@ -30,6 +30,16 @@
  padding:10px;
  }
  </style>
+ <script>
+ 
+ window.onload = function() {
+	 var errorMessage = "<%=request.getParameter("error") %>"
+	 
+	 if (errorMessage != "null") alert(errorMessage)
+	 
+ }
+ 
+ </script>
 </head>
 <body>
   <div id="whole">
