@@ -11,11 +11,45 @@
 	</select>
 
 	<!-- 구매 후기 작성 -->
-	<insert id = "writeOk" parameterType="kr.co.loyd.dto.ReviewsDto">
-		insert into reviews(member_id, watch_id, content, writeday)
-		values(#{memberId},#{watchId},#{content}, now())
 
+	<insert id = "writeOk1" parameterType="kr.co.loyd.dto.ReviewWriteDto">
+		insert into reviews(member_id, watch_id, content, writeday, rate)
+		values(#{member_id},#{watch_id},#{content}, now(),#{rate})
+	
 	</insert>
+	
+		<insert id = "writeOk2" parameterType="kr.co.loyd.dto.AddfileDto">
+		insert into add_file (id, name, path, size)
+		values(#{id},#{name},#{path},#{size})
+	
+	</insert>
+	
+
+	
+	
+	<select id="list" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews r 
+		LEFT JOIN add_file af
+		ON r.file_id = af.id
+		order by review_id DESC
+		limit #{param1}, 9
+		 
+	</select>
+	
+	<update id="readnum"> <!-- result, parameter -->
+		update reviews set view=view+1 where review_id=#{param1}
+	</update>
+	
+	<select id="get_pagecount" resultType="Integer">
+		select ceil (count(*)/5) from reviews
+	</select>
+	
+	
+	
+	
+	
+	
+	
 
 	<!-- 조건 + 페이징 -->
 
