@@ -20,10 +20,10 @@
 		<table width="500" height="550" align="center" border="1">
 
 			<tr>
-				<td colspan="2" align="center"><img width="400"
+				<td colspan="2" align="center"><img width="200" 
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
-								this.style.width='50px';">
+								this.style.width='200px';">
 				</td>
 			</tr>
 			<tr>
@@ -36,8 +36,6 @@
 
 			</tr>
 			<tr>
-
-
 				<td rowspan="2" style="color: gold; text-shadow: 0.5px 0.5px #c60;">
 					<c:forEach begin="1" end="${reviews.rate }">
 					★
@@ -45,11 +43,6 @@
 					☆
 					</c:forEach>
 				</td>
-
-
-
-
-
 				<td>작성자
 					<p>${reviews.member_id }
 				</td>
@@ -60,7 +53,10 @@
 			</tr>
 
 		</table>
+		<a href="delete" align="center">삭제하기</a>
+		<a href="update" align="center">수정하기</a>
 	</div>
+	
 
 
 

@@ -84,9 +84,10 @@ window.onload=function() {
 		        <th>시계이름</th>
 		        <th width="110px">이미지</th>
 		        <th width="150px";>만족도</th>
+		        <th width="150">작성자 아이디</th>
 		        <th width="800px">내용</th>
-		        <th>조회수</th>
-		        <th>작성일</th>
+		        <th width="150">조회수</th>
+		        <th width="150">작성일</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -110,6 +111,7 @@ window.onload=function() {
 									 	☆
 								       </c:forEach>
 						        </td>
+						        <td>${review.member_id }</td>
 								<td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', '','width=700, height=900'))">
 									${review.content}
 									</a>
@@ -203,9 +205,9 @@ window.onload=function() {
 			    		<select name="field">
 			    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 
 			    				시계이름에 ( watch_id ) 넘겨주기 -->
-<!-- 			    			<option value="content">시계이름</option> -->
+			    			<option value="watch_id">시계이름</option>
 			    			<option value="content">내용</option>
-<!-- 			    			<option value="content">작성자</option> -->
+			    			<option value="member_id">작성자</option>
 			    		</select>
 			    		<input type="text" name="word" value="${word }">
 			    		<input type="submit" value="검색">
