@@ -2,12 +2,17 @@
 <decorators defaultdir="/WEB-INF/views/layout">
  <!-- 제외할 패턴 -->
  <excludes>
-  
+  <pattern>/mber/pwdfind</pattern>
  </excludes>
 
  <!-- 기본 패턴 -->
  <decorator name="mainLayout" page="main.jsp" >
   <pattern>/</pattern>
+ </decorator>
+
+ <!-- 관리자 패턴 -->
+  <decorator name="adminLayout" page="admin.jsp" >
+  <pattern>/admin/*</pattern>
  </decorator>
 
  <!-- 메인 페이지를 제외한 나머지 페이지 -->
