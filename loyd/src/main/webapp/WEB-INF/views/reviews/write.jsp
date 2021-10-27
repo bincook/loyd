@@ -97,7 +97,7 @@
 			                 <td>구매한 시계</td>
 			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
 			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
-			                 <td colspan="3"><input type="hidden" name="watch_id" value="659">
+			                 <td colspan="3"><input name="watch_id" value="659">
 			                 	${watchId}
 			                 </td>
 			                 
