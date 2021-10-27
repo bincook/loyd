@@ -218,16 +218,30 @@ public class AdminController {
 		   return "admin/watch/watch_list";
 	   }
 
-     @RequestMapping("/watch/content")
-     public String content(Model model,HttpServletRequest request) throws Exception
-     {
-      String id=request.getParameter("id");
-      WatchDao wdao=sqlSession.getMapper(WatchDao.class);
-      WatchDto wdto=wdao.content(id);
-      model.addAttribute("wdto",wdto);
-      
-      return "admin/watch/content";
-     }
-	
+	 
+	 @RequestMapping("/watch/delete")
+	 public String delete(HttpServletRequest request)
+	 {
+		 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+		 String[] ajaxMsg=request.getParameterValues("valueArr");
+		 int size=ajaxMsg.length;		 
+		 for(int i=0; i<size; i++) {
+			 wdao.delete(ajaxMsg[i]);
+		 }
+		 return "admin/watch/watch_list";
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+     
 		
 }

@@ -16,7 +16,9 @@ public interface WatchDao {
 	public Integer get_cnt();
 	public ArrayList<WatchDto> watch_list(int index);
 
-	public WatchDto content(String id);
+	/** 상품 삭제*/
+	public void delete(String id);
+	
 	
 	
 	
