@@ -37,12 +37,9 @@ function del_content() {
 		<table width="500" height="550" align="center" border="1">
 
 			<tr>
-<<<<<<< HEAD
-				<td colspan="2" align="center"><img width="200" 
-=======
+
 				<td colspan="2" align="center">
 					<img width="200" 
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
@@ -55,10 +52,6 @@ function del_content() {
 				<td>구매한 시계
 					<p>${reviews.watch_id }
 				</td>
-<<<<<<< HEAD
-
-=======
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 			</tr>
 			<tr>
 				<td rowspan="2" style="color: gold; text-shadow: 0.5px 0.5px #c60;">
