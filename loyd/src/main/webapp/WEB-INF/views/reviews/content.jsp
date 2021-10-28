@@ -69,28 +69,6 @@ function del_content() {
 				<td>후기내용
 					<p>${reviews.content }</td>
 			</tr>
-<<<<<<< HEAD
-
-		</table>
-		<a href="delete" align="center">삭제하기</a>
-		<a href="update" align="center">수정하기</a>
-	</div>
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-		
 			<tr>	
 				<td>
 <%-- 					<a href="delete?review_id=${reviews.review_id }" onclick="javascript:void(window.close())">삭제하기</a> --%>
@@ -104,7 +82,6 @@ function del_content() {
 	</div>
 	
 
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 	<!-- bs4 -->
 	<!-- <div class="card" style="width:400px"> -->
 	<!--   <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
@@ -117,29 +94,9 @@ function del_content() {
 	<!--     <a href="#" class="btn btn-primary">See Profile</a> -->
 	<!--   </div> -->
 	<!-- </div> -->
-<<<<<<< HEAD
-=======
 
 
 </body>
 </html>
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 
 
-
-
-
-
-<<<<<<< HEAD
-</body>
-</html>
-
-
-
-
-
-
-
-
-=======
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5

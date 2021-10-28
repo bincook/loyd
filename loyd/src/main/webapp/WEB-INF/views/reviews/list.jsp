@@ -101,13 +101,9 @@ window.onload=function() {
 					      <tr>
 						        <td>${review.review_id}</td>
 						        <td>${review.watch_id}</td>
-<<<<<<< HEAD
-						        <td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', 
-						        			'','width=700, 
-						        			height=900'))">
-=======
+
+
 						        <td><a href="javascript:open_content(${review.review_id})">
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 						        		<img wdith="100" height="50"  
 						        			src="<c:url value="/${review.path }/${review.name }" />"  
 						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
@@ -122,11 +118,8 @@ window.onload=function() {
 								       </c:forEach>
 						        </td>
 						        <td>${review.member_id }</td>
-<<<<<<< HEAD
-								<td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', '','width=700, height=900'))">
-=======
+
 								<td><a href="javascript:open_content(${review.review_id})">
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 									${review.content}
 									</a>
 								</td>
