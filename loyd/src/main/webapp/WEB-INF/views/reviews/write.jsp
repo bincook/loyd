@@ -95,7 +95,12 @@
 						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
 						 
 			                 <td>구매한 시계</td>
-			                 <td colspan="3">${watchId}</td>
+			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
+			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
+			                 <td colspan="3"><input name="watch_id" value="659">
+			                 	${watchId}
+			                 </td>
+			                 
 		                 
                 	</tr>
 	                <tr>
@@ -121,7 +126,7 @@
 	                    <div id="imgAcd">
 <!-- 	                    <td><input type="file" name="iname1"></td> -->
 							<td>
-							<p class="iname"><input type="file" name="name" value="imgtest"></p>
+								<p class="iname"><input type="file" name="name" value="imgtest"></p>
 							</td>
 	                        
 	                        <td><input type="button" onclick="add()" value='사진추가'></td>

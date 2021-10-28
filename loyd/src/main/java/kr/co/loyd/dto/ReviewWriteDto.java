@@ -2,7 +2,7 @@ package kr.co.loyd.dto;
 
 public class ReviewWriteDto {
 
-	private int review_id, member_id, watch_id, rate; 
+	private int review_id, member_id, watch_id, rate, file_id; 
 	private String content;
 	
 	
@@ -35,6 +35,12 @@ public class ReviewWriteDto {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public int getFile_id() {
+		return file_id;
+	}
+	public void setFile_id(int file_id) {
+		this.file_id = file_id;
 	}
 	
 	

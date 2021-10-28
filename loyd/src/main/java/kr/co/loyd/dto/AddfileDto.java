@@ -4,8 +4,16 @@ public class AddfileDto {
 	
 	
 	private int id;
-	private String NAME,path,size;
+	private String name,path,size;
 	
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public int getId() {
 		return id;
@@ -13,12 +21,7 @@ public class AddfileDto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNAME() {
-		return NAME;
-	}
-	public void setNAME(String nAME) {
-		NAME = nAME;
-	}
+
 	public String getPath() {
 		return path;
 	}
