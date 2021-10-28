@@ -15,9 +15,17 @@
         <li class="nav-item ${reqUri.equals(contextPath.concat("/cart/list")) ? "active" : ""}">
             <a href="<c:url value="/cart/list"/>" class="nav-link ">Cart</a>
         </li>
-        <li class="nav-item ${reqUri.equals(contextPath.concat("/sign-in")) ? "active" : ""}">
-            <a href="<c:url value="/sign-in" />" class="nav-link">Login</a>
-        </li>
+        <c:if test="${email==null }">
+        	<li class="nav-item ${reqUri.equals(contextPath.concat("/sign-in")) ? "active" : ""}">
+            <a href="<c:url value="/mber/login" />" class="nav-link">Login</a>
+        	</li>
+        </c:if>
+        <c:if test="${email!=null }">
+        	<li class="nav-item ${reqUri.equals(contextPath.concat("/sign-in")) ? "active" : ""}">
+            <a href="<c:url value="/mber/logout" />" class="nav-link">logout</a>
+            </li>
+        </c:if>
+        
         <li class="nav-item ${reqUri == contextPath.concat("/mypage/info") ? "active" : ""}">
             <a href="<c:url value="/mypage/info" />" class="nav-link">MyPage</a>
         </li>

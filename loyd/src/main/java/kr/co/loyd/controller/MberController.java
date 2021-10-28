@@ -48,7 +48,6 @@ public class MberController {
 		int chk = mdao.get_check(email);
 		out.print(chk);
 
-		
 	}
 	
 	
@@ -72,7 +71,7 @@ public class MberController {
 			session.setAttribute("email",dto2.getEmail() );
 			session.setAttribute("name",dto2.getName());
 			
-			return module+"/main";
+			return "redirect:/";
 		}
 
 	}
@@ -82,7 +81,7 @@ public class MberController {
 		
 		session.invalidate();
 		
-		return module+"/main";
+		return "redirect:/";
 	}
 	
 	

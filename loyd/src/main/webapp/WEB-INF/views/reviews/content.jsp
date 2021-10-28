@@ -13,6 +13,23 @@
 }
 </style>
 
+<script>
+
+function del_content() {
+	
+	if (confirm("정말 삭제하시겠습니까?")) {
+			
+		$.post('delete?review_id=${reviews.review_id}', function( data ) {
+			
+			window.opener.location.reload() // opener 부모 새로고침
+			window.close()  // 자기창을 닫아라
+			
+			
+		});
+				
+	} 
+}
+</script>
 
 </head>
 <body>
@@ -20,7 +37,12 @@
 		<table width="500" height="550" align="center" border="1">
 
 			<tr>
+<<<<<<< HEAD
 				<td colspan="2" align="center"><img width="200" 
+=======
+				<td colspan="2" align="center">
+					<img width="200" 
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
@@ -33,7 +55,10 @@
 				<td>구매한 시계
 					<p>${reviews.watch_id }
 				</td>
+<<<<<<< HEAD
 
+=======
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 			</tr>
 			<tr>
 				<td rowspan="2" style="color: gold; text-shadow: 0.5px 0.5px #c60;">
@@ -51,6 +76,7 @@
 				<td>후기내용
 					<p>${reviews.content }</td>
 			</tr>
+<<<<<<< HEAD
 
 		</table>
 		<a href="delete" align="center">삭제하기</a>
@@ -70,6 +96,22 @@
 
 
 
+=======
+		
+			<tr>	
+				<td>
+<%-- 					<a href="delete?review_id=${reviews.review_id }" onclick="javascript:void(window.close())">삭제하기</a> --%>
+					<a id="close" href="javascript:del_content()">삭제하기</a>
+				</td>
+				<td>
+					<a href="">수정하기 </a>				
+				</td>
+			</tr>
+		</table>		
+	</div>
+	
+
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 	<!-- bs4 -->
 	<!-- <div class="card" style="width:400px"> -->
 	<!--   <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
@@ -82,12 +124,20 @@
 	<!--     <a href="#" class="btn btn-primary">See Profile</a> -->
 	<!--   </div> -->
 	<!-- </div> -->
+<<<<<<< HEAD
+=======
+
+
+</body>
+</html>
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 
 
 
 
 
 
+<<<<<<< HEAD
 </body>
 </html>
 
@@ -98,3 +148,5 @@
 
 
 
+=======
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5

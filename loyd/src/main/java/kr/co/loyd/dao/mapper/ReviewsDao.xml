@@ -5,6 +5,7 @@
 <mapper namespace="kr.co.loyd.dao.ReviewsDao">
 
 
+
 	<!-- 구매 후기 작성 (파일없는 경우) -->
 	<insert id="writeOk1" parameterType="kr.co.loyd.dto.ReviewWriteDto">
 		insert into
@@ -49,6 +50,18 @@
 		order by review_id DESC
 		limit
 		#{param3}, 10
+<<<<<<< HEAD
+	</select>
+	
+	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews r
+		left join add_file af
+		on r.file_id = af.id
+		where review_id=#{param1}
+		
+	
+=======
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 	</select>
 	
 	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
@@ -59,6 +72,12 @@
 		
 	
 	</select>
+	
+	<delete id="delete">
+		delete from reviews where review_id=#{param1}
+		
+		
+	</delete>
 	
 
 	

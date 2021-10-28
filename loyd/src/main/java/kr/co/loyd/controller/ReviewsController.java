@@ -88,16 +88,21 @@ public class ReviewsController {
 			rdao.writeOk1(dto);
 		}
 
+<<<<<<< HEAD
 		// System.out.println(dto.getWatch_id());
 		// System.out.println(dto2.getName());
 		// System.out.println(dto2.getPath());
 		
 
+=======
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 		return "redirect:/reviews/list";
-
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 	@RequestMapping("/reviews/list")
 	public String listPage(HttpServletRequest request, Model model, ReviewsDto rdto) {
 		
@@ -157,10 +162,17 @@ public class ReviewsController {
 		//        select ceil (count(*)/10) from reviews where ${param1} like concat('%', ${param2} ,'%')
 		//   1-4. 1-3 에서 가져온 총 페이지수로  페이지 계산하기 (page, pstart, pend, page_cnt 등)	
 		//   1-5. 1-2 에서 가져온 reviews 를  model 에 담기 => model.addAttribute("reviews", 1-3에서 가져온 reviews ArrayList 변수)
+<<<<<<< HEAD
 
 		// 2. 검색안했을 때(if)
 		// 2-1. 1에서  word가 없다면 전체 조회 되기 때문에 따로 처리할 필요 없음
 
+=======
+
+		// 2. 검색안했을 때(if)
+		// 2-1. 1에서  word가 없다면 전체 조회 되기 때문에 따로 처리할 필요 없음
+
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 
 	@RequestMapping("/reviews/readnum")
 	public String view(HttpServletRequest request) {
@@ -187,12 +199,24 @@ public class ReviewsController {
 	}
 
 	@RequestMapping("/reviews/delete")
+<<<<<<< HEAD
 	public String delete(Model model) {
 		
 		
 		
 		
 		return "/reviews/list";
+=======
+	public String delete(HttpServletRequest request) {
+
+		
+		int review_id = Integer.parseInt(request.getParameter("review_id"));
+		
+		System.out.println("review Id -> " + review_id);
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		rdao.delete(review_id);
+		return "redirect:/reviews/list";
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 	}
 	
 	

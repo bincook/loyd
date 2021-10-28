@@ -20,6 +20,10 @@ public interface ReviewsDao {
 	public void readnum(int reviewId);
 	
 	public ReviewsDto content(int review_id); // content 페이지
+<<<<<<< HEAD
+=======
+	public void delete(int review_id); //delete 페이지
+>>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 
 	
 	

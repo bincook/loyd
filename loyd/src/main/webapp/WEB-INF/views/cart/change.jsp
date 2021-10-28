@@ -5,10 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script>
+	// 아마 예약어라서
+	function close2(){
+		window.close(); 
+	}
+</script>
 </head>
 <body>
 
-	<form method="post" action="chang_ok">
+
 		<table class="table table-hover d-inline-block">
               <tr>  
                 <td>
@@ -39,12 +45,13 @@
               </tr>
               <tr>
               	<td align="center">
-              		<input type="submit" value="확인">
+              		<input type="button" value="확인" onclick="close2()">
               	</td>
               </tr>
           </table>
           
-    </form>
+
+
 
 
 </body>
