@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -64,67 +65,31 @@
   
   function deletevalue()
   {
-	  var url="/watch/delete";				
-	  var valueArr=new Array();	 
-	  var chk_list=$("input[name='rowcheck']");
-	  for(var i=0; i<chk_list.length; i++)
-	  {
-		  if(chk_list[i].checked)
-		  {	
-			  valueArr.push(chk_list[i].value);
-		  }	
-	  }
-	   if(valueArr.length==0)
-	  {
-		  alert("선택된 상품이 없어요 'ㅅ'");
-	  }
-	   else{		   
-		  var chk=confirm("정말 삭제할까요?");
-		  $.ajax(
-			 {
-			   url : url,
-			   type : 'POST',
-			   traditional:true,
-			   data:
-			   {
-				  valueArr:valueArr
-			   },
-			   success:function(jdata)
-			   {
-				  if(jdata=1)
-				  {
-					alert("삭제되었어요");  
-					location.replace("watch_list")
-				  }
-				  else
-				  {
-					  alert("삭제를 못했어요");
-				  } 
-		       }
-	         }); // ajax
-	         
-	  } // else 
+      var chk = confirm("삭제?");
+            
+      if (!chk) return
+      
+      
+       $.ajax({
+    	    
+    	    url:'delete',
+    	    type:'POST' ,
+    	    data: {watchIds: watchIds},
+    	    success:function(data) {
+    	    	alert("삭제 했어요'ㅅ'");
+    	    	location.reload()
+    	    },
+    	});
+
   }
 
   
   function view()
-  {
-	  // 1. 체크된 항목들을 배열에 담는다
-	  
-	  // 2-1. 체크된 배열의 길이가 0개 인 경우
-	  // 	2-1-1 버튼 숨긴다
-	  
-	  // 2-2. 체크된 배열의 길이가 0개가 아닌 경우
-	  // 	2-2-1. 버튼을 보이게 한다
-	  
-	  // 3. 체크가 1개라도 있는 경우 삭제버튼을 보이게 한다
-	  // 3-1. (else) 체크가 0개라면 삭제버튼을 안보이게 한다 
-	  
-	  
+  {  
 	  var checkedInput = $("input:checked")
+	  watchIds = []
 	  
-	  console.log(checkedInput.length)
-	  
+	  console.log(checkedInput.length)	  
 	  if(checkedInput.length < 1)
 		  {
 		  document.getElementById("ctn_show").style.display="none"; 
@@ -132,25 +97,33 @@
 	  else
 		  {
 		  document.getElementById("ctn_show").style.display="table-row"; 
+		  
+		  // 체크된 인풋박스를 돌면서 아이디값만 배열에 넣어준다
+		  $.each(checkedInput, function (index, data) {
+			  if (data.value != 'on') watchIds.push( data.value) 
+			  		    
+		  })
+		  // 출력
+   	  		  console.log(watchIds)
 		  }
-	  
-	  
-	  
-	  // 		
   }
+  
+  
+  
  </script>
 </head>
 <body>
  <div id="whole">
   <header><h1>관리자 상품 목록</h1></header>
   
-	<form method="post" action="delete">
+	    <form name="del" method="post" action="delete">
    
    		<table width="1000" align="center">
 
 <tr style="display:none" id="ctn_show">
-<td><input type="hidden" name="cnt" value="${wdto.id}"> 
-	<input type="submit" value="삭제" onclick="deletevalue()">
+<td><i class="bi bi-trash" onclick="deletevalue()"></i> 
+<!--     삭제 icon누르면 삭제 -->
+    <i class="bi bi-eye-slash"></i>
 </td>
 </tr> 	
 	 	 <tr>
@@ -161,14 +134,14 @@
 	  	<!-- id번호 누르면 수정으로 이동 -->
 <td><a href="content?id=${wdto.id}"> no. </a></td>  
 
-		   <td > 이미지 </td>
-		   <td> 브랜드 <br>
-		   		상품명
+	       <td> <i class="bi bi-image"></i> </td>
+           <td> <i class="bi bi-tags"></i> /
+                <i class="bi bi-smartwatch"></i>
 		   </td>
-		   <td> 가격 </td>
-		   <td> 카테고리   </td>
-		   <td> 할인가격 </td>
-		   <td width="60"> 종류   </td>
+		   <td> <i class="bi bi-currency-bitcoin"></i> </td>
+           <td> <i class="bi bi-person-check-fill"></i>   </td>
+           <td> <i class="bi bi-node-minus"></i> </td>
+           <td width="60"> <i class="bi bi-stars"></i>   </td>
 		  </tr>	
 	  
 			<c:forEach items="${watch_list}" var="wdto">
@@ -189,14 +162,16 @@
    			<td><img src="/loyd/${wdto.picture}" width="90" height="70"></td>
        </c:if>
        <c:if test="${fn:indexOf(wdto.picture,'resources') == -1 }">
-      		<td> <img src="${wdto.picture}&nbsp;" width="90" height=70></td>
+      		<td> <img src="${wdto.picture}" width="90" height=70></td>
        </c:if>
-           <td> ${wdto.brand}&nbsp; <br>
-		  		${wdto.name}&nbsp; </td>		  
-		   <td> ${wdto.price}&nbsp; </td>
-		   <td> ${wdto.category}&nbsp; </td>
-		   <td> ${wdto.discount}&nbsp; </td>
-		   <td> ${wdto.kind}&nbsp; </td>   
+           <td> ${wdto.brand} <br>
+		  		${wdto.name} </td>		  
+		   <td>
+		      <fmt:formatNumber value="${wdto.price}" pattern="#,###" />
+	       </td>
+		   <td> ${wdto.category} </td>
+		   <td> ${wdto.discount} </td>
+		   <td> ${wdto.kind}</td>   
 	  </tr>
 </c:forEach>  
 </form>	 
@@ -205,7 +180,7 @@
     
     <!-- 현재 페이지 기준 이전 10페이지 이동 -->
    <c:if test="${pstart !=1 }"> 
-    <a href="wwatch_list?page=${page-1}"> ◀ </a>    
+    <a href="watch_list?page=${page-1}"> ◀ </a>    
    </c:if>
    <c:if test="${pstart == 1}">
     	◀
@@ -241,7 +216,7 @@
   	<c:if test="${page_cnt != pend}">
   	 <a href="watch_list?page=${pend+1}"> ▶ </a>
   	</c:if>
-  	<c:if test="${pend_cnt == pend}">
+      <c:if test="${page_cnt == pend}">
   	 ▶
   	 </c:if>
     </td>

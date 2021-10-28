@@ -26,8 +26,8 @@
 
 
 	<!-- 상품 삭제 -->
-	<delete id="delete" parameterType="kr.co.loyd.dto.WatchDto">
-		delete from member where id = #{param1}
+	<delete id="delete">
+		delete from watch where id = #{param1}
 	</delete>
 
 

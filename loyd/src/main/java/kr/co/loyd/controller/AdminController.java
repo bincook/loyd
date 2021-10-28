@@ -3,6 +3,7 @@ package kr.co.loyd.controller;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -202,7 +203,7 @@ public class AdminController {
 			
 			int pstart=page/10;
 			if(page%10 == 0)
-				pstart=pstart-1;
+				pstart=page-1;
 			pstart=(pstart*10)+1;
 			int pend=pstart+9;		
 			
@@ -222,12 +223,15 @@ public class AdminController {
 	 @RequestMapping("/watch/delete")
 	 public String delete(HttpServletRequest request)
 	 {
+		 
 		 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
-		 String[] ajaxMsg=request.getParameterValues("valueArr");
-		 int size=ajaxMsg.length;		 
-		 for(int i=0; i<size; i++) {
-			 wdao.delete(ajaxMsg[i]);
-		 }
+		 String[] watchIds = request.getParameterValues("watchIds[]");
+		 
+		 	 
+		 for (String watchId : watchIds) {
+			wdao.delete(watchId);
+		}
+		 
 		 return "admin/watch/watch_list";
 	 }
 	 
