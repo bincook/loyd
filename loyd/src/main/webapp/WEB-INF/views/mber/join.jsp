@@ -4,8 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<style>
+	.container2 {
+		padding-left:700px;
+		padding-top:90px;
+	}
+</style>
+
 <script>
 
 	
@@ -68,23 +77,46 @@
 </script>
 </head>
 <body>
-	<form name="pkc" method="post" action="join_ok" >
-	<c:if test="{chk==1}">
-		<span style="color:red;">중복되는 이메일이 입력되었습니다</span>
-	</c:if><p>
-		<input type="hidden" name="email_check" value="1">
-		이메일<input type="text" name="email" placeholder="이메일을 작성하세요" onblur="check()">
-		<input type="button" value="이메일 조회" onclick="check()">
-		<div id="email_chk"></div>
-		<p>
-		이름<input type="text" name="name" placeholder="이름을 작성하세요"><p>
-		핸드폰번호<input type="text" name="phone" placeholder="핸드폰번호를 작성하세요"><p>
-		비밀번호      <input type="password" name="pwd" placeholder="비밀번호를 작성하세요"><p>
-		비밀번호     <input type="password"  name="pwd2" placeholder="비밀번호 재확인" onkeyup="pwdchk()"><div id="pwdchk"></div>
-		<p>
-		<input type="button" value="가입하기" onclick="chk()">
-	</form>
 
+ <div class="container2">
+ 	<div class="col-lg-4"></div>
+ 	<div class="col-lg-4">
+ 		<div class="jumbotron" style="padding-top:20px;">
+ 			<form name="pkc" method="post" action="join_ok">
+		 		<h1>회원가입</h1>
+		 		<c:if test="{chk==1}">
+					<span style="color:red;">중복되는 이메일이 입력되었습니다</span>
+				</c:if><p>
+		 		<div class="form-group">
+		 			<input type="text" class="form-control" name="email" placeholder="이메일" onkeyup="check()">
+		 		</div>
+		 		<div id="email_chk"></div>
+		 		
+		 		<div class="form-group">
+		 			<input type="text" class="form-control" name="name" placeholder="이름">
+		 		</div>
+		 		<div class="form-group">
+		 			<input type="text" class="form-control" name="phone" placeholder="핸드폰번호">
+		 		</div>
+
+		 		<div class="form-group">
+		 			<input type="password" class="form-control" name="pwd" placeholder="비밀번호">
+		 		</div>
+		 		
+		 		<div class="form-group">
+		 			<input type="password" class="form-control" name="pwd2" placeholder="비밀번호 확인" onkeyup="pwdchk()">
+		 		</div>
+		 		<div id="pwdchk"></div>
+		 		
+		 		
+				<input type="button" class="btn btn-primary form-control" value="가입하기" onclick="chk()">
+
+	 		</form>
+ 		</div>
+ 	</div>
+ 	<div class="col-lg-4"></div>
+ </div>
+ 
 
 </body>
 </html>

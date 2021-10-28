@@ -5,6 +5,7 @@
 <mapper namespace="kr.co.loyd.dao.ReviewsDao">
 
 
+
 	<!-- 구매 후기 작성 (파일없는 경우) -->
 	<insert id="writeOk1" parameterType="kr.co.loyd.dto.ReviewWriteDto">
 		insert into

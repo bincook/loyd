@@ -20,4 +20,11 @@ public interface MemberDao {
 
 	/** 멤버 삭제 */
 	void delete(Long id);
+	
+	/** 관리자가 멤버정보-상품 목록 조회(페이징) */
+	public ArrayList<MemberDto> listdetail(String search_field, String search_word);
+	public Integer get_cnt();
+	public ArrayList<MemberDto> list(int index);
+	public String listsearch();
+
 }

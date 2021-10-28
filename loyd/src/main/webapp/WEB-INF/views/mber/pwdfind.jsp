@@ -9,9 +9,19 @@
 <body>
 	<h1>비밀번호 찾기</h1>
   <form method="post" action="pwdfind_ok">
-	  이메일<input type="text" name="email"><p>
-	  이름<input type="text" name="name"><p>
-	  <input type="submit" value="찾기">
+  <table>
+  	<tr>
+  		<td>이메일</td>
+  		<td><input type="text" name="email"></td>
+  	</tr>
+  	<tr>
+  		<td>이름</td>
+  		<td><input type="text" name="name"></td>
+  	</tr>
+  	<tr>
+  		<td colspan="2" align="center"><input type="submit" value="찾기"></td>
+  	</tr>
+  </table>
   </form>
   
 </body>
