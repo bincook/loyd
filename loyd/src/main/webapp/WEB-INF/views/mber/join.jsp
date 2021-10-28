@@ -82,7 +82,7 @@
  	<div class="col-lg-4"></div>
  	<div class="col-lg-4">
  		<div class="jumbotron" style="padding-top:20px;">
- 			<form name="pkc" method="post" action="login_ok">
+ 			<form name="pkc" method="post" action="join_ok">
 		 		<h1>회원가입</h1>
 		 		<c:if test="{chk==1}">
 					<span style="color:red;">중복되는 이메일이 입력되었습니다</span>
