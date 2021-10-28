@@ -176,13 +176,8 @@ window.onload=function() {
 						</c:if>
 						<c:if test="${page ==i }">
 							<a href="list?page=${i }&field=${field}&word=${word}" style="color:red">${i }</a>
-<<<<<<< HEAD
-						</c:if>
-						
-					
-=======
 						</c:if>			
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
+
 					</c:forEach>
 								
 					<!-- 클릭시 현재 페이지 기준 다음 1페이지 이동 -->
