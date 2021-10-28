@@ -50,18 +50,6 @@
 		order by review_id DESC
 		limit
 		#{param3}, 10
-<<<<<<< HEAD
-	</select>
-	
-	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews r
-		left join add_file af
-		on r.file_id = af.id
-		where review_id=#{param1}
-		
-	
-=======
->>>>>>> a46f0e3c1f36657dc7a28143fd452424834c08b5
 	</select>
 	
 	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
