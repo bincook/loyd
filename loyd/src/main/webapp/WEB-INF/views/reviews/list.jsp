@@ -55,94 +55,92 @@
 }
 
 </style>
+<script>
+window.onload=function() {
+	document.search.field.value="${field}";
+	
+}
+
+ function open_content (review_id) {
+	var window2 = window.open('readnum?review_id='+review_id, '','width=700,height=900') // 모달 다이얼로그
+} 
 
 
+			
+</script>
 
 
 </head>
 <body>
-<%-- 	<table width="500" align="center" border="1">
-			<tr>
-				<td>구매한 상품</td>
-				<td>내용</td>
-				<td>작성일</td>
-			</tr>
-			
- 		<c:forEach items="${reviews}" var="review">
-			<tr>
-				<td>watch_id</td>
-				<td>${review.content}</td>
-				<td>${review.writeday }</td>
-			</tr>		
-		</c:forEach> 
-			<tr>
-				<td colspan="3"><a href="write">리뷰 작성하기</a></td>	
-			</tr>
-	</table> --%>
-	
+
+	<!-- 타이틀 부분 -->
 	    <table width="500" align="center" border="1">
-		<div class="container">
-		  <h2 class="mb-4" align=center>후기 게시판</h2>
-		  <div align=center>텍스트 리뷰 / 포토리뷰  </div>
-		  <div class="mb-3" align=center>200point / 500 point </div>            
+			<div class="container">
+			  <h2 class="mb-4" align=center>후기 게시판</h2>
+			  <div align=center>텍스트 리뷰 / 포토리뷰  </div>
+			  <div class="mb-3" align=center>200point / 500 point </div>
+			</div>
+		</table>
+
+    <!-- 테이블 제목과 내용 -->      
 		  <table class="table table-striped">
 		    <thead>
 		      <tr>
 		        <th>글번호</th>
 		        <th>시계이름</th>
-		        <th>이미지</th>
-		        <th>만족도</th>
-		        <th>내용</th>
-		        <th>조회수</th>
-		        <th>작성일</th>
+		        <th width="110px">이미지</th>
+		        <th width="150px";>만족도</th>
+		        <th width="150">작성자 아이디</th>
+		        <th width="800px">내용</th>
+		        <th width="150">조회수</th>
+		        <th width="150">작성일</th>
 		      </tr>
 		    </thead>
 		    <tbody>
-		    
-		    <c:set var="i" value="0" />
-		    <c:set var="j" value="3" />
 			    <c:forEach items="${reviews }" var="review">
-    			    <c:if test="${i%j==0 }">
 					      <tr>
-					</c:if>
-
-					        <td>${review.review_id}</td>
-					        <td>${review.watch_id}</td>
-					        <td>
-					        	<img src="<c:url value="/${review.path }/${review.name }" />"  onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
-					        </td>
-					        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
-					   		       <c:forEach begin="1" end="${review.rate}"> 
-								 	★
-							       </c:forEach>
-							       <c:forEach begin="1" end="${5-review.rate}"> 
-								 	☆
-							       </c:forEach>
-					        </td>
-					        <td><a href="readnum?review_id=${review.review_id}">${review.content}</a></td>
-					        <td>${review.view}</td>
-					        <td>${review.writeday}</td>
-
+						        <td>${review.review_id}</td>
+						        <td>${review.watch_id}</td>
+						        <td><a href="javascript:open_content(${review.review_id})">
+						        		<img wdith="100" height="50"  
+						        			src="<c:url value="/${review.path }/${review.name }" />"  
+						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+					        		</a>
+						        </td>			        
+						        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
+						   		       <c:forEach begin="1" end="${review.rate}"> 
+									 	★
+								       </c:forEach>
+								       <c:forEach begin="1" end="${5-review.rate}"> 
+									 	☆
+								       </c:forEach>
+						        </td>
+						        <td>${review.member_id }</td>
+								<td><a href="javascript:open_content(${review.review_id})">
+									${review.content}
+									</a>
+								</td>
+						        <td>${review.view}</td>
+						        <td>${review.writeday}</td>
 					      </tr>
-
-	
 			      </c:forEach>
 		    </tbody>
-		    
-		    
-		    <!--  여기서부터 페이징 -->
-		    
-		    <tr>
-		    	<td colspan="7" align="center">
-		    	
+		</table>
+
+	
+	<!-- 페이징, search, 글쓰기버튼 테이블  -->
+	  <table width="800px" align="center">
+	    <tr>
+	    	<td colspan="3" align="center">
+	    	
 		    	<c:if test="${pstart !=1 }">
 					
-					<a class="mr-2" href="list?page=${pstart-1 }">◀◀ </a>
+					<a class="mr-2" href="list?page=${pstart-1 }&field=${field}&word=${word}">◀◀ </a>
 				
 				</c:if>
 				<c:if test="${pstart ==1 }">
 					
-					<a class="mr-2" style="color:grey">◀◀ </a>
+					<a style="color:grey " >◀◀ </a>
 				
 				</c:if>
 	
@@ -152,7 +150,7 @@
 				
 				<c:if test="${page!= 1 }">
 				
-					<a href="list?page=${page-1 }"> ◀ </a>
+					<a href="list?page=${page-1 }&field=${field}&word=${word}"> ◀ </a>
 				</c:if>
 				<c:if test="${page == 1 }">
 					<a style="color:grey">◀ </a>
@@ -164,63 +162,67 @@
 					
 					<!-- 현제 페이지 색은 다르게 => 빨강 -->
 						<c:if test="${page !=i }">
-							<a href="list?page=${i }">${i }</a>
+							<a href="list?page=${i }&field=${field}&word=${word}">${i }</a>
 						</c:if>
 						<c:if test="${page ==i }">
-							<a href="list?page=${i }" style="color:red">${i }</a>
-						</c:if>
-						
-					
+							<a href="list?page=${i }&field=${field}&word=${word}" style="color:red">${i }</a>
+						</c:if>			
 					</c:forEach>
-			
+								
 					<!-- 클릭시 현재 페이지 기준 다음 1페이지 이동 -->
-					
 					<c:if test="${page != page_cnt }">
-						<a href="list?page=${page+1 }"> ▶ </a>
+						<a href="list?page=${page+1 }&field=${field}&word=${word}" > ▶ </a>
 					</c:if>
 
 <%-- 					${page_cnt } (마지막 페이지 몇인지 궁금할때 실행시켜보는거)					 --%>
 					
 					<c:if test="${page == page_cnt }">
-						<form> ▶ </form>
+						<a> ▶ </a>
 					</c:if>
 					
 					<!-- 클릭시 현재 페이지 기준 다음 10페이지 이동 -->
-					<c:if test="${pend !=page_cnt }">
+					<c:if test="${pend !=page_cnt }">		
+						<a class="ml-2" href="list?page=${pend+1 }&field=${field}&word=${word}">▶▶</a>			
+					</c:if>	
 					
-						<a class="ml-2" href="list?page=${pend+1 }">▶▶</a>
-				
-					</c:if>
-					
-					<c:if test="${pend ==page_cnt }">
-						<a class="ml-2" style="color:grey">▶▶</a>
-	
-					</c:if>
-			
-		    	    
-				
+					<c:if test="${pend == page_cnt }">
+						<a style="color:grey">▶▶</a>
+					</c:if>	
 				</td>
-				<c:if test="${i%j==j-1 }"> 
 			</tr>
-		    	 </c:if>
-		     	<c:set var="i" value="$i+1" />
-		  </table>
-		  	<a href="write">리뷰 작성하기</a>
-		</div>
+			
+			<p>${pend }</p>
+			<p>${page_cnt }</p>
+
+
+	     	
+	  <!-- search 기능 -->
+	  
+			<tr>
+		  		<td><a class="btn btn-primary" href="write">리뷰 작성하기</a></td>
+  				<td height="100px" style=padding-top:15px;>
+  						
+			    	<form name="search" method="post" action="list">		    	
+			    		<select name="field">
+			    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 
+			    				시계이름에 ( watch_id ) 넘겨주기 -->
+			    			<option value="watch_id">시계이름</option>
+			    			<option value="content">내용</option>
+			    			<option value="member_id">작성자</option>
+			    		</select>
+			    		<input type="text" name="word" value="${word }">
+			    		<input type="submit" value="검색">
+
+					</form>	
+				</td>
+			</tr>	
+			
+			
+	</table>
+	
+
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 
 </body>
 </html>

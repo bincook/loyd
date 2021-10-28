@@ -132,6 +132,7 @@ public class AdminController {
 	}
 	
 	
+
 	/** 관리자 상품 등록(하나의 이미지 등록) */
 	@RequestMapping(value = "/watch/upload")
 	public String upload()
@@ -139,6 +140,7 @@ public class AdminController {
 		
 		return "/admin/watch/upload";
 	}
+
 
 	@RequestMapping("/watch/upload_ok")
 	public String upload_ok( MultipartHttpServletRequest request) throws Exception
