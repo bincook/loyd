@@ -2,6 +2,8 @@ package kr.co.loyd.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.loyd.dao.CartDao;
 import kr.co.loyd.dto.CartDto;
@@ -68,5 +72,24 @@ public class CartController {
     	
     	return "redirect:/cart/change?watch_id="+watch_id;
     }
+    // 아까 열렸던 창 페이지가 어떤 
+    @ResponseBody
+    @RequestMapping("/cart/cart_delete")
+    public String cart_delete(@RequestParam("member_id") int member_id, @RequestParam(value= "watch_id[]") int[] watch_id) {
+    	
+    	
+    	System.out.println(member_id);
+    	
+    	System.out.println(Arrays.toString(watch_id)); // 애가 nul 로 찍히네요
+    	
+    	for(int i=0;i<watch_id.length;i++) {
+    		CartDao cart = sqlSession.getMapper(CartDao.class);
+        	cart.cart_delete(watch_id[i],member_id);
+    	}
+
+     	return "hello world";
+    	
+    }
 
 }
+

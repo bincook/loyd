@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.OrderDao">
+	<select id="detail_order" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,NAME,brand,(price*(1-discount)) AS price ,category,kind,picture  FROM guro_project_2.watch WHERE id = 659
+	</select>
+	
+	<insert id="cart_go" >
+		INSERT INTO cart (watch_id,item_count,created_at,email) VALUES (#{param1},1,now(),#{param2})
+	</insert>
+	
+	<select id="id_check" resultType="integer">
+		select count(*) from cart where watch_id =#{param1}
+	</select>
+	
+	<update id="cart_plus">
+		update cart set item_count = item_count +1 where watch_id = #{param1} and email = #{param2}
+	</update>
+	
+</mapper>

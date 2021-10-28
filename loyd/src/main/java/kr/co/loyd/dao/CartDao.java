@@ -15,4 +15,6 @@ public interface CartDao {
 	public void minus(int watch_id);
 	public void plus(int watch_id);
 	
+	public void cart_delete(int watch_id , int member_id);
+	
 }

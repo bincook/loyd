@@ -28,14 +28,14 @@
 	
 	<!-- 카트 리스트 -->
 	<select id="cart_list" resultType="kr.co.loyd.dto.CartDto">
-	SELECT A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
+	SELECT A.member_id, A.watch_id, A.item_count, ceil(B.price*(1-discount)) AS price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*(1-discount)) as hap
 	FROM cart A, watch B 
 	WHERE A.watch_id =  B.id AND member_id = 19
 	</select>
 	
 	<select id="cart_sum" resultType="integer">
 	WITH cart AS
-	(SELECT (A.item_count*B.price*B.discount) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.member_id = 19 )
+	(SELECT ceil(A.item_count*B.price*(1-B.discount)) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.member_id = 19 )
 	SELECT SUM(hap) AS chong  FROM cart 
 	</select>
 	
@@ -52,6 +52,10 @@
 	<update id="plus" >
 		update cart set item_count=item_count+1 where watch_id = #{param1} 
 	</update>
+	
+	<delete id="cart_delete">
+		delete from cart where watch_id = #{param1} and member_id =#{param2}
+	</delete>
 
 	<!-- 조건 + 페이징 -->
 

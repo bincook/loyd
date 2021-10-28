@@ -7,12 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-
+<!--  다 지워도 돼요 사이트 메시 header 에 있어요 -->
 <script>
 
 	$(document).ready(function(){
@@ -37,53 +32,17 @@
 	})
 	
 	
-	function ajax(){
-		var member_id = $("#member_id").val();
-		
-		var chkValues =[];
-		
-		$("input[name='watch']:checked").each(function(i){
-			chkValues.push($(this).val());
-		});
-		
-		var allData = {"member_id":member_id, "chkValues":chkValues};
-		
-		$ajax({
-			url:"cart_list",
-			type:"GET",
-			data: allData,
-			
-			success:function(data){
-	            alert("완료!");
-	            window.opener.location.reload();
-	            self.close();
-	        },
-
-	       //에러가 발생되면 출력되는 메시지
-
-	        error:function(jqXHR, textStatus, errorThrown){
-	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-	            self.close();
-	        }
-		})
-	}
-	
-	
-	
-	
-	
 </script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-	<div class="container mt-5">
-        <table class="table table-hover d-inline-block">
+	<div class="container mt-5 text-center" >
+        <table style=" width: 1000px;" class="table table-hover" align="center">
           <tbody>
               <tr>
                 <th scope="row">
                   <input type="checkbox" id="all" onclick="selectAll()">
                 </th>
-                <th style="width: 500px;"  scope="col">상품정보</th>
+                <th scope="col">상품정보</th>
                 <th scope="col">주문금액</th>
               </tr>
               
@@ -91,8 +50,8 @@
               <tr>
               
                 <th scope="row">
-                  <input type="hidden" name="member_id" value="${dto.member_id }">
-                  <input type="checkbox" name="watch" value="${dto.watch_id }">
+                  <input type="hidden" name="member_id" id ="member_id" value="${dto.member_id }">
+                  <input type="checkbox" name="watch_id" value="${dto.watch_id }">
                 </th>
                 <td>
                     <div>
@@ -122,15 +81,56 @@
               
               <tr>
               	<td colspan="4" align="center">
-              		<button id="deleteBtn" type="button" onclick="ajax()">선택 삭제</button>
+              		<button id="deleteBtn" type="button" onclick="ajx()">선택 삭제</button>
               		<button type="button" >찜 하기</button>
               	</td>
+              	
+              	<script>
+              	function ajx(){
+
+            		var member_id = $("#member_id").val(); // <input id="member_id" /> 애만 가져오는거예요 네 아.name이네요
+            		
+            		var watch_id =[];
+            		
+            		$("input[name='watch_id']:checked").each(function(i){
+            			watch_id.push($(this).val());
+            		});
+            		
+            		var allData = {"member_id":member_id, "watch_id":watch_id};
+            		
+            		
+            		console.log(allData)
+
+            		
+            		$.ajax({
+            			url:"cart_delete",
+            			type:"GET",
+            			data: allData,
+            			contentType: "charset=UTF-8 application/x-www-form-urlencoded;",
+            			dataType: "text",
+            			success:function(data){
+            				console.log('스프링에서 넘어온 문자값 :=>', data)
+           	           
+            	            // location.reload(); // 새로고침
+            	            
+            	        },
+
+            	       //에러가 발생되면 출력되는 메시지
+
+            	        error:function(jqXHR, textStatus, errorThrown){
+            	            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+            	            self.close();
+            	        }
+            		})
+            	}
+              	</script>
               	
               	
               </tr>
               <tr>
               	<td colspan="4" align="center">
               		<h3>총결제금액  : ${String.format("%,d",chong) }</h3> <!--  db 에는 총결제금액이 들어가있나요 ? 위드문 써서 만들엇어요 -->
+              		
               	</td>
               </tr>
             </tbody>
