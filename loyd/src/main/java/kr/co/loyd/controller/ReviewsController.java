@@ -88,15 +88,8 @@ public class ReviewsController {
 			rdao.writeOk1(dto);
 		}
 
-		// System.out.println(dto.getWatch_id());
-		// System.out.println(dto2.getName());
-		// System.out.println(dto2.getPath());
-		
-
 		return "redirect:/reviews/list";
-
 	}
-
 
 	@RequestMapping("/reviews/list")
 	public String listPage(HttpServletRequest request, Model model, ReviewsDto rdto) {
@@ -187,12 +180,15 @@ public class ReviewsController {
 	}
 
 	@RequestMapping("/reviews/delete")
-	public String delete(Model model) {
+	public String delete(HttpServletRequest request) {
+
 		
+		int review_id = Integer.parseInt(request.getParameter("review_id"));
 		
-		
-		
-		return "/reviews/list";
+		System.out.println("review Id -> " + review_id);
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		rdao.delete(review_id);
+		return "redirect:/reviews/list";
 	}
 	
 	

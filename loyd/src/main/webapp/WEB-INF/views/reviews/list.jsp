@@ -61,6 +61,12 @@ window.onload=function() {
 	
 }
 
+ function open_content (review_id) {
+	var window2 = window.open('readnum?review_id='+review_id, '','width=700,height=900') // 모달 다이얼로그
+} 
+
+
+			
 </script>
 
 
@@ -95,14 +101,12 @@ window.onload=function() {
 					      <tr>
 						        <td>${review.review_id}</td>
 						        <td>${review.watch_id}</td>
-						        <td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', 
-						        			'','width=700, 
-						        			height=900'))">
+						        <td><a href="javascript:open_content(${review.review_id})">
 						        		<img wdith="100" height="50"  
 						        			src="<c:url value="/${review.path }/${review.name }" />"  
 						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
-						        	</a>
-						        </td>
+					        		</a>
+						        </td>			        
 						        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
 						   		       <c:forEach begin="1" end="${review.rate}"> 
 									 	★
@@ -112,7 +116,7 @@ window.onload=function() {
 								       </c:forEach>
 						        </td>
 						        <td>${review.member_id }</td>
-								<td><a href="javascript:void(window.open('readnum?review_id=${review.review_id}', '','width=700, height=900'))">
+								<td><a href="javascript:open_content(${review.review_id})">
 									${review.content}
 									</a>
 								</td>
@@ -162,13 +166,10 @@ window.onload=function() {
 						</c:if>
 						<c:if test="${page ==i }">
 							<a href="list?page=${i }&field=${field}&word=${word}" style="color:red">${i }</a>
-						</c:if>
-						
-					
+						</c:if>			
 					</c:forEach>
-			
+								
 					<!-- 클릭시 현재 페이지 기준 다음 1페이지 이동 -->
-					
 					<c:if test="${page != page_cnt }">
 						<a href="list?page=${page+1 }&field=${field}&word=${word}" > ▶ </a>
 					</c:if>
