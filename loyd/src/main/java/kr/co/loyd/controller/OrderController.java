@@ -53,8 +53,18 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/buy")
-	public String buy() {
+	public String buy(Model model) {
 		
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		
+		
+		OrderDto dto = dao.buy();
+		int all_price = dao.all_price();
+		
+		
+		model.addAttribute("dto",dto);
+		model.addAttribute("all_price",all_price);
+
 		return "/order/buy";
 	}
 	

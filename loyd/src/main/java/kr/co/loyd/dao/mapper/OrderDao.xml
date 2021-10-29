@@ -19,4 +19,15 @@
 		update cart set item_count = item_count +1 where watch_id = #{param1} and email = #{param2}
 	</update>
 	
+	<select id="buy" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT B.name,ceil(A.price*(1-B.discount))AS price ,B.brand,B.category,B.kind,B.picture,sum(COUNT) AS chong FROM `order list` A , watch B 
+		WHERE A.watch_id = B.id and member_id = 19 
+	</select>
+	
+	<select id="all_price" resultType="integer">
+		WITH `order list` AS
+			(SELECT ceil(A.count*B.price*(1-B.discount)) as hap FROM `order list` A, watch B WHERE A.watch_id =  B.id and member_id =19)
+		SELECT SUM(hap) AS all_pirce  FROM `order list` 
+	</select>
+	
 </mapper>
