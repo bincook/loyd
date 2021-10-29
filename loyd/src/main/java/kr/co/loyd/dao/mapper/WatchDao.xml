@@ -22,9 +22,17 @@
 		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
 	</update>
 
-	<delete id="delete" parameterType="Long">
-		delete from member where id = #{id}
+
+
+
+	<!-- 상품 삭제 -->
+	<delete id="delete">
+		delete from watch where id = #{param1}
 	</delete>
+
+
+
+
 
 	<!-- 조건 + 페이징 -->
 	
@@ -41,9 +49,6 @@
 	<select id="get_cnt" resultType="Integer">
  		select ceil(count(*)/10)as cnt from watch
 	</select>
-	
-    <select id="content">
-        select * from watch where id=#{param1}
-    </select>
+
 
 </mapper>
