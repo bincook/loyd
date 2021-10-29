@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.MemberDao">
+
+	<select id="one" parameterType="Long" resultType="kr.co.loyd.dto.MemberDto">
+		select * from member where id = #{id}
+	</select>
+
+	<select id="list" resultType="kr.co.loyd.dto.MemberDto">
+		select * from member order by id desc limit #{param1},10
+	</select>
+
+	<insert id="insert">
+		insert into
+		member(email, pwd, name, phone, register_date)
+		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
+	</insert>
+
+	<update id="update">
+		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		delete from member where id = #{id}
+	</delete>
+	<!-- 조건 + 페이징 -->
+
+	<!-- 관리자가 회원정보 상세조회 -->
+	<select id="listdetail" resultType="kr.co.loyd.dto.MemberDto">
+		select id, name, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
+	</select>
+	<!-- 관리자/회원 목록(페이징) -->
+	<select id="get_cnt" resultType="Integer">
+ 		select ceil(count(*)/10)as cnt from member
+	</select>
+
+
+
+</mapper>

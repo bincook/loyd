@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.CartDao">
+
+	<select id="one" parameterType="Long" resultType="kr.co.loyd.dto.MemberDto">
+		select * from member where id = #{id}
+	</select>
+
+	<select id="list" resultType="kr.co.loyd.dto.MemberDto">
+		select * from member
+	</select>
+
+	<insert id="insert">
+		insert into
+		member(email, pwd, name, phone, register_date)
+		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
+	</insert>
+
+	<update id="update">
+		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="Long">
+		delete from member where id = #{id}
+	</delete>
+	
+	<!-- 카트 리스트 -->
+	<select id="cart_list" resultType="kr.co.loyd.dto.CartDto">
+	SELECT A.member_id, A.watch_id, A.item_count, ceil(B.price*(1-discount)) AS price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*(1-discount)) as hap
+	FROM cart A, watch B 
+	WHERE A.watch_id =  B.id AND member_id = 19
+	</select>
+	
+	<select id="cart_sum" resultType="integer">
+	WITH cart AS
+	(SELECT ceil(A.item_count*B.price*(1-B.discount)) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.member_id = 19 )
+	SELECT SUM(hap) AS chong  FROM cart 
+	</select>
+	
+	<select id="change" resultType="kr.co.loyd.dto.CartDto"> 
+		SELECT A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
+		FROM cart A, watch B 
+		WHERE A.watch_id =  B.id AND member_id = 19 and watch_id = #{param1}
+	</select>
+	
+	<update id="minus" >
+		update cart set item_count=item_count-1 where watch_id = #{param1} 
+	</update>
+	
+	<update id="plus" >
+		update cart set item_count=item_count+1 where watch_id = #{param1} 
+	</update>
+	
+	<delete id="cart_delete">
+		delete from cart where watch_id = #{param1} and member_id =#{param2}
+	</delete>
+
+	<!-- 조건 + 페이징 -->
+
+</mapper>

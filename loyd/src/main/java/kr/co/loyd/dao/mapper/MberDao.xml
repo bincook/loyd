@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.MberDao">
+
+	<insert id="join_ok" parameterType="kr.co.loyd.dto.MberDto">
+		insert into member (email,name,phone,pwd,register_date) values (#{email},#{name},#{phone},#{pwd},now())
+	</insert>
+
+	<select id="emailfind_ok" resultType="String" parameterType="kr.co.loyd.dto.MberDto" >
+		select email from member where name=#{name} and phone=#{phone}
+	</select>
+	
+	<select id="pwdfind_ok" resultType="String" parameterType="kr.co.loyd.dto.MberDto">
+		select pwd from member where email=#{email} and name=#{name}
+	</select>
+	
+	<select id="get_check" resultType="integer">
+		select count(*) from member where email =#{param1}
+	</select>
+	
+	<select id="login_ok" resultType="kr.co.loyd.dto.MberDto">
+		select * from member where  email=#{email} and pwd = #{pwd} 
+	</select>
+
+</mapper>

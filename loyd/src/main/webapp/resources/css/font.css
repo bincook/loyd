@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');
+
+/* 한글 */
+body {
+    font-family: 'Noto Sans KR', 'sans-serif' !important;
+    color: var(--gray-5);
+}
+
+/* 작은 영어, 숫자 */
+.font-lato {
+    font-family: 'Lato' !important;
+}
+
+/* 큰 영어, 숫자 */
+.font-cormorant-garamond {
+    font-family: 'Cormorant Garamond' !important;
+}
+
+/* 한글, 숫자 **/
+.font-montserrat {
+    font-family: 'Montserrat' !important;
+}
+
+/* 큰 영어 */
+.font-yeseva-one {
+    font-family: 'Yeseva One' !important;
+}

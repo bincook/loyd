@@ -3,6 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	
+	<!-- MultipartResolver 설정 --><!-- 파일 업로드 객체 등록 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	  <property name="maxUploadSize" value="100000000" />
+	  <property name="maxInMemorySize" value="100000000" />
+	</bean>
+	
+	
+	
+	
+	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
 </beans>

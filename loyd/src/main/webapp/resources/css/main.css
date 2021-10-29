@@ -1,0 +1,59 @@
+.navbar {
+    /**
+     header 에서 bootstrap fixed-top 과 sticky-top 으로 대체하였습니다
+     position: fixed;
+     top: 0;
+     */
+    z-index: 3;
+}
+
+.navbar .logo {
+    font-family: "Yeseva One";
+    font-size: 16px;
+    text-transform: uppercase;
+    /*font-weight: 750;*/
+    letter-spacing: 2px;
+}
+
+.navbar ul.nav {
+    margin-right: 15%;
+}
+
+.navbar ul.nav li a {
+    color: #fff;
+    font-family: Lato, serif;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.navbar ul.nav li.active a,
+.navbar ul.nav li a:hover {
+    background-color: #3232d96e;
+    border-radius: 50px;
+}
+
+#carouselExampleIndicators {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+#carouselExampleIndicators:before {
+    position: absolute;
+    content: '';
+    background: rgba(0, 0, 0, 0.45);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#carouselExampleIndicators .carousel-inner,
+#carouselExampleIndicators .carousel-inner,
+.carousel-item, #carouselExampleIndicators .carousel-inner .carousel-item img {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
