@@ -31,7 +31,28 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 
+
+
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />">
+
+    <!-- 채팅 -->
+    <link rel="stylesheet" href="<c:url value="/resources/css/chat.css" />">
+    <script>
+        let websocket = null
+        let client_ipaddress = "여기에아이피"
+        let chat_server_host = 'http://localhost:8080'
+        let chat_server_url = '/socket/connect/url'
+        let chat = null
+
+        $.getScript("/resources/js/chat.js", function () {
+            chat = new Chat()
+            $.getScript("/resources/js/real_time_client.js", function () {
+                // 웹 소켓 연결
+                websocket = new RealTimeClient(chat_server_host);
+                websocket.init(chat_server_url, client_ipaddress)
+            });
+        });
+    </script>
 
     <%-- 요청한 page 의 <head></head> 에 작성했던 내용이 온다 --%>
     <decorator:head />
@@ -47,7 +68,30 @@
             <%-- 요청한 page 의 <body></body> 에 작성했던 내용이 온다 --%>
             <decorator:body />
         </div>
-    </div>
 
+        <!-- 채팅 html -->
+        <div class="chat-container">
+            <div class="open-button">
+                <i class="bi bi-app"></i>
+            </div>
+
+            <div class="chat">
+                <div class="chat-title">
+                    <h1>Fabio Ottaviani</h1>
+                    <h2>Supah</h2>
+                    <figure class="avatar">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>
+                </div>
+                <div class="messages">
+                    <div class="messages-content"></div>
+                </div>
+                <div class="message-box">
+                    <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button type="submit" class="message-submit">Send</button>
+                </div>
+                <div class="bg"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
