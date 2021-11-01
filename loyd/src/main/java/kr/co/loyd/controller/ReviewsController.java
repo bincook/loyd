@@ -28,11 +28,13 @@ import org.springframework.web.multipart.MultipartRequest;
 import kr.co.loyd.dao.AddfileDao;
 import kr.co.loyd.dao.MberDao;
 import kr.co.loyd.dao.ReviewsDao;
+import kr.co.loyd.dao.WatchDao;
 import kr.co.loyd.dto.AddfileDto;
 import kr.co.loyd.dto.MberDto;
 import kr.co.loyd.dto.ReviewWriteDto;
 import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.ReviewsMultipartDto;
+import kr.co.loyd.dto.WatchDto;
 
 @Controller
 public class ReviewsController {
@@ -48,34 +50,48 @@ public class ReviewsController {
 		
 		
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-		
-		
 
-		// 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
+//		 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
 		model.addAttribute("watchId", rdto.getWatch_id());
-
-//		model.addAttribute("memberId", dto2.getId());
 		
+		// watch 테이블에서 시게이름 가져오기
+//		model.addAttribute("memberId", 1);
+		System.out.println("watchId");
 
 		return "/reviews/write";
 	}
+	
+	
+	
+	
 
 	/** 리뷰 작성 ok */
 	@RequestMapping("/reviews/write_ok")
 	public String write_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
 
-		Object memberIdObj = session.getAttribute("memberId");
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		// 로그인을 하지않으면 로그인페이지로 이동하기
+		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
 		
 		if(memberIdObj==null) {
 			return "redirect:/mber/login";
 		}
-				
 		String memberId = ""+ memberIdObj;
 		dto.setMember_id(Integer.parseInt(memberId));
 		
-		MultipartFile multipartFile = request.getFile("name");
+		
+//		// watch 테이블에서 시게이름 가져오기
+		// 마이페이지나 상품 상세페이지 가장 하단이 적절해보여요 (watch_id 받아오기)
+//		WatchDto wdto2 = rdao.input_watch(wdto);
+//		rdao.input_watch(wdto);
+//		session.setAttribute("watch_name", wdto2.getName());
 
-		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+
+		
+		// 이미지적용
+		MultipartFile multipartFile = request.getFile("name");
+		
+		
 
 		// MultipartFile multipartFile =
 		// request.getFile("localhost/loyd/reviews/list"+"file");
@@ -95,6 +111,7 @@ public class ReviewsController {
 			addFileDto.setPath(path);
 
 			// add_file 테이블에 insert 쿼리문
+			
 			int insertedId = adao.insert(addFileDto);
 
 			// 방금 addFile 테이블에 저장되 었던 id 를 reviews_dto.file_id 에 넣기
@@ -113,8 +130,9 @@ public class ReviewsController {
 	}
 
 	@RequestMapping("/reviews/list")
-	public String listPage(HttpServletRequest request, Model model, ReviewsDto rdto) {
-		
+	public String listPage(WatchDto wdto, HttpSession session, HttpServletRequest request, Model model, ReviewsDto rdto) {
+
+
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 검색

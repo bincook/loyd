@@ -1,10 +1,11 @@
-﻿package kr.co.loyd.dao;
+package kr.co.loyd.dao;
 
 import java.util.ArrayList;
 
 import kr.co.loyd.dto.AddfileDto;
 import kr.co.loyd.dto.ReviewWriteDto;
 import kr.co.loyd.dto.ReviewsDto;
+import kr.co.loyd.dto.WatchDto;
 
 
 public interface ReviewsDao {
@@ -25,6 +26,18 @@ public interface ReviewsDao {
 	
 	public ReviewsDto update(int reviewId);  // 수정하기
 	
+//	public WatchDto input_watch(WatchDto wdto);  // watch 테이블에서 시계이름 가져오기
+
+//	public WatchDto input_watch(WatchDto wdto);  // watch 테이블에서 시계이름 가져오기
+//	public WatchDto input_watch(int watchId);  // watch 테이블에서 시계이름 가져오기
+	public WatchDto input_watch(WatchDto wdto);  // watch 테이블에서 시계이름 가져오기
+	
+	
+	
 
 	
 }
+
+
+
+

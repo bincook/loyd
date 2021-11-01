@@ -46,12 +46,14 @@ onbeforeunload = function() {  // beforeunload 이벤트
 
 </head>
 <body>
+<!-- 	<div id="content"  style="display: inline-block"> -->
+<!-- 	<div id="content"  style="float:right;"> -->
 	<div id="content">
-		<table width="500" height="550" align="center" border="1">
+		<table width="400" height="400" align="center" border="1">
 
 			<tr>
 				<td colspan="3" align="center">
-					<img width="200" 
+					<img width="200" height="200"
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
@@ -109,6 +111,51 @@ onbeforeunload = function() {  // beforeunload 이벤트
 	<!--   </div> -->
 	<!-- </div> -->
 
+
+	<!-- 댓글 -->	
+	<div >
+	<table width="300" border="1"> <!-- align="bottom" -->
+		<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 -->
+		<tr>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>작성자</th>
+			<th>댓글내용</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+		</tr>
+	
+	
+	</table>
+	</div>
+	
+	
+	
+	
+	<div style="width:200px; height:150px; border:1px solid red; float:left;">
+첫번째 영역:
+왼쪽에 위치시킴 =>  float:left
+여기에 그림이나 글자 또는 광고 등을 넣음
+</div>
+<div style="width:200px; height:150px; border:1px solid green; float:left;">
+두번째 영역:
+첫번째 영역 옆에 나란히 붙임 => float:left
+여기에 그림이나 글자 또는 광고 등을 넣음
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </body>
 </html>

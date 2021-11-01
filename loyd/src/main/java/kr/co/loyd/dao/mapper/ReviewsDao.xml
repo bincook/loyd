@@ -64,7 +64,9 @@
 	<update id="update" parameterType="kr.co.loyd.dto.ReviewsDto">
 		select * from reviews where id=#{param1}
 	</update>
-	
+	<select id="input_watch" resultType="kr.co.loyd.dto.WatchDto">
+		select * from watch where id=#{param1}
+	</select>
 
 	
 

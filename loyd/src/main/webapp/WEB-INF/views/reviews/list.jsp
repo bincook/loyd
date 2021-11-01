@@ -115,7 +115,7 @@ window.onload=function() {
 									 	☆
 								       </c:forEach>
 						        </td>
-						        <td>${review.member_id }</td>
+						        <td>${name }</td>
 
 								<td><a href="javascript:open_content(${review.review_id})">
 									${review.content}
@@ -132,55 +132,42 @@ window.onload=function() {
 	<!-- 페이징, search, 글쓰기버튼 테이블  -->
 	  <table width="800px" align="center">
 	    <tr>
-	    	<td colspan="3" align="center">
-	    	
-		    	<c:if test="${pstart !=1 }">
-					
+	    	<td colspan="3" align="center">	    	
+		    	<c:if test="${pstart !=1 }">				
 					<a class="mr-2" href="list?page=${pstart-1 }&field=${field}&word=${word}">◀◀ </a>
-				
 				</c:if>
-				<c:if test="${pstart ==1 }">
-					
+				<c:if test="${pstart ==1 }">	
 					<a style="color:grey " >◀◀ </a>
-				
 				</c:if>
 	
 				
 				<!-- 클릭시 현재 페이지 기준으로 이전 1페이지 이동 -->
-				<c:if test="${page!= 1 }">
-				
+				<c:if test="${page!= 1 }">	
 					<a href="list?page=${page-1 }&field=${field}&word=${word}"> ◀ </a>
 				</c:if>
 				<c:if test="${page == 1 }">
 					<a style="color:grey">◀ </a>
 				</c:if>
-				
-					<!-- 현재 페이지 기준으로 이동할수 있는 페이지 -->
-					<c:forEach begin="${pstart }" end="${pend }" var="i">
-					
-					
-					<!-- 현제 페이지 색은 다르게 => 빨강 -->
-						<c:if test="${page !=i }">
-							<a href="list?page=${i }&field=${field}&word=${word}">${i }</a>
-						</c:if>
-						<c:if test="${page ==i }">
-							<a href="list?page=${i }&field=${field}&word=${word}" style="color:red">${i }</a>
-
-						</c:if>			
-
-					</c:forEach>
-								
+				<!-- 현재 페이지 기준으로 이동할수 있는 페이지 -->
+				<c:forEach begin="${pstart }" end="${pend }" var="i">		
+				<!-- 현제 페이지 색은 다르게 => 빨강 -->
+					<c:if test="${page !=i }">
+						<a href="list?page=${i }&field=${field}&word=${word}">${i }</a>
+					</c:if>
+					<c:if test="${page ==i }">
+						<a href="list?page=${i }&field=${field}&word=${word}" style="color:red">${i }</a>
+					</c:if>	
+				</c:forEach>			
 					<!-- 클릭시 현재 페이지 기준 다음 1페이지 이동 -->
 					<c:if test="${page != page_cnt }">
 						<a href="list?page=${page+1 }&field=${field}&word=${word}" > ▶ </a>
 					</c:if>
-
-<%-- 					${page_cnt } (마지막 페이지 몇인지 궁금할때 실행시켜보는거)					 --%>
 					
+<%-- 					${page_cnt } (마지막 페이지 몇인지 궁금할때 실행시켜보는거)					 --%>			
+
 					<c:if test="${page == page_cnt }">
 						<a> ▶ </a>
-					</c:if>
-					
+					</c:if>		
 					<!-- 클릭시 현재 페이지 기준 다음 10페이지 이동 -->
 					<c:if test="${pend !=page_cnt }">		
 						<a class="ml-2" href="list?page=${pend+1 }&field=${field}&word=${word}">▶▶</a>			
@@ -195,24 +182,43 @@ window.onload=function() {
 
 	     	
 	  <!-- search 기능 -->
-	  
 			<tr>
-		  		<td><a class="btn btn-primary" href="write">리뷰 작성하기</a></td>
-  				<td height="100px" style=padding-top:15px;>
-  						
-			    	<form name="search" method="post" action="list">		    	
-			    		<select name="field">
-			    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 
-			    				시계이름에 ( watch_id ) 넘겨주기 -->
-			    			<option value="watch_id">시계이름</option>
-			    			<option value="content">내용</option>
-			    			<option value="member_id">작성자</option>
-			    		</select>
-			    		<input type="text" name="word" value="${word }">
-			    		<input type="submit" value="검색">
-
-					</form>	
-				</td>
+				<!-- 로그인 했을때 -->
+		  		<c:if test="${memberId != null }" >
+			  		<td><a class="btn btn-primary" href="write">리뷰 작성하기</a></td>
+	  				
+	  				<td height="100px" style=padding-top:15px;>					
+				    	<form name="search" method="post" action="list">		    	
+				    		<select name="field">
+				    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 
+				    				시계이름에 ( watch_id ) 넘겨주기 -->
+				    			<option value="watch_id">시계이름</option>
+				    			<option value="content">내용</option>
+				    			<option value="member_id">작성자</option>
+				    		</select>
+				    		<input type="text" name="word" value="${word }">
+				    		<input type="submit" value="검색">
+						</form>	
+					</td>
+				</c:if>
+				<!-- 비로그인일때 -->
+				<c:if test="${memberId == null }" >
+			  		<td height="100px" style="padding-top:15px; padding-left:200px;" >					
+				    	<form name="search" method="post" action="list">		    	
+				    		<select name="field">
+				    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 
+				    				시계이름에 ( watch_id ) 넘겨주기 -->
+				    			<option value="watch_id">시계이름</option>
+				    			<option value="content">내용</option>
+				    			<option value="member_id">작성자</option>
+				    		</select>
+				    		<input type="text" name="word" value="${word }">
+				    		<input type="submit" value="검색">
+						</form>	
+					</td>
+	  			</c:if>		
+					
+					
 			</tr>	
 			
 			

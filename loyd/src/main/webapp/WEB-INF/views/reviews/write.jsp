@@ -62,8 +62,8 @@
 </head>
 <body>
     <div class="jumbotron">
-        <h1> {watch} 구매후기 </h1>
-        <p> {watch}에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
+        <h1> WATCH 구매후기 </h1>
+        <p> WATCH 에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
       </div>
     <div class="container bg-light" style="height: 800px;">
         <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
@@ -75,13 +75,15 @@
 			                 <td>구매한 시계</td>
 			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
 			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
+<%-- 			                 <td colspan="3"><input name="" value="${watch_name.name }">${watchId.watch_id} --%>
+			                 
+			                 
 			                 <td colspan="3"><input name="watch_id" value="659">
-			                 	${watchId}
 			                 </td>    
                 	</tr>
 	                <tr>
 		                    <td>작성자</td>
-		                    <td colspan="3"><input name="" disabled="disabled" value="${email }" placeholder="작성자 아이디 넣기"></td>  
+		                    <td colspan="3"><input name="" disabled="disabled" value="${name }"></td> 
 	                </tr>
 	                <tr>
 	                    <td>만족도</td>  
