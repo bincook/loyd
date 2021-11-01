@@ -253,6 +253,8 @@ public class ReviewsController {
 		return "redirect:/reviews/update_ok";
 	}*/
 
+	
+	/* 댓글 페이지 */
 }
 
 
