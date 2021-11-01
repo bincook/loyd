@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.QnaDao">
+
+
+	<insert id="insert_ok" >
+		insert into qna(content,title,pwd,secret,qnatype,email,writeday) 
+		values (#{content},#{title},#{pwd},#{secret},#{qnatype},#{email},now()) where watch_id=1
+	</insert>
+
+
+	<select id="qna" resultType="kr.co.loyd.dto.QnaDto">
+		select name,writeday,qnatype from qna
+	</select>
+
+ 
+ 
+</mapper>
