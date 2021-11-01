@@ -8,7 +8,9 @@
 <script>
 	// 아마 예약어라서
 	function close2(){
+		window.opener.location.reload();
 		window.close(); 
+		
 	}
 </script>
 </head>
@@ -38,9 +40,9 @@
               </tr>
               <tr>
               	<td>
-              		<a href="minus?watch_id=${dto.watch_id }"><input type="button" value="-"></a>
+              		<a href="minus?watch_id=${dto.watch_id }&email=${dto.email}"><input type="button" value="-"></a>
               		<span>${dto.item_count }</span>
-              		<a href="plus?watch_id=${dto.watch_id }"><input type="button" value="+"></a>
+              		<a href="plus?watch_id=${dto.watch_id }&email=${dto.email}"><input type="button" value="+"></a>
               	</td>
               </tr>
               <tr>

@@ -3,8 +3,9 @@ package kr.co.loyd.dto;
 public class CartDto {
 	//cart 테이블
 	private int id , member_id, watch_id,item_count;
-	private String created_at;
+	private String created_at,email;
 
+	
 	//cart 수량X가격 , 총합계
 	private int hap;
 	private int chong;
@@ -14,6 +15,14 @@ public class CartDto {
 	private int price;
 	private double discount;
 	private String name,picture,kind;
+	
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	public int getChong() {
 		return chong;

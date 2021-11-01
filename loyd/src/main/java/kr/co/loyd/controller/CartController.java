@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,25 +28,39 @@ public class CartController {
 	
     /** 장바구니 목록 페이지 */
     @RequestMapping(value = "/cart/list", method = RequestMethod.GET)
-    public String cart_list(Model model) {
+    public String cart_list(Model model,HttpSession session) {
+    	
+    	String email = (String) session.getAttribute("email");
     	
     	CartDao cart = sqlSession.getMapper(CartDao.class);
-    	ArrayList<CartDto> list = cart.cart_list();
+    	ArrayList<CartDto> list = cart.cart_list(email);
     	
-    	int chong = cart.cart_sum();
-    	model.addAttribute("chong",chong);
-    	model.addAttribute("list",list);
+    	int chong = cart.cart_sum(email);
 
-        return "cart/cart-list";
+    	if(chong==0) {
+    		return "cart/cart_zero";
+    	}else {
+    		model.addAttribute("chong",chong);
+        	model.addAttribute("list",list);
+
+            return "cart/cart-list";
+    	}
+    }
+    
+    @RequestMapping("/cart/cart_zero")
+    public String cart_zero() {
+    	
+    	return "cart/cart_zero";
     }
     
     @RequestMapping("/cart/change")
     public String change(HttpServletRequest request,Model model) {
     	
+    	String email = request.getParameter("email");
     	int watch_id= Integer.parseInt(request.getParameter("watch_id"));
     	
     	CartDao cart = sqlSession.getMapper(CartDao.class);
-    	CartDto dto = cart.change(watch_id);
+    	CartDto dto = cart.change(watch_id,email);
     	model.addAttribute("dto",dto);
     	
     	return "/cart/change";
@@ -64,13 +79,16 @@ public class CartController {
     
     @RequestMapping("/cart/plus")
     public String plus(HttpServletRequest request) {
+    	
+    	
+    	String email = request.getParameter("eamil");
     	int watch_id= Integer.parseInt(request.getParameter("watch_id"));
     	
     	CartDao cart = sqlSession.getMapper(CartDao.class);
-    	cart.plus(watch_id);
+    	cart.plus(watch_id,email);
     	
     	
-    	return "redirect:/cart/change?watch_id="+watch_id;
+    	return "redirect:/cart/change?watch_id="+watch_id+"&email="+email;
     }
     // 아까 열렸던 창 페이지가 어떤 
     @ResponseBody
