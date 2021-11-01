@@ -66,7 +66,7 @@
   
   function deletevalue()
   {
-      var chk = confirm("삭제?");
+      var chk = confirm("삭제할까요 'ㅅ'?");
             
       if (!chk) return
       
