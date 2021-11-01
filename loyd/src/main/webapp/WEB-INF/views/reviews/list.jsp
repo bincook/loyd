@@ -58,15 +58,13 @@
 <script>
 window.onload=function() {
 	document.search.field.value="${field}";
-	
 }
 
  function open_content (review_id) {
 	var window2 = window.open('readnum?review_id='+review_id, '','width=700,height=900') // 모달 다이얼로그
 } 
-
-
-			
+ 
+	
 </script>
 
 
@@ -89,7 +87,7 @@ window.onload=function() {
 		        <th>글번호</th>
 		        <th>시계이름</th>
 		        <th width="110px">이미지</th>
-		        <th width="150px";>만족도</th>
+		        <th width="150px">만족도</th>
 		        <th width="150">작성자 아이디</th>
 		        <th width="800px">내용</th>
 		        <th width="150">조회수</th>
@@ -149,8 +147,6 @@ window.onload=function() {
 	
 				
 				<!-- 클릭시 현재 페이지 기준으로 이전 1페이지 이동 -->
-				
-				
 				<c:if test="${page!= 1 }">
 				
 					<a href="list?page=${page-1 }&field=${field}&word=${word}"> ◀ </a>
@@ -195,10 +191,7 @@ window.onload=function() {
 					</c:if>	
 				</td>
 			</tr>
-			
-			<p>${pend }</p>
-			<p>${page_cnt }</p>
-
+	
 
 	     	
 	  <!-- search 기능 -->

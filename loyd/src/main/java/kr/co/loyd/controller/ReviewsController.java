@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -25,8 +26,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import kr.co.loyd.dao.AddfileDao;
+import kr.co.loyd.dao.MberDao;
 import kr.co.loyd.dao.ReviewsDao;
 import kr.co.loyd.dto.AddfileDto;
+import kr.co.loyd.dto.MberDto;
 import kr.co.loyd.dto.ReviewWriteDto;
 import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.ReviewsMultipartDto;
@@ -39,21 +42,37 @@ public class ReviewsController {
 
 	/** 리뷰 작성 페이지 */
 	@RequestMapping("/reviews/write")
-	public String writePage(ReviewsDto rdto, HttpServletRequest request, Model model) {
-
+	public String writePage(ReviewsDto rdto, HttpServletRequest request, Model model, HttpSession session) {
+		
+		// 세션에 있는 member id로 가져오기, session이 없을경우 다시 로그인 페이지로 이동
+		
+		
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		
+		
 
 		// 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
 		model.addAttribute("watchId", rdto.getWatch_id());
-		model.addAttribute("memberId", 1);
+
+//		model.addAttribute("memberId", dto2.getId());
+		
 
 		return "/reviews/write";
 	}
 
 	/** 리뷰 작성 ok */
 	@RequestMapping("/reviews/write_ok")
-	public String write_ok(ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
+	public String write_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
 
+		Object memberIdObj = session.getAttribute("memberId");
+		
+		if(memberIdObj==null) {
+			return "redirect:/mber/login";
+		}
+				
+		String memberId = ""+ memberIdObj;
+		dto.setMember_id(Integer.parseInt(memberId));
+		
 		MultipartFile multipartFile = request.getFile("name");
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
@@ -128,7 +147,7 @@ public class ReviewsController {
 		model.addAttribute("word",word);
 		
 		int pstart = page / 10;
-		if(page % 10 ==0)
+		if(page % 10 ==0) // 1 mod 10 == 1
 			pstart = pstart -1;
 		pstart = (pstart * 10) +1;
 		
@@ -169,7 +188,8 @@ public class ReviewsController {
 
 		return "/reviews/content";
 	}
-
+	
+	/** 삭제 페이지 **/
 	@RequestMapping("/reviews/delete")
 	public String delete(HttpServletRequest request) {
 
@@ -184,6 +204,36 @@ public class ReviewsController {
 	}
 	
 	
+	//** 수정 페이지 **//*
+	@RequestMapping ("/reviews/update")
+	public String update() {
+//		int reviewId=Integer.parseInt(request.getParameter("review_id"));
+//		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+//		
+//		ReviewsDto rdto = rdao.content(reviewId);   // content에선 review_id로 썼었음 
+//		model.addAttribute("update_dto",rdto);	
+		return "reviews/update";
+		
+	}
+	
+	
+	
+	
+/*	//** 수정_ok 페이지 **//*
+	@RequestMapping ("/reviews/update_ok")
+	public String update_ok(HttpSession session, MberDto dto, Model model) {
+	
+		int review_id=Integer.parseInt(request.getParameter("review_id"));
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		ReviewsDto rdto = rdao.content(review_id);
+//		rdao.content(rdto);
+		model.addAttribute("reviews",rdto);
+
+		
+		
+		
+		return "redirect:/reviews/update_ok";
+	}*/
 
 }
 

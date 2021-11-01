@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,23 +13,36 @@
 }
 </style>
 
-<script>
+<script >
 
 function del_content() {
-	
-	if (confirm("정말 삭제하시겠습니까?")) {
-			
+	// 창을 닫을때 삭제여부 묻고 '예 ' 클릭하면 삭제되고 창 자동 새로고침.	 
+	window.opener.location.reload();
+
+	if (confirm("정말 삭제하시겠습니까?")) {	
 		$.post('delete?review_id=${reviews.review_id}', function( data ) {
-			
 			window.opener.location.reload() // opener 부모 새로고침
-			window.close()  // 자기창을 닫아라
-			
-			
-		});
-				
-	} 
+			window.close()  // 자기창을 닫아라	
+		}
+	)};
 }
+
+//버튼 누르면 부모 새로고치고 자기창 닫기
+function cnt_readnum() {
+	window.opener.location.reload() // opener 부모 새로고침
+	window.close()  // 자기창을 닫아라	
+};
+
+// 창킬때 조회수 증가
+// 	opener.document.location.reload();
+
+// 창끌때 조회수 증가
+onbeforeunload = function() {  // beforeunload 이벤트	
+	opener.document.location.reload();
+}
+
 </script>
+
 
 </head>
 <body>
@@ -37,8 +50,7 @@ function del_content() {
 		<table width="500" height="550" align="center" border="1">
 
 			<tr>
-
-				<td colspan="2" align="center">
+				<td colspan="3" align="center">
 					<img width="200" 
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
@@ -49,7 +61,7 @@ function del_content() {
 				<td>작성일
 					<p>${reviews.writeday }
 				</td>
-				<td>구매한 시계
+				<td colspan="2">구매한 시계
 					<p>${reviews.watch_id }
 				</td>
 			</tr>
@@ -61,21 +73,23 @@ function del_content() {
 					☆
 					</c:forEach>
 				</td>
-				<td>작성자
+				<td colspan="2">작성자
 					<p>${reviews.member_id }
 				</td>
 			</tr>
 			<tr>
-				<td>후기내용
+				<td colspan="2">후기내용
 					<p>${reviews.content }</td>
 			</tr>
 			<tr>	
 				<td>
-<%-- 					<a href="delete?review_id=${reviews.review_id }" onclick="javascript:void(window.close())">삭제하기</a> --%>
 					<a id="close" href="javascript:del_content()">삭제하기</a>
 				</td>
 				<td>
-					<a href="">수정하기 </a>				
+					<a href="update">수정하기 </a>				
+				</td>
+				<td>
+					<a href="javascript:cnt_readnum()">창닫기</a>
 				</td>
 			</tr>
 		</table>		

@@ -8,5 +8,67 @@
 </head>
 <body>
 
+    <div class="container bg-light" style="height: 800px;">
+        <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
+                 
+            <table class="table table-bordered">
+					 <tr>
+						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
+						 
+			                 <td>구매한 시계</td>
+			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
+			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
+			                 <td colspan="3"><input name="watch_id" value="659">
+			                 	${watchId}
+			                 </td>    
+                	</tr>
+	                <tr>
+		                    <td>작성자</td>
+		                    <td colspan="3"><input name="" disabled="disabled" value="${email }" placeholder="작성자 아이디 넣기"></td>  
+	                </tr>
+	                <tr>
+	                    <td>만족도</td>  
+	                    <td colspan="3">
+	                    <ul class="rate-area pl-0 mb-0">
+						  <input type="radio" id="5-star" name="rate" value="5" /><label for="5-star" title="Amazing">5 stars</label>
+						  <input type="radio" id="4-star" name="rate" value="4" /><label for="4-star" title="Good">4 stars</label>
+						  <input type="radio" id="3-star" name="rate" value="3" /><label for="3-star" title="Average">3 stars</label>
+						  <input type="radio" id="2-star" name="rate" value="2" /><label for="2-star" title="Not Good">2 stars</label>
+						  <input type="radio" id="1-star" name="rate" value="1" /><label for="1-star" title="Bad">1 star</label>
+						</ul></td>
+	                </tr>
+	                <tr>
+	                    <td>이미지 첨부하기</td>
+	                    <div id="imgAcd">
+<!-- 	                    <td><input type="file" name="iname1"></td> -->
+							<td>
+								<p class="iname"><input type="file" name="name" value="imgtest"></p>
+							</td>
+	                        
+	                        <td><input type="button" onclick="add()" value='사진추가'></td>
+	                        <td><input type="button" onclick="del()" value='사진삭제'></td>               
+	                    </div>
+	                </tr>
+	                <tr>
+	                    <td>내용</td>
+	                    <td colspan="3">
+	                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요"></textarea>
+	                    </td>
+	                </tr>
+	                
+	               
+            </table>
+            <div align="center">
+                   <a class="btn btn-primary" href="javascript:document.writeForm.submit()">
+                   
+                   		 작성완료
+                    </a>
+                    <a class="btn btn-outline-primary" href="javascript:history.back()">
+                    	뒤로가기
+                    </a>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>

@@ -59,30 +59,8 @@
 </style>
 
 
-<!-- <script> src = "http://code.jquery.com/jquery.js"></script>
-<script>
-	var size=1;
-	function add() {
-		size ++;
-		var imgAcd = document.getElementById("imgAcd");
-		imgAcd.innerHTML = imgAcd.innerHTML + "<p class='iname'><input type='file' name='iname"+size+"'></p>";
-	}
-	function del() {
-		if(size>1) {
-			${".iname"}.eq(size-1).remove();
-			size--;
-		}
-	}
-
-</script> -->
-
-
-
-
-
 </head>
 <body>
-
     <div class="jumbotron">
         <h1> {watch} 구매후기 </h1>
         <p> {watch}에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
@@ -99,17 +77,12 @@
 			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
 			                 <td colspan="3"><input name="watch_id" value="659">
 			                 	${watchId}
-			                 </td>
-			                 
-		                 
+			                 </td>    
                 	</tr>
 	                <tr>
-
 		                    <td>작성자</td>
-		                    <td colspan="3"><input name="member_id" value="1" placeholder="작성자 아이디 넣기"></td>  
-	
+		                    <td colspan="3"><input name="" disabled="disabled" value="${email }" placeholder="작성자 아이디 넣기"></td>  
 	                </tr>
-	            
 	                <tr>
 	                    <td>만족도</td>  
 	                    <td colspan="3">

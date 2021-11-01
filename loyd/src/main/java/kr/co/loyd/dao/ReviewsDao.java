@@ -1,4 +1,4 @@
-package kr.co.loyd.dao;
+﻿package kr.co.loyd.dao;
 
 import java.util.ArrayList;
 
@@ -22,8 +22,9 @@ public interface ReviewsDao {
 	public ReviewsDto content(int review_id); // content 페이지
 
 	public void delete(int review_id); //delete 페이지
-
-
 	
+	public ReviewsDto update(int reviewId);  // 수정하기
+	
+
 	
 }

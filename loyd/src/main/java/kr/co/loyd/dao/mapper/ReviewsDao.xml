@@ -37,8 +37,7 @@
 	
 	<!-- 페이징 카운트 --><!-- 조건 + 페이징 -->
 	<select id="get_pagecount" resultType="Integer">
-		select ceil (count(*)/10) from reviews where ${param1} like concat('%', #{param2} ,'%')
-						
+		select ceil (count(*)/10) from reviews where ${param1} like concat('%', #{param2} ,'%')				
 	</select>
 	
 	<!-- 검색기능 -->
@@ -57,15 +56,14 @@
 		left join add_file af
 		on r.file_id = af.id
 		where review_id=#{param1}
-		
-	
 	</select>
 	
 	<delete id="delete">
 		delete from reviews where review_id=#{param1}
-		
-		
 	</delete>
+	<update id="update" parameterType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews where id=#{param1}
+	</update>
 	
 
 	

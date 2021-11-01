@@ -29,8 +29,12 @@
         <li class="nav-item ${reqUri == contextPath.concat("/mypage/info") ? "active" : ""}">
             <a href="<c:url value="/mypage/info" />" class="nav-link">MyPage</a>
         </li>
+        
         <li class="nav-item ${reqUri == contextPath.concat("/sample") ? "active" : ""}">
             <a href="<c:url value="/sample" />" class="nav-link">Sample</a>
+        </li>
+        <li class="nav-item ${reqUri == contextPath.concat("/sample") ? "active" : ""}">
+            <a href="<c:url value="/reviews/list" />" class="nav-link">reviews</a>
         </li>
     </ul>
 </div>
