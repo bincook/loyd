@@ -3,6 +3,7 @@ package kr.co.loyd.controller;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -131,6 +132,7 @@ public class AdminController {
 	}
 	
 	
+
 	/** 관리자 상품 등록(하나의 이미지 등록) */
 	@RequestMapping(value = "/watch/upload")
 	public String upload()
@@ -138,6 +140,7 @@ public class AdminController {
 		
 		return "/admin/watch/upload";
 	}
+
 
 	@RequestMapping("/watch/upload_ok")
 	public String upload_ok( MultipartHttpServletRequest request) throws Exception
@@ -197,51 +200,103 @@ public class AdminController {
 			{
 				page=Integer.parseInt(request.getParameter("page"));
 			}
-			int page_cnt=wdao.get_cnt();
-			int index=(page-1)*10;			
 			
-			int pstart=page/10;
+			int recod=(page-1)*7;	
+			
+			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
+			int pstart=page/5;
 			if(page%10 == 0)
 				pstart=pstart-1;
 			pstart=(pstart*10)+1;
 			int pend=pstart+9;		
 			
+			int page_cnt=wdao.get_cnt();
 			if(pend>page_cnt)
 				pend=page_cnt;		   
-		   
-		   ArrayList<WatchDto> watch_list=wdao.watch_list();
+			
 		   model.addAttribute("pstart",pstart);
 		   model.addAttribute("pend",pend);
 		   model.addAttribute("page_cnt",page_cnt);
 		   model.addAttribute("page",page);
 		   model.addAttribute("watch_list",watch_list);
+	
 		   return "admin/watch/watch_list";
 	   }
 
 	 
+	 // ㅇㅣ ㄷㅜㄹㅈㅜㅇㅇㅔ ㅁㅜㅓㄱㅏ ㅁㅏㅈㄴㅡㄴㄱㅓㅇㅖㅇㅛ ?
 	 @RequestMapping("/watch/delete")
 	 public String delete(HttpServletRequest request)
 	 {
+
+		 
 		 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
-		 String[] ajaxMsg=request.getParameterValues("valueArr");
-		 int size=ajaxMsg.length;		 
-		 for(int i=0; i<size; i++) {
-			 wdao.delete(ajaxMsg[i]);
-		 }
+		 String[] watchIds = request.getParameterValues("watchIds[]");
+		 
+		 	 
+		 for (String watchId : watchIds) {
+			wdao.delete(watchId);
+		}
+		 
 		 return "admin/watch/watch_list";
 	 }
 	 
+	 @RequestMapping("/watch/content")
+	 public String content(Model model,HttpServletRequest request) throws Exception
+	 {
+	 String id=request.getParameter("id");
+	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+	 WatchDto wdto=wdao.content(id);
+	 model.addAttribute("wdto",wdto);
+
+
+	   return "admin/watch/content";
+	  }
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-     
-		
+
+	 @RequestMapping("/watch/update_ok")
+	 public String update_ok( MultipartHttpServletRequest request) throws Exception
+	 {
+		 String imgPath = "resources/img";
+		   String path=request.getRealPath(imgPath);
+		   MultipartFile multipartFile = request.getFile("picture");
+			
+		   // 파일이 있는 경우
+		   if(!multipartFile.isEmpty()) {
+			   File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
+			   String fileName = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+			   FileCopyUtils.copy(multipartFile.getBytes(), file);
+			   
+//			   int max=1024*1024*10;
+//			   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
+
+//			   String fileName = multi.getFilesystemName("picture");
+//			   System.out.println("fileName" + fileName);
+			   
+			   
+			   
+			   WatchDto wdto=new WatchDto();
+			   wdto.setName(request.getParameter("name"));
+			   wdto.setBrand(request.getParameter("brand"));
+			   wdto.setPrice(Integer.parseInt(request.getParameter("price")));
+			   wdto.setCategory(request.getParameter("category"));
+			   wdto.setContent(request.getParameter("content"));
+			   wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
+			   wdto.setPicture(imgPath + "/" + fileName);
+			   wdto.setKind(request.getParameter("kind"));
+			   
+			   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+			   wdao.upload_ok(wdto);
+			   
+			// 파일이 없을 때
+		   } else {
+			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
+			   String id = request.getParameter("id");
+			   
+			   return "redirect:/admin/watch/content?id=" + id + "&error="+encodeResult;			   
+		   }
+		   
+		return "redirect:/admin/watch/watch_list";
+	 }
 }
