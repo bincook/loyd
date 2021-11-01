@@ -19,7 +19,7 @@
   color:#4D4D4D;
  }
  table{
-   align:center;
+  align:center;
   margin:auto;
  }
  tr{
@@ -47,21 +47,49 @@
 	<p>
 	<table align="center">
 	 <tr>
-	  <td>
+	  <td class="p-4">
 		<form method="post" action="upload_ok" enctype="multipart/form-data">
-		 <input type="text" name="name" placeholder="상품명"><p>
-		 <input type="text" name="brand" placeholder=브랜드><p>
-		 <input type="text" name="price" placeholder="상품가격"><p>
-		 <input type="radio" name="category" value="공용">공용
-		 <input type="radio" name="category" value="남성">남성
-		 <input type="radio" name="category" value="여성">여성<p>		 
-		 <textarea name="content" placeholder="content" cols="22" rows="4"></textarea><p>
-		 <input type="number" min="0" max="1" step="0.1" name="discount" placeholder="할인가격"><p>
-		 <input type="radio" name="kind" value="가죽">가죽
-		 <input type="radio" name="kind" value="메탈">메탈<p>
-		 <input type="file" name="picture" ><p>
+		<div class="form-group">
+		 <input class="form-control" type="text" name="name" placeholder="상품명">
+		</div>
+		
+		 <div clsas="form-group">
+			<input class="form-control" type="text" name="brand" placeholder=브랜드><p>		 
+		 </div>
 		 
-		 <input type="submit" value="상품등록">
+		 <div class="form-group">
+		 	<input class="form-control" type="text" name="price" placeholder="상품가격"><p>
+		 </div>
+		 
+		 <div class="form-group">
+		 <input type="radio" name="category" value="공용">공용
+ 		 <input type="radio" name="category" value="남성">남성
+ 		 <input type="radio" name="category" value="여성">여성		
+		 </div>
+		 
+		 <div class="form-group">
+		 <textarea class="form-control" name="content" placeholder="content" cols="22" rows="4"></textarea>
+		 </div>
+		 
+		 <div class="form-group">
+		 <input class="form-control" type="number" min="0" max="1" step="0.1" name="discount" placeholder="할인가격">
+		 </div>
+		 
+		 <div class="form-group">
+		 	<input type="radio" name="kind" value="가죽">가죽
+		 	 <input type="radio" name="kind" value="메탈">메탈
+		 </div>
+		 
+		 <div class="form-group">
+		 <label class="btn btn-outline-info btn-file" >
+   		 첨부파일<input type="file" name="picture" style="display:none;">
+ 		 </label>
+		 </div>
+		 
+		  <div class="form-group">
+		 <input class="btn btn-primary" type="submit" value="상품등록">
+		 </div>
+	
 		</form> 
 	  </td>
 	 </tr>

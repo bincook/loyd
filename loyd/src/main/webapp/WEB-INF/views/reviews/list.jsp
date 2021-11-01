@@ -102,9 +102,9 @@ window.onload=function() {
 						        <td>${review.review_id}</td>
 						        <td>${review.watch_id}</td>
 						        <td><a href="javascript:open_content(${review.review_id})">
-						        		<img wdith="100" height="50"  
-						        			src="<c:url value="/${review.path }/${review.name }" />"  
-						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+						        	                                        <img wdith="100" height="50"  
+                                            src="<c:url value="/${review.path }/${review.name }" />"  
+                                            onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
 					        		</a>
 						        </td>			        
 						        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
