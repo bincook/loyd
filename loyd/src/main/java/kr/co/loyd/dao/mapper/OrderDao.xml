@@ -4,7 +4,7 @@
 
 <mapper namespace="kr.co.loyd.dao.OrderDao">
 	<select id="detail_order" resultType="kr.co.loyd.dto.OrderDto">
-		SELECT id,NAME,brand,(price*(1-discount)) AS price ,category,kind,picture  FROM guro_project_2.watch WHERE id = 659
+		SELECT id,NAME,brand,(price*(1-discount)) AS price ,category,kind,picture  FROM watch WHERE id = #{param1}
 	</select>
 	
 	<insert id="cart_go" >
@@ -18,5 +18,23 @@
 	<update id="cart_plus">
 		update cart set item_count = item_count +1 where watch_id = #{param1} and email = #{param2}
 	</update>
+	
+	<select id="buy" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT NAME,ceil(price*(1-discount))AS price ,brand,category,kind,picture FROM watch where id =#{param1}
+	</select>
+	
+	<select id="all_price" resultType="integer">
+		WITH `order list` AS
+			(SELECT ceil(A.count*B.price*(1-B.discount)) as hap FROM `order list` A, watch B WHERE A.watch_id =  B.id and member_id =19)
+		SELECT SUM(hap) AS all_pirce  FROM `order list` 
+	</select>
+	
+	<select id="product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch limit #{param1},12
+	</select>
+	
+	<select id="get_page" resultType="integer">
+		select ceil(count(*)/10)  from watch 
+	</select>
 	
 </mapper>

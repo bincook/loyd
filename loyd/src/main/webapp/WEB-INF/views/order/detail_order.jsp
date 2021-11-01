@@ -55,7 +55,7 @@
               	<c:if test="${email!=null }">
               		<span>
               			<a href="cart_go?id=${dto.id }"><button onclick="check2()">CART</button></a>
-              			<a href="buy"><button>BUY</button></a>
+              			<a href="buy?id=${dto.id}"><button>BUY</button></a>
               		</span>
               	</c:if>
               	</td>

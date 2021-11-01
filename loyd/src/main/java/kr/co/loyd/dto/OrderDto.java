@@ -4,6 +4,36 @@ public class OrderDto {
 
 	private int id,price,discount;
 	private String name,brand,category,content,picture,kind;
+	
+	private int member_id, watch_id,chong,all_price;
+	
+	
+	
+	
+	public int getAll_price() {
+		return all_price;
+	}
+	public void setAll_price(int all_price) {
+		this.all_price = all_price;
+	}
+	public int getChong() {
+		return chong;
+	}
+	public void setChong(int chong) {
+		this.chong = chong;
+	}
+	public int getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
+	}
+	public int getWatch_id() {
+		return watch_id;
+	}
+	public void setWatch_id(int watch_id) {
+		this.watch_id = watch_id;
+	}
 	public int getId() {
 		return id;
 	}

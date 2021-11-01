@@ -68,7 +68,7 @@
                             <h6>
                                 <small>옵션 :${dto.kind }/${dto.item_count}개</small>
                             </h6>
-                            <a href="change?watch_id=${dto.watch_id }" onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;"><button class="btn-block">수량 변경</button></a>
+                            <a href="change?watch_id=${dto.watch_id }&email=${dto.email}" onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;"><button class="btn-block">수량 변경</button></a>
                         </div>
                     </div>
                 </td>

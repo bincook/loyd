@@ -70,6 +70,7 @@ public class MberController {
 		}else {
 			session.setAttribute("email",dto2.getEmail() );
 			session.setAttribute("name",dto2.getName());
+			session.setAttribute("id",dto2.getId());
 			
 			return "redirect:/";
 		}
