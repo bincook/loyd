@@ -200,10 +200,8 @@ public class AdminController {
 			{
 				page=Integer.parseInt(request.getParameter("page"));
 			}
-
-
-			
 			int recod=(page-1)*7;	
+
 			
 			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
 			int pstart=page/5;
@@ -254,3 +252,4 @@ public class AdminController {
 	   return "admin/watch/content";
 	  }
 	
+
