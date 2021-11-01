@@ -34,7 +34,7 @@ function openZipSearch() {
                 <th scope="col">
                 	<div>
                 	<h3>주문하실 상품</h3>
-                	<h3>1개 ${String.format("%,d",dto.price) }원</h3>
+                	<h3>총${dto.chong }개 ${String.format("%,d",all_price) }원</h3>
                 	</div>
                 </th>
                 
