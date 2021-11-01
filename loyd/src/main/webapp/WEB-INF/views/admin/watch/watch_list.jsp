@@ -105,9 +105,11 @@
 	 }
   }
   
+  
  </script>
 </head>
 <body>
+
  <div id="whole">
    <header><h1>관리자 상품 목록</h1></header>
   

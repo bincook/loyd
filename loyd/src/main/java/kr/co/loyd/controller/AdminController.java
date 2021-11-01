@@ -200,24 +200,26 @@ public class AdminController {
 			{
 				page=Integer.parseInt(request.getParameter("page"));
 			}
-			int page_cnt=wdao.get_cnt();
-			int index=(page-1)*10;			
 			
-			int pstart=page/10;
+			int recod=(page-1)*7;	
+			
+			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
+			int pstart=page/5;
 			if(page%10 == 0)
-				pstart=page-1;
+				pstart=pstart-1;
 			pstart=(pstart*10)+1;
 			int pend=pstart+9;		
 			
+			int page_cnt=wdao.get_cnt();
 			if(pend>page_cnt)
 				pend=page_cnt;		   
-		   
-		   ArrayList<WatchDto> watch_list=wdao.watch_list();
+			
 		   model.addAttribute("pstart",pstart);
 		   model.addAttribute("pend",pend);
 		   model.addAttribute("page_cnt",page_cnt);
 		   model.addAttribute("page",page);
 		   model.addAttribute("watch_list",watch_list);
+	
 		   return "admin/watch/watch_list";
 	   }
 
@@ -248,6 +250,8 @@ public class AdminController {
 
 	   return "admin/watch/content";
 	  }
+	 
+	 
 
 	 @RequestMapping("/watch/update_ok")
 	 public String update_ok( MultipartHttpServletRequest request) throws Exception
