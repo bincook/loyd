@@ -12,7 +12,7 @@
 	</insert>
 	
 	<select id="id_check" resultType="integer">
-		select count(*) from cart where watch_id =#{param1}
+		select count(*) from cart where watch_id =#{param1} and email =#{param2}
 	</select>
 	
 	<update id="cart_plus">
@@ -36,5 +36,14 @@
 	<select id="get_page" resultType="integer">
 		select ceil(count(*)/10)  from watch 
 	</select>
+	
+	<select id="watch_detail" resultType="kr.co.loyd.dto.OrderDto">
+		select * from watch_detail where watch_id=#{param1} order by id
+	</select>
+	
+	<insert id="pay" parameterType="kr.co.loyd.dto.OrderDetailDto">
+		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date) 
+VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now())
+	</insert>
 	
 </mapper>

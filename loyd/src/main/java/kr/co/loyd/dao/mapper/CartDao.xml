@@ -46,7 +46,7 @@
 	</select>
 	
 	<update id="minus" >
-		update cart set item_count=item_count-1 where watch_id = #{param1} 
+		update cart set item_count=item_count-1 where watch_id = #{param1} and email =#{param2}
 	</update>
 	
 	<update id="plus" >
@@ -54,8 +54,25 @@
 	</update>
 	
 	<delete id="cart_delete">
-		delete from cart where watch_id = #{param1} and member_id =#{param2}
+		delete from cart where watch_id = #{param1} and email =#{param2}
 	</delete>
+
+	<select id='chkk' resultType="integer">
+		select item_count from cart where watch_id = #{param1} and email =#{param2}
+	</select>
+	
+	<select id="cart_buy" resultType="kr.co.loyd.dto.CartDto">
+		SELECT content,CEIL(item_count*price*(1-discount)) as price,picture,brand,category,kind,item_count FROM watch A , cart B WHERE A.id=B.watch_id and email = #{param1}
+	</select>
+	
+	<select id="item_chong" resultType="integer">
+		SELECT SUM(item_count) AS item_chong FROM watch A , cart B WHERE A.id=B.watch_id and email = #{param1}
+	</select>
+	
+	<insert id="pay" parameterType="kr.co.loyd.dto.OrderDetailDto">
+		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date) 
+VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now())
+	</insert>
 
 	<!-- 조건 + 페이징 -->
 

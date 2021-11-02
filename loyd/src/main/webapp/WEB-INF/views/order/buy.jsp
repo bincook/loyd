@@ -22,7 +22,27 @@ function openZipSearch() {
 		}
 	}).open();
 }
+function chk(){
+	var a = document.pkc;
 	
+	if(a.order_name.value==""){
+		alert("이름을 입력하세요");
+	}else if(a.order_phone.value==""){
+		alert("핸드폰번호를 입력하세요");
+	}else if(a.email.value.indexOf('@')==""){
+		alert("이메일 형식에 맞게 입력하세요");
+	}else if(a.rec_name.value =="" ){
+		alert("받는사람을 입력하세요");
+	}else if(a.zip.value==""){
+		alert("우편번호를 입력하세요");
+	}else if(a.addr2.value==""){
+		alert("상세주소를 입력하세요")
+	}else if(a.rec_phone.value==""){
+		alert("핸드폰번호를 입력하세요")
+	}else{
+		document.pkc.submit();
+	}
+}
 </script>
 </head>
 <body>
@@ -63,6 +83,7 @@ function openZipSearch() {
     
     
     <!-- 주문자 정보 -->
+    <form name="pkc" method="post" action="pay">
     <div class="container mt-5 text-center" >
         <table style="width: 1000px;" class="table table-hover" align="center">
           <tbody>
@@ -77,11 +98,11 @@ function openZipSearch() {
               <tr>
                 <td>
                     <div>
-                        <div class="d-inline-block"">
-                            <h6>${name }</h6>
-                            <h6>
-                            	<small>${email }</small>
-                            </h6>             
+                        <div class="d-inline-block">
+                            
+                            이름<input type="text" name="order_name" value="${name }"><p>
+                            핸드폰번호<input type="text" name ="order_phone"> <p>
+                            이메일<input type="text" name ="email" value="${email }">            
                         </div>
                     </div>
                 </td>
@@ -89,6 +110,34 @@ function openZipSearch() {
             </tbody>
           </table>
     </div>
+    
+    
+    <!-- 결제 방법 -->
+    <div class="container mt-5 text-center" >
+        <table style="width: 1000px;" class="table table-hover" align="center">
+          <tbody>
+              <tr>
+                <th scope="col">
+                	<div>
+                	<h3>결제 방법</h3>
+                	</div>
+                </th>
+                
+              </tr>
+              <tr>
+                <td>
+                    <select name="pay">
+                    	<option value="카드">카드</option>
+                    	<option value="실시간 계좌이체">실시간 계좌이체</option>
+                    	<option value="무통장입금(가상계좌)">무통장입금(가상계좌)</option>
+                    	<option value="카카오페이">카카오페이</option>
+                    </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    
     
     
     <!-- 배송지 정보 -->
@@ -107,19 +156,20 @@ function openZipSearch() {
 				<td>
 					받는사람<span style="color:red;">*</span>
 				</td>   
-				<td><input type="text"></td>
+				<td><input  name="rec_name" type="text"></td>
               </tr>
          	  <tr>
          	  	<td>
+                 	배송주소<span style="color:red;">*</span>
+         	  	</td>
+         	  	<td >
                     <div>
+                    
                         <div class="d-inline-block">
-                            	배송주소<span style="color:red;">*</span>
-                        </div>
-                        <div class="d-inline-block" style="margin-left:200px;">
-		                                            우편번호 : <input type="text" name="zip" style="width:80px; height:26px;" />
+		                                            우편번호 : <input name="zip"type="text" name="zip" style="width:80px; height:26px;" />
 							<button type="button" style="width:60px; height:32px;" onclick="openZipSearch()">검색</button><br>
-							주소 : <input type="text" name="addr1" style="width:300px; height:30px;" readonly /><br>
-							상세 : <input type="text" name="addr2" style="width:300px; height:30px;" />            
+							주소 : <input name="addr1" type="text" name="addr1" style="width:300px; height:30px;" readonly /><br>
+							상세 : <input name="addr2" type="text" name="addr2" style="width:300px; height:30px;" />            
                         </div>
                     </div>
                 </td>
@@ -128,25 +178,36 @@ function openZipSearch() {
 				<td>
 					연락처<span style="color:red;">*</span>
 				</td>   
-				<td><input type="text"></td>
+				<td><input name ="rec_phone" type="text"></td>
               </tr>
               <tr>
 				<td>
 					배송메세지<span style="color:red;">*</span>
 				</td>   
 				<td>
-				<select>
-					<option>배송메시지를 선택해주세요</option>
-					<option>빠른 배송 부탁드려요</option>
-					<option>부재 시 문 앞에 놓아주세요</option>
-					<option>파손의 위험이 있는 상품이 있습니다.주의해주세요</option>
-					<option>배송전 연락주세요</option>
+				<select name="msg">
+					<option value="배송메시지를 선택해주세요">배송메시지를 선택해주세요</option>
+					<option value="빠른 배송 부탁드려요">빠른 배송 부탁드려요</option>
+					<option value="부재 시 문 앞에 놓아주세요">부재 시 문 앞에 놓아주세요</option>
+					<option value="파손의 위험이 있는 상품이 있습니다.주의해주세요">파손의 위험이 있는 상품이 있습니다.주의해주세요</option>
+					<option value="배송전 연락주세요">배송전 연락주세요</option>
 				</select>
 				</td>
               </tr>
             </tbody>
           </table>
+          
+          <table align="center">
+          	<tr>
+              	<td>
+              		
+              		<input type="button" value="${String.format("%,d",dto.price) }원 결제하기(1)" onclick="chk()">
+              		
+              	</td>
+              </tr>
+          </table>
     </div>
+    </form>
     
     
     

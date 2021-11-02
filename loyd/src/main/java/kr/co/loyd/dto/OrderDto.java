@@ -7,9 +7,18 @@ public class OrderDto {
 	
 	private int member_id, watch_id,chong,all_price;
 	
+	//watch_detail
+	private String path;
 	
 	
 	
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public int getAll_price() {
 		return all_price;
 	}

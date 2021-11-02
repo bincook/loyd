@@ -13,6 +13,10 @@
 
 <div style="height: 7vh"  class="col-md-12 navbar ${!reqUri.equals(contextPath.concat("/")) ? "bg-dark-green sticky-top" : "fixed-top" }">
     <a href="<c:url value="/"/>" class="logo navbar-brand text-white offset-md-2">Watch</a>
+    
+    <!-- 임시리스트  -->
+    <a href="<c:url value="/order/product_list"/>" class="logo navbar-brand text-white offset-md-2">watch list</a>
+    
     <ul class="nav">
         
         <c:if test="${email != null }">

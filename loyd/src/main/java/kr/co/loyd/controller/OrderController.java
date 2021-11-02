@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.loyd.dao.OrderDao;
+import kr.co.loyd.dto.OrderDetailDto;
 import kr.co.loyd.dto.OrderDto;
 
 @Controller
@@ -24,11 +26,14 @@ public class OrderController {
 	@RequestMapping("/detail_order")
 	public String detail_order(Model model,HttpServletRequest request) {
 		
-		//상품 리스트에서 ID 받아와야됨!
+		//�긽�뭹 由ъ뒪�듃�뿉�꽌 ID 諛쏆븘���빞�맖!
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
 		OrderDto dto = dao.detail_order(id);
+		ArrayList<OrderDto> list = dao.watch_detail(id);
+		
+		model.addAttribute("list",list);
 		model.addAttribute("dto",dto);
 		
 		
@@ -42,14 +47,19 @@ public class OrderController {
 		String email = (String) session.getAttribute("email");
 		
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+
+		int cnt = dao.id_check(id,email);
 		
-		int cnt = dao.id_check(id);
+		System.out.println("되고있냐1");
 		
 		if(cnt==0) {
+			System.out.println("되고있냐2");
 			dao.cart_go(id,email);
 		}else {
+			System.out.println("되고있냐3");
 			dao.cart_plus(id,email);
 		}
+		
 		
 		return "redirect:/order/detail_order?id="+id;
 	}
@@ -115,5 +125,38 @@ public class OrderController {
 		
 		return "/order/product_list";
 	}
+	
+	
+	@RequestMapping("/pay")
+	public String pay(OrderDetailDto dto) {
+		
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		
+		dao.pay(dto);
+		
+		return "/order/pay";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
