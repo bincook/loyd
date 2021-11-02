@@ -8,15 +8,34 @@ public class CartDto {
 	
 	//cart 수량X가격 , 총합계
 	private int hap;
-	private int chong;
+	private int chong,item_chong;
 	
 	
 	//watch 테이블
 	private int price;
 	private double discount;
-	private String name,picture,kind;
+	private String name,picture,kind,brand,category;
 	
 	
+	
+	public int getItem_chong() {
+		return item_chong;
+	}
+	public void setItem_chong(int item_chong) {
+		this.item_chong = item_chong;
+	}
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getEmail() {
 		return email;
 	}

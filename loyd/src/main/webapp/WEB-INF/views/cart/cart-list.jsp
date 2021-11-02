@@ -88,7 +88,7 @@
               	<script>
               	function ajx(){
 
-            		var member_id = $("#member_id").val(); // <input id="member_id" /> 애만 가져오는거예요 네 아.name이네요
+            		//var member_id = $("#member_id").val(); // <input id="member_id" /> 애만 가져오는거예요 네 아.name이네요
             		
             		var watch_id =[];
             		
@@ -96,8 +96,8 @@
             			watch_id.push($(this).val());
             		});
             		
-            		var allData = {"member_id":member_id, "watch_id":watch_id};
-            		
+            		//var allData = {"member_id":member_id, "watch_id":watch_id};
+            		var allData = {"watch_id":watch_id};
             		
             		console.log(allData)
 
@@ -132,6 +132,11 @@
               		<h3>총결제금액  : ${String.format("%,d",chong) }</h3> <!--  db 에는 총결제금액이 들어가있나요 ? 위드문 써서 만들엇어요 -->
               		
               	</td>
+              </tr>
+              <tr>
+              	<td colspan="4" align="center">
+              		<a href="cart_buy"><button>결제하기</button></a>
+              	</td>	
               </tr>
             </tbody>
           </table>

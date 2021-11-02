@@ -18,18 +18,18 @@
 </head>
 <body>
 	<div class="container mt-5 text-center" >
-        <table style="width: 1500px; height:500px;" class="table table-hover" align="center">
+        <table style="width: 1200px; height:500px;" class="table table-hover" align="center">
           <tbody>
               <tr>
                 <th scope="col">상품정보</th>
               </tr>
               <tr>
-                <td>
+                <td align="center">
                     <div>
                         <div class="d-inline-block mr-4">
                             	<img src="${dto.picture }" width="400px">
                         </div>
-                        <div class="d-inline-block"">
+                        <div class="d-inline-block">
                             <h3>${dto.name }</h3>
                             <h4>
                             	<small>${dto.brand }</small>
@@ -43,6 +43,19 @@
                         </div>
                     </div>
                 </td>
+              </tr>
+              
+              
+              <tr>
+              
+              	<td align="center">
+              	<c:forEach items="${list }" var="dto">
+              		<div class="d-inline-block">
+              			<img src="${dto.path }">
+              		</div>
+              	</c:forEach>
+              	</td>
+              
               </tr>
               <tr>
               	<td align="center">

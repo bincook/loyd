@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +11,6 @@
 	function close2(){
 		window.opener.location.reload();
 		window.close(); 
-		
 	}
 </script>
 </head>
@@ -40,7 +40,14 @@
               </tr>
               <tr>
               	<td>
-              		<a href="minus?watch_id=${dto.watch_id }&email=${dto.email}"><input type="button" value="-"></a>
+              		<c:if test="${chk ==1 }">
+              			
+              		</c:if>
+					<c:if test="${chk >1 }">
+              			<a href="minus?watch_id=${dto.watch_id }&email=${dto.email}"><input type="button" value="-"></a>	
+              		</c:if>
+              		
+       
               		<span>${dto.item_count }</span>
               		<a href="plus?watch_id=${dto.watch_id }&email=${dto.email}"><input type="button" value="+"></a>
               	</td>
@@ -52,6 +59,8 @@
               </tr>
           </table>
           
+          
+          aaaa${chk }
 
 
 
