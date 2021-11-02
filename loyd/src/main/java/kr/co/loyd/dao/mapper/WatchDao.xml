@@ -35,8 +35,7 @@
 	<select id="watch_list" resultType="kr.co.loyd.dto.WatchDto">
 		select * from watch order by id desc limit #{param1},7
 	</select>
-		<!-- 상품 목록(페이징) -->
-
+		
     <!-- 상품 삭제 -->
 	<delete id="delete">
 		delete from watch where id = #{param1}

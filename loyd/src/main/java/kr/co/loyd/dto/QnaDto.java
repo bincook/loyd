@@ -3,6 +3,16 @@ package kr.co.loyd.dto;
 public class QnaDto {
 
 	private int id;
+	private int secret;
+	private String title;
+	private String content;
+	private String email;
+	private boolean emailChk;
+	private String pwd;
+	private String qnatype;
+	private String writeday;
+	private int watch_id;
+	
 	public int getId() {
 		return id;
 	}
@@ -51,13 +61,19 @@ public class QnaDto {
 	public void setWriteday(String writeday) {
 		this.writeday = writeday;
 	}
-	private int secret;
-	private String title;
-	private String content;
-	private String email;
-	private String pwd;
-	private String qnatype;
-	private String writeday;
+	public int getWatch_id() {
+		return watch_id;
+	}
+	public void setWatch_id(int watch_id) {
+		this.watch_id = watch_id;
+	}
+	public boolean isEmailChk() {
+		return emailChk;
+	}
+	public void setEmailChk(boolean emailChk) {
+		this.emailChk = emailChk;
+	}
+	
 	
 	
 	

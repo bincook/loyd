@@ -1,37 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title><style>
- #whole{
-  font-size:14px;
-  text-align:center;
-  color:#4D4D4D;  
- }
- header{
-  height:70px;
-  background:#E9F4D1;
-  text-align:center;
-  color:#4D4D4D;
- }
- table{
-  align:center;
-  margin:auto;
-  width:1000px;
-  color:#6A6A6A;
-  padding:100px;
- }
- tr{
- border-radius:10px;
- box-shadow:0px -2px 13px 0px skyblue;
- }
- td{
- padding:10px;
- }
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+	 #whole{
+	  font-size:14px;
+	  text-align:center;
+	  color:#4D4D4D;  
+	 }
+	 header{
+	  height:70px;
+	  background:#E9F4D1;
+	  text-align:center;
+	  color:#4D4D4D;
+	 }
+	 table{
+	  align:center;
+	  margin:auto;
+	  width:1000px;
+	  color:#6A6A6A;
+	  padding:100px;
+	 }
+	 tr{
+	 border-radius:10px;
+	 box-shadow:0px -2px 13px 0px skyblue;
+	 }
+	 td{
+	 padding:10px;
+	 }
  </style>
 
  <script>
@@ -48,13 +51,13 @@
  	 $('input[value=' + kind+ ']').prop('checked', 'checked')
  	
  }
- 
+	/**  https://taeny.dev/javascript/file-object/  */
  function changeImg(input) {
-	<!--  https://taeny.dev/javascript/file-object/  -->
- 	var url = URL.createObjectURL(input.files[0])
-	$('#imgArea img').attr('src', url)  
- }
- 
+	
+	 	var url = URL.createObjectURL(input.files[0])
+		$('#imgArea img').attr('src', url)  
+	 }
+	 
  
  
  

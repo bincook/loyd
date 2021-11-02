@@ -24,6 +24,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.loyd.dao.MemberDao;
+import kr.co.loyd.dao.QnaDao;
 import kr.co.loyd.dao.WatchDao;
 import kr.co.loyd.dto.MemberDto;
 import kr.co.loyd.dto.WatchDto;
@@ -312,7 +313,13 @@ public class AdminController {
 		return "redirect:/admin/watch/watch_list";
 	 }
 	 
-	 
+     @RequestMapping(value = "/dash-board")
+     public String dash_board(Model model,HttpServletRequest request)
+     {
+    	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
+
+         return "admin/dash-board";
+     }
 	 
 	 
 	 

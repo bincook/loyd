@@ -9,32 +9,32 @@
 <title>상품 상세 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <style>
- #whole{
-  font-size:14px;
-  text-align:center;
-  color:#4D4D4D;  
- }
- header{
-  height:70px;
-  background:#E9F4D1;
-  text-align:center;
-  color:#4D4D4D;
- }
- table{
-  align:center;
-  margin:auto;
-  width:1000px;
-  color:#6A6A6A;
-  padding:100px;
- }
- tr{
- border-radius:10px;
- box-shadow:0px -2px 13px 0px skyblue;
- }
- td{
- padding:10px;
- }
- 
+	 #whole{
+	  font-size:14px;
+	  text-align:center;
+	  color:#4D4D4D;  
+	 }
+	 header{
+	  height:70px;
+	  background:#E9F4D1;
+	  text-align:center;
+	  color:#4D4D4D;
+	 }
+	 table{
+	  align:center;
+	  margin:auto;
+	  width:1000px;
+	  color:#6A6A6A;
+	  padding:100px;
+	 }
+	 tr{
+	 border-radius:10px;
+	 box-shadow:0px -2px 13px 0px skyblue;
+	 }
+	 td{
+	 padding:10px;
+	 }
+	 
  </style>
   <script> 
   window.onload = function() {
@@ -57,8 +57,7 @@
 	 	var url = URL.createObjectURL(input.files[0])
 		$('#imgArea img').attr('src', url)  
 	 }
- 
- 
+  
  </script>
 </head>
 <body>

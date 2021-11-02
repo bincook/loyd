@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="kr.co.loyd.dao.QnaDao">
 
-
-	<insert id="insert_ok" >
-		insert into qna(content,title,pwd,secret,qnatype,email,writeday) 
-		values (#{content},#{title},#{pwd},#{secret},#{qnatype},#{email},now()) where watch_id=1
+	<insert id="insert_ok" >		
+		insert into 
+		qna(watch_id,content,title,pwd,secret,qnatype,email,writeday) 
+		values(#{watch_id}, #{content}, #{title},#{pwd},#{secret},#{qnatype},#{email},now())
 	</insert>
-
-
-	<select id="qna" resultType="kr.co.loyd.dto.QnaDto">
-		select name,writeday,qnatype from qna
+ 
+ 	<!--   Q&A 문의글 목록 (원래)  -->
+	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
+		select qnatype,content,email,writeday,secret from qna 
+		order by secret desc, writeday desc limit #{param1},7
 	</select>
-
- 
- 
+	 
+	 <!-- Q&A 문의글 목록(페이징) -->
+	<select id="get_cnt" resultType="Integer">
+ 		select ceil(count(*)/7) from qna
+	</select>
+	
+	
+<!-- 	
+	 Q&A 문의글 목록(페이징)test용 
+	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
+		select * from qna order by id desc limit #{param1},7
+	</select> 
+  -->
 </mapper>

@@ -87,7 +87,7 @@
 	  var checkedInput = $("input:checked")
 	  watchIds = []
 	  
-	  console.log(checkedInput.length)	  
+//	  console.log(checkedInput.length)	  
 	  if(checkedInput.length < 1)
 		  {
 		  document.getElementById("ctn_show").style.display="none"; 
