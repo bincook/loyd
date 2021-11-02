@@ -10,9 +10,8 @@
 		ON wt.id = ol.watch_id
 		LEFT JOIN `member` mb
 		ON mb.id = ol.member_id
-		WHERE mb.email = #{param1 }
-		<!-- WHERE ${param2 } like concat('%',#{param3 },'%') -->
-		ORDER BY id DESC
+		WHERE mb.email = #{param1 } and ${param2 } like concat('%',#{param3 },'%')
+		ORDER BY ol.id DESC
 		LIMIT 10
 	</select>
 	
@@ -34,7 +33,7 @@
 	</select>
 	
 	<select id="wishlist" resultType="kr.co.loyd.dto.MypageDto">
-		SELECT wl.id, count, wt.name, watch_id
+		SELECT wl.id, count, wt.name
 		FROM `wishlist` wl
 		LEFT JOIN `watch` wt
 		ON wt.id = wl.watch_id

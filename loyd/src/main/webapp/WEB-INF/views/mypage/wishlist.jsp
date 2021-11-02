@@ -29,13 +29,13 @@
 			
 		</tr>
 	
-		<c:forEach items="${wishlist }" var="list">
+		<c:forEach items="${wishlist }" var="wish">
 		
 			<tr>
 			
-				<td> ${list.id }</td>
-				<td> ${list.name }</td>
-				<td> ${list.count }</td>
+				<td> ${wish.id }</td>
+				<td> ${wish.name }</td>
+				<td> ${wish.count }</td>
 				
 			</tr>
 			

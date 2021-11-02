@@ -71,11 +71,11 @@ public class MyPageController {
     	
     	String email = request.getParameter("email");
     			
-    	ArrayList<MypageDto> list = mydao.order_list(email, index);
+    	ArrayList<MypageDto> list = mydao.order_list(email, field, word, index);
     	
     	model.addAttribute("list", list);
-    	// model.addAttribute("field", field);
-    	// model.addAttribute("word", word);
+    	model.addAttribute("field", field);
+    	model.addAttribute("word", word);
     	model.addAttribute("email", email);
     	model.addAttribute("pstart", pstart);
     	model.addAttribute("pend", pend);
@@ -116,12 +116,13 @@ public class MyPageController {
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	
     	String email = request.getParameter("email");
-    	ArrayList<MypageDto> wishlist = mydao.enquiry(email);
+    	ArrayList<MypageDto> wishlist = mydao.wishlist(email);
     	
     	model.addAttribute("wishlist", wishlist);
     	
     	return "mypage/wishlist";
     }
+    
     @RequestMapping("/mypage/watch-care")
     public String watchcare(){
     	

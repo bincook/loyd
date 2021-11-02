@@ -62,14 +62,14 @@ form {
 	
 	
 	<!-- 회원 본인만 볼 수 있도록하는 페이지 -->
-	<!-- 
+	
 		 <form name="pkc" method="post" action="order_list" onsubmit="search()">
-		 
+		 	<input type="hidden" value="${email }">
 			<select name="field">
 				<option value="empty"> 선택</option>
-				<option value="name"> 상품명</option>
+				<option value="wt.name"> 상품명</option>
 				<option value="ol.id"> 주문번호 </option>
-				<option value="orderday"> 주문날짜 </option>
+				<option value="ol.orderday"> 주문날짜 </option>
 			</select>
 			
 			<input type="text" name="word" value="${word }">
@@ -77,7 +77,7 @@ form {
 			<button type="submit"> 검색</button>
 		
 		</form>
-	  -->
+	 
 	<table width="1100px" align="center">
 	
 		<tr>
