@@ -110,6 +110,18 @@ public class MyPageController {
     	return "mypage/enquiry";
     }
     
+    @RequestMapping("/mypage/wishlist")
+    public String wishlist(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+    	
+    	String email = request.getParameter("email");
+    	ArrayList<MypageDto> wishlist = mydao.enquiry(email);
+    	
+    	model.addAttribute("wishlist", wishlist);
+    	
+    	return "mypage/wishlist";
+    }
     @RequestMapping("/mypage/watch-care")
     public String watchcare(){
     	
