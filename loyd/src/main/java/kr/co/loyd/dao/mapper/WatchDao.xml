@@ -19,9 +19,6 @@
 		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
 	</insert>
 
-	<update id="update">
-		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
-	</update>
 	
 	<!-- 관리자가 상품 등록 -->
 	<insert id="upload_ok" parameterType="kr.co.loyd.dto.WatchDto">
@@ -40,23 +37,25 @@
 	</select>
 		<!-- 상품 목록(페이징) -->
 
+    <!-- 상품 삭제 -->
+	<delete id="delete">
+		delete from watch where id = #{param1}
+	</delete>
 
-	
-	
-	
+
 	<!-- 상품 상세  -->
 	<select id="content" resultType="kr.co.loyd.dto.WatchDto">
         select * from watch where id=#{param1}
     </select>
     
-    <!-- 상품 삭제 -->
-	<delete id="delete">
-		delete from watch where id = #{param1}
-	</delete>
+    <select id="update" resultType="kr.co.loyd.dto.WatchDto">
+        select * from watch where id=#{param1}
+    </select>   
+
 	
 	<insert id="update_ok" parameterType="kr.co.loyd.dto.WatchDto">
-		update watch set name=#{name},#brand={brand},price=#{price},category=#{category},
-		content=#{content},discount=#{discount},picture#{picture},kind#{kind} where id=#{id}
+		update watch set name=#{name},brand=#{brand},price=#{price},category=#{category},
+		content=#{content},discount=#{discount},picture=#{picture},kind=#{kind} where id=#{id}
 	</insert>
 	
 	

@@ -59,7 +59,7 @@
   			}
   			else{ 
   				// ajax에선 checked가 아닌 attr로 사용해야함
-  				$("input[name='allcheck']").attr("checked",false);
+  				$("input[name='allcheck']").prop("checked",false);
   			}  			
   		});
   });
