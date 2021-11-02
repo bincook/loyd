@@ -4,8 +4,38 @@ public class MypageDto {
 
 	private int id, price, watch_id, member_id, count;
 	private double discount;
-	private String orderday, name, picture, brand, category, content, kind;
+	private String orderday, name, picture, brand, category, content, kind, email, title, pwd, qnatype, secret;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+	public String getQnatype() {
+		return qnatype;
+	}
+	public void setQnatype(String qnatype) {
+		this.qnatype = qnatype;
+	}
+	public String getSecret() {
+		return secret;
+	}
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getBrand() {
 		return brand;
 	}

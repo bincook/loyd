@@ -52,12 +52,19 @@ form {
 	
 	session 정보로 입력이 된 경우
 	로그인 정보를 읽어내서 로그인 했음을 알리는 경우
-	<c:if test="로그인을 했을 경우">
-	 --%>
+	
+	--%>
+	<c:if test="${email == null }">
+		로그인하세요.
+	</c:if>
+	
+	<c:if test="${email != null }">
+	
 	
 	<!-- 회원 본인만 볼 수 있도록하는 페이지 -->
-		<form name="pkc" method="post" action="order_list" onsubmit="search()">
-		<!-- 검색기능 -->
+	<!-- 
+		 <form name="pkc" method="post" action="order_list" onsubmit="search()">
+		 
 			<select name="field">
 				<option value="empty"> 선택</option>
 				<option value="name"> 상품명</option>
@@ -70,7 +77,7 @@ form {
 			<button type="submit"> 검색</button>
 		
 		</form>
-	
+	  -->
 	<table width="1100px" align="center">
 	
 		<tr>
@@ -95,9 +102,10 @@ form {
 				(${mydto.count })
 			</td>
 			<td align="center"> ${mydto.orderday }</td>
-			<!-- 문의 내역 페이지로 이동하기 -->
+			<!-- 마이페이지-문의 내역 페이지로 이동하기 (email, watch_id 필요) -->
 			<td align="center">
 				<a href=""> 문의내역</a>
+				<!-- enquiry?email=${email }&watch_id=${mydto.watch_id } -->
 			</td>
 		</tr>
 		
@@ -154,5 +162,7 @@ form {
 		
 	</table>
 
+
+	</c:if>
 </body>
 </html>

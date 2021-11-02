@@ -8,8 +8,10 @@
 		FROM `order list` ol
 		LEFT JOIN watch wt
 		ON wt.id = ol.watch_id
-		<!-- WHERE memb	er_id = 7 -->
-		WHERE ${param1} like concat('%',#{param2},'%')
+		LEFT JOIN member mb
+		ON mb.id = ol.member_id
+		WHERE mb.email = #{param1 }
+		<!-- WHERE ${param2 } like concat('%',#{param3 },'%') -->
 		ORDER BY id DESC
 		LIMIT 10
 	</select>
@@ -23,6 +25,12 @@
 	<select id="page_cnt" resultType="Integer">
 		SELECT ceil(count(*) /10)
 		FROM `order list`
+	</select>
+	
+	<select id="enquiry" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT *
+		FROM `qna`
+		WHERE email = #{param1 }
 	</select>
 
 </mapper>

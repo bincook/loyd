@@ -69,11 +69,14 @@ public class MyPageController {
     		word = request.getParameter("word");
     	}
     	
-    	ArrayList<MypageDto> list = mydao.order_list(field, word, index);
+    	String email = request.getParameter("email");
+    			
+    	ArrayList<MypageDto> list = mydao.order_list(email, index);
     	
     	model.addAttribute("list", list);
-    	model.addAttribute("field", field);
-    	model.addAttribute("word", word);
+    	// model.addAttribute("field", field);
+    	// model.addAttribute("word", word);
+    	model.addAttribute("email", email);
     	model.addAttribute("pstart", pstart);
     	model.addAttribute("pend", pend);
     	model.addAttribute("page", page);
@@ -92,5 +95,24 @@ public class MyPageController {
     	model.addAttribute("list", list2);
     	
     	return "mypage/order_detail";
+    }
+    
+    @RequestMapping("/mypage/enquiry")
+    public String enquiry(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+    	
+    	String email = request.getParameter("email");
+    	ArrayList<MypageDto> enquiry = mydao.enquiry(email);
+    	
+    	model.addAttribute("enquiry", enquiry);
+    	
+    	return "mypage/enquiry";
+    }
+    
+    @RequestMapping("/mypage/watch-care")
+    public String watchcare(){
+    	
+    	return "mypage/watch-care";
     }
 }
