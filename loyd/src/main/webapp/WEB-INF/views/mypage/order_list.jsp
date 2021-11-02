@@ -17,11 +17,6 @@ function search(){
 }
 
 
-function detail(n){
-	
-	window.open("/member/order_detail?id='n'","","width=800, height=400")
-}
-
 </script>
 
 
@@ -34,36 +29,54 @@ table {
 th {
 	text-align: center;
 }
+
+td {
+	text-overflow: ellipsis;
+}
+
+form {
+	align: center;
+}
 </style>
 </head>
 <body>
-
-	<!-- 아직 회원만 볼 수 있는 조건을 달지 않음 -->
 	
+	<!-- 아직 회원만 볼 수 있는 조건을 달지 않음 -->
+	<%-- 
+	<c:if test="로그인정보가 없는 경우">
+		로그인페이지로 이동하기
+		(java) response.sendRedirect(로그인 주소);
+		javascript:function(로그인 주소);
+		
+	</c:if>
+	
+	session 정보로 입력이 된 경우
+	로그인 정보를 읽어내서 로그인 했음을 알리는 경우
+	<c:if test="로그인을 했을 경우">
+	 --%>
 	
 	<!-- 회원 본인만 볼 수 있도록하는 페이지 -->
-	<form name="pkc" method="post" action="order_list" onsubmit="search()">
-	<!-- 검색기능 -->
-		<select name="field">
-			<option value="empty"> 선택</option>
-			<option value="name"> 상품명</option>
-			<option value="ol.id"> 주문번호 </option>
-			<option value="orderday"> 주문날짜 </option>
-		</select>
+		<form name="pkc" method="post" action="order_list" onsubmit="search()">
+		<!-- 검색기능 -->
+			<select name="field">
+				<option value="empty"> 선택</option>
+				<option value="name"> 상품명</option>
+				<option value="ol.id"> 주문번호 </option>
+				<option value="orderday"> 주문날짜 </option>
+			</select>
+			
+			<input type="text" name="word" value="${word }">
+			
+			<button type="submit"> 검색</button>
 		
-		<input type="text" name="word" value="${word }">
-		
-		<button type="submit"> 검색</button>
+		</form>
 	
-	</form>
-	
-	<table width="1100px">
+	<table width="1100px" align="center">
 	
 		<tr>
 			<th width="10%"> 주문번호</th>
-			<th width="45%"> 상품명</th>
-			<th width="5%"> 수량</th>
-			<th width="15%"> 총 가격</th>
+			<th> 상품명</th>
+			<th width="15%"> 총 가격 (수량)</th>
 			<th width="15%"> 날짜</th>
 			<th> &nbsp;</th>
 		</tr>
@@ -71,24 +84,26 @@ th {
 		<!-- 상품명 클릭할 경우 상품정보 조회 가능 토록 만들기 -->
 		<c:forEach items="${list }" var="mydto">
 
-
 		<tr>
-			<td> ${mydto.id }</td>	
+			<td align="center"> ${mydto.id }</td>	
 			<!-- 상품명이 길 경우 ... 으로 변경해주기 -->
-			<td> <img width="50" src="${mydto.picture }"><a href="javascript:detail(${mydto.watch_id })">${mydto.name }</a></td>
-			<td> ${mydto.count }개</td>
+			<td height="50px"> <img height="50px" src="${mydto.picture }"><a href="order_detail?id=${mydto.watch_id }">${mydto.name }</a></td>
 			<!-- 소수점 정수로 변환 해주기 -->
 			<!-- 계산식 변경 있을 경우 바꿔주기 -->
-			<td>
+			<td align="center">
 				<fmt:formatNumber value="${mydto.price *mydto.count *(1 -mydto.discount) }" pattern="#,###" />원
+				(${mydto.count })
 			</td>
-			<td> ${mydto.orderday }</td>
+			<td align="center"> ${mydto.orderday }</td>
 			<!-- 문의 내역 페이지로 이동하기 -->
-			<td> <a href="">문의내역</a></td>
+			<td align="center">
+				<a href=""> 문의내역</a>
+			</td>
 		</tr>
+		
 		</c:forEach>
 		
-		<tr>
+		<tr align="center">
 			<td colspan="5">
 			
 				<c:if test="${pstart != 1}">

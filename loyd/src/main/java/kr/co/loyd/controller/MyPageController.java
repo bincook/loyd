@@ -74,7 +74,6 @@ public class MyPageController {
     	model.addAttribute("list", list);
     	model.addAttribute("field", field);
     	model.addAttribute("word", word);
-    	
     	model.addAttribute("pstart", pstart);
     	model.addAttribute("pend", pend);
     	model.addAttribute("page", page);
@@ -84,13 +83,14 @@ public class MyPageController {
     }
     
     @RequestMapping("/mypage/order_detail")
-    public String order_detail(Model model) {
+    public String order_detail(Model model, HttpServletRequest request) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
-    	ArrayList<MypageDto> list2 = mydao.order_detail_list();
-   
+    	String id = request.getParameter("id");
+    	MypageDto list2 = mydao.order_detail(id);
+
     	model.addAttribute("list", list2);
     	
-    	return "/mypage/order_detail";
+    	return "mypage/order_detail";
     }
 }

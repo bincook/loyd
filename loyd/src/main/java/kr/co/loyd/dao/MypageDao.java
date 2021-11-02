@@ -8,5 +8,5 @@ public interface MypageDao {
 
 	public Integer page_cnt();
 	public ArrayList<MypageDto> order_list(String field, String word, int index);
-	public ArrayList<MypageDto> order_detail_list();
+	public MypageDto order_detail(String id);
 }

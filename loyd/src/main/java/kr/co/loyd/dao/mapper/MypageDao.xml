@@ -14,7 +14,7 @@
 		LIMIT 10
 	</select>
 	
-	<select id="order_detail_list" resultType="kr.co.loyd.dto.MypageDto">
+	<select id="order_detail" resultType="kr.co.loyd.dto.MypageDto">
 		SELECT *
 		FROM watch
 		WHERE id = #{param1 }

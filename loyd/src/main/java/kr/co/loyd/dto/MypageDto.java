@@ -4,9 +4,32 @@ public class MypageDto {
 
 	private int id, price, watch_id, member_id, count;
 	private double discount;
-	private String orderday, name, picture;
+	private String orderday, name, picture, brand, category, content, kind;
 	
-	
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 	public String getPicture() {
 		return picture;
 	}
