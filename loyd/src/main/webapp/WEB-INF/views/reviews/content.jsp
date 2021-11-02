@@ -58,8 +58,8 @@ function resizeWindow(win)    {
 </head>
 <body onload='resizeWindow(this)'>
 
-	<div id="content">
-		<table width="400" height="400" align="center" border="1">
+	<div id="content" style="display: inline-block" >
+		<table width="400" height="400" align="center" border="1" >
 
 			<tr>
 				<td colspan="3" align="center">
@@ -108,39 +108,39 @@ function resizeWindow(win)    {
 	</div>
 	
 
-	<!-- bs4 -->
-	<!-- <div class="card" style="width:400px"> -->
-	<!--   <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
-	<!--   <div class="card-body"> -->
-	<!--     <h4 class="card-title">별점</h4> -->
+<!-- 	bs4 -->
+<!-- 	<div class="card" style="width:400px"> -->
+<!-- 	  <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
+<!-- 	  <div class="card-body"> -->
+<!-- 	    <h4 class="card-title">별점</h4> -->
 
-	<!--     <p class="card-text">시계 아이디</p> -->
-	<!--     <p class="card-text">내용 1</p> -->
-	<!--     <p class="card-text">내용 2</p> -->
-	<!--     <a href="#" class="btn btn-primary">See Profile</a> -->
-	<!--   </div> -->
-	<!-- </div> -->
+<!-- 	    <p class="card-text">시계 아이디</p> -->
+<!-- 	    <p class="card-text">내용 1</p> -->
+<!-- 	    <p class="card-text">내용 2</p> -->
+<!-- 	    <a href="#" class="btn btn-primary">See Profile</a> -->
+<!-- 	  </div> -->
+<!-- 	</div> -->
 
 
 	<!-- 댓글 -->	
-	<div >
-	<table width="300" border="1"> <!-- align="bottom" -->
-		<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 -->
-		<tr>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>작성자</th>
-			<th>댓글내용</th>
-		</tr>
-		<tr>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-		</tr>
-	
-	
-	</table>
+	<div style="display: inline-block; padding-left:100px;" align="right">
+		<table width="300" border="1"> <!-- align="bottom" -->
+			<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 -->
+			<tr>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>작성자</th>
+				<th>댓글내용</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+		
+		
+		</table>
 	</div>
 	
 	

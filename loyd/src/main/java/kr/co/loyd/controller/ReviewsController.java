@@ -246,16 +246,80 @@ public class ReviewsController {
 	
 	//** 수정_ok 페이지 **//*
 	@RequestMapping ("/reviews/update_ok")
-	public String update_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) {
+	public String update_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
 		
 		System.out.println("aads");
 		System.out.println(dto);
+		
+		
 		
 //		ReviewsDao dao = sqlSession.getMapper(ReviewsDao.class);
 //		System.out.println("===========================================");
 //		
 //		// 수정확인
 //		dao.update_ok(dto);
+		
+		
+		
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		
+		// 로그인을 하지않으면 로그인페이지로 이동하기
+		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
+		
+		if(memberIdObj==null) {
+			return "redirect:/mber/login";
+		}
+		String memberId = ""+ memberIdObj;
+		dto.setMember_id(Integer.parseInt(memberId));
+		
+		
+//		// watch 테이블에서 시게이름 가져오기
+		// 마이페이지나 상품 상세페이지 가장 하단이 적절해보여요 (watch_id 받아오기)
+//		WatchDto wdto2 = rdao.input_watch(wdto);
+//		rdao.input_watch(wdto);
+//		session.setAttribute("watch_name", wdto2.getName());
+
+
+		
+		// 이미지적용
+		MultipartFile multipartFile = request.getFile("name");
+		
+		
+
+		// MultipartFile multipartFile =
+		// request.getFile("localhost/loyd/reviews/list"+"file");
+		// 파일 있는 경우
+		if (!multipartFile.isEmpty()) {
+			String realPath = request.getSession().getServletContext().getRealPath("resources/img");
+			File file = new File(realPath, multipartFile.getOriginalFilename()); // 파일명
+			String filename = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+			String path = "resources/img"; // 파일경로 // path로 저장
+			FileCopyUtils.copy(multipartFile.getBytes(), file); // 파일 저장 됨
+
+			AddfileDao adao = sqlSession.getMapper(AddfileDao.class);
+
+			// dto 생성
+			AddfileDto addFileDto = new AddfileDto();
+			addFileDto.setName(filename);
+			addFileDto.setPath(path);
+
+			// add_file 테이블에 insert 쿼리문
+			
+			int insertedId = adao.insert(addFileDto);
+
+			// 방금 addFile 테이블에 저장되 었던 id 를 reviews_dto.file_id 에 넣기
+			dto.setFile_id(insertedId);
+
+			rdao.writeOk2(dto);
+
+			// 파일 없는 경우
+		} else {
+			rdao.writeOk1(dto);
+		}
+
+
+
+//		return "redirect:/reviews/list";	
 		return "redirect:/reviews/content?review_id="+dto.getReview_id();
 
 		

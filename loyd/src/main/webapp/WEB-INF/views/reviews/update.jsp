@@ -53,6 +53,11 @@
   left: 2px;
 }
 
+#top {
+	padding top: 200px;
+}
+
+
 </style>
 
 
@@ -91,12 +96,12 @@
 <body>
 	
 
-    <div class="container bg-light" style="height: 800px;">
+    <div class="container bg-light" style="height: 800px;" id="top">
         <form name="updateForm" method="post" action="update_ok" enctype="multipart/form-data">
         <input type="hidden" name="review_id" value="${update_dto.review_id }">
         
                  
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="padding-top:500px">
 					 <tr>
 						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
 						 
@@ -142,6 +147,10 @@
 	                    <div id="imgAcd">
 <!-- 	                    <td><input type="file" name="iname1"></td> -->
 							<td>
+								<img wdith="100" height="50"  
+						        			src="<c:url value="/${review.path }/${review.name }" />"  
+						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+					        		
 								<p class="iname"><input type="file" name="name" value="imgtest"></p>
 							</td>
 	                        
