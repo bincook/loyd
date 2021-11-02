@@ -70,6 +70,7 @@ public class ReviewsController {
 	public String write_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		
 		// 로그인을 하지않으면 로그인페이지로 이동하기
 		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
 		
@@ -217,41 +218,71 @@ public class ReviewsController {
 		System.out.println("review Id -> " + review_id);
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		rdao.delete(review_id);
+		
+		//삭제전 비밀번호 다시한번더 묻기
+		
+		
 		return "redirect:/reviews/list";
 
 	}
 	
 	
-	//** 수정 페이지 **//*
+	//** 수정 페이지 **//
 	@RequestMapping ("/reviews/update")
-	public String update() {
-//		int reviewId=Integer.parseInt(request.getParameter("review_id"));
-//		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-//		
-//		ReviewsDto rdto = rdao.content(reviewId);   // content에선 review_id로 썼었음 
-//		model.addAttribute("update_dto",rdto);	
-		return "reviews/update";
+	public String update(Model model, HttpServletRequest request) {
+		
+		int review_id=Integer.parseInt(request.getParameter("review_id"));
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		ReviewsDto rdto = rdao.update(review_id);   // content에선 review_id로 썼었음 
+		model.addAttribute("update_dto",rdto);	
+	
+		return "/reviews/update";
 		
 	}
 	
 	
 	
 	
-/*	//** 수정_ok 페이지 **//*
-	@RequestMapping ("/reviews/update_ok")
-	public String update_ok(HttpSession session, MberDto dto, Model model) {
 	
-		int review_id=Integer.parseInt(request.getParameter("review_id"));
-		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-		ReviewsDto rdto = rdao.content(review_id);
-//		rdao.content(rdto);
-		model.addAttribute("reviews",rdto);
+	//** 수정_ok 페이지 **//*
+	@RequestMapping ("/reviews/update_ok")
+	public String update_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) {
+		
+		System.out.println("aads");
+		System.out.println(dto);
+		
+//		ReviewsDao dao = sqlSession.getMapper(ReviewsDao.class);
+//		System.out.println("===========================================");
+//		
+//		// 수정확인
+//		dao.update_ok(dto);
+		return "redirect:/reviews/content?review_id="+dto.getReview_id();
 
 		
-		
-		
-		return "redirect:/reviews/update_ok";
-	}*/
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/* 댓글 만들기 */
+	
+	/* 수정 완성하기 */
+	
+	
+	
+	
 
 	
 	/* 댓글 페이지 */

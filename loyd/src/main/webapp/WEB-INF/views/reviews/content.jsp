@@ -41,13 +41,23 @@ onbeforeunload = function() {  // beforeunload 이벤트
 	opener.document.location.reload();
 }
 
+
+// 윈도우 창크기 변경하기(실패)
+function resizeWindow(win)    {
+	var wid = win.document.body.offsetWidth + 700;
+	var hei = win.document.body.offsetHeight + 600;        //30 과 40은 넉넉하게 하려는 임의의 값임
+	win.resizeTo(wid,hei);
+}
+
+
+
+
 </script>
 
 
 </head>
-<body>
-<!-- 	<div id="content"  style="display: inline-block"> -->
-<!-- 	<div id="content"  style="float:right;"> -->
+<body onload='resizeWindow(this)'>
+
 	<div id="content">
 		<table width="400" height="400" align="center" border="1">
 
@@ -88,7 +98,7 @@ onbeforeunload = function() {  // beforeunload 이벤트
 					<a id="close" href="javascript:del_content()">삭제하기</a>
 				</td>
 				<td>
-					<a href="update">수정하기 </a>				
+					<a href="update?review_id=${reviews.review_id }">수정하기 </a>				
 				</td>
 				<td>
 					<a href="javascript:cnt_readnum()">창닫기</a>
@@ -136,16 +146,16 @@ onbeforeunload = function() {  // beforeunload 이벤트
 	
 	
 	
-	<div style="width:200px; height:150px; border:1px solid red; float:left;">
-첫번째 영역:
-왼쪽에 위치시킴 =>  float:left
-여기에 그림이나 글자 또는 광고 등을 넣음
-</div>
-<div style="width:200px; height:150px; border:1px solid green; float:left;">
-두번째 영역:
-첫번째 영역 옆에 나란히 붙임 => float:left
-여기에 그림이나 글자 또는 광고 등을 넣음
-</div>
+<!-- 	<div style="width:200px; height:150px; border:1px solid red; float:left;"> -->
+<!-- 		첫번째 영역: -->
+<!-- 		왼쪽에 위치시킴 =>  float:left -->
+<!-- 		여기에 그림이나 글자 또는 광고 등을 넣음 -->
+<!-- 	</div> -->
+<!-- 	<div style="width:200px; height:150px; border:1px solid green; float:left;"> -->
+<!-- 		두번째 영역: -->
+<!-- 		첫번째 영역 옆에 나란히 붙임 => float:left -->
+<!-- 		여기에 그림이나 글자 또는 광고 등을 넣음 -->
+<!-- 	</div> -->
 	
 	
 	

@@ -56,20 +56,31 @@
 
 </style>
 <script>
+// 검색기능을 위한 field, word 값 가져오기
 window.onload=function() {
 	document.search.field.value="${field}";
 }
 
- function open_content (review_id) {
+// 윈도우 content로 이동하기
+function open_content (review_id) {
 	var window2 = window.open('readnum?review_id='+review_id, '','width=700,height=900') // 모달 다이얼로그
 } 
- 
+
+
+//윈도우 창크기 변경하기(실패)
+function resizeWindow(win)    {
+	var wid = win.document.body.offsetWidth + 700;
+	var hei = win.document.body.offsetHeight + 600;        //30 과 40은 넉넉하게 하려는 임의의 값임
+	win.resizeTo(wid,hei);
+}
+
 	
 </script>
 
 
 </head>
-<body>
+<body onload='resizeWindow(this)'>
+
 
 	<!-- 타이틀 부분 -->
 	    <table width="500" align="center" border="1">
@@ -102,9 +113,13 @@ window.onload=function() {
 
 
 						        <td><a href="javascript:open_content(${review.review_id})">
+<!-- 						        	<a href=" javascript:function resizeWindow(win) "> -->
+						        
 						        		<img wdith="100" height="50"  
 						        			src="<c:url value="/${review.path }/${review.name }" />"  
 						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
+					        		
+					        		</a>
 					        		</a>
 						        </td>			        
 						        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
@@ -117,7 +132,7 @@ window.onload=function() {
 						        </td>
 						        <td>${name }</td>
 
-								<td><a href="javascript:open_content(${review.review_id})">
+								<td><a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
 									${review.content}
 									</a>
 								</td>

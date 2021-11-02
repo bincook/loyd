@@ -61,12 +61,23 @@
 	<delete id="delete">
 		delete from reviews where review_id=#{param1}
 	</delete>
-	<update id="update" parameterType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews where id=#{param1}
-	</update>
-	<select id="input_watch" resultType="kr.co.loyd.dto.WatchDto">
-		select * from watch where id=#{param1}
+	
+	
+	<select id="update" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews where review_id=#{param1}
 	</select>
+	
+	<update id="update_ok" parameterType="kr.co.loyd.dto.ReviewsDto">
+		update reviews set 
+			file_id=#{file_id}, 
+			content=#{content},
+			rate=#{rate}
+		where review_id=#{review_id}
+			
+		 
+	</update>
+	
+
 
 	
 
