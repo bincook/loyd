@@ -33,9 +33,32 @@
 		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch limit #{param1},12
 	</select>
 	
-	<select id="get_page" resultType="integer">
+	<select id="men_product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch where category in ("남성","공용") limit #{param1},12
+	</select>
+	
+	<select id="women_product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch where category in ("여성","공용") limit #{param1},12
+	</select>
+	
+	
+	
+	
+	
+	<select id="get_page" resultType="integer" >
 		select ceil(count(*)/10)  from watch 
 	</select>
+	
+	<select id="men_get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch where category in ("남성","공용")
+	</select>
+	
+	<select id="women_get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch where category in ("여성","공용")
+	</select>
+	
+	
+	
 	
 	<select id="watch_detail" resultType="kr.co.loyd.dto.OrderDto">
 		select * from watch_detail where watch_id=#{param1} order by id

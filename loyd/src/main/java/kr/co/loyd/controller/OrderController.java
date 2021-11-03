@@ -126,6 +126,109 @@ public class OrderController {
 		return "/order/product_list";
 	}
 	
+	@RequestMapping("/men_product_list")
+	public String men_product_list(Model model,HttpServletRequest request) {
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		
+		int page;
+		
+		if(request.getParameter("page")==null) {
+			page =1;
+		}else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int index = (page-1)*10;
+		
+		ArrayList<OrderDto> list = dao.men_product_list(index);
+		
+		
+		int pstart = page /10;
+		
+		if(page % 10 ==0) {
+			pstart = pstart-1;
+		}
+		
+		pstart = (pstart*10) +1;
+		
+		int pend = pstart+9;
+		
+		int page_cnt=dao.men_get_page();
+		
+		if(pend>page_cnt) {
+			pend=page_cnt;
+		}
+		
+		
+		
+		model.addAttribute("page",page);
+		model.addAttribute("pstart",pstart);
+		model.addAttribute("pend",pend);
+		model.addAttribute("page_cnt",page_cnt);
+		model.addAttribute("list",list);
+		
+		return "/order/men_product_list";
+	}
+	
+	@RequestMapping("/women_product_list")
+	public String women_product_list(Model model,HttpServletRequest request) {
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		
+		int page;
+		
+		if(request.getParameter("page")==null) {
+			page =1;
+		}else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int index = (page-1)*10;
+		
+		ArrayList<OrderDto> list = dao.women_product_list(index);
+		
+		
+		int pstart = page /10;
+		
+		if(page % 10 ==0) {
+			pstart = pstart-1;
+		}
+		
+		pstart = (pstart*10) +1;
+		
+		int pend = pstart+9;
+		
+		int page_cnt=dao.women_get_page();
+		
+		if(pend>page_cnt) {
+			pend=page_cnt;
+		}
+		
+		
+		
+		model.addAttribute("page",page);
+		model.addAttribute("pstart",pstart);
+		model.addAttribute("pend",pend);
+		model.addAttribute("page_cnt",page_cnt);
+		model.addAttribute("list",list);
+		
+		return "/order/women_product_list";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/pay")
 	public String pay(OrderDetailDto dto) {
