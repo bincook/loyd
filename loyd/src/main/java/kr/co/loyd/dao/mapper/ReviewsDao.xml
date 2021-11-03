@@ -59,6 +59,12 @@
 		where review_id=#{param1}
 		
 	
+<<<<<<< HEAD
+	<!-- 대시보드 목록 조회 -->
+	<select id="dash_listr" resultType="kr.co.loyd.dto.ReviewsDto">
+		select content,writeday from reviews order by writeday desc limit 0,5
+=======
+>>>>>>> developer
 	</select>
 	
 	<delete id="delete">

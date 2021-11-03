@@ -4,6 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<<<<<<< HEAD
+
+=======
+>>>>>>> developer
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -59,7 +63,7 @@
   			}
   			else{ 
   				// ajax에선 checked가 아닌 attr로 사용해야함
-  				$("input[name='allcheck']").attr("checked",false);
+  				$("input[name='allcheck']").prop("checked",false);
   			}  			
   		});
   });
@@ -82,13 +86,20 @@
     	    },
     	});
   }
+<<<<<<< HEAD
+=======
 
+>>>>>>> developer
   function view()
   {  
 	  var checkedInput = $("input:checked")
 	  watchIds = []
 	  
+<<<<<<< HEAD
+//	  console.log(checkedInput.length)	  
+=======
 	  console.log(checkedInput.length)	  
+>>>>>>> developer
 	  if(checkedInput.length < 1)
 		  {
 		  document.getElementById("ctn_show").style.display="none"; 
@@ -105,12 +116,19 @@
 	 }
   }
   
+<<<<<<< HEAD
+=======
   
+>>>>>>> developer
  </script>
 </head>
 <body>
 
  <div id="whole">
+<<<<<<< HEAD
+
+=======
+>>>>>>> developer
    <header><h1>관리자 상품 목록</h1></header>
   
 	    <form name="del" method="post" action="delete">
@@ -139,13 +157,23 @@
            <td> <i class="bi bi-person-check-fill"></i>   </td>
            <td> <i class="bi bi-node-minus"></i> </td>
            <td width="60"> <i class="bi bi-stars"></i>   </td>
+<<<<<<< HEAD
+
+=======
+>>>>>>> developer
 		  </tr>	
 	  
 			<c:forEach items="${watch_list}" var="wdto">
 			<tr>
 			<!--  하나의 상품에 대한 체크박스 -->
 			<td onclick="view()"><input name="rowcheck" type="checkbox" value="${wdto.id}"></td>  	 
+<<<<<<< HEAD
+
 			 <td> ${wdto.id}</td>	
+
+=======
+			 <td> ${wdto.id}</td>	
+>>>>>>> developer
 		  
 		  	  
 		  <!--
@@ -173,6 +201,10 @@
 		  </tr>
 	 </c:forEach>  
 	 </form>	 
+<<<<<<< HEAD
+
+=======
+>>>>>>> developer
 	 	 <tr>
     <td colspan="10" align="center">
     
