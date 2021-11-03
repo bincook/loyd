@@ -4,8 +4,21 @@ public class MypageDto {
 
 	private int id, price, watch_id, member_id, count;
 	private double discount;
-	private String orderday, name, picture, brand, category, content, kind, email, title, pwd, qnatype, secret;
+	private String orderday, name, picture, brand, category, content, kind, email, title, pwd, qnatype, secret, datetime, writeday;
 	
+	
+	public String getWriteday() {
+		return writeday;
+	}
+	public void setWriteday(String writeday) {
+		this.writeday = writeday;
+	}
+	public String getDatetime() {
+		return datetime;
+	}
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
+	}
 	public String getTitle() {
 		return title;
 	}

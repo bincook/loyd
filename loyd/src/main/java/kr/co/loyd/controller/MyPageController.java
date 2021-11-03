@@ -123,6 +123,14 @@ public class MyPageController {
     	return "mypage/wishlist";
     }
     
+    @RequestMapping("/mypage/enquiry_detail")
+    public String enquiry_detail() {
+    	
+    	
+    	
+    	return "mypage/enquiry_detail";
+    }
+    
     @RequestMapping("/mypage/watch-care")
     public String watchcare(){
     	
