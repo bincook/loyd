@@ -18,6 +18,8 @@ public interface ReviewsDao {
 	public Integer get_pagecount(String field, String word);  // 페이징 카운트
 	public ArrayList<ReviewsDto> list2(String field, String word, int index);  // search 하기
 
+	public ReviewsDto getRvmem(int review_id); // 리스트에서 작성자이름 표시, member테이블의 name
+	
 	public void readnum(int reviewId);  // 조회수 페이지
 	public ReviewsDto content(int review_id); // content 페이지
 	public void delete(int review_id); //delete 페이지

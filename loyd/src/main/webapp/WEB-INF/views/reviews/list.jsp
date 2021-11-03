@@ -74,6 +74,11 @@ function resizeWindow(win)    {
 	win.resizeTo(wid,hei);
 }
 
+//로그안필요 alert 알림 띄우기
+ function btn(){
+	alert('로그인이 필요합니다')
+}	
+	
 	
 </script>
 
@@ -130,7 +135,7 @@ function resizeWindow(win)    {
 									 	☆
 								       </c:forEach>
 						        </td>
-						        <td>${name }</td>
+						        <td>${review.member_id }<%-- ${getRvmem.name } --%><%--  ${memberId.name } --%> </td>
 
 								<td><a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
 									${review.content}
@@ -218,7 +223,9 @@ function resizeWindow(win)    {
 				</c:if>
 				<!-- 비로그인일때 -->
 				<c:if test="${memberId == null }" >
-			  		<td height="100px" style="padding-top:15px; padding-left:200px;" >					
+			  		<td><a class="btn btn-primary" onclick="javascript:btn()" href="../mber/login"> 리뷰 작성하기</a></td>
+	  				
+	  				<td height="100px" style=padding-top:15px;>					
 				    	<form name="search" method="post" action="list">		    	
 				    		<select name="field">
 				    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 

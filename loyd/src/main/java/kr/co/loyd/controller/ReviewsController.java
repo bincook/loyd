@@ -131,10 +131,20 @@ public class ReviewsController {
 	}
 
 	@RequestMapping("/reviews/list")
-	public String listPage(WatchDto wdto, HttpSession session, HttpServletRequest request, Model model, ReviewsDto rdto) {
+	public String listPage(WatchDto wdto, HttpSession session, HttpServletRequest request, Model model ) {
 
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+//		// 로그인을 하지않으면 로그인페이지로 이동하기
+//		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
+//		
+////		if(memberIdObj==null) {
+////			return "redirect:/mber/login";
+////		}
+//		String memberId = ""+ memberIdObj;
+//		rdto.setMember_id(Integer.parseInt(memberId));
+		
+		
 		
 		// 검색
 		int page;
@@ -179,6 +189,16 @@ public class ReviewsController {
 		model.addAttribute("pstart",pstart);
 		model.addAttribute("pend",pend);
 		model.addAttribute("page_cnt",page_cnt);
+		
+		// reviews와 member 테이블을 합친후 member_id 대신 member의 name 불러오기
+
+		
+//		int review_id=Integer.parseInt(request.getParameter("review_id"));
+//
+//		ReviewsDto rdto = rdao.getRvmem(review_id);
+////		rdao.content(rdto);
+//		model.addAttribute("getRvmem",rdto);
+		
 		
 		return "/reviews/list";
 	}

@@ -10,7 +10,7 @@
 <body>
 
 <div>
-	<table>
+	<table >
 		<tr>
 			<th>주문자</th>
 			<th>주문날짜</th>

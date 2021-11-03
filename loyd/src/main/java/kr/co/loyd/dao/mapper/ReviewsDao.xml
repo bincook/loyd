@@ -50,6 +50,14 @@
 		limit
 		#{param3}, 10
 	</select>
+	<!-- 리스트에서 작성자를 member테이블의 name 으로 보이기 -->
+	<select id="getRvmem" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews r
+		left join member m
+		on r.member_id = m.id
+		where review_id = #{param1}
+	</select>
+	
 	
 	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
 		select * from reviews r

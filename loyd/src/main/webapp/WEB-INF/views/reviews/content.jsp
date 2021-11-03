@@ -93,16 +93,18 @@ function resizeWindow(win)    {
 				<td colspan="2">후기내용
 					<p>${reviews.content }</td>
 			</tr>
-			<tr>	
-				<td>
-					<a id="close" href="javascript:del_content()">삭제하기</a>
-				</td>
-				<td>
-					<a href="update?review_id=${reviews.review_id }">수정하기 </a>				
-				</td>
-				<td>
-					<a href="javascript:cnt_readnum()">창닫기</a>
-				</td>
+			<tr>
+				<c:if test="${memberId != null }" >
+					<td align="center">
+						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
+					</td>
+					<td align="center">
+						<a class="btn" style="background-color:#FCFF71;" href="update?review_id=${reviews.review_id }">수정하기 </a>				
+					</td>
+				</c:if>
+					<td colspan="3" align="right">
+						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
+					</td>
 			</tr>
 		</table>		
 	</div>
