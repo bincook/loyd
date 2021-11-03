@@ -23,7 +23,8 @@ public interface ReviewsDao {
 	public void delete(int review_id); //delete 페이지
 	
 	public ReviewsDto update(int review_id);  // update 수정하기
-	public void update_ok(ReviewsDto dto);
+	public void update_ok1(ReviewsDto dto);  // 파일이 없는경우(수정)
+	public void update_ok2(ReviewsDto dto);  // 파일이 없는경우(수정)
 	
 	
 
