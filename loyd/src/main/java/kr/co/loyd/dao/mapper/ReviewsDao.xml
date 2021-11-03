@@ -46,6 +46,10 @@
 	
 	
 	
+	<!-- 대시보드 목록 조회 -->
+	<select id="dash_listr" resultType="kr.co.loyd.dto.ReviewsDto">
+		select content,writeday from reviews order by writeday desc limit 0,5
+	</select>
 	
 	
 	

@@ -1,78 +1,68 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>어드민 대시보드 페이지</title>    
 </head>
 <body>
- 
   <div class="card" style="width:300px">
       <div class="card-header">
+      
         <a href="#" class="btn btn-primary stretched-link">Profile</a>
-        <span>총 회원 수 : </span>
+        <span>총 회원 수 : R ?</span>
     </div>
     <div class="card-body">
    
         <table class="table">
     <thead>
+  <tbody>   
+<c:forEach items="${dash_listq}" var="list">
       <tr>
-        <th>${content}</th>
-        <th>${writeday}</th>
-        <th></th>
+        <th>q 내용 = ${list.content}<br></th>
+        <th>날짜 =${list.writeday}</th>   
       </tr>
     </thead>
-    <tbody>
+</c:forEach>      
+<hr>
+	  </tbody>
+	  
+	   <tbody>  
+<c:forEach items="${dash_listr}" var="list">
       <tr>
-        <td>??</td>
-        <td>Defaultson</td>
-        <td>def@somemail.com</td>
+        <th>r 내용 = ${list.content}<br></th>
+        <th>날짜 =${list.writeday}</th>   
+      </tr>
+    </thead>
+</c:forEach>   
+ 		</tbody>
+ 
+ 
+
+<c:forEach items="${dash_listr}" var="list">
+      <tr>
+        <th>c 내용 = ${list.content}<br></th>
+        <th>날짜 =${list.writeday}</th>   
+      </tr>
+    </thead>
+</c:forEach> 
+
+<c:forEach items="${dash_listr}" var="list">
+      <tr>
+        <th>r 내용 = ${list.content}<br></th>
+        <th>날짜 =${list.writeday}</th>   
+      </tr>
+    </thead>
+</c:forEach> 
+
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>      
-      <tr >
-        <td>Primary</td>
-        <td>Joe</td>
-        <td>joe@example.com</td>
-      </tr>
-      <tr >
-        <td>Success</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Danger</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>Info</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>Warning</td>
-        <td>Refs</td>
-        <td>bo@example.com</td>
-      </tr>
-      <tr >
-        <td>Active</td>
-        <td>Activeson</td>
-        <td>act@example.com</td>
-      </tr>
-      <tr >
-        <td>Secondary</td>
-        <td>Secondson</td>
-        <td>sec@example.com</td>
-      </tr>
-      <tr >
-        <td>Light</td>
-        <td>Angie</td>
-        <td>angie@example.com</td>
-      </tr>
-      <tr>
-        <td>Dark</td>
-        <td>Bo</td>
-        <td>bo@example.com</td>
-      </tr>
-    </tbody>
+
+  
   </table>
     </div>
   </div>

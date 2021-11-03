@@ -23,10 +23,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kr.co.loyd.dao.AdminDao;
 import kr.co.loyd.dao.MemberDao;
 import kr.co.loyd.dao.QnaDao;
+import kr.co.loyd.dao.ReviewsDao;
 import kr.co.loyd.dao.WatchDao;
 import kr.co.loyd.dto.MemberDto;
+import kr.co.loyd.dto.QnaDto;
+import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.WatchDto;
 
 @Controller
@@ -317,8 +321,18 @@ public class AdminController {
      public String dash_board(Model model,HttpServletRequest request)
      {
     	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
+    	 ArrayList<QnaDto> dash_listq=qdao.dash_listq();
+    	 model.addAttribute("dash_listq",dash_listq);   // qna 의 dao.daoxml
+    
+    	 
+    	 ReviewsDao rdao=sqlSession.getMapper(ReviewsDao.class);	 
+    	 ArrayList<ReviewsDto> dash_listr=rdao.dash_listr();
+    	 model.addAttribute("dash_listr",dash_listr);   // re
 
-         return "admin/dash-board";
+    			 
+    			 
+    	
+    	 return "admin/dash-board";
      }
 	 
 	 

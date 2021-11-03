@@ -15,16 +15,21 @@
 		order by secret desc, writeday desc limit #{param1},7
 	</select>
 	 
-	 <!-- Q&A 문의글 목록(페이징) -->
+	<!--  Q&A 문의글 목록(페이징) -->
 	<select id="get_cnt" resultType="Integer">
  		select ceil(count(*)/7) from qna
 	</select>
 	
+
 	
-<!-- 	
-	 Q&A 문의글 목록(페이징)test용 
-	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
-		select * from qna order by id desc limit #{param1},7
-	</select> 
-  -->
+	
+
+	<!-- 대시보드에 문의글 최근 5개 목록 조회  -->
+	<select id="dash_listq" resultType="kr.co.loyd.dto.QnaDto">
+		select content,writeday from qna order by writeday desc limit 0,5
+	</select>
+	
+
+	
+
 </mapper>

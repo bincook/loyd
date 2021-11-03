@@ -26,10 +26,6 @@
 		delete from member where id = #{id}
 	</delete>	
 	
-	<!-- 대시보드에 문의글 최근 5개 목록 조회  -->
-	<select id="qna" resultType="kr.co.loyd.dto.QnaDto">
-		select content,writeday from qna order by writeday desc limit #{param1},5 
-	</select>
 
 	
 
