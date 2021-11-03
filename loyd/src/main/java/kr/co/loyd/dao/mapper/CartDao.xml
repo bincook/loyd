@@ -25,6 +25,54 @@
 	<delete id="delete" parameterType="Long">
 		delete from member where id = #{id}
 	</delete>
+	
+	<!-- 카트 리스트 -->
+	<select id="cart_list" resultType="kr.co.loyd.dto.CartDto">
+	SELECT A.email,A.member_id, A.watch_id, A.item_count, ceil(B.price*(1-discount)) AS price, B.discount, B.picture, B.kind, B.name ,ceil(A.item_count*B.price*(1-discount)) as hap
+	FROM cart A, watch B 
+	WHERE A.watch_id =  B.id AND email = #{param1}
+	</select>
+	
+	<select id="cart_sum" resultType="integer">
+	WITH cart AS
+	(SELECT ceil(A.item_count*B.price*(1-B.discount)) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.email = #{param1} )
+	SELECT ifnull(SUM(hap),0) AS chong  FROM cart 
+	</select>
+	
+	<select id="change" resultType="kr.co.loyd.dto.CartDto"> 
+		SELECT A.email,A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
+		FROM cart A, watch B 
+		WHERE A.watch_id =  B.id AND watch_id = #{param1} AND email =#{param2}
+	</select>
+	
+	<update id="minus" >
+		update cart set item_count=item_count-1 where watch_id = #{param1} and email =#{param2}
+	</update>
+	
+	<update id="plus" >
+		update cart set item_count=item_count+1 where watch_id = #{param1} and email =#{param2}
+	</update>
+	
+	<delete id="cart_delete">
+		delete from cart where watch_id = #{param1} and email =#{param2}
+	</delete>
+
+	<select id='chkk' resultType="integer">
+		select item_count from cart where watch_id = #{param1} and email =#{param2}
+	</select>
+	
+	<select id="cart_buy" resultType="kr.co.loyd.dto.CartDto">
+		SELECT content,CEIL(item_count*price*(1-discount)) as price,picture,brand,category,kind,item_count FROM watch A , cart B WHERE A.id=B.watch_id and email = #{param1}
+	</select>
+	
+	<select id="item_chong" resultType="integer">
+		SELECT SUM(item_count) AS item_chong FROM watch A , cart B WHERE A.id=B.watch_id and email = #{param1}
+	</select>
+	
+	<insert id="pay" parameterType="kr.co.loyd.dto.OrderDetailDto">
+		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date) 
+VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now())
+	</insert>
 
 	<!-- 조건 + 페이징 -->
 

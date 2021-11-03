@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.OrderDao">
+	<select id="detail_order" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,NAME,brand,(price*(1-discount)) AS price ,category,kind,picture  FROM watch WHERE id = #{param1}
+	</select>
+	
+	<insert id="cart_go" >
+		INSERT INTO cart (watch_id,item_count,created_at,email) VALUES (#{param1},1,now(),#{param2})
+	</insert>
+	
+	<select id="id_check" resultType="integer">
+		select count(*) from cart where watch_id =#{param1} and email =#{param2}
+	</select>
+	
+	<update id="cart_plus">
+		update cart set item_count = item_count +1 where watch_id = #{param1} and email = #{param2}
+	</update>
+	
+	<select id="buy" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT NAME,ceil(price*(1-discount))AS price ,brand,category,kind,picture FROM watch where id =#{param1}
+	</select>
+	
+	<select id="all_price" resultType="integer">
+		WITH `order list` AS
+			(SELECT ceil(A.count*B.price*(1-B.discount)) as hap FROM `order list` A, watch B WHERE A.watch_id =  B.id and member_id =19)
+		SELECT SUM(hap) AS all_pirce  FROM `order list` 
+	</select>
+	
+	<select id="product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch limit #{param1},12
+	</select>
+	
+	<select id="men_product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch where category in ("남성","공용") limit #{param1},12
+	</select>
+	
+	<select id="women_product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch where category in ("여성","공용") limit #{param1},12
+	</select>
+	
+	
+	
+	
+	
+	<select id="get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch 
+	</select>
+	
+	<select id="men_get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch where category in ("남성","공용")
+	</select>
+	
+	<select id="women_get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch where category in ("여성","공용")
+	</select>
+	
+	
+	
+	
+	<select id="watch_detail" resultType="kr.co.loyd.dto.OrderDto">
+		select * from watch_detail where watch_id=#{param1} order by id
+	</select>
+	
+	<insert id="pay" parameterType="kr.co.loyd.dto.OrderDetailDto">
+		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date) 
+VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now())
+	</insert>
+	
+</mapper>
