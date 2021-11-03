@@ -72,9 +72,9 @@
 		
 			
 		update_rate.each(function(index, input) {  // 인덱스
-			console.log(index, '|', input.value) 
+			console.log(index, '|', input.value)  // console.log == jquery 에서 프린트 해보는 문법 
 			if (rate === input.value) {
-	 			$(input).prop('checked', 'checked')
+	 			$(input).prop('checked', 'checked')  // property 구역, 재산, 소유물
 //	 			input.checked = true
 				return
 			}

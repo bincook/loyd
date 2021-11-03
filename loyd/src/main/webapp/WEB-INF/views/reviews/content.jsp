@@ -34,7 +34,7 @@ function cnt_readnum() {
 };
 
 // 창킬때 조회수 증가
-// 	opener.document.location.reload();
+	opener.document.location.reload();
 
 // 창끌때 조회수 증가
 onbeforeunload = function() {  // beforeunload 이벤트	
@@ -58,8 +58,8 @@ function resizeWindow(win)    {
 </head>
 <body onload='resizeWindow(this)'>
 
-	<div id="content" style="display: inline-block" >
-		<table width="400" height="400" align="center" border="1" >
+	<div align="center" id="content"><!-- style="display: inline-block"  -->
+		<table width="400" height="" align="center" border="1" >
 
 			<tr>
 				<td colspan="3" align="center">
@@ -123,8 +123,8 @@ function resizeWindow(win)    {
 
 
 	<!-- 댓글 -->	
-	<div style="display: inline-block; padding-left:100px;" align="right">
-		<table width="300" border="1"> <!-- align="bottom" -->
+	<div align="center"   style="padding-top:300px">
+		<table width="400" border="1"> <!-- align="bottom" -->
 			<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 -->
 			<tr>
 				<th>작성자</th>
@@ -156,6 +156,8 @@ function resizeWindow(win)    {
 <!-- 		첫번째 영역 옆에 나란히 붙임 => float:left -->
 <!-- 		여기에 그림이나 글자 또는 광고 등을 넣음 -->
 <!-- 	</div> -->
+
+	
 	
 	
 	

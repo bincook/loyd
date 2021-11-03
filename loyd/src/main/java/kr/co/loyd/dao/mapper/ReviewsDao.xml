@@ -13,7 +13,7 @@
 		values(#{member_id},#{watch_id},#{content}, now(),#{rate})
 
 	</insert>
-
+	<!-- 구매 후기 작성 (파일있는 경우) -->
 	<insert id="writeOk2" parameterType="kr.co.loyd.dto.ReviewWriteDto">
 		insert into
 		reviews(member_id, watch_id, content, writeday, rate, file_id)
@@ -64,19 +64,30 @@
 	
 	
 	<select id="update" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews where review_id=#{param1}
+		select * from reviews r
+		left join add_file af
+		on r.file_id = af.id
+		where review_id=#{param1}
 	</select>
 	
-	<update id="update_ok" parameterType="kr.co.loyd.dto.ReviewsDto">
+	<!-- 수정 (파일 없는 경우) -->
+	<update id="update_ok1" parameterType="kr.co.loyd.dto.ReviewsDto">
 		update reviews set 
-			file_id=#{file_id}, 
-			content=#{content},
-			rate=#{rate}
-		where review_id=#{review_id}
-			
-		 
+		content=#{content},
+		rate=#{rate}
+		where review_id=#{review_id}	 
 	</update>
-	
+	<!-- 수정 (파일 없는 경우) -->
+	<update id="update_ok2" parameterType="kr.co.loyd.dto.ReviewsDto"> 
+		update reviews set
+		file_id=#{file_id},
+		content=#{content},
+		rate=#{rate}
+		where review_id=#{review_id}
+		
+		
+			
+	</update>
 
 
 	

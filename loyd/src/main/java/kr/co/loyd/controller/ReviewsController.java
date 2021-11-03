@@ -204,8 +204,13 @@ public class ReviewsController {
 		ReviewsDto rdto = rdao.content(review_id);
 //		rdao.content(rdto);
 		model.addAttribute("reviews",rdto);
+		
+		
+		/* 댓글 페이지 */
+		// 만들려면 댓글 테이블 만들어야함!
 
 		return "/reviews/content";
+		
 	}
 	
 	/** 삭제 페이지 **/
@@ -239,10 +244,7 @@ public class ReviewsController {
 		return "/reviews/update";
 		
 	}
-	
-	
-	
-	
+
 	
 	//** 수정_ok 페이지 **//*
 	@RequestMapping ("/reviews/update_ok")
@@ -310,11 +312,11 @@ public class ReviewsController {
 			// 방금 addFile 테이블에 저장되 었던 id 를 reviews_dto.file_id 에 넣기
 			dto.setFile_id(insertedId);
 
-			rdao.writeOk2(dto);
+			rdao.update_ok2(dto);
 
 			// 파일 없는 경우
 		} else {
-			rdao.writeOk1(dto);
+			rdao.update_ok1(dto);
 		}
 
 
@@ -325,31 +327,19 @@ public class ReviewsController {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping ("reviews/test")
+	public String test() {
+		return "reviews/test";
+	}
 	
 	
 	/* 댓글 만들기 */
 	
 	/* 수정 완성하기 */
 	
-	
-	
-	
-
-	
 	/* 댓글 페이지 */
+	
+	/* 테이블 필요 */
 }
 
 
