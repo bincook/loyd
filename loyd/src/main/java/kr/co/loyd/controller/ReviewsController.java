@@ -38,7 +38,7 @@ import kr.co.loyd.dto.WatchDto;
 
 @Controller
 public class ReviewsController {
-
+qwe
 	@Autowired
 	private SqlSession sqlSession;
 
