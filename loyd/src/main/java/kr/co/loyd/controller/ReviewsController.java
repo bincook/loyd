@@ -72,7 +72,7 @@ public class ReviewsController {
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 로그인을 하지않으면 로그인페이지로 이동하기
-		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
+		Object memberIdObj = session.getAttribute("memberId");  // 여기에 member  table 정보가 담겨있음
 		
 		if(memberIdObj==null) {
 			return "redirect:/mber/login";
@@ -129,21 +129,16 @@ public class ReviewsController {
 
 		return "redirect:/reviews/list";
 	}
-
+	
+	/* 후기 리스트 페이지 */
 	@RequestMapping("/reviews/list")
-	public String listPage(WatchDto wdto, HttpSession session, HttpServletRequest request, Model model ) {
+	public String listPage( HttpSession session, HttpServletRequest request, Model model ) {
 
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-//		// 로그인을 하지않으면 로그인페이지로 이동하기
-//		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
-//		
-////		if(memberIdObj==null) {
-////			return "redirect:/mber/login";
-////		}
-//		String memberId = ""+ memberIdObj;
-//		rdto.setMember_id(Integer.parseInt(memberId));
 		
+		// session에서 멤버 테이블 정보 얻기
+
 		
 		
 		// 검색
@@ -190,14 +185,21 @@ public class ReviewsController {
 		model.addAttribute("pend",pend);
 		model.addAttribute("page_cnt",page_cnt);
 		
-		// reviews와 member 테이블을 합친후 member_id 대신 member의 name 불러오기
+		
+		
+		// reviews - member 테이블을 합친후 member_id 대신 member의 name 불러오기
+//		int memberId = Integer.parseInt(request.getParameter("member_id"));
+//		ReviewsDto dto = rdao.getmemname(memberId);
+//		model.addAttribute("getmemname",dto);
+//		System.out.println("==============" + dto);
+//		System.out.println("==============" + "getmemname");
+		
+		
+		
+		
 
 		
-//		int review_id=Integer.parseInt(request.getParameter("review_id"));
-//
-//		ReviewsDto rdto = rdao.getRvmem(review_id);
-////		rdao.content(rdto);
-//		model.addAttribute("getRvmem",rdto);
+		
 		
 		
 		return "/reviews/list";
@@ -226,6 +228,7 @@ public class ReviewsController {
 		model.addAttribute("reviews",rdto);
 		
 		
+		
 		/* 댓글 페이지 */
 		// 만들려면 댓글 테이블 만들어야함!
 
@@ -235,8 +238,14 @@ public class ReviewsController {
 	
 	/** 삭제 페이지 **/
 	@RequestMapping("/reviews/delete")
-	public String delete(HttpServletRequest request) {
+	public String delete(HttpSession session, ReviewsDto dto, HttpServletRequest request) {
 
+		
+		// 로그인정보와 컨텐츠 정보가 일치할때만 삭제가능하게 하기
+
+		// memberIdObj == ??? 일때 삭제 가능?
+		session.setAttribute("delete", dto.getMember_id());
+		
 		
 		int review_id = Integer.parseInt(request.getParameter("review_id"));
 		

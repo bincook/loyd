@@ -22,9 +22,14 @@
 
 
 	<select id="list" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews r
+		SELECT r.*, m.id, m.name AS mname, af.* from reviews  r
 		LEFT JOIN add_file af
-		ON r.file_id = af.id
+
+		ON r.file_id = af.id 
+
+		LEFT JOIN member m
+		ON r.member_id = m.id
+		
 		order by review_id DESC
 		limit
 		#{param1}, 10
@@ -42,27 +47,34 @@
 	
 	<!-- 검색기능 -->
 	<select id="list2" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews  r
+
+
+		SELECT r.*, m.id, m.name AS mname, af.* from reviews  r
 		LEFT JOIN add_file af
+
 		ON r.file_id = af.id 
+
+		LEFT JOIN member m
+		ON r.member_id = m.id
+
+
 		where r.${param1} like concat('%', #{param2}, '%')
 		order by review_id DESC
 		limit
 		#{param3}, 10
 	</select>
-	<!-- 리스트에서 작성자를 member테이블의 name 으로 보이기 -->
-	<select id="getRvmem" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews r
-		left join member m
-		on r.member_id = m.id
-		where review_id = #{param1}
-	</select>
 	
-	
+
 	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
-		select * from reviews r
-		left join add_file af
-		on r.file_id = af.id
+
+		SELECT r.*, m.id, m.name AS mname, af.* from reviews  r
+		LEFT JOIN add_file af
+
+		ON r.file_id = af.id 
+
+		LEFT JOIN member m
+		ON r.member_id = m.id
+
 		where review_id=#{param1}
 	</select>
 	
@@ -92,9 +104,6 @@
 		content=#{content},
 		rate=#{rate}
 		where review_id=#{review_id}
-		
-		
-			
 	</update>
 
 

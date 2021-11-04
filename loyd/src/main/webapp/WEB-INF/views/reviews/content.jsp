@@ -33,8 +33,8 @@ function cnt_readnum() {
 	window.close()  // 자기창을 닫아라	
 };
 
-// 창킬때 조회수 증가
-	opener.document.location.reload();
+// // 창킬때 조회수 증가
+// 	opener.document.location.reload();
 
 // 창끌때 조회수 증가
 onbeforeunload = function() {  // beforeunload 이벤트	
@@ -59,11 +59,11 @@ function resizeWindow(win)    {
 <body onload='resizeWindow(this)'>
 
 	<div align="center" id="content"><!-- style="display: inline-block"  -->
-		<table width="400" height="" align="center" border="1" >
+		<table width="600" height="550" align="center" border="1" >
 
 			<tr>
 				<td colspan="3" align="center">
-					<img width="200" height="200"
+					<img width="300" 
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
@@ -86,15 +86,18 @@ function resizeWindow(win)    {
 					</c:forEach>
 				</td>
 				<td colspan="2">작성자
-					<p>${reviews.member_id }
+					<p>${reviews.name }
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">후기내용
 					<p>${reviews.content }</td>
 			</tr>
+			
+			<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
 			<tr>
-				<c:if test="${memberId != null }" >
+<%-- 				<c:if test="${memberId != null }" > --%>
+				<c:if test="${memberId == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
 					<td align="center">
 						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
 					</td>
@@ -125,7 +128,7 @@ function resizeWindow(win)    {
 
 
 	<!-- 댓글 -->	
-	<div align="center"   style="padding-top:300px">
+	<div align="center"   style="padding-top:450px">
 		<table width="400" border="1"> <!-- align="bottom" -->
 			<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 -->
 			<tr>

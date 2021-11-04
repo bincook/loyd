@@ -18,7 +18,7 @@ public interface ReviewsDao {
 	public Integer get_pagecount(String field, String word);  // 페이징 카운트
 	public ArrayList<ReviewsDto> list2(String field, String word, int index);  // search 하기
 
-	public ReviewsDto getRvmem(int review_id); // 리스트에서 작성자이름 표시, member테이블의 name
+	public ReviewsDto getmemname(int member_id); // 리스트에서 작성자이름 표시, member테이블의 name
 	
 	public void readnum(int reviewId);  // 조회수 페이지
 	public ReviewsDto content(int review_id); // content 페이지
@@ -27,7 +27,7 @@ public interface ReviewsDao {
 	public ReviewsDto update(int review_id);  // update 수정하기
 	public void update_ok1(ReviewWriteDto dto);  // 파일이 없는경우(수정)
 	public void update_ok2(ReviewWriteDto dto);  // 파일이 있는경우(수정)
-	
+
 	
 
 	

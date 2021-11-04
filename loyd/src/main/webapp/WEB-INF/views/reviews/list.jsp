@@ -135,7 +135,7 @@ function resizeWindow(win)    {
 									 	☆
 								       </c:forEach>
 						        </td>
-						        <td>${review.member_id }<%-- ${getRvmem.name } --%><%--  ${memberId.name } --%> </td>
+						        <td>${review.mname}</td><!-- member_id말고 mname으로 가져오기 -->
 
 								<td><a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
 									${review.content}
@@ -144,6 +144,7 @@ function resizeWindow(win)    {
 						        <td>${review.view}</td>
 						        <td>${review.writeday}</td>
 					      </tr>
+			     
 			      </c:forEach>
 		    </tbody>
 		</table>

@@ -3,7 +3,7 @@ package kr.co.loyd.dto;
 public class ReviewsDto {
 	
 	private int review_id, member_id, watch_id, rate, view, file_id, id;
-	private String content, writeday, name, path;
+	private String content, writeday, name, path, mname;
 	
 	
 	public int getView() {
@@ -14,6 +14,12 @@ public class ReviewsDto {
 	}
 	public void setFile_id(int file_id) {
 		this.file_id = file_id;
+	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
 	public int getId() {
 		return id;

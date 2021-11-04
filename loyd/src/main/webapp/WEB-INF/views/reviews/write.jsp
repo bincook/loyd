@@ -66,7 +66,7 @@
     <div class="jumbotron">
         <h1> WATCH 구매후기 </h1>
         <p> WATCH 에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
-      </div>
+    </div>
     <div class="container bg-light" style="height: 800px;">
         <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
                  

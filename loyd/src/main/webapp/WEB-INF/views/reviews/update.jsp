@@ -54,7 +54,7 @@
 }
 
 #top {
-	padding top: 200px;
+	padding-top: 100px;
 }
 
 
@@ -146,11 +146,7 @@
 	                    <td>이미지 첨부하기</td>
 	                    <div id="imgAcd">
 <!-- 	                    <td><input type="file" name="iname1"></td> -->
-							<td>
-								<img wdith="100" height="50"  
-						        			src="<c:url value="/${review.path }/${review.name }" />"  
-						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
-					        		
+							<td>        		
 								<p class="iname"><input type="file" name="name" value="imgtest"></p>
 							</td>
 	                        
