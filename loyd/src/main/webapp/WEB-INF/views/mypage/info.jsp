@@ -215,7 +215,9 @@ a {
 			<!-- 회원 정보 (이름 등) -->	
 				
 			<div id="member-info">
-				<div id="member-info-modify"> 회원 정보 수정 > </div>
+				<div id="member-info-modify">
+					<a href="member_edit?email=${email }">내 정보 관리 ></a>
+				</div>
 				<div id="member-id">
 					<h1> ${email } 회원님</h1>
 				</div>

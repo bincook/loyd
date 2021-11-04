@@ -45,5 +45,17 @@
 		ON wt.id = wl.watch_id
 		WHERE email = #{param1 }
 	</select>
+	
+	<select id="member_edit" resultType="kr.co.loyd.dto.MemberDto">
+		SELECT *
+		FROM `member`
+		WHERE email = #{email }
+	</select>
+	
+	<update id="member_edit_ok" parameterType="kr.co.loyd.dto.MemberDto">
+		UPDATE `member`
+		SET name = #{name }, phone = #{phone }, email = #{email }
+		WHERE id = #{id }
+	</update>
 
 </mapper>

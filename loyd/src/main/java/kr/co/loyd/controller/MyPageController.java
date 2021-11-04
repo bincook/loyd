@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.loyd.dao.MypageDao;
+import kr.co.loyd.dto.MemberDto;
 import kr.co.loyd.dto.MypageDto;
 
 @Controller
@@ -134,6 +135,29 @@ public class MyPageController {
     	model.addAttribute("enquiry_d", mydto);
     	
     	return "mypage/enquiry_detail";
+    }
+    
+    @RequestMapping("/mypage/member_edit")
+    public String member_edit(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	String email = request.getParameter("email");
+    	MemberDto mdto = mydao.member_edit(email);
+    	
+    	model.addAttribute("member", mdto);
+    	
+    	return "mypage/member_edit";
+    }
+    
+    @RequestMapping("/mypage/member_edit_ok")
+    public String member_edit_ok(MemberDto mdto) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	mydao.member_edit_ok(mdto);
+    	
+    	return "redirect:/";
     }
     
     @RequestMapping("/mypage/watch-care")

@@ -87,6 +87,12 @@ h1 {
 				<span> ${enquiry_d.content }</span>
 			</div>
 		</div>
+		
+		<div id="enquiry-list">
+			<span>
+				<a href="enquiry?email=${email }">목록</a>
+			</span>
+		</div>
 	</div>
 	
 	<div id="enquiry-answer">
