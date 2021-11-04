@@ -53,6 +53,7 @@ public class ReviewsController {
 
 //		 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
 		model.addAttribute("watchId", rdto.getWatch_id());
+		model.addAttribute("content", rdto.getContent());
 		
 		// watch 테이블에서 시게이름 가져오기
 //		model.addAttribute("memberId", 1);

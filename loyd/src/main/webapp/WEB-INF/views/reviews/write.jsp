@@ -59,6 +59,16 @@
 
 
 </style>
+<script>
+function btn(){
+	if(document.writeForm.content.value==""){
+		alert('내용을 입력해주세요')
+		document.writeForm.content.focus()
+		
+		exit;
+	}	
+}
+</script>
 
 
 </head>
@@ -110,20 +120,95 @@
 	                        <td><input type="button" onclick="del()" value='사진삭제'></td>               
 	                    </div>
 	                </tr>
-	                <tr>
-	                    <td>내용</td>
-	                    <td colspan="3">
-	                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요"></textarea>
-	                    </td>
-	                </tr>
+	                
+		                <tr>
+		                    <td>내용</td>
+		                    <td colspan="3">
+		                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요"></textarea>
+		                    </td>
+		                </tr>
 	                
 	               
             </table>
             <div align="center">
-                   <a class="btn btn-primary" href="javascript:document.writeForm.submit()">
-                   
+            
+            	<!-- content가 공백일때 -->
+<%--             	<c:set var="javascript:btn()" value="content" /> --%>
+            	<c:if test='javascript:btn() == null'>
+            	
+		
+                    <a onclick="javascript:btn()" class="btn btn-primary" href="write">
+                   		 작성완료zz
+                    </a>
+                    s
+                    
+                    
+                </c:if>
+                
+                
+                
+
+                <!-- content가 공백이 아닐때 -->
+<%--                 <c:set var="javascript:btn()" value="content" /> --%>
+                
+				<c:if test='javascript:btn() !=null'>
+				
+                    <a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()">
                    		 작성완료
                     </a>
+                    
+                    
+                </c:if>
+                
+                
+                
+                
+                
+                
+<%--                 <c:set var="name" value="코요" />
+ 
+				<c:choose> 
+				    <c:when test="${name eq '새박'}">
+				        <a>저의 이름은 새박입니다.</a>
+				    </c:when>
+				    <c:when test="${name eq '샘샘'}">
+				        <a>저의 이름은 샘샘입니다.</a>
+				    </c:when>
+				    <c:when test="${name eq '박샘'}">
+				        <a>저의 이름은 박샘입니다.</a>
+				    </c:when>
+				    <c:otherwise>
+				        <a>내이름은 무엇인가</a>
+				    </c:otherwise>
+				</c:choose> --%>
+				                
+                
+                
+                
+                
+                
+                
+                
+                   
+<!--                 웹의 동작방식 ==  JAVA>JSTL>HTML>Javascript  -->                
+<!--                     <a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()">
+                   		 작성완료
+                    </a> -->
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                
+                    
+                    
+                    
                     <a class="btn btn-outline-primary" href="javascript:history.back()">
                     	뒤로가기
                     </a>
