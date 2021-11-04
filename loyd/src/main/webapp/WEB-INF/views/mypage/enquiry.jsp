@@ -249,7 +249,7 @@ a {
 								<div id="enquiry-view-numb"> ${enquiry.id }</div>
 								<div id="enquiry-view-type"> ${enquiry.qnatype }</div>
 								<div id="enquiry-view-titl"> 
-									<a href="enquiry_detail">${enquiry.title }</a>
+									<a href="enquiry_detail?qna_id=${enquiry.id }">${enquiry.title }</a>
 								</div>
 								<div id="enquiry-view-date"> ${enquiry.writeday }
 									<%-- <fmt:formatDate pattern="yyyy-MM-dd" type="both" value="${enquiry.writeday }"/>  --%>

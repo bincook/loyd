@@ -11,4 +11,5 @@ public interface MypageDao {
 	public MypageDto order_detail(String id);
 	public ArrayList<MypageDto> enquiry(String email);
 	public ArrayList<MypageDto> wishlist(String email);
+	public MypageDto enquiry_detail(String qna_id);
 }

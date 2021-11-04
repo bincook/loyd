@@ -252,12 +252,10 @@ a {
 				<div id="content-order-search-col">
 				 <!-- 색인란  -->
 					<form name="pkc" method="post" action="order_list" onsubmit="search()">					
-					 	<input type="hidden" value="${email }">
+					 	<input type="hidden" name="email" value="${email }">
 						<select name="field">
-							<option value="empty"> 선택</option>
 							<option value="wt.name"> 상품명</option>
 							<option value="ol.id"> 주문번호 </option>
-							<option value="ol.orderday"> 주문날짜 </option>
 						</select>
 						
 						<input type="text" name="word" value="${word }">

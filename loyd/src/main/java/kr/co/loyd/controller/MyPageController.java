@@ -124,9 +124,14 @@ public class MyPageController {
     }
     
     @RequestMapping("/mypage/enquiry_detail")
-    public String enquiry_detail() {
+    public String enquiry_detail(Model model, HttpServletRequest request) {
     	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	String qna_id = request.getParameter("qna_id");
+    	MypageDto mydto = mydao.enquiry_detail(qna_id);
     	
+    	model.addAttribute("enquiry_d", mydto);
     	
     	return "mypage/enquiry_detail";
     }

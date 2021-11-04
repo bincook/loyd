@@ -75,16 +75,16 @@ h1 {
 			<!-- 두번째줄 (유형과 제목이 같이 존재함) -->
 			<div id="enquiry-sub">
 				<div id="enquiry-type">
-					<span> 문의유형</span>
+					<span> { ${enquiry_d.qnatype } }</span>
 				</div>
 				
 				<div id="enquiry-member-title">
-					<span> 문의제목</span>
+					<span> &nbsp; ${enquiry_d.title }</span>
 				</div>
 			</div>
 			<div id="enquiry-member-content">
-				<span> 문의 번호</span><br>
-				<span> 문의 내용</span>
+				<span> 문의 번호 [ ${enquiry_d.id } ]</span><br>
+				<span> ${enquiry_d.content }</span>
 			</div>
 		</div>
 	</div>
