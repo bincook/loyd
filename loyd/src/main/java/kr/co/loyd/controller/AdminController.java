@@ -23,9 +23,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kr.co.loyd.dao.AdminDao;
 import kr.co.loyd.dao.MemberDao;
+import kr.co.loyd.dao.QnaDao;
+import kr.co.loyd.dao.ReviewsDao;
 import kr.co.loyd.dao.WatchDao;
 import kr.co.loyd.dto.MemberDto;
+import kr.co.loyd.dto.QnaDto;
+import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.WatchDto;
 
 @Controller
@@ -200,9 +205,11 @@ public class AdminController {
 			{
 				page=Integer.parseInt(request.getParameter("page"));
 			}
-			
+
 			int recod=(page-1)*7;	
-			
+
+		
+
 			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
 			int pstart=page/5;
 			if(page%10 == 0)
@@ -223,7 +230,7 @@ public class AdminController {
 		   return "admin/watch/watch_list";
 	   }
 
-	 
+
 	 @RequestMapping("/watch/delete")
 	 public String delete(HttpServletRequest request)
 	 {
@@ -245,17 +252,31 @@ public class AdminController {
 	 String id=request.getParameter("id");
 	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
 	 WatchDto wdto=wdao.content(id);
+	 wdto.setContent(wdto.getContent());
+	 
 	 model.addAttribute("wdto",wdto);
-
 
 	   return "admin/watch/content";
 	  }
 	 
 	 
+	 @RequestMapping("/watch/update")
+	 public String update(Model model,HttpServletRequest request) throws Exception
+	 {
+	 String id=request.getParameter("id");
+	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+	 WatchDto wdto=wdao.content(id);
+	 model.addAttribute("wdto",wdto);
 
+	   return "admin/watch/update";
+	  }
+
+	 
 	 @RequestMapping("/watch/update_ok")
 	 public String update_ok( MultipartHttpServletRequest request) throws Exception
 	 {
+		   String id = request.getParameter("id");
+		   
 		 String imgPath = "resources/img";
 		   String path=request.getRealPath(imgPath);
 		   MultipartFile multipartFile = request.getFile("picture");
@@ -290,23 +311,34 @@ public class AdminController {
 			// 파일이 없을 때
 		   } else {
 			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
-			   String id = request.getParameter("id");
 			   
 			   return "redirect:/admin/watch/content?id=" + id + "&error="+encodeResult;			   
 		   }
 		   
 		return "redirect:/admin/watch/watch_list";
 	 }
-	
+	 
+     @RequestMapping(value = "/dash-board")
+     public String dash_board(Model model,HttpServletRequest request)
+     {
+    	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
+    	 ArrayList<QnaDto> dash_listq=qdao.dash_listq();
+    	 model.addAttribute("dash_listq",dash_listq);   // qna 의 dao.daoxml
+    
+    	 
+    	 ReviewsDao rdao=sqlSession.getMapper(ReviewsDao.class);	 
+    	 ArrayList<ReviewsDto> dash_listr=rdao.dash_listr();
+    	 model.addAttribute("dash_listr",dash_listr);   // re
+
+    			 
+    			 
+    	
+    	 return "admin/dash-board";
+     }
 	 
 	 
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-     
-		
 }
+	
+

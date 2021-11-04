@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>상품 상세 페이지</title>
+<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <style>
+
+<style>
 	 #whole{
 	  font-size:14px;
 	  text-align:center;
@@ -34,35 +35,37 @@
 	 td{
 	 padding:10px;
 	 }
-	 
  </style>
-  <script> 
-  window.onload = function() {
-		 var errorMessage = "<%=request.getParameter("error") %>"
-		 
-		 if (errorMessage != "null") alert(errorMessage)
-		 
-		 var category = "${wdto.category}"
-		 var kind = "${wdto.kind}"
+
+ <script>
+ 
+ window.onload = function() {
+	 var errorMessage = "<%=request.getParameter("error") %>"
 	 
-	 	 $('input[value=' + category + ']').prop('checked', 'checked')
-	 	 $('input[value=' + kind+ ']').prop('checked', 'checked')
-	/*  	 $('input[value='!= + submit + ']').attr("disabled", true); */
-		$('input').attr('disabled', true)
-	 	
-	 }
+	 if (errorMessage != "null") alert(errorMessage)
 	 
-	 function changeImg(input) {
+	 var category = "${wdto.category}"
+	 var kind = "${wdto.kind}"
+ 
+ 	 $('input[value=' + category + ']').prop('checked', 'checked')
+ 	 $('input[value=' + kind+ ']').prop('checked', 'checked')
+ 	
+ }
 	/**  https://taeny.dev/javascript/file-object/  */
+ function changeImg(input) {
+	
 	 	var url = URL.createObjectURL(input.files[0])
 		$('#imgArea img').attr('src', url)  
 	 }
-  
+	 
+ 
+ 
+ 
  </script>
+ 
 </head>
 <body>
-	
- <div id="whole">
+<div id="whole">
   <header><h1>관리자 상품 상세</h1></header>
    <table>
    
@@ -79,9 +82,9 @@
 	      			<img src="${wdto.picture}" width="300" height="300">
 	      		</c:if>       
 	       	</div>
-	    </td>
+	      </td>
 	      <td width="500">	
-			<div class="form-group" >
+			<div class="form-group">
 			 	<input class="form-control" type="text" name="name" value="${wdto.name} ">
 			</div>
 			
@@ -93,14 +96,14 @@
 			 	<input class="form-control" type="text" name="price" value="${wdto.price}"><p>
 			 </div>
 			 
-			 <div class="form-group" >
+			 <div class="form-group">
 				 <input type="radio" name="category" value="공용">공용
 		 		 <input type="radio" name="category" value="남성">남성
 		 		 <input type="radio" name="category" value="여성">여성		
 			 </div>
 			 
 			 <div class="form-group">
-			 	<textarea disabled="disabled" class="form-control" name="content"  cols="22" rows="4">
+			 	<textarea class="form-control" name="content"  cols="22" rows="4">
 			 	${wdto.content}
 			 	</textarea>
 			 </div>
@@ -112,17 +115,23 @@
 			 <div class="form-group">
 			 	<input type="radio" name="kind" value="가죽">가죽
 			 	<input type="radio" name="kind" value="메탈">메탈
-			 </div>			 	 
-			 
-			 <div class="form-group">
-			
-			 <a class="btn btn-primary" href="<c:url value="/admin/watch/update?id=${wdto.id} "/>">수정</a>
 			 </div>
+			 
+			 <p>
+			 <div class="form-group">
+				 <label class="btn btn-outline-info btn-file" >
+	   		 첨부파일<input onchange="changeImg(this)" type="file" name="picture" style="display:none;">
+	 			 </label>
+			 </div>
+			 </p>			 
+			 
+		<div class="form-group">
+			<input class="btn" style="background-color:#FCFF71;" type="submit" value="수정완료">
+		</div>
 			</td>  
 		 </form>
 	   </td> 
 	 </tr>
-	 
    </table>   
  </div>
 </body>

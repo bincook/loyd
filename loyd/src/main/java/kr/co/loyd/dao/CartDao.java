@@ -7,6 +7,7 @@ import kr.co.loyd.dto.OrderDetailDto;
 
 public interface CartDao {
 	
+
 	public ArrayList<CartDto> cart_list(String email);
 	
 	public int cart_sum(String email);
@@ -24,6 +25,7 @@ public interface CartDao {
 	public ArrayList<CartDto> cart_buy(String email);
 	
 	public void pay(OrderDetailDto dto);
+
 	
 	
 	
