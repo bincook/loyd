@@ -54,7 +54,7 @@
         </c:if>
         
         <li class=" nav-item">
-            <a href="#" class="nav-link">Search</a>
+            <a href="<c:url value="/search/search"/>" class="nav-link">Search</a>
         </li>
 
 	  <c:if test="${email==null }">

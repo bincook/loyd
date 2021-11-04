@@ -67,12 +67,18 @@ public class MberController {
 		
 		if(dto2==null) {
 			return "redirect:/"+module+"/login?chk=1";
-		}else {
-			session.setAttribute("email",dto2.getEmail() );
-			session.setAttribute("name",dto2.getName());
-			session.setAttribute("id",dto2.getId());
+		}else{
 			
-			return "redirect:/";
+		session.setAttribute("email",dto2.getEmail() );
+		session.setAttribute("name",dto2.getName());
+		session.setAttribute("id",dto2.getId());
+		
+		if(dto2.getEmail().equals("admin")) {
+			return "redirect:/admin/dash-board";
+		}
+		
+		return "redirect:/";
+		
 		}
 
 	}
