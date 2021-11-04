@@ -25,14 +25,17 @@
 	<delete id="delete" parameterType="Long">
 		delete from member where id = #{id}
 	</delete>
+	<!-- 조건 + 페이징 -->
 
-<select id="listdetail" resultType="kr.co.loyd.dto.MemberDto">
+	<!-- 관리자가 회원정보 상세조회 -->
+	<select id="listdetail" resultType="kr.co.loyd.dto.MemberDto">
 		select id, name, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
 	</select>
+	<!-- 관리자/회원 목록(페이징) -->
 	<select id="get_cnt" resultType="Integer">
  		select ceil(count(*)/10)as cnt from member
 	</select>
 
-	<!-- 조건 + 페이징 -->
+
 
 </mapper>

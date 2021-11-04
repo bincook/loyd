@@ -1,6 +1,10 @@
 package kr.co.loyd.controller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,11 +13,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import kr.co.loyd.dao.AdminDao;
 import kr.co.loyd.dao.MemberDao;
+import kr.co.loyd.dao.QnaDao;
+import kr.co.loyd.dao.ReviewsDao;
+import kr.co.loyd.dao.WatchDao;
 import kr.co.loyd.dto.MemberDto;
+import kr.co.loyd.dto.QnaDto;
+import kr.co.loyd.dto.ReviewsDto;
+import kr.co.loyd.dto.WatchDto;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,7 +40,7 @@ public class AdminController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private final String module="/admin/member";
+	private final String module="/admin";
 	
 	/** 관리자 특정회원 조회 페이지 */
 	@RequestMapping(value = "/member/list")
@@ -120,9 +138,207 @@ public class AdminController {
 	
 	
 
-	
-	
-	
-	
+	/** 관리자 상품 등록(하나의 이미지 등록) */
+	@RequestMapping(value = "/watch/upload")
+	public String upload()
+	{
 		
+		return "/admin/watch/upload";
+	}
+
+
+	@RequestMapping("/watch/upload_ok")
+	public String upload_ok( MultipartHttpServletRequest request) throws Exception
+	{
+		
+		   String imgPath = "resources/img";
+		   String path=request.getRealPath(imgPath);
+		   MultipartFile multipartFile = request.getFile("picture");
+			
+		   // 파일이 있는 경우
+		   if(!multipartFile.isEmpty()) {
+			   File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
+			   String fileName = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+			   FileCopyUtils.copy(multipartFile.getBytes(), file);
+			   
+//			   int max=1024*1024*10;
+//			   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
+
+//			   String fileName = multi.getFilesystemName("picture");
+//			   System.out.println("fileName" + fileName);
+			   
+			   
+			   WatchDto wdto=new WatchDto();
+			   wdto.setName(request.getParameter("name"));
+			   wdto.setBrand(request.getParameter("brand"));
+			   wdto.setPrice(Integer.parseInt(request.getParameter("price")));
+			   wdto.setCategory(request.getParameter("category"));
+			   wdto.setContent(request.getParameter("content"));
+			   wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
+			   wdto.setPicture(imgPath + "/" + fileName);
+			   wdto.setKind(request.getParameter("kind"));
+			   
+			   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+			   wdao.upload_ok(wdto);
+			   
+			// 파일이 없을 때
+		   } else {
+			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
+			   
+			   return "redirect:/admin/watch/upload?error="+encodeResult;			   
+		   }
+		   
+		return "redirect:/admin/watch/watch_list";
+	}
+	
+	 @RequestMapping("/watch/watch_list")
+	   public String watch_list(Model model,HttpServletRequest request)
+	   {
+		   WatchDao wdao=sqlSession.getMapper(WatchDao.class); 
+		   
+		   int page;
+			if(request.getParameter("page")==null)
+			{
+				page=1;
+			}
+			else
+			{
+				page=Integer.parseInt(request.getParameter("page"));
+			}
+
+			int recod=(page-1)*7;	
+
+		
+
+			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
+			int pstart=page/5;
+			if(page%10 == 0)
+				pstart=pstart-1;
+			pstart=(pstart*10)+1;
+			int pend=pstart+9;		
+			
+			int page_cnt=wdao.get_cnt();
+			if(pend>page_cnt)
+				pend=page_cnt;		   
+			
+		   model.addAttribute("pstart",pstart);
+		   model.addAttribute("pend",pend);
+		   model.addAttribute("page_cnt",page_cnt);
+		   model.addAttribute("page",page);
+		   model.addAttribute("watch_list",watch_list);
+	
+		   return "admin/watch/watch_list";
+	   }
+
+
+	 @RequestMapping("/watch/delete")
+	 public String delete(HttpServletRequest request)
+	 {
+		 
+		 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+		 String[] watchIds = request.getParameterValues("watchIds[]");
+		 
+		 	 
+		 for (String watchId : watchIds) {
+			wdao.delete(watchId);
+		}
+		 
+		 return "admin/watch/watch_list";
+	 }
+	 
+	 @RequestMapping("/watch/content")
+	 public String content(Model model,HttpServletRequest request) throws Exception
+	 {
+	 String id=request.getParameter("id");
+	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+	 WatchDto wdto=wdao.content(id);
+	 wdto.setContent(wdto.getContent());
+	 
+	 model.addAttribute("wdto",wdto);
+
+	   return "admin/watch/content";
+	  }
+	 
+	 
+	 @RequestMapping("/watch/update")
+	 public String update(Model model,HttpServletRequest request) throws Exception
+	 {
+	 String id=request.getParameter("id");
+	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+	 WatchDto wdto=wdao.content(id);
+	 model.addAttribute("wdto",wdto);
+
+	   return "admin/watch/update";
+	  }
+
+	 
+	 @RequestMapping("/watch/update_ok")
+	 public String update_ok( MultipartHttpServletRequest request) throws Exception
+	 {
+		   String id = request.getParameter("id");
+		   
+		 String imgPath = "resources/img";
+		   String path=request.getRealPath(imgPath);
+		   MultipartFile multipartFile = request.getFile("picture");
+			
+		   // 파일이 있는 경우
+		   if(!multipartFile.isEmpty()) {
+			   File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
+			   String fileName = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+			   FileCopyUtils.copy(multipartFile.getBytes(), file);
+			   
+//			   int max=1024*1024*10;
+//			   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
+
+//			   String fileName = multi.getFilesystemName("picture");
+//			   System.out.println("fileName" + fileName);
+			   
+			   
+			   
+			   WatchDto wdto=new WatchDto();
+			   wdto.setName(request.getParameter("name"));
+			   wdto.setBrand(request.getParameter("brand"));
+			   wdto.setPrice(Integer.parseInt(request.getParameter("price")));
+			   wdto.setCategory(request.getParameter("category"));
+			   wdto.setContent(request.getParameter("content"));
+			   wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
+			   wdto.setPicture(imgPath + "/" + fileName);
+			   wdto.setKind(request.getParameter("kind"));
+			   
+			   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+			   wdao.upload_ok(wdto);
+			   
+			// 파일이 없을 때
+		   } else {
+			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
+			   
+			   return "redirect:/admin/watch/content?id=" + id + "&error="+encodeResult;			   
+		   }
+		   
+		return "redirect:/admin/watch/watch_list";
+	 }
+	 
+     @RequestMapping(value = "/dash-board")
+     public String dash_board(Model model,HttpServletRequest request)
+     {
+    	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
+    	 ArrayList<QnaDto> dash_listq=qdao.dash_listq();
+    	 model.addAttribute("dash_listq",dash_listq);   // qna 의 dao.daoxml
+    
+    	 
+    	 ReviewsDao rdao=sqlSession.getMapper(ReviewsDao.class);	 
+    	 ArrayList<ReviewsDto> dash_listr=rdao.dash_listr();
+    	 model.addAttribute("dash_listr",dash_listr);   // re
+
+    			 
+    			 
+    	
+    	 return "admin/dash-board";
+     }
+	 
+	 
+	 
+	 
 }
+	
+
