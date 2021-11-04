@@ -15,4 +15,5 @@ public interface MypageDao {
 	public MypageDto enquiry_detail(String qna_id);
 	public MemberDto member_edit(String email);
 	public void member_edit_ok(MemberDto mdto);
+	public ArrayList<MypageDto> info(Integer memberId);
 }

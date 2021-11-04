@@ -57,5 +57,13 @@
 		SET name = #{name }, phone = #{phone }, email = #{email }
 		WHERE id = #{id }
 	</update>
+	
+	<select id="info" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT *
+		FROM `order list` ol
+		LEFT JOIN `member` mb
+		ON ol.member_id = mb.id
+		WHERE mb.id = #{id }
+	</select>
 
 </mapper>

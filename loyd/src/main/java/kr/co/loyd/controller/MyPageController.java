@@ -5,6 +5,7 @@ package kr.co.loyd.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,20 @@ public class MyPageController {
 	
     /** 마이페이지 */
     @RequestMapping(value = "/mypage/info", method = RequestMethod.GET)
-    public String cartListPage() {
+    public String cartListPage(Model model, HttpSession session) {
+    	Integer memberId = (Integer) session.getAttribute("id");
+    	
+    	System.out.println(memberId);
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	ArrayList<MypageDto> order = mydao.info(memberId);
+    	
+    	model.addAttribute("order_pay", order);
+    	
+    	// dao.selectMyOrder(memberId)
+    	
+
         return "mypage/info";
     }
     
@@ -157,7 +171,7 @@ public class MyPageController {
 
     	mydao.member_edit_ok(mdto);
     	
-    	return "redirect:/";
+    	return "redirect:/mypage/info";
     }
     
     @RequestMapping("/mypage/watch-care")

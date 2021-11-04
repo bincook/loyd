@@ -35,6 +35,11 @@ a {
     color: #222;
 }
 
+a:hover {
+    text-decoration: none;
+    color: #222;
+}
+
 #left-side_menu {
     position: absolute;
     width: 310px;
@@ -103,6 +108,10 @@ a {
     padding-bottom: 200px;
 }
 
+#right-content #member-info {
+	padding-bottom: 20px;
+}
+
 #right-content #member-info #member-info-modify {
 	margin-bottom: 8px;
 }
@@ -136,12 +145,12 @@ a {
 
 #right-content #content-summary-order #order-list-header #order-col-date{width: 15%;}
 #right-content #content-summary-order #order-list-header #order-col-item{width: 45%;}
-#right-content #content-summary-order #order-list-header #order-col-numb{width: 20%;}
-#right-content #content-summary-order #order-list-header #order-col-pric{width: 20%;}
+#right-content #content-summary-order #order-list-header #order-col-pay{width: 20%;}
+#right-content #content-summary-order #order-list-header #order-col-msg{width: 20%;}
 #right-content #content-summary-order #order-view-header #order-view-date{width: 15%;}
 #right-content #content-summary-order #order-view-header #order-view-item{width: 45%;}
-#right-content #content-summary-order #order-view-header #order-view-numb{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-pric{width: 20%;}
+#right-content #content-summary-order #order-view-header #order-view-pay{width: 20%;}
+#right-content #content-summary-order #order-view-header #order-view-msg{width: 20%;}
 
 
 </style>
@@ -176,6 +185,10 @@ a {
 						<ul id="mypage-order-list">
 							<li> 
 								<a href="order_list?email=${email }"> 주문 조회</a>
+							</li>
+							
+							<li> 
+								<a href="../cart/list?id=${id }"> 장바구니</a>
 							</li>
 						</ul>
 					</li>
@@ -219,7 +232,7 @@ a {
 					<a href="member_edit?email=${email }">내 정보 관리 ></a>
 				</div>
 				<div id="member-id">
-					<h1> ${email } 회원님</h1>
+					<h1> ${name } 회원님</h1>
 				</div>
 			</div>
 			
@@ -228,18 +241,20 @@ a {
 					<div id="order-list-title"> 주문 조회</div>
 					<div id="order-list-itembox">
 						<div id="order-list-header">
-							<div id="order-col-date"> 주문일</div>
-							<div id="order-col-item"> 주문내역</div>
-							<div id="order-col-numb"> 주문번호</div>
-							<div id="order-col-pric"> 가격</div>
+							<div id="order-col-date"> 주문일자</div>
+							<div id="order-col-item"> 상품명</div>
+							<div id="order-col-pay"> 결제방식</div>
+							<div id="order-col-msg"> 메시지</div>
 						</div>
 						<!-- 물건 보이기(반복 -->
-						<div id="order-view-header">
-							<div id="order-view-date"> 2021-11-03</div>
-							<div id="order-view-item"> 시계</div>
-							<div id="order-view-numb"> 1</div>
-							<div id="order-view-pric"> 340,000</div>
-						</div>
+						<c:forEach items="${order_pay }" var="order">
+							<div id="order-view-header">
+								<div id="order-view-date"> ${order.orderday }</div>
+								<div id="order-view-item"> ${order.id }</div>
+								<div id="order-view-pay"> ${order.price }</div>
+								<div id="order-view-msg"> ${order.discount }</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

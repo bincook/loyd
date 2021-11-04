@@ -45,6 +45,11 @@ a {
     color: #222;
 }
 
+a:hover {
+	text-decoration: none;
+    color: #222;
+}
+
 #left-side_menu {
     position: absolute;
     width: 310px;
@@ -181,7 +186,7 @@ a {
 			<div id="left-dev-menu">
 				<!-- 이름 -->
 				<div id="mypage-subtitle">
-						<span> My page</span>
+						<span> <a href="info"> My page</a></span>
 				</div>
 				
 				<!-- 메뉴 리스트 -->
@@ -194,6 +199,10 @@ a {
 						<ul id="mypage-wishlist-list">
 							<li> 
 								<a href="order_list?email=${email }"> 주문 조회</a>
+							</li>
+							
+							<li> 
+								<a href="../cart/list?id=${id }"> 장바구니</a>
 							</li>
 						</ul>
 					</li>

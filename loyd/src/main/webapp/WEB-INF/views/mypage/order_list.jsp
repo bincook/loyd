@@ -8,14 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Mypage-Orderlist</title>
 <script>
-function search(){
-	
-	var word = document.pkc.field.value
-	if(word == 'empty') {
-		alert('검색할 필드를 선택해주세요')
-	}
-}
-
 
 </script>
 
@@ -53,6 +45,11 @@ li {
 
 a {
     text-decoration: none;
+    color: #222;
+}
+
+a:hover {
+	text-decoration: none;
     color: #222;
 }
 
@@ -157,16 +154,16 @@ a {
 	text-align: start;
 }
 
-#right-content #content-order-list #order-list-itembox #order-col-numb {width: 8%;line-height: auto;}
+#right-content #content-order-list #order-list-itembox #order-col-numb {width: 8%;}
 #right-content #content-order-list #order-list-itembox #order-col-item {width: 50%}
-#right-content #content-order-list #order-list-itembox #order-col-pric {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-col-date {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-col-enquiry {width: 12%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-view-numb {width: 8%;line-height: auto;}
+#right-content #content-order-list #order-list-itembox #order-col-pric {width: 20%;}
+#right-content #content-order-list #order-list-itembox #order-col-date {width: 20%;}
+#right-content #content-order-list #order-list-itembox #order-col-enquiry {width: 12%;}
+#right-content #content-order-list #order-list-itembox #order-view-numb {width: 8%;padding-top: 13px;}
 #right-content #content-order-list #order-list-itembox #order-view-item {width: 50%}
-#right-content #content-order-list #order-list-itembox #order-view-pric {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-view-date {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-view-enquiry {width: 12%;line-height: auto;}
+#right-content #content-order-list #order-list-itembox #order-view-pric {width: 20%;padding-top: 13px;}
+#right-content #content-order-list #order-list-itembox #order-view-date {width: 20%;padding-top: 13px;}
+#right-content #content-order-list #order-list-itembox #order-view-enquiry {width: 12%;padding-top: 13px;}
 
 #right-content #paging {
 	margin: auto;
@@ -192,13 +189,13 @@ a {
 			<div id="left-dev-menu">
 				<!-- 이름 -->
 				<div id="mypage-subtitle">
-						<span> My page</span>
+						<span> <a href="info"> My page</a></span>
 				</div>
 				
 				<!-- 메뉴 리스트 -->
 				<ul id="mypage-list">
 				
-					<li class="menu-title"> 
+					<li class="	menu-title"> 
 						<span> 나의 쇼핑 정보</span>
 						
 						<!-- 주문정보 -->
@@ -206,6 +203,11 @@ a {
 							<li> 
 								<a href="order_list?email=${email }"> 주문 조회</a>
 							</li>
+							
+							<li> 
+								<a href="../cart/list?id=${id }"> 장바구니</a>
+							</li>
+							
 						</ul>
 					</li>
 	
