@@ -24,5 +24,10 @@ public interface OrderDao {
 	public void pay(OrderDetailDto dto);
 	
 
-	
+	/** 대시보드 order 최근 5개 목록 조회  */
+	ArrayList<OrderDto> dash_listo();
+	/** 대시보드 그래프  : 주문내역이 가장 많은 상품 10개  */
+	public ArrayList<OrderDto> orderg();	
+	/** 대시보드 그래프  : 한달 전 주문내역 count  */
+	public ArrayList<OrderDto> grapoc();
 }

@@ -28,6 +28,7 @@ public class QnaController {
 	  @RequestMapping(value = "/write")
 	  public String write() {	  
 		  
+/*		  String id = request.getParameter("id");  상품 상세페이지의 di값 넘겨받기 */ 
 		  return "qna/write";
 	  }
 	  

@@ -32,10 +32,14 @@
 		select id, name, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
 	</select>
 	<!-- 관리자/회원 목록(페이징) -->
-	<select id="get_cnt" resultType="Integer">
+	<select id="get_cnt" resultType="kr.co.loyd.dto.MemberDto">
  		select ceil(count(*)/10)as cnt from member
 	</select>
 
+	<!-- 대시보드 그래프 : 총 회원 수  -->
+	<select id="tot" resultType="String">
+	 	select count(*)from member;
+	</select>
 
 
 </mapper>

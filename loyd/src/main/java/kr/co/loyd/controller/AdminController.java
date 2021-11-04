@@ -337,8 +337,31 @@ public class AdminController {
     	 ArrayList<CartDto> dash_listc=cdao.dash_listc();
     	 model.addAttribute("dash_listc",dash_listc); 	// cart
     			 
-    
+    	 OrderDao odao=sqlSession.getMapper(OrderDao.class);
+    	 ArrayList<OrderDto> dash_listo=odao.dash_listo();
+    	 model.addAttribute("dash_listo",dash_listo);	//order list
+    	 
+    	 
+    	 /** 대시보드 그래프  */
+    	 MemberDao grapm=sqlSession.getMapper(MemberDao.class);
+    	 String tot=grapm.tot();
+    	 model.addAttribute("tot",tot);  //회원 전체 수   	 
+    	 
+    	 OrderDao grapo=sqlSession.getMapper(OrderDao.class);
+    	 ArrayList<OrderDto> orderg=grapo.orderg();
+    	 model.addAttribute("orderg",orderg); // 주문 가장 많은 상품 10개
+    	 
+    	 QnaDao grapoq=sqlSession.getMapper(QnaDao.class);
+    	 String totq=grapoq.totq();
+    	 model.addAttribute("totq",totq);
+    	 
+    	 OrderDao grapoc=sqlSession.getMapper(OrderDao.class);
+    	 ArrayList<OrderDto> orderc=grapoc.orderg();
+    	 model.addAttribute("orderc",orderc);
+    	 
     	 return "admin/dash-board";
+    	 
+    	 
      }
 	 
 	 

@@ -7,6 +7,7 @@ public class OrderDto {
 	
 	private int member_id, watch_id,chong,all_price;
 	
+	
 	//watch_detail
 	private String path;
 	
