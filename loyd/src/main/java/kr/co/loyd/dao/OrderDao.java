@@ -20,5 +20,7 @@ public interface OrderDao {
 	public int men_get_page();
 	public int women_get_page();
 	public ArrayList<OrderDto> watch_detail(int id);
-	public void pay(OrderDetailDto dto);
+	
+	public int writeOrderList(OrderDto dto);
+	public void writeOrderDetail(OrderDetailDto dto);
 }

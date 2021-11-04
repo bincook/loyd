@@ -1,6 +1,7 @@
 package kr.co.loyd.controller;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -231,11 +232,23 @@ public class OrderController {
 	
 	
 	@RequestMapping("/pay")
-	public String pay(OrderDetailDto dto) {
+	public String pay(OrderDetailDto dto, OrderDto orderListDto, HttpSession session) {
 		
+		Object memberIdObj = session.getAttribute("id");
+		
+		if (memberIdObj != null) {	
+			orderListDto.setMember_id((Integer) memberIdObj);;
+		}
+		
+			
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
 		
-		dao.pay(dto);
+		System.out.println(dto);
+		System.out.println(orderListDto.getWatch_id());
+		
+		 int orderListId = dao.writeOrderList(orderListDto);
+		
+		//dao.writeOrderDetail(dto);
 		
 		return "/order/pay";
 	}

@@ -20,7 +20,15 @@
 	</update>
 	
 	<select id="buy" resultType="kr.co.loyd.dto.OrderDto">
-		SELECT NAME,ceil(price*(1-discount))AS price ,brand,category,kind,picture FROM watch where id =#{param1}
+		SELECT 
+		  NAME,
+		  ceil(price*(1-discount))AS price,
+		  brand,
+		  category,
+		  kind,
+		  picture,
+		  id
+	     FROM watch where id =#{param1}
 	</select>
 	
 	<select id="all_price" resultType="integer">
@@ -58,13 +66,19 @@
 	</select>
 	
 	
-	
+	<select id="writeOrderList" parameterType="kr.co.loyd.dto.OrderDetailDto" resultType="integer">
+		insert into `order list`(watch_id, member_id, price, discount, count, orderday)
+		values(#{watch_id}, #{member_id}, #{price}, 0, 0, now())
+		RETURNING id;
+	</select>
 	
 	<select id="watch_detail" resultType="kr.co.loyd.dto.OrderDto">
 		select * from watch_detail where watch_id=#{param1} order by id
 	</select>
 	
-	<insert id="pay" parameterType="kr.co.loyd.dto.OrderDetailDto">
+
+	
+	<insert id="writeOrderDetail" parameterType="kr.co.loyd.dto.OrderDetailDto">
 		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date) 
 VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now())
 	</insert>
