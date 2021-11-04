@@ -74,7 +74,6 @@ public class MberController {
 			
 			return "redirect:/";
 		}
-
 	}
 	
 	@RequestMapping("logout")

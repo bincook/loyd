@@ -24,11 +24,15 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.loyd.dao.AdminDao;
+import kr.co.loyd.dao.CartDao;
 import kr.co.loyd.dao.MemberDao;
+import kr.co.loyd.dao.OrderDao;
 import kr.co.loyd.dao.QnaDao;
 import kr.co.loyd.dao.ReviewsDao;
 import kr.co.loyd.dao.WatchDao;
+import kr.co.loyd.dto.CartDto;
 import kr.co.loyd.dto.MemberDto;
+import kr.co.loyd.dto.OrderDto;
 import kr.co.loyd.dto.QnaDto;
 import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.WatchDto;
@@ -208,8 +212,6 @@ public class AdminController {
 
 			int recod=(page-1)*7;	
 
-		
-
 			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
 			int pstart=page/5;
 			if(page%10 == 0)
@@ -252,6 +254,7 @@ public class AdminController {
 	 String id=request.getParameter("id");
 	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
 	 WatchDto wdto=wdao.content(id);
+
 	 wdto.setContent(wdto.getContent());
 	 
 	 model.addAttribute("wdto",wdto);
@@ -259,6 +262,7 @@ public class AdminController {
 	   return "admin/watch/content";
 	  }
 	 
+
 	 
 	 @RequestMapping("/watch/update")
 	 public String update(Model model,HttpServletRequest request) throws Exception
@@ -270,7 +274,7 @@ public class AdminController {
 
 	   return "admin/watch/update";
 	  }
-
+	 
 	 
 	 @RequestMapping("/watch/update_ok")
 	 public String update_ok( MultipartHttpServletRequest request) throws Exception
@@ -324,15 +328,16 @@ public class AdminController {
     	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
     	 ArrayList<QnaDto> dash_listq=qdao.dash_listq();
     	 model.addAttribute("dash_listq",dash_listq);   // qna 의 dao.daoxml
-    
-    	 
+   	 
     	 ReviewsDao rdao=sqlSession.getMapper(ReviewsDao.class);	 
     	 ArrayList<ReviewsDto> dash_listr=rdao.dash_listr();
-    	 model.addAttribute("dash_listr",dash_listr);   // re
+    	 model.addAttribute("dash_listr",dash_listr);   // review
 
+    	 CartDao cdao=sqlSession.getMapper(CartDao.class);
+    	 ArrayList<CartDto> dash_listc=cdao.dash_listc();
+    	 model.addAttribute("dash_listc",dash_listc); 	// cart
     			 
-    			 
-    	
+    
     	 return "admin/dash-board";
      }
 	 

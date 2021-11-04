@@ -21,9 +21,6 @@
 	</select>
 	
 
-	
-	
-
 	<!-- 대시보드에 문의글 최근 5개 목록 조회  -->
 	<select id="dash_listq" resultType="kr.co.loyd.dto.QnaDto">
 		select content,writeday from qna order by writeday desc limit 0,5

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.co.loyd.dto.OrderDetailDto;
 import kr.co.loyd.dto.OrderDto;
+import kr.co.loyd.dto.QnaDto;
 
 public interface OrderDao {
 
@@ -21,4 +22,7 @@ public interface OrderDao {
 	public int women_get_page();
 	public ArrayList<OrderDto> watch_detail(int id);
 	public void pay(OrderDetailDto dto);
+	
+
+	
 }

@@ -57,7 +57,7 @@
 	 	var url = URL.createObjectURL(input.files[0])
 		$('#imgArea img').attr('src', url)  
 	 }
-  
+
  </script>
 </head>
 <body>
@@ -68,7 +68,7 @@
    
     <tr>
 	  <td class="p-4">
-		<form method="post" action="update_ok" enctype="multipart/form-data">
+		<form method="post" action="update" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="${wdto.id}" /> 
 		 <td>
 			<div id="imgArea" class="form-group">			
@@ -82,6 +82,7 @@
 	    </td>
 	      <td width="500">	
 			<div class="form-group" >
+
 			 	<input class="form-control" type="text" name="name" value="${wdto.name} ">
 			</div>
 			
@@ -93,6 +94,9 @@
 			 	<input class="form-control" type="text" name="price" value="${wdto.price}"><p>
 			 </div>
 			 
+		 
+
+
 			 <div class="form-group" >
 				 <input type="radio" name="category" value="공용">공용
 		 		 <input type="radio" name="category" value="남성">남성
@@ -104,6 +108,7 @@
 			 	${wdto.content}
 			 	</textarea>
 			 </div>
+
 			 
 			 <div class="form-group">
 				<input class="form-control" type="number" min="0" max="1" step="0.1" name="discount" value="${wdto.discount}">
@@ -118,11 +123,11 @@
 			
 			 <a class="btn btn-primary" href="<c:url value="/admin/watch/update?id=${wdto.id} "/>">수정</a>
 			 </div>
+
 			</td>  
 		 </form>
 	   </td> 
 	 </tr>
-	 
    </table>   
  </div>
 </body>

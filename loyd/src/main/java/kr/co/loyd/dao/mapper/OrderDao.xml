@@ -69,4 +69,7 @@
 VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now())
 	</insert>
 	
+	
+
+	
 </mapper>
