@@ -1,10 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>마이 페이지</title>
-    
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Mypage - wishlist</title>
+	
 <style>
 #container {
 	position: relative;
@@ -16,13 +19,20 @@
 }
 
 div {
-	box-sizing: border-box;
+	box-sizing: bwishlist-box;
     margin: 0;
     padding: 0;
-    border: 0;
+    bwishlist: 0;
     font-family: "SpoqaHanSans";
     font-size: 100%;
     vertical-align: baseline;
+}
+
+h1 {
+	font-size: 36px;
+	font-family: "SpoqaHanSans";
+	font-weight: 900;
+	color: #000;
 }
 
 ul,
@@ -58,7 +68,7 @@ a {
 
 #left-side_menu #left-dev-menu #mypage-list {
 	overflow-y: hidden;
-	margin: 40px 0 0 0;
+	margin: 40px 0;
 	padding: 0;
 }
 
@@ -74,16 +84,14 @@ a {
     color: #000;
 }
 
-#left-side_menu #left-dev-menu .menu-title #mypage-order-list,
+#left-side_menu #left-dev-menu .menu-title #mypage-wishlist-list,
 #left-side_menu #left-dev-menu .menu-title #mypage-history,
 #left-side_menu #left-dev-menu .menu-title #mypage-caution {
 	margin: 6px 0 0;
 	padding: 0;
-	
 }
 
-
-#left-side_menu #left-dev-menu .menu-title #mypage-order-list a,
+#left-side_menu #left-dev-menu .menu-title #mypage-wishlist-list a,
 #left-side_menu #left-dev-menu .menu-title #mypage-history a,
 #left-side_menu #left-dev-menu .menu-title #mypage-caution a {
 	font-family: "Montserrat";
@@ -103,17 +111,17 @@ a {
     padding-bottom: 200px;
 }
 
-#right-content #member-info #member-info-modify {
-	margin-bottom: 8px;
+#right-content #content-wishlist{
+	margin-top: 100px;
 }
 
-#right-content #content-summary-order #order-list-title {
+#right-content #content-wishlist #wishlist-title{
 	font-size: 24px;
     padding-bottom: 16px;
-    color: #000;
+    color: #000000;
 }
 
-#right-content #content-summary-order #order-list-header {
+#right-content #content-wishlist #wishlist-itembox #wishlist-header {
 	display: flex;
     justify-content: space-between;
     padding: 16px 0px;
@@ -125,7 +133,7 @@ a {
     color: #000;
 }
 
-#right-content #content-summary-order #order-view-header{
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-header {
 	display: flex;
     justify-content: space-between;
     padding: 16px 0px;
@@ -134,24 +142,34 @@ a {
     font-size: 14px;
 }
 
-#right-content #content-summary-order #order-list-header #order-col-date{width: 15%;}
-#right-content #content-summary-order #order-list-header #order-col-item{width: 45%;}
-#right-content #content-summary-order #order-list-header #order-col-numb{width: 20%;}
-#right-content #content-summary-order #order-list-header #order-col-pric{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-date{width: 15%;}
-#right-content #content-summary-order #order-view-header #order-view-item{width: 45%;}
-#right-content #content-summary-order #order-view-header #order-view-numb{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-pric{width: 20%;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-item {
+	text-align: start;
+}
 
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-numb {width: 10%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-item {width: 50%}
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-pric {width: 20%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-date {width: 20%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-numb {width: 10%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-item {width: 50%}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-pric {width: 20%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-date {width: 20%;line-height: auto;}
 
+#right-content #paging {
+	margin: auto;
+	padding-top: 30px;
+	text-align: center;
+}
 </style>
+
 </head>
 <body>
+
 <c:if test="${email == null }">
 
-	로그인하시오
+	로그인을 하시오.
 	<!-- 로그인 페이지로 이동하기 -->
-	
+
 </c:if>
 
 <c:if test="${email != null }">
@@ -173,7 +191,7 @@ a {
 						<span> 나의 쇼핑 정보</span>
 						
 						<!-- 주문정보 -->
-						<ul id="mypage-order-list">
+						<ul id="mypage-wishlist-list">
 							<li> 
 								<a href="order_list?email=${email }"> 주문 조회</a>
 							</li>
@@ -211,42 +229,38 @@ a {
 		
 		<!-- 오른쪽 본문 -->
 		<div id="right-content">
-
-			<!-- 회원 정보 (이름 등) -->	
-				
-			<div id="member-info">
-				<div id="member-info-modify">
-					<a href="member_edit?email=${email }">내 정보 관리 ></a>
-				</div>
-				<div id="member-id">
-					<h1> ${email } 회원님</h1>
-				</div>
-			</div>
-			
-			<div id="content-summary-order">
-				<div id="order-list">
-					<div id="order-list-title"> 주문 조회</div>
-					<div id="order-list-itembox">
-						<div id="order-list-header">
-							<div id="order-col-date"> 주문일</div>
-							<div id="order-col-item"> 주문내역</div>
-							<div id="order-col-numb"> 주문번호</div>
-							<div id="order-col-pric"> 가격</div>
+			<div id="content-wishlist">
+				<div id="wishlist">
+					<div id="wishlist-title"> 
+						<h1>나의 찜 목록</h1>
+					</div>
+					
+					<div id="wishlist-itembox">
+						<div id="wishlist-header">
+							<div id="wishlist-col-numb"> 주문번호</div>
+							<div id="wishlist-col-item"> 상품명</div>
+							<div id="wishlist-col-pric"> 가격(수량)</div>
+							<div id="wishlist-col-date"> 날짜</div>
 						</div>
-						<!-- 물건 보이기(반복 -->
-						<div id="order-view-header">
-							<div id="order-view-date"> 2021-11-03</div>
-							<div id="order-view-item"> 시계</div>
-							<div id="order-view-numb"> 1</div>
-							<div id="order-view-pric"> 340,000</div>
-						</div>
+						
+						<c:forEach items="${wishlist }" var="wish">
+						
+							<div id="wishlist-view-header">
+								<div id="wishlist-view-numb"> ${wish.id }</div>
+								<div id="wishlist-view-item"> 
+									<img src="${wish.picture }" height="40px"> ${wish.name }</div>
+								<div id="wishlist-view-pric"> 
+									<fmt:formatNumber value="${wish.price }" pattern="#,###" />원 (${wish.count })
+								</div>
+								<div id="wishlist-view-date"> ${wish.datetime }</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</c:if>
 
+</c:if>
 </body>
 </html>
-

@@ -1,10 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>마이 페이지</title>
-    
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Mypage - Enquiry</title>
+
 <style>
 #container {
 	position: relative;
@@ -23,6 +26,13 @@ div {
     font-family: "SpoqaHanSans";
     font-size: 100%;
     vertical-align: baseline;
+}
+
+h1 {
+	font-size: 36px;
+	font-family: "SpoqaHanSans";
+	font-weight: 900;
+	color: #000;
 }
 
 ul,
@@ -58,7 +68,7 @@ a {
 
 #left-side_menu #left-dev-menu #mypage-list {
 	overflow-y: hidden;
-	margin: 40px 0 0 0;
+	margin: 40px 0;
 	padding: 0;
 }
 
@@ -74,16 +84,14 @@ a {
     color: #000;
 }
 
-#left-side_menu #left-dev-menu .menu-title #mypage-order-list,
+#left-side_menu #left-dev-menu .menu-title #mypage-enquiry,
 #left-side_menu #left-dev-menu .menu-title #mypage-history,
 #left-side_menu #left-dev-menu .menu-title #mypage-caution {
 	margin: 6px 0 0;
 	padding: 0;
-	
 }
 
-
-#left-side_menu #left-dev-menu .menu-title #mypage-order-list a,
+#left-side_menu #left-dev-menu .menu-title #mypage-enquiry a,
 #left-side_menu #left-dev-menu .menu-title #mypage-history a,
 #left-side_menu #left-dev-menu .menu-title #mypage-caution a {
 	font-family: "Montserrat";
@@ -103,17 +111,17 @@ a {
     padding-bottom: 200px;
 }
 
-#right-content #member-info #member-info-modify {
-	margin-bottom: 8px;
+#right-content #content-enquiry{
+	margin-top: 100px;
 }
 
-#right-content #content-summary-order #order-list-title {
+#right-content #content-enquiry #enquiry-title{
 	font-size: 24px;
     padding-bottom: 16px;
-    color: #000;
+    color: #000000;
 }
 
-#right-content #content-summary-order #order-list-header {
+#right-content #content-enquiry #enquiry-itembox #enquiry-header {
 	display: flex;
     justify-content: space-between;
     padding: 16px 0px;
@@ -125,7 +133,7 @@ a {
     color: #000;
 }
 
-#right-content #content-summary-order #order-view-header{
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-header {
 	display: flex;
     justify-content: space-between;
     padding: 16px 0px;
@@ -134,19 +142,31 @@ a {
     font-size: 14px;
 }
 
-#right-content #content-summary-order #order-list-header #order-col-date{width: 15%;}
-#right-content #content-summary-order #order-list-header #order-col-item{width: 45%;}
-#right-content #content-summary-order #order-list-header #order-col-numb{width: 20%;}
-#right-content #content-summary-order #order-list-header #order-col-pric{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-date{width: 15%;}
-#right-content #content-summary-order #order-view-header #order-view-item{width: 45%;}
-#right-content #content-summary-order #order-view-header #order-view-numb{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-pric{width: 20%;}
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-titl,
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-cont {
+	text-align: start;
+}
 
+#right-content #content-enquiry #enquiry-itembox #enquiry-col-numb,
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-numb {width: 10%;}
+#right-content #content-enquiry #enquiry-itembox #enquiry-col-type,
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-type {width: 15%;}
+#right-content #content-enquiry #enquiry-itembox #enquiry-col-titl,
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-titl {width: 50%;}
+#right-content #content-enquiry #enquiry-itembox #enquiry-col-date,
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-date {width: 15%;}
+#right-content #content-enquiry #enquiry-itembox #enquiry-col-resu,
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-resu {width: 10%;}
 
+#right-content #paging {
+	margin: auto;
+	padding-top: 30px;
+	text-align: center;
+}
 </style>
 </head>
 <body>
+
 <c:if test="${email == null }">
 
 	로그인하시오
@@ -173,7 +193,7 @@ a {
 						<span> 나의 쇼핑 정보</span>
 						
 						<!-- 주문정보 -->
-						<ul id="mypage-order-list">
+						<ul id="mypage-enquiry">
 							<li> 
 								<a href="order_list?email=${email }"> 주문 조회</a>
 							</li>
@@ -208,38 +228,35 @@ a {
 				</ul>
 			</div>
 		</div>
-		
-		<!-- 오른쪽 본문 -->
 		<div id="right-content">
-
-			<!-- 회원 정보 (이름 등) -->	
-				
-			<div id="member-info">
-				<div id="member-info-modify">
-					<a href="member_edit?email=${email }">내 정보 관리 ></a>
-				</div>
-				<div id="member-id">
-					<h1> ${email } 회원님</h1>
-				</div>
-			</div>
-			
-			<div id="content-summary-order">
-				<div id="order-list">
-					<div id="order-list-title"> 주문 조회</div>
-					<div id="order-list-itembox">
-						<div id="order-list-header">
-							<div id="order-col-date"> 주문일</div>
-							<div id="order-col-item"> 주문내역</div>
-							<div id="order-col-numb"> 주문번호</div>
-							<div id="order-col-pric"> 가격</div>
+			<div id="content-enquiry">
+				<div id="enquiry">
+					<div id="enquiry-title"> 
+						<h1> 나의 문의</h1>
+					</div>
+					<div id="enquiry-itembox">
+						<div id="enquiry-header">
+							<div id="enquiry-col-numb"> No.</div>
+							<div id="enquiry-col-type"> 유형</div>
+							<div id="enquiry-col-titl"> 제목</div>
+							<div id="enquiry-col-date"> 등록일</div>
+							<div id="enquiry-col-resu"> 처리결과</div>
 						</div>
-						<!-- 물건 보이기(반복 -->
-						<div id="order-view-header">
-							<div id="order-view-date"> 2021-11-03</div>
-							<div id="order-view-item"> 시계</div>
-							<div id="order-view-numb"> 1</div>
-							<div id="order-view-pric"> 340,000</div>
-						</div>
+						
+						<c:forEach items="${enquiry }" var="enquiry">
+						
+							<div id="enquiry-view-header">
+								<div id="enquiry-view-numb"> ${enquiry.id }</div>
+								<div id="enquiry-view-type"> ${enquiry.qnatype }</div>
+								<div id="enquiry-view-titl"> 
+									<a href="enquiry_detail?qna_id=${enquiry.id }">${enquiry.title }</a>
+								</div>
+								<div id="enquiry-view-date"> ${enquiry.writeday }
+									<%-- <fmt:formatDate pattern="yyyy-MM-dd" type="both" value="${enquiry.writeday }"/>  --%>
+								</div>
+								<div id="enquiry-view-resu"> </div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -249,4 +266,3 @@ a {
 
 </body>
 </html>
-
