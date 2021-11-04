@@ -106,6 +106,7 @@ function resizeWindow(win)    {
 		        <th width="150px">만족도</th>
 		        <th width="150">작성자 아이디</th>
 		        <th width="800px">내용</th>
+		        <th width="150">추천수</th>
 		        <th width="150">조회수</th>
 		        <th width="150">작성일</th>
 		      </tr>
@@ -136,11 +137,11 @@ function resizeWindow(win)    {
 								       </c:forEach>
 						        </td>
 						        <td>${review.mname}</td><!-- member_id말고 mname으로 가져오기 -->
-
 								<td><a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
 									${review.content}
 									</a>
 								</td>
+								<td>추천수</td>
 						        <td>${review.view}</td>
 						        <td>${review.writeday}</td>
 					      </tr>
