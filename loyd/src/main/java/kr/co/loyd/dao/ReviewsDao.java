@@ -20,18 +20,14 @@ public interface ReviewsDao {
 
 	public void readnum(int reviewId);
 	
-<<<<<<< HEAD
-	
+
 	/** 대시보드에 문의글 최근 5개 목록 조회 */
 	ArrayList<ReviewsDto> dash_listr(); 
-	
-	
-	
-=======
-	public ReviewsDto content(int review_id); // content 페이지
-	public void delete(int review_id); //delete 페이지
->>>>>>> developer
 
+	public ReviewsDto content(int review_id); // content 페이지
 	
+	public void delete(int review_id); //delete 페이지
+
+
 	
 }

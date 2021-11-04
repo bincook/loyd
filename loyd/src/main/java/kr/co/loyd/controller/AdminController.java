@@ -205,15 +205,11 @@ public class AdminController {
 			{
 				page=Integer.parseInt(request.getParameter("page"));
 			}
-<<<<<<< HEAD
+
 			int recod=(page-1)*7;	
 
-			
-=======
-			
-			int recod=(page-1)*7;	
-			
->>>>>>> developer
+		
+
 			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
 			int pstart=page/5;
 			if(page%10 == 0)
@@ -238,10 +234,6 @@ public class AdminController {
 	 @RequestMapping("/watch/delete")
 	 public String delete(HttpServletRequest request)
 	 {
-<<<<<<< HEAD
-
-=======
->>>>>>> developer
 		 
 		 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
 		 String[] watchIds = request.getParameterValues("watchIds[]");
@@ -260,67 +252,13 @@ public class AdminController {
 	 String id=request.getParameter("id");
 	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
 	 WatchDto wdto=wdao.content(id);
-<<<<<<< HEAD
-	 wdto.setContent(wdto.getContent().replace("\r\n","<br>"));
-=======
-	 model.addAttribute("wdto",wdto);
-
-
-	   return "admin/watch/content";
-	  }
->>>>>>> developer
+	 wdto.setContent(wdto.getContent());
 	 
 	 model.addAttribute("wdto",wdto);
 
 	   return "admin/watch/content";
 	  }
 	 
-
-	 @RequestMapping("/watch/update_ok")
-	 public String update_ok( MultipartHttpServletRequest request) throws Exception
-	 {
-		 String imgPath = "resources/img";
-		   String path=request.getRealPath(imgPath);
-		   MultipartFile multipartFile = request.getFile("picture");
-			
-		   // 파일이 있는 경우
-		   if(!multipartFile.isEmpty()) {
-			   File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
-			   String fileName = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
-			   FileCopyUtils.copy(multipartFile.getBytes(), file);
-			   
-//			   int max=1024*1024*10;
-//			   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
-
-//			   String fileName = multi.getFilesystemName("picture");
-//			   System.out.println("fileName" + fileName);
-			   
-			   
-			   
-			   WatchDto wdto=new WatchDto();
-			   wdto.setName(request.getParameter("name"));
-			   wdto.setBrand(request.getParameter("brand"));
-			   wdto.setPrice(Integer.parseInt(request.getParameter("price")));
-			   wdto.setCategory(request.getParameter("category"));
-			   wdto.setContent(request.getParameter("content"));
-			   wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
-			   wdto.setPicture(imgPath + "/" + fileName);
-			   wdto.setKind(request.getParameter("kind"));
-			   
-			   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
-			   wdao.upload_ok(wdto);
-			   
-			// 파일이 없을 때
-		   } else {
-			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
-			   String id = request.getParameter("id");
-			   
-			   return "redirect:/admin/watch/content?id=" + id + "&error="+encodeResult;			   
-		   }
-		   
-		return "redirect:/admin/watch/watch_list";
-	 }
-	
 	 
 	 @RequestMapping("/watch/update")
 	 public String update(Model model,HttpServletRequest request) throws Exception
