@@ -18,7 +18,7 @@
 <body>
 	
 <div class="container">
-	
+	<h1 style="text-align:center;">MEN WATCH LIST</h1>
 	<!-- 1줄 (12칸) 차지-->
 	  <div class="row" style="min-width: 600px; margin-top:30px;">
 	    	<!-- 4칸 차지 -->

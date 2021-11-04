@@ -25,4 +25,6 @@ public interface CartDao {
 	
 	public void pay(OrderDetailDto dto);
 	
+	
+	
 }

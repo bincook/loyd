@@ -7,14 +7,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script>
-	function view2(){
-		
+
+	
+	window.onload = function() {
+		$("form").bind("keypress", function (e) {
+		    if (e.keyCode == 13) {
+		    	var a = document.pkc;
+		    	if(a.search.value==""){
+					return false
+				}else{
+					document.pkc.submit();
+				}
+		    }
+		});		
 	}
 	
-	function check(){
+	function check() {
 		var a = document.pkc;
-		if(a.search.value==""){
-			document.getElementById("zero").style.display="block";
+    	if(a.search.value==""){
+			return false
 		}else{
 			document.pkc.submit();
 		}
@@ -32,7 +43,8 @@
 	<table align="center">
 		<tr>
 			<td >
-				<input type="text" name="search" placeholder="검색어를 입력하세요" onkeypress="if(event.keyCode==13){check();}">
+				<input type="hidden" name="chk" value='true' />
+				<input type="text" name="search" placeholder="검색어를 입력하세요">
 				<input type="button" value="검색" onclick="check()">
 			</td>
 		</tr>
@@ -43,13 +55,18 @@
 	
 	
 	
-	
+	<c:if test="${list.isEmpty() && chk}">
+		<div id ="zero" style="display:block;">
+			<h1 style="text-align:center;">검색 결과가 없습니다 </h1>
+			<h1 style="text-align:center;">검색어를 변경해 보세요 </h1>
+		</div>
+	</c:if>
+	<c:if test="${list.isEmpty()}">
 	<div id ="zero" style="display:none;">
-	<c:if test="${chk==0 }">
 		<h1 style="text-align:center;">검색 결과가 없습니다 </h1>
 		<h1 style="text-align:center;">검색어를 변경해 보세요 </h1>
+		</div>
 	</c:if>
-	</div>
 	
 	<div class="container">
 	

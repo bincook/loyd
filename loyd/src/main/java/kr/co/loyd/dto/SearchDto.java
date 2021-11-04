@@ -2,16 +2,17 @@ package kr.co.loyd.dto;
 
 public class SearchDto {
 
-	private int id ,price,chk;
+	private int id ,price;
 	private double discount;
+	private boolean chk;
 	private String name,brand,category,content,picture,kind,search;
 	
 	
 	
-	public int getChk() {
+	public boolean isChk() {
 		return chk;
 	}
-	public void setChk(int chk) {
+	public void setChk(boolean chk) {
 		this.chk = chk;
 	}
 	public String getSearch() {

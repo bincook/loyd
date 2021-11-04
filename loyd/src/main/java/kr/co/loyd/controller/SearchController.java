@@ -21,12 +21,12 @@ public class SearchController {
 	@RequestMapping("search")
 	public String search(SearchDto dto,Model model) {
 		
+		
 		SearchDao dao = sqlSession.getMapper(SearchDao.class);
 		ArrayList<SearchDto> list = dao.search(dto);
-		int chk = dao.search_chk(dto);
 		
 		model.addAttribute("list",list);
-		model.addAttribute("chk",chk);
+		model.addAttribute("chk", dto.isChk());
 		
 		return "/search/search";
 	}
