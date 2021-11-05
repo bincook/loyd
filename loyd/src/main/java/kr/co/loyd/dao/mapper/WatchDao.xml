@@ -19,7 +19,6 @@
 		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
 	</insert>
 
-
 	<!-- 관리자가 상품 등록 -->
 	<insert id="upload_ok" parameterType="kr.co.loyd.dto.WatchDto">
 		insert into watch(name,brand,price,category,content,discount,picture,kind) 
@@ -45,7 +44,7 @@
 	<select id="content" resultType="kr.co.loyd.dto.WatchDto">
         select * from watch where id=#{param1}
     </select>
-    
+
     <select id="update" resultType="kr.co.loyd.dto.WatchDto">
         select * from watch where id=#{param1}
     </select>   
@@ -54,8 +53,8 @@
 	<insert id="update_ok" parameterType="kr.co.loyd.dto.WatchDto">
 		update watch set name=#{name},brand=#{brand},price=#{price},category=#{category},
 		content=#{content},discount=#{discount},picture=#{picture},kind=#{kind} where id=#{id}
+    </insert>
 
-	</insert>
 	
 	
 </mapper>

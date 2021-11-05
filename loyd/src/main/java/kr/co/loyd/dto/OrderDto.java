@@ -6,13 +6,13 @@ public class OrderDto {
 	private String name,brand,category,content,picture,kind;
 	
 	private int member_id, watch_id,chong,all_price;
+	private String orderday;
 	
 	//watch_detail
-	private String path;
+	private String path;	
 	
 	
-	
-	
+
 	
 	public int getLike2() {
 		return like2;
@@ -25,6 +25,14 @@ public class OrderDto {
 	}
 	public void setOrder_no(int order_no) {
 		this.order_no = order_no;
+	}
+
+	public String getOrderday() {
+		return orderday;
+	}
+	public void setOrderday(String orderday) {
+		this.orderday = orderday;
+
 	}
 	public String getPath() {
 		return path;

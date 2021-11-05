@@ -25,7 +25,7 @@ public interface WatchDao {
 
 	/** 상품 수정페이지*/
 	public WatchDto update(String id);
-	
+
 	/** 상품 수정 */
 	void update_ok(WatchDto paramWatchDto);
 	

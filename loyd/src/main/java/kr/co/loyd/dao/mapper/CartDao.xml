@@ -81,6 +81,7 @@
 		VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now(),1,(SELECT MAX(order_no) FROM `order list`))
 	</insert>
 
+
 	<select id ="writeOrderList" parameterType="kr.co.loyd.dto.CartDto" resultType="int">
 		INSERT INTO `order list` (watch_id,member_id,price,discount,count,orderday,order_no)
 		SELECT A.watch_id ,member_id, CEIL(price*(1-B.discount)) as price ,B.discount,A.item_count,NOW(),(select max(order_no)+1 from `order list`) FROM cart A, watch B WHERE A.watch_id = B.id AND member_id=#{param1}
@@ -91,6 +92,15 @@
 		delete from cart where member_id = #{param1}
 	</delete>
 
+
+
+
+
+	<!-- 대시보드에 문의글 최근 5개 목록 조회  -->
+	<select id="dash_listc" resultType="kr.co.loyd.dto.CartDto">
+	 	<![CDATA[select email,created_at from cart where item_count > 10 limit 0,5]]>  
+		<!-- select email,created_at from cart  -->
+	</select>
 
 
 </mapper>

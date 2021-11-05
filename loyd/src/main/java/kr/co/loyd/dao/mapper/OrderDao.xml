@@ -90,10 +90,27 @@
 		insert into wishlist(watch_id,member_id ,email,datetime) values(#{param1},#{param2},#{param3},now())
 	</insert>
 	
+
 	<delete id ="like2">
 		delete from wishlist where watch_id = #{param1} and member_id = #{param2} 
 	</delete>
 	
 	
+
+	
+
+	<!-- 대시보드 구매가격이 1,268,000원 이상인 최근 5개 목록 조회  -->
+	<select id="dash_listo" resultType="kr.co.loyd.dto.OrderDto">
+		<![CDATA[select price,orderday from `order list` WHERE price > '1,268,000' group by orderday limit 0,5]]>
+	</select>
+	<!-- 대시보드 그래프  : 주문내역이 가장 많은 상품 10개 -->
+	<select id="orderg" resultType="integer" >
+		SELECT max(watch_id), COUNT(watch_id) AS c FROM `order list` GROUP BY watch_id ORDER BY c desc limit 0,10
+	</select>
+	<!-- 대시보드 그래프  : 한달 전 주문내역 count -->
+	<select id="grapoc" resultType="kr.co.loyd.dto.OrderDto">
+		<![CDATA[SELECT orderday,count(watch_id) as c FROM `ORDER list` WHERE orderday >= DATE_sub(NOW(),INTERVAL 1 MONTH) group by orderday]]>
+	</select>
+
 	
 </mapper>
