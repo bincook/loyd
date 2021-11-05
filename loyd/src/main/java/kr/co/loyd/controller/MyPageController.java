@@ -51,6 +51,7 @@ public class MyPageController {
     public String order_list(HttpServletRequest request, Model model, HttpSession session) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+    	Integer memberId = (Integer) session.getAttribute("id");
     	// 페이징 처리하기
     	int page;
     	if(request.getParameter("page")==null){
@@ -62,7 +63,7 @@ public class MyPageController {
     	}
 
     	int index = (page -1) *10;
-    	int page_cnt = mydao.page_cnt();
+    	int page_cnt = mydao.page_cnt(memberId);
     	int pstart = page /10; // 1~9까지는 0, 10은 1
     	if(page %10 == 0)
     		
@@ -86,7 +87,7 @@ public class MyPageController {
     		field = request.getParameter("field");
     		word = request.getParameter("word");
     	}
-    	Integer memberId = (Integer) session.getAttribute("id");
+    	
     	Object email = session.getAttribute("email");
     	
     	System.out.println(email);
@@ -186,13 +187,17 @@ public class MyPageController {
     }
     
     @RequestMapping("/mypage/order_detail")
-    public String order_detail(Model model, HttpSession session) {
+    public String order_detail(Model model,HttpServletRequest request, HttpSession session) {
     	
+    	String order_no = request.getParameter("order_no");
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	Object email = session.getAttribute("email");
-
-    	MypageDto order = mydao.order_detail(email);
-    	model.addAttribute("order_detail", order);
+    	Integer memberId = (Integer) session.getAttribute("id");
+    	
+    	MypageDto order1 = mydao.order_detail1(email, order_no);
+    	ArrayList<MypageDto> order = mydao.order_detail(memberId, order_no);
+    	model.addAttribute("order_d", order);
+    	model.addAttribute("order_detail", order1);
     	
     	return "mypage/order_detail";
     }

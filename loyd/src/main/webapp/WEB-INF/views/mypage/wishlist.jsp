@@ -259,8 +259,7 @@ a:hover {
 								<div id="wishlist-view-item"> 
 									<img src="${wish.picture }" height="40px"> ${wish.name }</div>
 								<div id="wishlist-view-pric"> 
-									<fmt:formatNumber value="${wish.price }" pattern="#,###" />원 (${wish.count })
-								</div>
+									<fmt:formatNumber value="${wish.price }" pattern="#,###" />원 								</div>
 								<div id="wishlist-view-date"> ${wish.datetime }</div>
 							</div>
 						</c:forEach>

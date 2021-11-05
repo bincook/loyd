@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -105,10 +106,12 @@ h1 {
 		</div>
 		
 		<div id="Odetail-item-content">
-			<div id="Odetail-item-header">
-				<div id="Odetail-item-picture"> <img src="${order_detail.picture }" height="150px"></div>
-				<div id="Odetail-item-name"> ${order_detail.name }</div>
-			</div>
+			<c:forEach items="${order_d }" var="order">
+				<div id="Odetail-item-header">
+					<div id="Odetail-item-picture"> <img src="${order.picture }" height="150px"></div>
+					<div id="Odetail-item-name"> ${order.name }</div>
+				</div>
+			</c:forEach>
 		</div>
 		
 		<div id="Odetail-receive-content">

@@ -258,12 +258,12 @@ a:hover {
 						<c:forEach items="${order_pay }" var="order">
 							<div id="order-view-header">
 								<div id="order-view-date"> ${order.order_date }</div>
-								<div id="order-view-numb"> ${order.order_id }</div>
+								<div id="order-view-numb"> ${order.order_no }</div>
 								<div id="order-view-orde"> ${order.order_name }</div>
 								<div id="order-view-reci"> ${order.rec_name }</div>
 								<div id="order-view-pay"> ${order.pay }</div>
 								<div id="order-view-more"> 
-									<a href="order_detail">자세히</a>
+									<a href="order_detail?order_no=${order.order_no }"">자세히</a>
 								</div>
 							</div>
 						</c:forEach>

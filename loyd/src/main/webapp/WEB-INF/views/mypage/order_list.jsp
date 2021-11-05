@@ -156,12 +156,10 @@ a:hover {
 
 #right-content #content-order-list #order-list-itembox #order-col-numb {width: 8%;}
 #right-content #content-order-list #order-list-itembox #order-col-item {width: 50%}
-#right-content #content-order-list #order-list-itembox #order-col-pric {width: 20%;}
 #right-content #content-order-list #order-list-itembox #order-col-date {width: 20%;}
 #right-content #content-order-list #order-list-itembox #order-col-enquiry {width: 12%;}
 #right-content #content-order-list #order-list-itembox #order-view-numb {width: 8%;padding-top: 13px;}
 #right-content #content-order-list #order-list-itembox #order-view-item {width: 50%}
-#right-content #content-order-list #order-list-itembox #order-view-pric {width: 20%;padding-top: 13px;}
 #right-content #content-order-list #order-list-itembox #order-view-date {width: 20%;padding-top: 13px;}
 #right-content #content-order-list #order-list-itembox #order-view-enquiry {width: 12%;padding-top: 13px;}
 
@@ -269,27 +267,22 @@ a:hover {
 		
 			<div id="content-order-list">
 				<div id="order-list">
-					<div id="order-list-title"> 주문 상세내역</div>
+					<div id="order-list-title"> 주문 내역</div>
 					<div id="order-list-itembox">
 						<div id="order-list-header">
 							<div id="order-col-numb"> 주문번호</div>
 							<div id="order-col-item"> 상품명</div>
-							<div id="order-col-pric"> 총 가격(수량)</div>
 							<div id="order-col-date"> 날짜</div>
 							<div id="order-col-enquiry"> &nbsp;</div>
 						</div>
 						
 						<c:forEach items="${list }" var="mydto">
-						
 							<div id="order-view-header">
-								<div id="order-view-numb"> ${mydto.id }</div>
-								<div id="order-view-item"> <img height="50px" src="${mydto.picture }"><a href="item_detail?id=${mydto.watch_id }">${mydto.name }</a></div>
-								<div id="order-view-pric"> 
-									<fmt:formatNumber value="${mydto.price *mydto.count *(1 -mydto.discount) }" pattern="#,###" />원 (${mydto.count })
-								</div>
-								<div id="order-view-date"> ${mydto.orderday }</div>
+								<div id="order-view-numb"> ${mydto.order_no }</div>
+								<div id="order-view-item"> <img src="${mydto.picture }" height="50px"> ${mydto.name }</a></div>
+								<div id="order-view-date"> ${mydto.order_date }</div>
 								<div id="order-view-enquiry"> 
-									<a href=""> 문의내역</a>
+									<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
 								</div>
 							</div>
 						</c:forEach>

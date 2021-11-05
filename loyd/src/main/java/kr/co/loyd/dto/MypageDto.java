@@ -8,7 +8,7 @@ public class MypageDto {
 	
 //	table `order_detail`
 	private String order_name, order_phone, rec_name, rec_phone, zip, addr1, addr2, pay, msg, order_date;
-	private int order_id, order_list_id;
+	private int order_id, order_list_id, order_no;
 	
 //	table `member`
 	private String register_date;
@@ -211,6 +211,13 @@ public class MypageDto {
 	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
 	}
+	public int getOrder_no() {
+		return order_no;
+	}
+	public void setOrder_no(int order_no) {
+		this.order_no = order_no;
+	}
+	
 	
 }
 
