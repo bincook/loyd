@@ -54,6 +54,7 @@
                   <input type="checkbox" name="watch_id" value="${dto.watch_id }">
                 </th>
                 <td>
+                <a href="/loyd/order/detail_order?id=${dto.watch_id }">
                     <div>
                         <div class="d-inline-block mr-4">
                             <img src="${dto.picture }" width="100px">
@@ -71,6 +72,7 @@
                             <a href="change?watch_id=${dto.watch_id }&email=${dto.email}" onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;"><button class="btn-block">수량 변경</button></a>
                         </div>
                     </div>
+                </a>
                 </td>
                 <td>
                 <div>${String.format("%,d",dto.hap) }원</div>
