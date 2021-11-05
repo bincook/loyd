@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -87,7 +86,10 @@
 	  var checkedInput = $("input:checked")
 	  watchIds = []
 	  
-//	  console.log(checkedInput.length)	  
+
+	 //  console.log(checkedInput.length)	  
+
+
 	  if(checkedInput.length < 1)
 		  {
 		  document.getElementById("ctn_show").style.display="none"; 
@@ -103,7 +105,6 @@
 		  })
 	 }
   }
-  
  </script>
 </head>
 <body>
@@ -144,11 +145,8 @@
 			<c:forEach items="${watch_list}" var="wdto">
 			<tr>
 			<!--  하나의 상품에 대한 체크박스 -->
-			<td onclick="view()"><input name="rowcheck" type="checkbox" value="${wdto.id}"></td>  	 
-
-			 <td> ${wdto.id}</td>	
-
-		  
+			<td onclick="view()"><input name="rowcheck" type="checkbox" value="${wdto.id}"></td>
+			<td>${wdto.id }</td>  	   	 
 		  	  
 		  <!--
 		  	 이미지가 resources 로 시작하는 경우

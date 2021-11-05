@@ -10,6 +10,9 @@ public class CartDto {
 	private int hap;
 	private int chong,item_chong;
 	
+	//주문 번호
+	private int order_no;
+	
 	
 	//watch 테이블
 	private int price;
@@ -18,6 +21,12 @@ public class CartDto {
 	
 	
 	
+	public int getOrder_no() {
+		return order_no;
+	}
+	public void setOrder_no(int order_no) {
+		this.order_no = order_no;
+	}
 	public int getItem_chong() {
 		return item_chong;
 	}

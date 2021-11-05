@@ -60,7 +60,7 @@ public class MberController {
 	}
 	
 	@RequestMapping("login_ok")
-	public String login_ok(HttpSession session,MberDto dto) {
+	public String login_ok(HttpSession session, MberDto dto) {
 		
 		MberDao dao = sqlSession.getMapper(MberDao.class);
 		MberDto dto2 = dao.login_ok(dto);
@@ -80,7 +80,6 @@ public class MberController {
 		return "redirect:/";
 		
 		}
-
 	}
 	
 	@RequestMapping("logout")

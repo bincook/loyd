@@ -13,9 +13,9 @@
 	$(document).ready(function(){
 		$("#all").click(function(){
 			if($("#all").prop("checked")){
-				$("input[name=watch]").prop("checked",true);
+				$("input[name=watch_id]").prop("checked",true);
 			}else{
-				$("input[name=watch]").prop("checked",false);
+				$("input[name=watch_id]").prop("checked",false);
 			} 
 		})
 		
@@ -40,7 +40,7 @@
           <tbody>
               <tr>
                 <th scope="row">
-                  <input type="checkbox" id="all" onclick="selectAll()">
+                  <input type="checkbox" id="all">
                 </th>
                 <th scope="col">상품정보</th>
                 <th scope="col">주문금액</th>
@@ -54,6 +54,7 @@
                   <input type="checkbox" name="watch_id" value="${dto.watch_id }">
                 </th>
                 <td>
+                <a href="/loyd/order/detail_order?id=${dto.watch_id }">
                     <div>
                         <div class="d-inline-block mr-4">
                             <img src="${dto.picture }" width="100px">
@@ -71,6 +72,7 @@
                             <a href="change?watch_id=${dto.watch_id }&email=${dto.email}" onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;"><button class="btn-block">수량 변경</button></a>
                         </div>
                     </div>
+                </a>
                 </td>
                 <td>
                 <div>${String.format("%,d",dto.hap) }원</div>
@@ -82,7 +84,6 @@
               <tr>
               	<td colspan="4" align="center">
               		<button id="deleteBtn" type="button" onclick="ajx()">선택 삭제</button>
-              		<button type="button" >찜 하기</button>
               	</td>
               	
               	<script>

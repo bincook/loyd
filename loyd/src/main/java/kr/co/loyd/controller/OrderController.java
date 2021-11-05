@@ -1,6 +1,7 @@
 package kr.co.loyd.controller;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.loyd.dao.OrderDao;
+import kr.co.loyd.dao.QnaDao;
 import kr.co.loyd.dto.OrderDetailDto;
 import kr.co.loyd.dto.OrderDto;
+import kr.co.loyd.dto.QnaDto;
 
 @Controller
 @RequestMapping("/order")
@@ -24,17 +27,61 @@ public class OrderController {
 	private SqlSession sqlSession;
 	
 	@RequestMapping("/detail_order")
-	public String detail_order(Model model,HttpServletRequest request) {
+	public String detail_order(Model model,HttpServletRequest request,HttpSession session) {
 		
 		//�긽�뭹 由ъ뒪�듃�뿉�꽌 ID 諛쏆븘���빞�맖!
 		int id = Integer.parseInt(request.getParameter("id"));
+		int member_id = (Integer) session.getAttribute("id");
 		
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
-		OrderDto dto = dao.detail_order(id);
-		ArrayList<OrderDto> list = dao.watch_detail(id);
+		OrderDto dto = dao.detail_order(id,member_id);
 		
-		model.addAttribute("list",list);
+		System.out.println(dto.getLike2());
+		
+		ArrayList<OrderDto> dlist = dao.watch_detail(id);
+		
+		model.addAttribute("dlist",dlist);
 		model.addAttribute("dto",dto);
+		
+		
+		
+		 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
+		 
+		 String nav_type = request.getParameter("nav_type");
+		 int page;
+			if(request.getParameter("page")==null)
+			{
+				page=1;
+			}
+			else
+			{
+				page=Integer.parseInt(request.getParameter("page"));
+			}	
+
+			int recod=(page-1)*7;
+			
+			ArrayList<QnaDto> list=qdao.list(recod);
+			int pstart=page/5;
+			if(page%10 == 0)
+				pstart=pstart-1;
+			pstart=(pstart*10)+1;
+			int pend=pstart+9;		
+			
+			int page_cnt=qdao.get_cnt();
+			if(pend>page_cnt)
+				pend=page_cnt;		   
+			
+		   model.addAttribute("pstart",pstart);
+		   model.addAttribute("pend",pend);
+		   model.addAttribute("page_cnt",page_cnt);
+		   model.addAttribute("page",page);				
+		   model.addAttribute("list",list);
+		   
+		   if (nav_type != null ) {
+			   model.addAttribute("nav_type", "list");				   
+		   } else {
+			   model.addAttribute("nav_type", "");
+		   }
 		
 		
 		return "/order/detail_order";
@@ -45,18 +92,17 @@ public class OrderController {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		String email = (String) session.getAttribute("email");
+		int member_id = (Integer) session.getAttribute("id");
+		
 		
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
 
 		int cnt = dao.id_check(id,email);
 		
-		System.out.println("되고있냐1");
 		
 		if(cnt==0) {
-			System.out.println("되고있냐2");
-			dao.cart_go(id,email);
+			dao.cart_go(id,email,member_id);
 		}else {
-			System.out.println("되고있냐3");
 			dao.cart_plus(id,email);
 		}
 		
@@ -73,11 +119,11 @@ public class OrderController {
 		
 		
 		OrderDto dto = dao.buy(id);
-		int all_price = dao.all_price();
+		/*int all_price = dao.all_price();*/
 		
 		
 		model.addAttribute("dto",dto);
-		model.addAttribute("all_price",all_price);
+		/*model.addAttribute("all_price",all_price);*/
 
 		return "/order/buy";
 	}
@@ -231,13 +277,43 @@ public class OrderController {
 	
 	
 	@RequestMapping("/pay")
-	public String pay(OrderDetailDto dto) {
+	public String pay(OrderDetailDto dto, OrderDto orderListDto, HttpSession session) {
 		
+		Object memberIdObj = session.getAttribute("id");
+		
+		if (memberIdObj != null) {	
+			orderListDto.setMember_id((Integer) memberIdObj);
+		}
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
-		
-		dao.pay(dto);
+		dao.writeOrderList(orderListDto);
+
+		dao.writeOrderDetail(dto);
 		
 		return "/order/pay";
+	}
+	
+	@RequestMapping("/like")
+	public String like (HttpServletRequest request,HttpSession session) {
+		int watch_id  = Integer.parseInt(request.getParameter("id"));
+		int member_id = (Integer) session.getAttribute("id");
+		String email = (String) session.getAttribute("email");
+		
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		dao.like(watch_id,member_id,email);
+		
+		return "redirect:/order/detail_order?id="+watch_id;
+	}
+	
+	@RequestMapping("/like2")
+	public String like2 (HttpServletRequest request,HttpSession session) {
+		int watch_id  = Integer.parseInt(request.getParameter("id"));
+		int member_id = (Integer) session.getAttribute("id");
+		String email = (String) session.getAttribute("email");
+		
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		dao.like2(watch_id,member_id,email);
+		
+		return "redirect:/order/detail_order?id="+watch_id;
 	}
 	
 	

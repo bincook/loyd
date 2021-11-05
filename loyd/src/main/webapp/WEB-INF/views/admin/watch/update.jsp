@@ -57,10 +57,6 @@
 	 	var url = URL.createObjectURL(input.files[0])
 		$('#imgArea img').attr('src', url)  
 	 }
-	 
- 
- 
- 
  </script>
  
 </head>

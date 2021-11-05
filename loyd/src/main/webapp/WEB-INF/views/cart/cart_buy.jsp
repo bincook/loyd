@@ -90,6 +90,7 @@ function chk(){
     
     <!-- 주문자 정보 -->
     <form name="pkc" method="post" action="pay">
+
     <div class="container mt-5 text-center" >
         <table style="width: 1000px;" class="table table-hover" align="center">
           <tbody>

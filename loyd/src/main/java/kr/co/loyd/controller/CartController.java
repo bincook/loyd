@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import kr.co.loyd.dao.CartDao;
 import kr.co.loyd.dao.OrderDao;
 import kr.co.loyd.dto.CartDto;
 import kr.co.loyd.dto.OrderDetailDto;
+import kr.co.loyd.dto.OrderDto;
 
 @Controller
 public class CartController {
@@ -134,12 +136,20 @@ public class CartController {
     }
     
     @RequestMapping("/cart/pay")
-	public String pay(OrderDetailDto dto) {
-		
+	public String pay(OrderDetailDto dto, HttpSession session) {
+    	
+    	
+    	
+    	int member_id = (Integer) session.getAttribute("id");
+    	
     	CartDao cart = sqlSession.getMapper(CartDao.class);
-		
-		cart.pay(dto);
-		
+
+    	cart.writeOrderList(member_id);
+    	cart.pay(dto);
+    	
+    	cart.cart_del(member_id);
+    	
+
 		return "/cart/pay";
 	}
    
