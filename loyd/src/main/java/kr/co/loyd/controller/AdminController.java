@@ -5,10 +5,13 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -323,7 +326,7 @@ public class AdminController {
 	 }
 	 
      @RequestMapping(value = "/dash-board")
-     public String dash_board(Model model,HttpServletRequest request)
+     public String dash_board(Model model,HttpServletRequest request) throws Exception
      {
     	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
     	 ArrayList<QnaDto> dash_listq=qdao.dash_listq();
@@ -356,13 +359,16 @@ public class AdminController {
     	 model.addAttribute("totq",totq);
     	 
     	 OrderDao grapoc=sqlSession.getMapper(OrderDao.class);
-    	 ArrayList<OrderDto> orderc=grapoc.orderg();
+    	 ArrayList<OrderDto> orderc=grapoc.grapoc();
     	 model.addAttribute("orderc",orderc);
-    	 
-    	 return "admin/dash-board";
-    	 
+    	
+    	    	 
+ 
+	 return "admin/dash-board";   
     	 
      }
+     
+    
 	 
 	 
 	 

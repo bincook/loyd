@@ -47,7 +47,7 @@ public class QnaController {
 			  secret=1;
 		  }	  
 		  
-		  return "redirect:/list";
+		  return "redirect:/qna/list";
 	  }
 	  
 	  
@@ -56,10 +56,6 @@ public class QnaController {
 			 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
 			 
 			 String nav_type = request.getParameter("nav_type");
-			 
-					 
-					 
-			 				
 			 int page;
 				if(request.getParameter("page")==null)
 				{

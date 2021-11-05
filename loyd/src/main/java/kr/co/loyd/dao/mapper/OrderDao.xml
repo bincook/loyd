@@ -75,15 +75,13 @@ VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{a
 	<select id="dash_listo" resultType="kr.co.loyd.dto.OrderDto">
 		<![CDATA[select price,orderday from `order list` WHERE price > '1,268,000' group by orderday limit 0,5]]>
 	</select>
-
 	<!-- 대시보드 그래프  : 주문내역이 가장 많은 상품 10개 -->
 	<select id="orderg" resultType="integer" >
 		SELECT max(watch_id), COUNT(watch_id) AS c FROM `order list` GROUP BY watch_id ORDER BY c desc limit 0,10
 	</select>
-	
 	<!-- 대시보드 그래프  : 한달 전 주문내역 count -->
-	<select id="grapoc">
-		SELECT orderday,count(watch_id) as c FROM `ORDER list` WHERE orderday >= DATE_sub(NOW(),INTERVAL 1 MONTH) group by orderday ;
+	<select id="grapoc" resultType="kr.co.loyd.dto.OrderDto">
+		<![CDATA[SELECT orderday,count(watch_id) as c FROM `ORDER list` WHERE orderday >= DATE_sub(NOW(),INTERVAL 1 MONTH) group by orderday]]>
 	</select>
 	
 </mapper>

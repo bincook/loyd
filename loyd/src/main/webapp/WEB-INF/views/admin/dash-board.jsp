@@ -15,17 +15,19 @@
     context.fillRect(30, 30, 50, 50);
 </script>
 <script>
-    var context = example.getContext('2d');
-    context.fillStyle = 'red';
-    context.fillRect(30, 30, 50, 50);
+    var context2 = example.getContext('2d');
+    context2.fillStyle = 'red';
+    context2.fillRect(30, 30, 50, 50);
 </script>
 
 </head>
 <body>
 	<!-- 차트 -->
+
 	<div>
 		<div style="width:800px">
-    <canvas id="myChart"></canvas>
+    <canvas Id="myChart"></canvas>
+ <canvas Id="myChart2"></canvas>
 </div>	
 	</div>
 <div >
@@ -152,14 +154,16 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-
-var myChart = new Chart(ctx, {
-    type: 'pie',
+</script>
+<script>
+var ctx = document.getElementById("myChart2").getContext('2d');
+var myChart2 = new Chart(ctx, {
+    type: 'line',
     data: {
-        labels: ["총 회원 수", "총 문의글 수", "Yellow", "Green", "Purple", "Orange"],
+        labels: ['한달 전 주문 count'],
         datasets: [{
             label: '# of Votes',
-            data: [	'${tot}','${totq}', 5, 2, 3],
+            data: [	'${ic.orderday}','${totq}', 1, 1, 1],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -191,8 +195,10 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
-	
-	
+
+  <c:forEach items="${orderc}" var="ic"> 
+  ${ic.orderday}
+  </c:forEach> 
 </body>
 </html>
 
