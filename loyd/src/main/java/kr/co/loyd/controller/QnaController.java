@@ -34,11 +34,11 @@ public class QnaController {
 	  
 	  
 	  @RequestMapping("insert_ok")
-	  public String insert_ok(QnaDto qdto,HttpServletRequest request)
+	  public String insert_ok(QnaDto dto, HttpServletRequest request	)
 	  {		  
 		  QnaDao qdao=sqlSession.getMapper(QnaDao.class);
-		  qdao.insert_ok(qdto);	
-		  
+		  qdao.insert_ok(dto);
+		  	  
 		  int secret;
 		  if(request.getParameter("secret")==null){
 			  secret=0;
@@ -47,7 +47,9 @@ public class QnaController {
 			  secret=1;
 		  }	  
 		  
-		  return "redirect:/qna/list";
+		  
+		  		  
+		  return "redirect:/order/detail_order?id=" + "660";
 	  }
 	  
 	  		 
