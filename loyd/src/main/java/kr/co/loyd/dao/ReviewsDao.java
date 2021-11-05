@@ -21,9 +21,10 @@ public interface ReviewsDao {
 	public void readnum(int reviewId);
 	
 
-	/** 대시보드에 문의글 최근 5개 목록 조회 */
+	/** 대시보드에 리뷰글 최근 5개 목록 조회 */
 	ArrayList<ReviewsDto> dash_listr(); 
-
+	/**  대시보드 그래프 : 리뷰글 총 합계 */
+	public String totr();
 
 	public ReviewsDto content(int review_id); // content 페이지
 	

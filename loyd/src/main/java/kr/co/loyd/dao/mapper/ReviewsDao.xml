@@ -60,6 +60,10 @@
 		select content,writeday from reviews order by writeday desc limit 0,5
 	</select>
 	
+	<!-- 대시보드 그래프 : 리뷰글 총 합계   -->
+	<select id="totr" resultType="String">
+	 	select count(*)from reviews;
+	</select>
 	
 	
 	
