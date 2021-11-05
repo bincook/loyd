@@ -15,7 +15,7 @@
 		LIMIT #{param4 }, 10
 	</select>
 	
-	<select id="order_detail" resultType="kr.co.loyd.dto.MypageDto">
+	<select id="item_detail" resultType="kr.co.loyd.dto.MypageDto">
 		SELECT *
 		FROM `watch`
 		WHERE id = #{param1 }
@@ -59,11 +59,23 @@
 	</update>
 	
 	<select id="info" resultType="kr.co.loyd.dto.MypageDto">
-		SELECT *
-		FROM `order list` ol
+		SELECT order_id, order_name, rec_name, pay, order_date
+		FROM `order_detail` od
 		LEFT JOIN `member` mb
-		ON ol.member_id = mb.id
-		WHERE mb.id = #{id }
+		ON mb.email = od.email
+		WHERE od.email = #{email }
+	</select>
+	
+	<select id="order_detail" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT order_id, order_name, od.email, order_phone, rec_name, rec_phone, zip, addr1, addr2, pay, msg, order_date, mb.register_date, wt.picture, wt.name
+		FROM `order_detail` od
+		LEFT JOIN `member` mb
+		ON mb.email = od.email
+		LEFT JOIN `order list` ol
+		ON ol.id = od.order_list_id
+		LEFT JOIN `watch` wt
+		ON wt.id = ol.watch_id
+		WHERE od.email = #{email }
 	</select>
 
 </mapper>

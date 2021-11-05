@@ -28,13 +28,12 @@ public class MyPageController {
     @RequestMapping(value = "/mypage/info", method = RequestMethod.GET)
     public String cartListPage(Model model, HttpSession session) {
     	Integer memberId = (Integer) session.getAttribute("id");
-    	
-    	System.out.println(memberId);
-    	
+    	Object email = session.getAttribute("email"); 
+    			
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
 
-    	ArrayList<MypageDto> order = mydao.info(memberId);
-    	
+//    	ArrayList<MypageDto> order = mydao.info(memberId);
+    	ArrayList<MypageDto> order = mydao.info(email);
     	model.addAttribute("order_pay", order);
     	
     	// dao.selectMyOrder(memberId)
@@ -100,16 +99,16 @@ public class MyPageController {
     	return "mypage/order_list";
     }
     
-    @RequestMapping("/mypage/order_detail")
+    @RequestMapping("/mypage/item_detail")
     public String order_detail(Model model, HttpServletRequest request) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	String id = request.getParameter("id");
-    	MypageDto list2 = mydao.order_detail(id);
+    	MypageDto list2 = mydao.item_detail(id);
 
     	model.addAttribute("list", list2);
     	
-    	return "mypage/order_detail";
+    	return "mypage/item_detail";
     }
     
     @RequestMapping("/mypage/enquiry")
@@ -178,5 +177,17 @@ public class MyPageController {
     public String watchcare(){
     	
     	return "mypage/watch-care";
+    }
+    
+    @RequestMapping("/mypage/order_detail")
+    public String order_detail(Model model, HttpSession session) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+    	Object email = session.getAttribute("email");
+
+    	MypageDto order = mydao.order_detail(email);
+    	model.addAttribute("order_detail", order);
+    	
+    	return "mypage/order_detail";
     }
 }

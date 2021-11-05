@@ -285,7 +285,7 @@ a:hover {
 						
 							<div id="order-view-header">
 								<div id="order-view-numb"> ${mydto.id }</div>
-								<div id="order-view-item"> <img height="50px" src="${mydto.picture }"><a href="order_detail?id=${mydto.watch_id }">${mydto.name }</a></div>
+								<div id="order-view-item"> <img height="50px" src="${mydto.picture }"><a href="item_detail?id=${mydto.watch_id }">${mydto.name }</a></div>
 								<div id="order-view-pric"> 
 									<fmt:formatNumber value="${mydto.price *mydto.count *(1 -mydto.discount) }" pattern="#,###" />원 (${mydto.count })
 								</div>

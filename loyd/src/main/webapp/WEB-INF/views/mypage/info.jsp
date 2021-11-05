@@ -143,14 +143,18 @@ a:hover {
     font-size: 14px;
 }
 
-#right-content #content-summary-order #order-list-header #order-col-date{width: 15%;}
-#right-content #content-summary-order #order-list-header #order-col-item{width: 45%;}
-#right-content #content-summary-order #order-list-header #order-col-pay{width: 20%;}
-#right-content #content-summary-order #order-list-header #order-col-msg{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-date{width: 15%;}
-#right-content #content-summary-order #order-view-header #order-view-item{width: 45%;}
-#right-content #content-summary-order #order-view-header #order-view-pay{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-msg{width: 20%;}
+#right-content #content-summary-order #order-list-header #order-col-date{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-numb{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-orde{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-reci{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-pay{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-empty{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-date{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-numb{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-orde{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-reci{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-pay{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-more{width: 16.6%;}
 
 
 </style>
@@ -229,8 +233,9 @@ a:hover {
 				
 			<div id="member-info">
 				<div id="member-info-modify">
-					<a href="member_edit?email=${email }">내 정보 관리 ></a>
+					<a href="member_edit?email=${email }"> 내 정보 관리 ></a>
 				</div>
+				<%-- <div id="member-join-date"> 가입일 ${order_pay } </div> --%>
 				<div id="member-id">
 					<h1> ${name } 회원님</h1>
 				</div>
@@ -242,17 +247,24 @@ a:hover {
 					<div id="order-list-itembox">
 						<div id="order-list-header">
 							<div id="order-col-date"> 주문일자</div>
-							<div id="order-col-item"> 상품명</div>
+							<div id="order-col-numb"> 주문번호</div>
+							<div id="order-col-orde"> 주문자</div>
+							<div id="order-col-reci"> 수령인</div>
 							<div id="order-col-pay"> 결제방식</div>
-							<div id="order-col-msg"> 메시지</div>
+							<div id="order-col-empty"> &nbsp;</div>
+							
 						</div>
 						<!-- 물건 보이기(반복 -->
 						<c:forEach items="${order_pay }" var="order">
 							<div id="order-view-header">
-								<div id="order-view-date"> ${order.orderday }</div>
-								<div id="order-view-item"> ${order.id }</div>
-								<div id="order-view-pay"> ${order.price }</div>
-								<div id="order-view-msg"> ${order.discount }</div>
+								<div id="order-view-date"> ${order.order_date }</div>
+								<div id="order-view-numb"> ${order.order_id }</div>
+								<div id="order-view-orde"> ${order.order_name }</div>
+								<div id="order-view-reci"> ${order.rec_name }</div>
+								<div id="order-view-pay"> ${order.pay }</div>
+								<div id="order-view-more"> 
+									<a href="order_detail">자세히</a>
+								</div>
 							</div>
 						</c:forEach>
 					</div>
