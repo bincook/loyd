@@ -13,9 +13,16 @@
  </decorator>
 
  <!-- 관리자 패턴 -->
+  <decorator name="dashboardLayout" page="dashboard.jsp" >
+  <pattern>/admin/dash-board</pattern>
+ </decorator>
+
+
+ <!-- 관리자 패턴 -->
   <decorator name="adminLayout" page="admin.jsp" >
   <pattern>/admin/*</pattern>
  </decorator>
+ 
 
  <!-- 메인 페이지를 제외한 나머지 페이지 -->
  <decorator name="defaultLayout" page="default.jsp" >

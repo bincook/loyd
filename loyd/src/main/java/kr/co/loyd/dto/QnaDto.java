@@ -13,6 +13,15 @@ public class QnaDto {
 	private String writeday;
 	private int watch_id;
 	
+	private int totq;
+	
+	
+	public int getTotq() {
+		return totq;
+	}
+	public void setTotq(int totq) {
+		this.totq = totq;
+	}
 	public int getId() {
 		return id;
 	}
