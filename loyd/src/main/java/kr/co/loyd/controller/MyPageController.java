@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.loyd.dao.MypageDao;
+import kr.co.loyd.dto.MemberDto;
 import kr.co.loyd.dto.MypageDto;
 
 @Controller
@@ -69,12 +70,14 @@ public class MyPageController {
     		word = request.getParameter("word");
     	}
     	
-    	ArrayList<MypageDto> list = mydao.order_list(field, word, index);
+    	String email = request.getParameter("email");
+    			
+    	ArrayList<MypageDto> list = mydao.order_list(email, field, word, index);
     	
     	model.addAttribute("list", list);
     	model.addAttribute("field", field);
     	model.addAttribute("word", word);
-    	
+    	model.addAttribute("email", email);
     	model.addAttribute("pstart", pstart);
     	model.addAttribute("pend", pend);
     	model.addAttribute("page", page);
@@ -84,13 +87,82 @@ public class MyPageController {
     }
     
     @RequestMapping("/mypage/order_detail")
-    public String order_detail(Model model) {
+    public String order_detail(Model model, HttpServletRequest request) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
-    	ArrayList<MypageDto> list2 = mydao.order_detail_list();
-   
+    	String id = request.getParameter("id");
+    	MypageDto list2 = mydao.order_detail(id);
+
     	model.addAttribute("list", list2);
     	
-    	return "/mypage/order_detail";
+    	return "mypage/order_detail";
+    }
+    
+    @RequestMapping("/mypage/enquiry")
+    public String enquiry(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+    	
+    	String email = request.getParameter("email");
+    	ArrayList<MypageDto> enquiry = mydao.enquiry(email);
+    	
+    	model.addAttribute("enquiry", enquiry);
+    	
+    	return "mypage/enquiry";
+    }
+    
+    @RequestMapping("/mypage/wishlist")
+    public String wishlist(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+    	
+    	String email = request.getParameter("email");
+    	ArrayList<MypageDto> wishlist = mydao.wishlist(email);
+    	
+    	model.addAttribute("wishlist", wishlist);
+    	
+    	return "mypage/wishlist";
+    }
+    
+    @RequestMapping("/mypage/enquiry_detail")
+    public String enquiry_detail(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	String qna_id = request.getParameter("qna_id");
+    	MypageDto mydto = mydao.enquiry_detail(qna_id);
+    	
+    	model.addAttribute("enquiry_d", mydto);
+    	
+    	return "mypage/enquiry_detail";
+    }
+    
+    @RequestMapping("/mypage/member_edit")
+    public String member_edit(Model model, HttpServletRequest request) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	String email = request.getParameter("email");
+    	MemberDto mdto = mydao.member_edit(email);
+    	
+    	model.addAttribute("member", mdto);
+    	
+    	return "mypage/member_edit";
+    }
+    
+    @RequestMapping("/mypage/member_edit_ok")
+    public String member_edit_ok(MemberDto mdto) {
+    	
+    	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
+
+    	mydao.member_edit_ok(mdto);
+    	
+    	return "redirect:/";
+    }
+    
+    @RequestMapping("/mypage/watch-care")
+    public String watchcare(){
+    	
+    	return "mypage/watch-care";
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.SearchDao">
+	<select id="search" parameterType="kr.co.loyd.dto.SearchDto" resultType="kr.co.loyd.dto.SearchDto">
+		SELECT * FROM watch   WHERE NAME LIKE concat('%', #{search} ,'%') OR brand LIKE concat('%', #{search} ,'%') 
+		OR category LIKE concat('%', #{search} ,'%') OR price LIKE concat('%', #{search} ,'%') OR kind LIKE concat('%', #{search} ,'%') 
+	</select>
+	<select id="search_chk" parameterType="kr.co.loyd.dto.SearchDto" resultType="integer">
+		SELECT ifnull(count(*),0) as chk FROM watch   WHERE NAME LIKE concat('%', #{search} ,'%') OR brand LIKE concat('%', #{search} ,'%') 
+		OR category LIKE concat('%', #{search} ,'%') OR price LIKE concat('%', #{search} ,'%') OR kind LIKE concat('%', #{search} ,'%') 
+	</select>
+</mapper>

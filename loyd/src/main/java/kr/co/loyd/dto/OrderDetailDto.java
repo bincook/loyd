@@ -6,8 +6,7 @@ public class OrderDetailDto {
 	private String order_name,email,order_phone,rec_name,
 	rec_phone,zip,addr1,addr2,pay,msg,order_date;
 	
-	
-	
+		
 	public String getOrder_date() {
 		return order_date;
 	}
