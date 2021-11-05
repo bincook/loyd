@@ -50,48 +50,5 @@ public class QnaController {
 		  return "redirect:/qna/list";
 	  }
 	  
-	  
-		 @RequestMapping(value = "list")
-		  public String list(Model model,HttpServletRequest request) {
-			 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
-			 
-			 String nav_type = request.getParameter("nav_type");
-			 int page;
-				if(request.getParameter("page")==null)
-				{
-					page=1;
-				}
-				else
-				{
-					page=Integer.parseInt(request.getParameter("page"));
-				}	
-
-				int recod=(page-1)*7;
-				
-				ArrayList<QnaDto> list=qdao.list(recod);
-				int pstart=page/5;
-				if(page%10 == 0)
-					pstart=pstart-1;
-				pstart=(pstart*10)+1;
-				int pend=pstart+9;		
-				
-				int page_cnt=qdao.get_cnt();
-				if(pend>page_cnt)
-					pend=page_cnt;		   
-				
-			   model.addAttribute("pstart",pstart);
-			   model.addAttribute("pend",pend);
-			   model.addAttribute("page_cnt",page_cnt);
-			   model.addAttribute("page",page);				
-			   model.addAttribute("list",list);
-			   
-			   if (nav_type != null ) {
-				   model.addAttribute("nav_type", "list");				   
-			   } else {
-				   model.addAttribute("nav_type", "");
-			   }
-			   
-			  return "/qna/list";
-
-		 }
+	  		 
 }
