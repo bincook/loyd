@@ -2,11 +2,26 @@ package kr.co.loyd.dto;
 
 public class OrderDetailDto {
 
-	private int order_id;
+	private int order_id,order_list_id,order_no;
 	private String order_name,email,order_phone,rec_name,
 	rec_phone,zip,addr1,addr2,pay,msg,order_date;
 	
+	
+	
+	
 		
+	public int getOrder_no() {
+		return order_no;
+	}
+	public void setOrder_no(int order_no) {
+		this.order_no = order_no;
+	}
+	public int getOrder_list_id() {
+		return order_list_id;
+	}
+	public void setOrder_list_id(int order_list_id) {
+		this.order_list_id = order_list_id;
+	}
 	public String getOrder_date() {
 		return order_date;
 	}

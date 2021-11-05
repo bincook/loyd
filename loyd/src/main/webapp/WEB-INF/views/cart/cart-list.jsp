@@ -13,9 +13,9 @@
 	$(document).ready(function(){
 		$("#all").click(function(){
 			if($("#all").prop("checked")){
-				$("input[name=watch]").prop("checked",true);
+				$("input[name=watch_id]").prop("checked",true);
 			}else{
-				$("input[name=watch]").prop("checked",false);
+				$("input[name=watch_id]").prop("checked",false);
 			} 
 		})
 		
@@ -40,7 +40,7 @@
           <tbody>
               <tr>
                 <th scope="row">
-                  <input type="checkbox" id="all" onclick="selectAll()">
+                  <input type="checkbox" id="all">
                 </th>
                 <th scope="col">상품정보</th>
                 <th scope="col">주문금액</th>
@@ -82,7 +82,6 @@
               <tr>
               	<td colspan="4" align="center">
               		<button id="deleteBtn" type="button" onclick="ajx()">선택 삭제</button>
-              		<button type="button" >찜 하기</button>
               	</td>
               	
               	<script>

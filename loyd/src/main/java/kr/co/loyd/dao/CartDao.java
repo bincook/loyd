@@ -25,8 +25,10 @@ public interface CartDao {
 	public ArrayList<CartDto> cart_buy(String email);
 	
 	public void pay(OrderDetailDto dto);
+	
+	public ArrayList<Integer> writeOrderList(int member_id);
+	
+	public void cart_del(int member_id);
 
-	
-	
 	
 }
