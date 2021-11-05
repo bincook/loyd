@@ -76,7 +76,7 @@
 	    	<c:forEach items="${list }" var="dto">
 		    <div class="col-3">
 			      <!-- 카드 박스 -->
-			      <a href="detail_order?id=${dto.id }">
+			      <a href="/loyd/order/detail_order?id=${dto.id }">
 			      <div class="card mb-3" id="a">
 			        <!-- 카드 이미지-->
 				        <img src="${dto.picture }" class="card-img-top" alt="...">

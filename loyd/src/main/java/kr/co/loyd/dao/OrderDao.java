@@ -1,4 +1,4 @@
-package kr.co.loyd.dao;
+﻿package kr.co.loyd.dao;
 
 import java.util.ArrayList;
 
@@ -8,8 +8,8 @@ import kr.co.loyd.dto.QnaDto;
 
 public interface OrderDao {
 
-	public OrderDto detail_order(int id);
-	public void cart_go( int id , String email);
+	public OrderDto detail_order(int id,int member_id);
+	public void cart_go( int id , String email ,int member_id);
 	public int id_check(int id ,String email);
 	public int cart_plus( int id,String email);
 	public OrderDto buy(int id);
@@ -33,7 +33,10 @@ public interface OrderDao {
 	public ArrayList<OrderDto> grapoc();
 
 	
-	public int writeOrderList(OrderDto dto);
+	public Integer writeOrderList(OrderDto dto);
 	public void writeOrderDetail(OrderDetailDto dto);
+
+	public void like(int watch_id,int member_id ,String email);
+	public void like2(int watch_id,int member_id ,String email);
 
 }

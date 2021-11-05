@@ -1,4 +1,4 @@
-package kr.co.loyd.dao;
+﻿package kr.co.loyd.dao;
 
 import java.util.ArrayList;
 
@@ -27,11 +27,16 @@ public interface CartDao {
 	public void pay(OrderDetailDto dto);
 
 
+
 	
 	/** 대시보드에 cart 최근 5개 목록 조회  */
 	ArrayList<CartDto> dash_listc(); 
 
+
 	
+	public ArrayList<Integer> writeOrderList(int member_id);
 	
+	public void cart_del(int member_id);
+
 	
 }

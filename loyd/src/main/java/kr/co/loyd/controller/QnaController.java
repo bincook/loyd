@@ -1,4 +1,4 @@
-package kr.co.loyd.controller;
+﻿package kr.co.loyd.controller;
 
 import java.util.ArrayList;
 
@@ -45,6 +45,7 @@ public class QnaController {
 		return "redirect:/qna/list";
 	}
 
+
 	@RequestMapping(value = "list")
 	public String list(Model model, HttpServletRequest request) {
 		QnaDao qdao = sqlSession.getMapper(QnaDao.class);
@@ -85,4 +86,3 @@ public class QnaController {
 		return "/qna/list";
 
 	}
-}

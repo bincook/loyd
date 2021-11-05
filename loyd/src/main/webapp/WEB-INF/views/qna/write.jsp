@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,6 +51,7 @@
 	.dot {
 		border: 1px dotted #FFD9EC;
 	}
+
 </style>
 <script>
 	function secret_qna() {
@@ -86,7 +87,9 @@
 <body>
 	<div id=holder>
 		<form method="post" action="insert_ok">
+
 			<input type="hidden" name="watch_id" value="${watch_id}">
+
 			<!--상품 상세의 id값  -->
 			<div id="first">
 				<div id="left">
@@ -138,7 +141,9 @@
 								<input class="form-control" type="password" name="pwd"
 									placeholder="비밀번호를 입력해주세요" size="30"><br>
 							</div>
+
 							<input class="btn btn-outline-info" type="button" value="입력확인"><br>
+
 							나중에 답변 확인 시 방금 입력한 비밀번호와 일치해야 답변내용을 볼 수 있어요^^!
 						</div>
 					</div>
