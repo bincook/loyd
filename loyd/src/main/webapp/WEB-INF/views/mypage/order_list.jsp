@@ -201,7 +201,7 @@ a:hover {
 						<!-- 주문정보 -->
 						<ul id="mypage-order-list">
 							<li> 
-								<a href="order_list?email=${email }"> 주문 조회</a>
+								<a href="order_list"> 주문 조회</a>
 							</li>
 							
 							<li> 
@@ -218,11 +218,11 @@ a:hover {
 						<ul id="mypage-history">
 						
 							<li>
-								<a href="enquiry?email=${email }"> 상품문의</a>
+								<a href="enquiry"> 상품문의</a>
 							</li>
 							
 							<li>
-								<a href="wishlist?email=${email }"> 내 찜</a>
+								<a href="wishlist"> 내 찜</a>
 							</li>
 						</ul>
 					</li>
@@ -243,17 +243,15 @@ a:hover {
 		<!-- 오른쪽 본문 -->
 		<div id="right-content">
 
-			<!-- 회원 정보 (이름 등) -->	
-				
+			<!-- 조회하기 -->	
 			<div id="content-order-search">
-			
 				<div id="content-order-search-title">
 					<h1> 주문 내역 조회</h1>
 				</div>
 				
 				<div id="content-order-search-col">
 				 <!-- 색인란  -->
-					<form name="pkc" method="post" action="order_list" onsubmit="search()">					
+					<form name="pkc" method="post" action="order_list">					
 					 	<input type="hidden" name="email" value="${email }">
 						<select name="field">
 							<option value="wt.name"> 상품명</option>

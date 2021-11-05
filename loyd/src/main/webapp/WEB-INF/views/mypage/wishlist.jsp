@@ -198,7 +198,7 @@ a:hover {
 						<!-- 주문정보 -->
 						<ul id="mypage-wishlist-list">
 							<li> 
-								<a href="order_list?email=${email }"> 주문 조회</a>
+								<a href="order_list"> 주문 조회</a>
 							</li>
 							
 							<li> 
@@ -214,11 +214,11 @@ a:hover {
 						<ul id="mypage-history">
 						
 							<li>
-								<a href="enquiry?email=${email }"> 상품문의</a>
+								<a href="enquiry"> 상품문의</a>
 							</li>
 							
 							<li>
-								<a href="wishlist?email=${email }"> 내 찜</a>
+								<a href="wishlist"> 내 찜</a>
 							</li>
 						</ul>
 					</li>

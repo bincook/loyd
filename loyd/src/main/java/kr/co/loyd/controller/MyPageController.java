@@ -27,11 +27,15 @@ public class MyPageController {
     /** 마이페이지 */
     @RequestMapping(value = "/mypage/info", method = RequestMethod.GET)
     public String cartListPage(Model model, HttpSession session) {
+    	
+//    	Get session `member` id and `member` email 
     	Integer memberId = (Integer) session.getAttribute("id");
     	Object email = session.getAttribute("email"); 
     			
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
 
+//		receive table `order_detail` brief
+    	
 //    	ArrayList<MypageDto> order = mydao.info(memberId);
     	ArrayList<MypageDto> order = mydao.info(email);
     	model.addAttribute("order_pay", order);
@@ -44,7 +48,7 @@ public class MyPageController {
     
     
     @RequestMapping("/mypage/order_list")
-    public String order_list(HttpServletRequest request, Model model) {
+    public String order_list(HttpServletRequest request, Model model, HttpSession session) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	// 페이징 처리하기
@@ -82,15 +86,17 @@ public class MyPageController {
     		field = request.getParameter("field");
     		word = request.getParameter("word");
     	}
+    	Integer memberId = (Integer) session.getAttribute("id");
+    	Object email = session.getAttribute("email");
     	
-    	String email = request.getParameter("email");
-    			
-    	ArrayList<MypageDto> list = mydao.order_list(email, field, word, index);
+    	System.out.println(email);
+    	System.out.println(memberId);
+    	
+    	ArrayList<MypageDto> list = mydao.order_list(memberId, field, word, index);
     	
     	model.addAttribute("list", list);
     	model.addAttribute("field", field);
     	model.addAttribute("word", word);
-    	model.addAttribute("email", email);
     	model.addAttribute("pstart", pstart);
     	model.addAttribute("pend", pend);
     	model.addAttribute("page", page);
@@ -112,11 +118,11 @@ public class MyPageController {
     }
     
     @RequestMapping("/mypage/enquiry")
-    public String enquiry(Model model, HttpServletRequest request) {
+    public String enquiry(Model model, HttpSession session) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	
-    	String email = request.getParameter("email");
+    	Object email = session.getAttribute("email");
     	ArrayList<MypageDto> enquiry = mydao.enquiry(email);
     	
     	model.addAttribute("enquiry", enquiry);
@@ -125,11 +131,11 @@ public class MyPageController {
     }
     
     @RequestMapping("/mypage/wishlist")
-    public String wishlist(Model model, HttpServletRequest request) {
+    public String wishlist(Model model, HttpSession session) {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	
-    	String email = request.getParameter("email");
+    	Object email = session.getAttribute("email");
     	ArrayList<MypageDto> wishlist = mydao.wishlist(email);
     	
     	model.addAttribute("wishlist", wishlist);
