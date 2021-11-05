@@ -2,7 +2,7 @@ package kr.co.loyd.dto;
 
 public class OrderDto {
 
-	private int id,price,discount;
+	private int id,price,discount,order_no ,like2;
 	private String name,brand,category,content,picture,kind;
 	
 	private int member_id, watch_id,chong,all_price;
@@ -12,11 +12,27 @@ public class OrderDto {
 	private String path;	
 	
 	
-public String getOrderday() {
+
+	
+	public int getLike2() {
+		return like2;
+	}
+	public void setLike2(int like2) {
+		this.like2 = like2;
+	}
+	public int getOrder_no() {
+		return order_no;
+	}
+	public void setOrder_no(int order_no) {
+		this.order_no = order_no;
+	}
+
+	public String getOrderday() {
 		return orderday;
 	}
 	public void setOrderday(String orderday) {
 		this.orderday = orderday;
+
 	}
 	public String getPath() {
 		return path;

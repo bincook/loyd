@@ -14,6 +14,8 @@
 	function check2(){
 		alert("장바구니로 이동하였습니다");
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -22,6 +24,13 @@
           <tbody>
               <tr>
                 <th scope="col">상품정보</th>
+                
+                <c:if test="${dto.like2 ==0 }">
+                <th><a href="like?id=${dto.id}" ><button id="like">♡</button></a></th>
+                </c:if>
+                <c:if test="${ dto.like2 >= 1}">
+                <th><a href="like2?id=${dto.id}" ><button id="like">♥</button></a></th>
+                </c:if>
               </tr>
               <tr>
                 <td align="center">
