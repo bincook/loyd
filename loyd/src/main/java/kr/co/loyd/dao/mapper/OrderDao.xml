@@ -109,7 +109,7 @@
 	</select>
 	<!-- 대시보드 그래프  : 한달 전 주문내역 count -->
 	<select id="grapoc" resultType="kr.co.loyd.dto.OrderDto">
-		<![CDATA[SELECT orderday,count(watch_id) as c FROM `ORDER list` WHERE orderday >= DATE_sub(NOW(),INTERVAL 1 MONTH) group by orderday]]>
+		<![CDATA[SELECT orderday,count(watch_id) as c FROM `ORDER list` WHERE orderday >= DATE_sub(NOW(),INTERVAL 13 MONTH) group by orderday]]>
 	</select>
 
 	

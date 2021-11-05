@@ -338,6 +338,7 @@ public class AdminController {
 		OrderDao grapoc = sqlSession.getMapper(OrderDao.class);
 		ArrayList<OrderDto> orderc = grapoc.grapoc();
 		model.addAttribute("orderc", orderc);	// 한달 전 주문내역 count
+		
 
 		QnaDao grapq = sqlSession.getMapper(QnaDao.class);
 		String grapq_id=grapq.dash_grapq();

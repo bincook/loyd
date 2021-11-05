@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>어드민 대시보드 페이지</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/moment.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
@@ -185,15 +186,29 @@
 					}
 				});
 	</script>
+	
+				
+					
+	
 	<script>
 		var ctx = document.getElementById("myChart2").getContext('2d');
 		var myChart2 = new Chart(ctx, {
 			type : 'line',
 			data : {
-				labels : [ '한달 전 주문 count' ],
+				labels : [
+					<c:forEach items="${orderc }" var="ic"  varStatus="i" >
+					"${ic.orderday }" <c:if test="${!i.last}">,</c:if>
+				</c:forEach>
+		
+				],
 				datasets : [ {
 					label : '# of Votes',
-					data : [ '${ic.orderday}', 1, 1, 1, 1 ],
+					data : [
+						<c:forEach items="${orderc }" var="ic"  varStatus="i">
+						${ic.c } <c:if test="${!i.last}">,</c:if>
+					</c:forEach>
+						
+					],
 					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 							'rgba(54, 162, 235, 0.2)',
 							'rgba(255, 206, 86, 0.2)',
@@ -209,20 +224,10 @@
 			},
 			options : {
 				maintainAspectRatio : true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				}
 			}
 		});
 	</script>
 
-	<c:forEach items="${orderc}" var="ic"> 
-  ${ic.orderday}
-  </c:forEach>
   </div>
 </body>
 </html>

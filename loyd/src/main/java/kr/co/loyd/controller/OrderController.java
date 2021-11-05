@@ -31,12 +31,18 @@ public class OrderController {
 		
 		//�긽�뭹 由ъ뒪�듃�뿉�꽌 ID 諛쏆븘���빞�맖!
 		int id = Integer.parseInt(request.getParameter("id"));
-		int member_id = (Integer) session.getAttribute("id");
+		
+		
+		Integer member_id = (Integer) session.getAttribute("id");
+		
+		if (member_id == null) member_id = 0;
 		
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
-		OrderDto dto = dao.detail_order(id,member_id);
 		
-		System.out.println(dto.getLike2());
+		// 주문 상세 정보 가져오는 건 데 + 이 상품에 위시리스트 까지 있는 지
+		
+		OrderDto dto = dao.detail_order(id,member_id);			
+		
 		
 		ArrayList<OrderDto> dlist = dao.watch_detail(id);
 		

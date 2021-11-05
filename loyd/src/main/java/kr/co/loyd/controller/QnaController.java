@@ -1,4 +1,4 @@
-﻿package kr.co.loyd.controller;
+package kr.co.loyd.controller;
 
 import java.util.ArrayList;
 
@@ -86,3 +86,4 @@ public class QnaController {
 		return "/qna/list";
 
 	}
+}
