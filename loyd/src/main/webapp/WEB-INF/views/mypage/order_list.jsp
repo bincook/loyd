@@ -8,14 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Mypage-Orderlist</title>
 <script>
-function search(){
-	
-	var word = document.pkc.field.value
-	if(word == 'empty') {
-		alert('검색할 필드를 선택해주세요')
-	}
-}
-
 
 </script>
 
@@ -53,6 +45,11 @@ li {
 
 a {
     text-decoration: none;
+    color: #222;
+}
+
+a:hover {
+	text-decoration: none;
     color: #222;
 }
 
@@ -157,16 +154,14 @@ a {
 	text-align: start;
 }
 
-#right-content #content-order-list #order-list-itembox #order-col-numb {width: 8%;line-height: auto;}
+#right-content #content-order-list #order-list-itembox #order-col-numb {width: 8%;}
 #right-content #content-order-list #order-list-itembox #order-col-item {width: 50%}
-#right-content #content-order-list #order-list-itembox #order-col-pric {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-col-date {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-col-enquiry {width: 12%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-view-numb {width: 8%;line-height: auto;}
+#right-content #content-order-list #order-list-itembox #order-col-date {width: 20%;}
+#right-content #content-order-list #order-list-itembox #order-col-enquiry {width: 12%;}
+#right-content #content-order-list #order-list-itembox #order-view-numb {width: 8%;padding-top: 13px;}
 #right-content #content-order-list #order-list-itembox #order-view-item {width: 50%}
-#right-content #content-order-list #order-list-itembox #order-view-pric {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-view-date {width: 20%;line-height: auto;}
-#right-content #content-order-list #order-list-itembox #order-view-enquiry {width: 12%;line-height: auto;}
+#right-content #content-order-list #order-list-itembox #order-view-date {width: 20%;padding-top: 13px;}
+#right-content #content-order-list #order-list-itembox #order-view-enquiry {width: 12%;padding-top: 13px;}
 
 #right-content #paging {
 	margin: auto;
@@ -192,20 +187,25 @@ a {
 			<div id="left-dev-menu">
 				<!-- 이름 -->
 				<div id="mypage-subtitle">
-						<span> My page</span>
+						<span> <a href="info"> My page</a></span>
 				</div>
 				
 				<!-- 메뉴 리스트 -->
 				<ul id="mypage-list">
 				
-					<li class="menu-title"> 
+					<li class="	menu-title"> 
 						<span> 나의 쇼핑 정보</span>
 						
 						<!-- 주문정보 -->
 						<ul id="mypage-order-list">
 							<li> 
-								<a href="order_list?email=${email }"> 주문 조회</a>
+								<a href="order_list"> 주문 조회</a>
 							</li>
+							
+							<li> 
+								<a href="../cart/list?id=${id }"> 장바구니</a>
+							</li>
+							
 						</ul>
 					</li>
 	
@@ -216,11 +216,11 @@ a {
 						<ul id="mypage-history">
 						
 							<li>
-								<a href="enquiry?email=${email }"> 상품문의</a>
+								<a href="enquiry"> 상품문의</a>
 							</li>
 							
 							<li>
-								<a href="wishlist?email=${email }"> 내 찜</a>
+								<a href="wishlist"> 내 찜</a>
 							</li>
 						</ul>
 					</li>
@@ -241,17 +241,15 @@ a {
 		<!-- 오른쪽 본문 -->
 		<div id="right-content">
 
-			<!-- 회원 정보 (이름 등) -->	
-				
+			<!-- 조회하기 -->	
 			<div id="content-order-search">
-			
 				<div id="content-order-search-title">
 					<h1> 주문 내역 조회</h1>
 				</div>
 				
 				<div id="content-order-search-col">
 				 <!-- 색인란  -->
-					<form name="pkc" method="post" action="order_list" onsubmit="search()">					
+					<form name="pkc" method="post" action="order_list">					
 					 	<input type="hidden" name="email" value="${email }">
 						<select name="field">
 							<option value="wt.name"> 상품명</option>
@@ -269,27 +267,22 @@ a {
 		
 			<div id="content-order-list">
 				<div id="order-list">
-					<div id="order-list-title"> 주문 상세내역</div>
+					<div id="order-list-title"> 주문 내역</div>
 					<div id="order-list-itembox">
 						<div id="order-list-header">
 							<div id="order-col-numb"> 주문번호</div>
 							<div id="order-col-item"> 상품명</div>
-							<div id="order-col-pric"> 총 가격(수량)</div>
 							<div id="order-col-date"> 날짜</div>
 							<div id="order-col-enquiry"> &nbsp;</div>
 						</div>
 						
 						<c:forEach items="${list }" var="mydto">
-						
 							<div id="order-view-header">
-								<div id="order-view-numb"> ${mydto.id }</div>
-								<div id="order-view-item"> <img height="50px" src="${mydto.picture }"><a href="order_detail?id=${mydto.watch_id }">${mydto.name }</a></div>
-								<div id="order-view-pric"> 
-									<fmt:formatNumber value="${mydto.price *mydto.count *(1 -mydto.discount) }" pattern="#,###" />원 (${mydto.count })
-								</div>
-								<div id="order-view-date"> ${mydto.orderday }</div>
+								<div id="order-view-numb"> ${mydto.order_no }</div>
+								<div id="order-view-item"> <img src="${mydto.picture }" height="50px"> ${mydto.name }</a></div>
+								<div id="order-view-date"> ${mydto.order_date }</div>
 								<div id="order-view-enquiry"> 
-									<a href=""> 문의내역</a>
+									<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
 								</div>
 							</div>
 						</c:forEach>

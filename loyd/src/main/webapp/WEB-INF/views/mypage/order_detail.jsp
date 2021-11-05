@@ -1,101 +1,152 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+	<title>Mypage - OrderDetail</title>
+	
 <style>
-table {
+
+h1 {
+	font-size: 36px;
+	font-weight: bold;
+	font-family: ;
+	text-spacing: -0.1em;
+}
+#container {
+	width: 880px;
+	margin: auto;
+	padding: 0;
+}
+
+#container #Odetail-form {
+	padding: 20px;
+}
+
+#Odetail-form #Odetail-main-title {
 	
 }
 
-tr:nth-child(3), 
-tr:nth-child(3) td, 
-tr:nth-child(4), 
-tr:nth-child(4) td {
-	border: 1px solid; 
+#Odetail-form #Odetail-order-content,
+#Odetail-form #Odetail-item-content,
+#Odetail-form #Odetail-receive-content {
+	padding: 40px 4px; 
 }
 
-#gallery {
-	position: relative;
+#Odetail-form #Odetail-order-content #Odetail-order-header,
+#Odetail-form #Odetail-item-content #Odetail-item-header,
+#Odetail-form #Odetail-receive-content #Odetail-receive-header {
+	display: flex;
+	flex-direction: row;
 }
 
-#gallery #product_discount {
-	position: absolute;
-	text-align: center;
-	color: yellow;
-	font-size: 40px;
-	line-height: 100px;
-	top: 10px;
-	right: 10px;
-	width: 200px;
-	height: 100px;
-	background: red;
+#Odetail-order-header #Odetail-order-name,
+#Odetail-order-header #Odetail-order-email,
+#Odetail-order-header #Odetail-order-phone,
+#Odetail-order-header #Odetail-order-pay,
+#Odetail-receive-header #Odetail-receive-name,
+#Odetail-receive-header #Odetail-receive-phone,
+#Odetail-receive-header #Odetail-receive-zip,
+#Odetail-receive-header #Odetail-receive-addr1,
+#Odetail-receive-header #Odetail-receive-addr2,
+#Odetail-receive-header #Odetail-receive-msg {
+	width: 20%;
+	background: #ccc;
+	padding: 12px 20px; 
+	color: #000;
+	font-weight: bold;
 }
 
-#gallery #product_discount:after {
-	content: "";
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	width: 0;
-	height: 0;
-	border-bottom : 13px solid #eeeeee;
-	border-left : 95px solid transparent;
-	border-right : 95px solid transparent;
+#Odetail-order-header #Odetail-order-name-form,
+#Odetail-order-header #Odetail-order-email-form,
+#Odetail-order-header #Odetail-order-phone-form,
+#Odetail-order-header #Odetail-order-pay-form,
+#Odetail-receive-header #Odetail-receive-name-form,
+#Odetail-receive-header #Odetail-receive-phone-form,
+#Odetail-receive-header #Odetail-receive-zip-form,
+#Odetail-receive-header #Odetail-receive-addr1-form,
+#Odetail-receive-header #Odetail-receive-addr2-form,
+#Odetail-receive-header #Odetail-receive-msg-form {
+	width: 80%;
+	padding: 12px 20px; 
 }
+
 </style>
-
 </head>
 <body>
 
-	<table align="center">
-	
-		<tr>
-			<td colspan="4">
-				<div id="gallery">
-					<div id="product_discount">
-						<span> - ${list.discount *100} %</span>
-					</div>
-					<img src="${list.picture }">
-				</div>
-			</td>
-		</tr>
+<div id="container">
+	<div id="Odetail-form">
+		<div id="Odetail-main-title">
+			<h1> 주문 상세내역</h1>
+		</div>
 		
-		<tr>
-			<td> <strong> 상품명</strong></td>
-			<td colspan="3">${list.name }</td>
-		</tr>
-		
-		<tr>
-			<td width="15%"> <strong> 가격</strong></td>
+		<div id="Odetail-order-content">
+			<div id="Odetail-order-header">
+				<div id="Odetail-order-name"> 주문자 이름</div>
+				<div id="Odetail-order-name-form"> ${order_detail.order_name }</div>
+			</div>
 			
-			<td width="35%"> 
-				<fmt:formatNumber value="${list.price }" pattern="#,###" />원
-			</td>
-			<td width="15%"> <strong> 할인률</strong></td>
-			<td width="35%"> ${list.discount *100} %</td>
-		</tr>
+			<div id="Odetail-order-header">
+				<div id="Odetail-order-email"> 주문자 이메일</div>
+				<div id="Odetail-order-email-form"> ${order_detail.email }</div>
+			</div>
+			
+			<div id="Odetail-order-header">
+				<div id="Odetail-order-phone"> 주문자 전화번호</div>
+				<div id="Odetail-order-phone-form"> ${order_detail.order_phone }</div>
+			</div>
+			
+			<div id="Odetail-order-header">
+				<div id="Odetail-order-pay"> 결제 방식</div>
+				<div id="Odetail-order-pay-form"> ${order_detail.pay }</div>
+			</div>
+		</div>
 		
-		<tr>
-			<td width="15%"> <strong> 브랜드</strong></td>
-			<td width="35%"> ${list.brand }</td>
-			<td width="15%"> <strong> 종류</strong></td>
-			<td width="35%"> ${list.kind }</td>
-		</tr>
+		<div id="Odetail-item-content">
+			<c:forEach items="${order_d }" var="order">
+				<div id="Odetail-item-header">
+					<div id="Odetail-item-picture"> <img src="${order.picture }" height="150px"></div>
+					<div id="Odetail-item-name"> ${order.name }</div>
+				</div>
+			</c:forEach>
+		</div>
 		
-		<tr>
-			<td colspan="4"> <strong> 상세설명</strong></td>
-		</tr>
-		
-		<tr>
-			<td colspan="4"> ${list.content } </td>
-		</tr>
-	
-	</table>
+		<div id="Odetail-receive-content">
+			<div id="Odetail-receive-header">
+				<div id="Odetail-receive-name"> 수령인 이름</div>
+				<div id="Odetail-receive-name-form"> ${order_detail.rec_name }</div>
+			</div>
+			
+			<div id="Odetail-receive-header">
+				<div id="Odetail-receive-phone"> 수령인 번호</div>
+				<div id="Odetail-receive-phone-form"> ${order_detail.rec_phone }</div>
+			</div>
+			
+			<div id="Odetail-receive-header">
+				<div id="Odetail-receive-zip"> 수령인 우편번호</div>
+				<div id="Odetail-receive-zip-form"> ${order_detail.zip }</div>
+			</div>
+			
+			<div id="Odetail-receive-header">
+				<div id="Odetail-receive-addr1"> 수령인 주소 1</div>
+				<div id="Odetail-receive-addr1-form"> ${order_detail.addr1 }</div>
+			</div>
+			
+			<div id="Odetail-receive-header">
+				<div id="Odetail-receive-addr2"> 수령인 주소 2</div>
+				<div id="Odetail-receive-addr2-form"> ${order_detail.addr2 }</div>
+			</div>
+			
+			<div id="Odetail-receive-header">
+				<div id="Odetail-receive-msg"> 메모</div>
+				<div id="Odetail-receive-msg-form"> ${order_detail.msg }</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>
