@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.ChatDao">
+
+	<select id="findAll" resultType="kr.co.loyd.dto.ChatDto">
+		select * from chat
+	</select>
+
+	<select id="findByCreater" parameterType="String" resultType="kr.co.loyd.dto.ChatDto">
+		select * from chat where creater = #{creater}
+	</select>
+
+	<select id="findByChannelAndDeletedAtIsNull" parameterType="kr.co.loyd.dto.ChatDto" resultType="kr.co.loyd.dto.ChatDto">
+		select * from chat where channel_id = #{channel_id} order by create_at desc LIMIT #{size} OFFSET #{offset}
+	</select>
+
+	<select id="findByChatId" parameterType="int" resultType="kr.co.loyd.dto.ChatDto">
+		select * from chat where chat_id = #{chat_id}
+	</select>
+
+	<select id="findAllDeletedAtIsNull" parameterType="int" resultType="kr.co.loyd.dto.ChatDto">
+		select * from chat where deleted_at is null
+	</select>
+
+	<insert id="create" parameterType="kr.co.loyd.dto.ChatDto" useGeneratedKeys="true" keyProperty="chat_id">
+		insert into
+		chat (creater, channel_id, content, create_at, is_admin)
+		values(#{creater}, #{channel_id}, #{content}, sysdate(), #{is_admin})
+	</insert>
+
+	<update id="deleteByChatId" parameterType="int">
+		update chat
+		set deleted_at = sysdate()
+		where chat_id = #{chatId}
+	</update>
+</mapper>

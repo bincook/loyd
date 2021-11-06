@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -27,7 +28,7 @@ public class SocketConnectionController {
         this.ipAddressValidator = ipAddressValidator;
     }
 
-    @RequestMapping(value = "/connect/url")
+    @RequestMapping(value = "/connect/url", method = RequestMethod.GET)
     public ResponseEntity getConnectionUrl(@RequestParam(value = "ip") String ipAddress) {
         // ip 주소가 유효하지 않은 경우 예외
         if (!ipAddressValidator.isValidInet4Address(ipAddress))

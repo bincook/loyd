@@ -37,20 +37,36 @@
 
     <!-- 채팅 -->
     <link rel="stylesheet" href="<c:url value="/resources/css/chat.css" />">
+    <!-- 소켓 -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <!-- ajax 요청을 위한 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
         let websocket = null
-        let client_ipaddress = "여기에아이피"
+        let client_ipaddress = "192.168.0.1"
         let chat_server_host = 'http://localhost:8080'
-        let chat_server_url = '/socket/connect/url'
+        let chat_connection_request_url = '/socket/connect/url'
+        let chat_connection = '/websocket/endpoint'
         let chat = null
 
         $.getScript("/resources/js/chat.js", function () {
-            chat = new Chat()
-            $.getScript("/resources/js/real_time_client.js", function () {
-                // 웹 소켓 연결
-                websocket = new RealTimeClient(chat_server_host);
-                websocket.init(chat_server_url, client_ipaddress)
-            });
+            chat = new Chat(chat_server_host, client_ipaddress)
+
+            $.get(
+                chat_server_host + chat_connection_request_url + '?ip=' + client_ipaddress,
+                {},
+                function (data, status) {
+                    if (status == 'success') {
+                        $.getScript("/resources/js/real_time_client.js", function () {
+                            // 웹 소켓 연결
+                            websocket = new RealTimeClient(chat_server_host, chat);
+                            websocket.init(chat_connection, data.realTimeToken)
+                            websocket.subscribe('/chat/' + client_ipaddress)
+                        })
+                    }
+                }
+            );
         });
     </script>
 

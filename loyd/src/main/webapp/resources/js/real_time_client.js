@@ -1,4 +1,4 @@
-function RealTimeClient (serverHost) {
+function RealTimeClient (serverHost, chatInstance) {
     this.serverHost = serverHost
     this.serverUrl = null
     this.token = null
@@ -6,18 +6,13 @@ function RealTimeClient (serverHost) {
     // If the client is authenticated through real time connection or not
     this.authenticated = false
     this.loggedOut = false
-    this.$bus = null // new Vue()
+    this.$bus = chatInstance // new Vue()
     this.subscribeQueue = {
         /* channel: [handler1, handler2] */
     }
     this.unsubscribeQueue = {
         /* channel: [handler1, handler2] */
     }
-    // 동적으로 파일로드 => 소켓
-    let script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js';
-    document.body.appendChild(script)
-
 
     /* 초기화 => 토큰, 서버 url 발급 받은 정보를 기반으로 connect 수행 */
     this.init = async (serverUrl, token) => {
@@ -45,7 +40,7 @@ function RealTimeClient (serverHost) {
     /* 연결 & 기본적인 4자기 이벤트 handling */
     this.connect = () => {
         console.log('[RealTimeClient] Connecting to ' + this.serverUrl)
-        this.socket = new SockJS(this.serverHost + this.serverUrl + '?ip =' + this.token)
+        this.socket = new SockJS(this.serverHost + this.serverUrl + '?token=' + this.token)
         this.socket.onopen = () => {
             // Once the connection established, always set the client as authenticated
             this.authenticated = true
@@ -100,7 +95,6 @@ function RealTimeClient (serverHost) {
         return this.socket && this.socket.readyState === SockJS.OPEN
     }
     this._onConnected = () => {
-        globalBus.$emit('RealTimeClient.connected')
         console.log('[RealTimeClient] Connected')
 
         // Handle subscribe and unsubscribe queue
@@ -109,13 +103,11 @@ function RealTimeClient (serverHost) {
     this._onMessageReceived = (event) => {
         const message = JSON.parse(event.data)
         console.log('[RealTimeClient] Received message', message)
-        console.log(message);
 
         // 채널 메세지 인 경우 이벤트를 발생시킴
-        console.log(message.channel);
         if (message.channel) {
             console.log('채널 메세지를 받음')
-            this.$bus.$emit(this._channelEvent(message.channel), JSON.parse(message.payload))
+            this.$bus.$emit(this._channelEvent(message.channel), message.do, JSON.parse(message.payload))
         }
     }
     this._send = (message) => {
@@ -129,15 +121,12 @@ function RealTimeClient (serverHost) {
         if (this.loggedOut) {
             // Manually logged out, no need to reconnect
             console.log('[RealTimeClient] Logged out')
-            globalBus.$emit('RealTimeClient.loggedOut')
         } else {
             // Temporarily disconnected, attempt reconnect
             console.log('[RealTimeClient] Disconnected')
-            globalBus.$emit('RealTimeClient.disconnected')
 
             setTimeout(() => {
                 console.log('[RealTimeClient] Reconnecting')
-                globalBus.$emit('RealTimeClient.reconnecting')
                 this.connect()
             }, 1000)
         }

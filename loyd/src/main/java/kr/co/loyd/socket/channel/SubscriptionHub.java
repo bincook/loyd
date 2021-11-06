@@ -36,9 +36,13 @@ public final class SubscriptionHub {
         // 채널이 비었는지 확인
         Assert.hasText(channel, "Parameter `channel` must not be null");
 
-        // subscriptions 에서 channel 에 대한 값이 존재하면 가져오고, 없으면 2번째 인자로 전달한 값을 반환 합니다. => 누군가 채널을 발행한 적이 없다면 새 채널을 발행합니다.
-        Set<WebSocketSession> subscribers =
-                subscriptions.containsKey(channel) ? subscriptions.get(channel) : new HashSet();
+        // 채널이 없다면 채널을 발행
+        if (!subscriptions.containsKey(channel)) {
+            subscriptions.put(channel, new HashSet());
+        }
+
+        // 채널 구독차를 찾음
+        Set<WebSocketSession> subscribers = subscriptions.get(channel);
 
         // 세션 값을 가져옵니다.
         subscribers.add(session.wrapped());
@@ -46,9 +50,13 @@ public final class SubscriptionHub {
         IpAddress address = session.getUserAddress();
         log.debug("RealTimeSession[" + session.id() + "] Subscribed user[id={}] to channel `{}`", address.getIpV4(), channel);
 
-        // 사용자가 구독한 채널이 없다면 새로운 HashSet을 발행하고 있다면 채널에 추가를 합니다.
-        Set<String> channels =
-                subscribedChannels.containsKey(session.id()) ? subscribedChannels.get(session.id()) : new HashSet();
+        // 해당 사용자의 정보가 없다면 생성
+        if (!subscribedChannels.containsKey(session.id())) {
+            subscribedChannels.put(session.id(), new HashSet());
+        }
+
+        // 이 사람이 구독한 채널 정보
+        Set<String> channels = subscribedChannels.get(session.id());
         channels.add(channel);
     }
 

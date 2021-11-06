@@ -31,8 +31,8 @@ public class WebSocketRequestDispatcher extends TextWebSocketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketRequestDispatcher.class);
 
-    private TokenManager tokenManager;
-    private ChannelHandlerResolver channelHandlerResolver;
+    private final TokenManager tokenManager;
+    private final ChannelHandlerResolver channelHandlerResolver;
 
     public WebSocketRequestDispatcher(TokenManager tokenManager,
                                       ChannelHandlerResolver channelHandlerResolver) {

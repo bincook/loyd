@@ -12,7 +12,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 
     private WebSocketRequestDispatcher requestDispatcher;
 
-    private String socketServerUrl = "/endpoint";
+    private String socketServerUrl = "/websocket/endpoint";
 
     private String origin = "http://localhost:3000";
 
