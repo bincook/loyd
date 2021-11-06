@@ -34,7 +34,7 @@
 		 box-shadow:0px -2px 13px 0px skyblue;
 	 }
 	 img{
-	  box-shadow:0em 0px 10px 0px skyblue;
+		box-shadow:0em 0px 10px 0px skyblue;
 	 }
 	 .fg{
 		 color:#BEBEBE;
@@ -58,14 +58,14 @@
   			}
   			else{ 
   				// ajax에선 checked가 아닌 attr로 사용해야함
-  				$("input[name='allcheck']").attr("checked",false);
+  				$("input[name='allcheck']").prop("checked",false);
   			}  			
   		});
   });
   
   function deletevalue()
   {
-      var chk = confirm("삭제?");
+      var chk = confirm("삭제할까요 'ㅅ'?");
             
       if (!chk) return
       
@@ -80,16 +80,16 @@
     	    	location.reload()
     	    },
     	});
-
   }
-
-  
   function view()
   {  
 	  var checkedInput = $("input:checked")
 	  watchIds = []
 	  
-	  console.log(checkedInput.length)	  
+
+	 //  console.log(checkedInput.length)	  
+
+
 	  if(checkedInput.length < 1)
 		  {
 		  document.getElementById("ctn_show").style.display="none"; 
@@ -103,36 +103,33 @@
 			  if (data.value != 'on') watchIds.push( data.value) 
 			  		    
 		  })
-		  // 출력
-   	  		  console.log(watchIds)
-		  }
+	 }
   }
-  
-  
-  
  </script>
 </head>
 <body>
+
  <div id="whole">
-  <header><h1>관리자 상품 목록</h1></header>
+
+   <header><h1>관리자 상품 목록</h1></header>
   
 	    <form name="del" method="post" action="delete">
    
    		<table width="1000" align="center">
 
-<tr style="display:none" id="ctn_show">
-<td><i class="bi bi-trash" onclick="deletevalue()"></i> 
-<!--     삭제 icon누르면 삭제 -->
-    <i class="bi bi-eye-slash"></i>
-</td>
-</tr> 	
+		<tr style="display:none" id="ctn_show">
+		<td><i class="bi bi-trash" onclick="deletevalue()"></i> 
+		<!--     삭제 icon누르면 삭제 -->
+		    <i class="bi bi-eye-slash"></i>
+		</td>
+		</tr> 	
 	 	 <tr>
 	  	</td>	
 		<!--  화면에 표시되는 전체 체크박스 -->	    
 		<td onclick="view()"><input id="allcheck" type="checkbox" name="allcheck"></td> 	  
 	  	
 	  	<!-- id번호 누르면 수정으로 이동 -->
-<td><a href="content?id=${wdto.id}"> no. </a></td>  
+		   <td> no. </td>  
 
 	       <td> <i class="bi bi-image"></i> </td>
            <td> <i class="bi bi-tags"></i> /
@@ -142,14 +139,14 @@
            <td> <i class="bi bi-person-check-fill"></i>   </td>
            <td> <i class="bi bi-node-minus"></i> </td>
            <td width="60"> <i class="bi bi-stars"></i>   </td>
+
 		  </tr>	
 	  
 			<c:forEach items="${watch_list}" var="wdto">
 			<tr>
 			<!--  하나의 상품에 대한 체크박스 -->
-			<td onclick="view()"><input name="rowcheck" type="checkbox" value="${wdto.id}"></td>  	 
-			 <td> ${wdto.id}&nbsp;</td>	
-		  
+			<td onclick="view()"><input name="rowcheck" type="checkbox" value="${wdto.id}"></td>
+			<td>${wdto.id }</td>  	   	 
 		  	  
 		  <!--
 		  	 이미지가 resources 로 시작하는 경우
@@ -162,25 +159,27 @@
    			<td><img src="/loyd/${wdto.picture}" width="90" height="70"></td>
        </c:if>
        <c:if test="${fn:indexOf(wdto.picture,'resources') == -1 }">
-      		<td> <img src="${wdto.picture}" width="90" height=70></td>
+      		<td> <img src="${wdto.picture}" width="90" height="70"></td>
        </c:if>
-           <td> ${wdto.brand} <br>
-		  		${wdto.name} </td>		  
+			<td> ${wdto.brand} <br>
+			<a href="content?id=${wdto.id}" style="color:#22741C;">${wdto.name}</a>
+		   </td>		  
 		   <td>
 		      <fmt:formatNumber value="${wdto.price}" pattern="#,###" />
 	       </td>
 		   <td> ${wdto.category} </td>
 		   <td> ${wdto.discount} </td>
 		   <td> ${wdto.kind}</td>   
-	  </tr>
-</c:forEach>  
-</form>	 
+		  </tr>
+	 </c:forEach>  
+	 </form>	 
+
 	 	 <tr>
     <td colspan="10" align="center">
     
     <!-- 현재 페이지 기준 이전 10페이지 이동 -->
    <c:if test="${pstart !=1 }"> 
-    <a href="watch_list?page=${page-1}"> ◀ </a>    
+    <a href="wwatch_list?page=${page-1}"> ◀ </a>    
    </c:if>
    <c:if test="${pstart == 1}">
     	◀

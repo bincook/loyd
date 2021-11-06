@@ -5,10 +5,13 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
@@ -23,9 +26,18 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kr.co.loyd.dao.AdminDao;
+import kr.co.loyd.dao.CartDao;
 import kr.co.loyd.dao.MemberDao;
+import kr.co.loyd.dao.OrderDao;
+import kr.co.loyd.dao.QnaDao;
+import kr.co.loyd.dao.ReviewsDao;
 import kr.co.loyd.dao.WatchDao;
+import kr.co.loyd.dto.CartDto;
 import kr.co.loyd.dto.MemberDto;
+import kr.co.loyd.dto.OrderDto;
+import kr.co.loyd.dto.QnaDto;
+import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.WatchDto;
 
 @Controller
@@ -200,28 +212,30 @@ public class AdminController {
 			{
 				page=Integer.parseInt(request.getParameter("page"));
 			}
-			int page_cnt=wdao.get_cnt();
-			int index=(page-1)*10;			
-			
-			int pstart=page/10;
+
+			int recod=(page-1)*7;	
+
+			   ArrayList<WatchDto> watch_list=wdao.watch_list(recod);
+			int pstart=page/5;
 			if(page%10 == 0)
-				pstart=page-1;
+				pstart=pstart-1;
 			pstart=(pstart*10)+1;
 			int pend=pstart+9;		
 			
+			int page_cnt=wdao.get_cnt();
 			if(pend>page_cnt)
 				pend=page_cnt;		   
-		   
-		   ArrayList<WatchDto> watch_list=wdao.watch_list();
+			
 		   model.addAttribute("pstart",pstart);
 		   model.addAttribute("pend",pend);
 		   model.addAttribute("page_cnt",page_cnt);
 		   model.addAttribute("page",page);
 		   model.addAttribute("watch_list",watch_list);
+	
 		   return "admin/watch/watch_list";
 	   }
 
-	 
+
 	 @RequestMapping("/watch/delete")
 	 public String delete(HttpServletRequest request)
 	 {
@@ -237,17 +251,128 @@ public class AdminController {
 		 return "admin/watch/watch_list";
 	 }
 	 
+	 @RequestMapping("/watch/content")
+	 public String content(Model model,HttpServletRequest request) throws Exception
+	 {
+	 String id=request.getParameter("id");
+	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+	 WatchDto wdto=wdao.content(id);
+
+	 wdto.setContent(wdto.getContent());
+	 
+	 model.addAttribute("wdto",wdto);
+
+	   return "admin/watch/content";
+	  }
+	 
+
+	 
+	 @RequestMapping("/watch/update")
+	 public String update(Model model,HttpServletRequest request) throws Exception
+	 {
+	 String id=request.getParameter("id");
+	 WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+	 WatchDto wdto=wdao.content(id);
+	 model.addAttribute("wdto",wdto);
+
+	   return "admin/watch/update";
+	  }
 	 
 	 
+	 @RequestMapping("/watch/update_ok")
+	 public String update_ok( MultipartHttpServletRequest request) throws Exception
+	 {
+		   String id = request.getParameter("id");
+		   
+		 String imgPath = "resources/img";
+		   String path=request.getRealPath(imgPath);
+		   MultipartFile multipartFile = request.getFile("picture");
+			
+		   // 파일이 있는 경우
+		   if(!multipartFile.isEmpty()) {
+			   File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
+			   String fileName = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+			   FileCopyUtils.copy(multipartFile.getBytes(), file);
+			   
+//			   int max=1024*1024*10;
+//			   MultipartRequest multi=new MultipartRequest(request,path,max,"utf-8",new DefaultFileRenamePolicy());
+
+//			   String fileName = multi.getFilesystemName("picture");
+//			   System.out.println("fileName" + fileName);
+			   
+			   
+			   
+			   WatchDto wdto=new WatchDto();
+			   wdto.setName(request.getParameter("name"));
+			   wdto.setBrand(request.getParameter("brand"));
+			   wdto.setPrice(Integer.parseInt(request.getParameter("price")));
+			   wdto.setCategory(request.getParameter("category"));
+			   wdto.setContent(request.getParameter("content"));
+			   wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
+			   wdto.setPicture(imgPath + "/" + fileName);
+			   wdto.setKind(request.getParameter("kind"));
+			   
+			   WatchDao wdao=sqlSession.getMapper(WatchDao.class);
+			   wdao.upload_ok(wdto);
+			   
+			// 파일이 없을 때
+		   } else {
+			   String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
+			   
+			   return "redirect:/admin/watch/content?id=" + id + "&error="+encodeResult;			   
+		   }
+		   
+		return "redirect:/admin/watch/watch_list";
+	 }
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+     @RequestMapping(value = "/dash-board")
+     public String dash_board(Model model,HttpServletRequest request) throws Exception
+     {
+    	 QnaDao qdao=sqlSession.getMapper(QnaDao.class);
+    	 ArrayList<QnaDto> dash_listq=qdao.dash_listq();
+    	 model.addAttribute("dash_listq",dash_listq);   // qna 의 dao.daoxml
+   	 
+    	 ReviewsDao rdao=sqlSession.getMapper(ReviewsDao.class);	 
+    	 ArrayList<ReviewsDto> dash_listr=rdao.dash_listr();
+    	 model.addAttribute("dash_listr",dash_listr);   // review
+
+    	 CartDao cdao=sqlSession.getMapper(CartDao.class);
+    	 ArrayList<CartDto> dash_listc=cdao.dash_listc();
+    	 model.addAttribute("dash_listc",dash_listc); 	// cart
+    			 
+    	 OrderDao odao=sqlSession.getMapper(OrderDao.class);
+    	 ArrayList<OrderDto> dash_listo=odao.dash_listo();
+    	 model.addAttribute("dash_listo",dash_listo);	//order list
+    	 
+    	 
+    	 /** 대시보드 그래프  */
+    	 MemberDao grapm=sqlSession.getMapper(MemberDao.class);
+    	 String tot=grapm.tot();
+    	 model.addAttribute("tot",tot);  //회원 전체 수   	 
+    	 
+    	 OrderDao grapo=sqlSession.getMapper(OrderDao.class);
+    	 ArrayList<OrderDto> orderg=grapo.orderg();
+    	 model.addAttribute("orderg",orderg); // 주문 가장 많은 상품 10개
+    	 
+    	 QnaDao grapoq=sqlSession.getMapper(QnaDao.class);
+    	 String totq=grapoq.totq();
+    	 model.addAttribute("totq",totq);
+    	 
+    	 OrderDao grapoc=sqlSession.getMapper(OrderDao.class);
+    	 ArrayList<OrderDto> orderc=grapoc.grapoc();
+    	 model.addAttribute("orderc",orderc);
+    	
+    	    	 
+ 
+	 return "admin/dash-board";   
+    	 
+     }
      
-		
+    
+	 
+	 
+	 
+	 
 }
+	
+

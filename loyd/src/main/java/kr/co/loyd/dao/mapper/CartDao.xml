@@ -17,6 +17,12 @@
 		member(email, pwd, name, phone, register_date)
 		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
 	</insert>
+	
+	
+	
+	
+	
+	
 
 	<update id="update">
 		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
@@ -28,35 +34,73 @@
 	
 	<!-- 카트 리스트 -->
 	<select id="cart_list" resultType="kr.co.loyd.dto.CartDto">
-	SELECT A.member_id, A.watch_id, A.item_count, ceil(B.price*(1-discount)) AS price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*(1-discount)) as hap
+	SELECT A.email,A.member_id, A.watch_id, A.item_count, ceil(B.price*(1-discount)) AS price, B.discount, B.picture, B.kind, B.name ,ceil(A.item_count*B.price*(1-discount)) as hap
 	FROM cart A, watch B 
-	WHERE A.watch_id =  B.id AND member_id = 19
+	WHERE A.watch_id =  B.id AND email = #{param1}
 	</select>
 	
 	<select id="cart_sum" resultType="integer">
 	WITH cart AS
-	(SELECT ceil(A.item_count*B.price*(1-B.discount)) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.member_id = 19 )
-	SELECT SUM(hap) AS chong  FROM cart 
+	(SELECT ceil(A.item_count*B.price*(1-B.discount)) as hap FROM cart A, watch B WHERE A.watch_id =  B.id AND A.email = #{param1} )
+	SELECT ifnull(SUM(hap),0) AS chong  FROM cart 
 	</select>
 	
+
 	<select id="change" resultType="kr.co.loyd.dto.CartDto"> 
-		SELECT A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
+		SELECT A.email,A.member_id, A.watch_id, A.item_count, B.price, B.discount, B.picture, B.kind, B.name ,(A.item_count*B.price*discount) as hap
 		FROM cart A, watch B 
-		WHERE A.watch_id =  B.id AND member_id = 19 and watch_id = #{param1}
+		WHERE A.watch_id =  B.id AND watch_id = #{param1} AND email =#{param2}
 	</select>
 	
 	<update id="minus" >
-		update cart set item_count=item_count-1 where watch_id = #{param1} 
+		update cart set item_count=item_count-1 where watch_id = #{param1} and email =#{param2}
 	</update>
 	
 	<update id="plus" >
-		update cart set item_count=item_count+1 where watch_id = #{param1} 
+		update cart set item_count=item_count+1 where watch_id = #{param1} and email =#{param2}
 	</update>
 	
 	<delete id="cart_delete">
-		delete from cart where watch_id = #{param1} and member_id =#{param2}
+		delete from cart where watch_id = #{param1} and email =#{param2}
 	</delete>
 
-	<!-- 조건 + 페이징 -->
+	<select id='chkk' resultType="integer">
+		select item_count from cart where watch_id = #{param1} and email =#{param2}
+	</select>
+	
+	<select id="cart_buy" resultType="kr.co.loyd.dto.CartDto">
+		SELECT content,CEIL(item_count*price*(1-discount)) as price,picture,brand,category,kind,item_count FROM watch A , cart B WHERE A.id=B.watch_id and email = #{param1}
+	</select>
+	
+	<select id="item_chong" resultType="integer">
+		SELECT SUM(item_count) AS item_chong FROM watch A , cart B WHERE A.id=B.watch_id and email = #{param1}
+	</select>
+	
+	<insert id="pay" parameterType="kr.co.loyd.dto.OrderDetailDto">
+		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date,order_list_id,order_no) 
+		VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now(),1,(SELECT MAX(order_no) FROM `order list`))
+	</insert>
+
+
+	<select id ="writeOrderList" parameterType="kr.co.loyd.dto.CartDto" resultType="int">
+		INSERT INTO `order list` (watch_id,member_id,price,discount,count,orderday,order_no)
+		SELECT A.watch_id ,member_id, CEIL(price*(1-B.discount)) as price ,B.discount,A.item_count,NOW(),(select max(order_no)+1 from `order list`) FROM cart A, watch B WHERE A.watch_id = B.id AND member_id=#{param1}
+		
+	</select>
+	
+	<delete id="cart_del">
+		delete from cart where member_id = #{param1}
+	</delete>
+
+
+
+
+
+	<!-- 대시보드에 문의글 최근 5개 목록 조회  -->
+	<select id="dash_listc" resultType="kr.co.loyd.dto.CartDto">
+	 	<![CDATA[select email,created_at from cart where item_count > 10 limit 0,5]]>  
+		<!-- select email,created_at from cart  -->
+	</select>
+
 
 </mapper>

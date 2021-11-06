@@ -26,5 +26,8 @@ public interface MemberDao {
 	public Integer get_cnt();
 	public ArrayList<MemberDto> list(int index);
 	public String listsearch();
+	
+	/** 대시보드 그래프 : 총 회원 수*/
+	public String tot();
 
 }

@@ -24,8 +24,9 @@
 
 	<delete id="delete" parameterType="Long">
 		delete from member where id = #{id}
-	</delete>
+	</delete>	
+	
 
-	<!-- 조건 + 페이징 -->
+	
 
 </mapper>

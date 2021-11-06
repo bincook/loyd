@@ -13,9 +13,9 @@
 	$(document).ready(function(){
 		$("#all").click(function(){
 			if($("#all").prop("checked")){
-				$("input[name=watch]").prop("checked",true);
+				$("input[name=watch_id]").prop("checked",true);
 			}else{
-				$("input[name=watch]").prop("checked",false);
+				$("input[name=watch_id]").prop("checked",false);
 			} 
 		})
 		
@@ -40,7 +40,7 @@
           <tbody>
               <tr>
                 <th scope="row">
-                  <input type="checkbox" id="all" onclick="selectAll()">
+                  <input type="checkbox" id="all">
                 </th>
                 <th scope="col">상품정보</th>
                 <th scope="col">주문금액</th>
@@ -54,6 +54,7 @@
                   <input type="checkbox" name="watch_id" value="${dto.watch_id }">
                 </th>
                 <td>
+                <a href="/loyd/order/detail_order?id=${dto.watch_id }">
                     <div>
                         <div class="d-inline-block mr-4">
                             <img src="${dto.picture }" width="100px">
@@ -68,9 +69,10 @@
                             <h6>
                                 <small>옵션 :${dto.kind }/${dto.item_count}개</small>
                             </h6>
-                            <a href="change?watch_id=${dto.watch_id }" onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;"><button class="btn-block">수량 변경</button></a>
+                            <a href="change?watch_id=${dto.watch_id }&email=${dto.email}" onclick="window.open(this.href, '_blank', 'width=500, height=500'); return false;"><button class="btn-block">수량 변경</button></a>
                         </div>
                     </div>
+                </a>
                 </td>
                 <td>
                 <div>${String.format("%,d",dto.hap) }원</div>
@@ -82,13 +84,12 @@
               <tr>
               	<td colspan="4" align="center">
               		<button id="deleteBtn" type="button" onclick="ajx()">선택 삭제</button>
-              		<button type="button" >찜 하기</button>
               	</td>
               	
               	<script>
               	function ajx(){
 
-            		var member_id = $("#member_id").val(); // <input id="member_id" /> 애만 가져오는거예요 네 아.name이네요
+            		//var member_id = $("#member_id").val(); // <input id="member_id" /> 애만 가져오는거예요 네 아.name이네요
             		
             		var watch_id =[];
             		
@@ -96,8 +97,8 @@
             			watch_id.push($(this).val());
             		});
             		
-            		var allData = {"member_id":member_id, "watch_id":watch_id};
-            		
+            		//var allData = {"member_id":member_id, "watch_id":watch_id};
+            		var allData = {"watch_id":watch_id};
             		
             		console.log(allData)
 
@@ -132,6 +133,11 @@
               		<h3>총결제금액  : ${String.format("%,d",chong) }</h3> <!--  db 에는 총결제금액이 들어가있나요 ? 위드문 써서 만들엇어요 -->
               		
               	</td>
+              </tr>
+              <tr>
+              	<td colspan="4" align="center">
+              		<a href="cart_buy"><button>결제하기</button></a>
+              	</td>	
               </tr>
             </tbody>
           </table>

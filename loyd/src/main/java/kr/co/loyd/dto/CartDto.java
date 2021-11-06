@@ -3,17 +3,54 @@ package kr.co.loyd.dto;
 public class CartDto {
 	//cart 테이블
 	private int id , member_id, watch_id,item_count;
-	private String created_at;
+	private String created_at,email;
 
+	
 	//cart 수량X가격 , 총합계
 	private int hap;
-	private int chong;
+	private int chong,item_chong;
+	
+	//주문 번호
+	private int order_no;
 	
 	
 	//watch 테이블
 	private int price;
 	private double discount;
-	private String name,picture,kind;
+	private String name,picture,kind,brand,category;
+	
+	
+	
+	public int getOrder_no() {
+		return order_no;
+	}
+	public void setOrder_no(int order_no) {
+		this.order_no = order_no;
+	}
+	public int getItem_chong() {
+		return item_chong;
+	}
+	public void setItem_chong(int item_chong) {
+		this.item_chong = item_chong;
+	}
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	public int getChong() {
 		return chong;

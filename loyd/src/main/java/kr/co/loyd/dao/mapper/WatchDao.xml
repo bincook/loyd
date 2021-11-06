@@ -3,7 +3,8 @@
 
 
 <mapper namespace="kr.co.loyd.dao.WatchDao">
-
+	<!-- 조건 + 페이징 -->
+	
 	<select id="one" parameterType="Long" resultType="kr.co.loyd.dto.MemberDto">
 		select * from member where id = #{id}
 	</select>
@@ -18,37 +19,42 @@
 		values(#{email}, #{pwd}, #{name}, #{phone}, sysdate())
 	</insert>
 
-	<update id="update">
-		update member set email = #{email}, pwd = #{pwd}, name = #{name}, phone = #{phone}  where id = #{id}
-	</update>
-
-
-
-
-	<!-- 상품 삭제 -->
-	<delete id="delete">
-		delete from watch where id = #{param1}
-	</delete>
-
-
-
-
-
-	<!-- 조건 + 페이징 -->
-	
 	<!-- 관리자가 상품 등록 -->
 	<insert id="upload_ok" parameterType="kr.co.loyd.dto.WatchDto">
 		insert into watch(name,brand,price,category,content,discount,picture,kind) 
 		values(#{name},#{brand},#{price},#{category},#{content},#{discount},#{picture},#{kind})
 	</insert>
+	
+	
+	<!-- 상품 목록(페이징) -->
+	<select id="get_cnt" resultType="Integer">
+ 		select ceil(count(*)/7) from watch
+	</select>
 	<!-- 등록한 상품 목록보기 -->
 	<select id="watch_list" resultType="kr.co.loyd.dto.WatchDto">
-		select * from watch order by id desc
-	</select>
-		<!-- 상품 목록(페이징) -->
-	<select id="get_cnt" resultType="Integer">
- 		select ceil(count(*)/10)as cnt from watch
+		select * from watch order by id desc limit #{param1},7
 	</select>
 
+    <!-- 상품 삭제 -->
+	<delete id="delete">
+		delete from watch where id = #{param1}
+	</delete>
 
+	<!-- 상품 상세  -->
+	<select id="content" resultType="kr.co.loyd.dto.WatchDto">
+        select * from watch where id=#{param1}
+    </select>
+
+    <select id="update" resultType="kr.co.loyd.dto.WatchDto">
+        select * from watch where id=#{param1}
+    </select>   
+
+	
+	<insert id="update_ok" parameterType="kr.co.loyd.dto.WatchDto">
+		update watch set name=#{name},brand=#{brand},price=#{price},category=#{category},
+		content=#{content},discount=#{discount},picture=#{picture},kind=#{kind} where id=#{id}
+    </insert>
+
+	
+	
 </mapper>
