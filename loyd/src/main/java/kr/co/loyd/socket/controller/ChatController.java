@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Pageable;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,6 @@ public class ChatController {
         this.chatUpdater = chatUpdater;
         this.channelUpdater = channelUpdater;
     }
-
 
     // 채팅 리스트
     @RequestMapping(value = "/{channel}/chat", method = RequestMethod.GET)

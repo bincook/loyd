@@ -5,10 +5,11 @@ import kr.co.loyd.dto.ChannelDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface ChannelDao {
     // 전부 조회
-    List<ChannelDto> findAll();
+    List<ChannelDto> findAll(Map<String, String> map);
     // 채널 이름으로 조회
     List<ChannelDto> findByChannelName(String channel_name);
     ChannelDto findByChannel(Integer channelId);

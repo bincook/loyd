@@ -45,7 +45,7 @@
     <script>
         let websocket = null
         let client_ipaddress = "192.168.0.1"
-        let chat_server_host = 'http://localhost:8080'
+        let chat_server_host = ''
         let chat_connection_request_url = '/socket/connect/url'
         let chat_connection = '/websocket/endpoint'
         let chat = null
