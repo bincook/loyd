@@ -11,6 +11,15 @@
 	height: 200px;
 	padding-top: 50px;
 }
+#like {
+	padding-top: 570px;
+/* 	height: 700px; */
+	text-align: center;	
+
+}
+
+
+
 </style>
 
 <script >
@@ -112,8 +121,20 @@ function resizeWindow(win)    {
 		</table>		
 	</div>
 	
+	<div id="like">
+		<a href="content?review_id="${reviews.review_id }> 좋아요&nbsp;&nbsp;&nbsp;</a>
+		<span> 좋아요 한 사람의 수 </span>		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 
-<!-- 	bs4 -->
+<!-- 	bs4를 이용한 컨텐츠 디자인 -->
 <!-- 	<div class="card" style="width:400px"> -->
 <!-- 	  <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
 <!-- 	  <div class="card-body"> -->
@@ -127,51 +148,30 @@ function resizeWindow(win)    {
 <!-- 	</div> -->
 
 
-	<!-- 댓글 -->	
-	<div align="center"   style="padding-top:450px">
-		<table width="400" border="1"> <!-- align="bottom" -->
-			<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 -->
-			<tr>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>작성자</th>
-				<th>댓글내용</th>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-			</tr>
-		
-		
-		</table>
-	</div>
-	
-	
-	
-	
-<!-- 	<div style="width:200px; height:150px; border:1px solid red; float:left;"> -->
-<!-- 		첫번째 영역: -->
-<!-- 		왼쪽에 위치시킴 =>  float:left -->
-<!-- 		여기에 그림이나 글자 또는 광고 등을 넣음 -->
-<!-- 	</div> -->
-<!-- 	<div style="width:200px; height:150px; border:1px solid green; float:left;"> -->
-<!-- 		두번째 영역: -->
-<!-- 		첫번째 영역 옆에 나란히 붙임 => float:left -->
-<!-- 		여기에 그림이나 글자 또는 광고 등을 넣음 -->
-<!-- 	</div> -->
 
+
+	<!-- 댓글 -->	
+<!-- 	<div align="center"   style="padding-top:450px"> -->
+<!-- 		<table width="400" border="1"> align="bottom" -->
+<!-- 			<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 --> 
+<!-- 			<tr> -->
+<!-- 				<th>작성자</th> -->
+<!-- 				<th>작성일</th> -->
+<!-- 				<th>작성자</th> -->
+<!-- 				<th>댓글내용</th> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<td>1</td> -->
+<!-- 				<td>2</td> -->
+<!-- 				<td>3</td> -->
+<!-- 				<td>4</td> -->
+<!-- 			</tr> -->
+		
+		
+<!-- 		</table> -->
+<!-- 	</div> -->
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 </body>

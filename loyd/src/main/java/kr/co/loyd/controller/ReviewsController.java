@@ -58,7 +58,7 @@ public class ReviewsController {
 		// watch 테이블에서 시게이름 가져오기
 //		model.addAttribute("memberId", 1);
 		System.out.println("watchId");
-
+		
 		return "/reviews/write";
 	}
 	
@@ -97,39 +97,49 @@ public class ReviewsController {
 
 		// MultipartFile multipartFile =
 		// request.getFile("localhost/loyd/reviews/list"+"file");
-		// 파일 있는 경우
-		if (!multipartFile.isEmpty()) {
-			String realPath = request.getSession().getServletContext().getRealPath("resources/img");
-			File file = new File(realPath, multipartFile.getOriginalFilename()); // 파일명
-			String filename = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
-			String path = "resources/img"; // 파일경로 // path로 저장
-			FileCopyUtils.copy(multipartFile.getBytes(), file); // 파일 저장 됨
-
-			AddfileDao adao = sqlSession.getMapper(AddfileDao.class);
-
-			// dto 생성
-			AddfileDto addFileDto = new AddfileDto();
-			addFileDto.setName(filename);
-			addFileDto.setPath(path);
-
-			// add_file 테이블에 insert 쿼리문
-			
-			int insertedId = adao.insert(addFileDto);
-
-			// 방금 addFile 테이블에 저장되 었던 id 를 reviews_dto.file_id 에 넣기
-			dto.setFile_id(insertedId);
-
-			rdao.writeOk2(dto);
-
-			// 파일 없는 경우
-		} else {
-			rdao.writeOk1(dto);
-		}
-
-
-
-		return "redirect:/reviews/list";
-	}
+		
+		// if content의 내용이 있는경우
+//		if ("name='content'" !=null) {
+		
+			// 파일 있는 경우
+			if (!multipartFile.isEmpty()) {
+				String realPath = request.getSession().getServletContext().getRealPath("resources/img");
+				File file = new File(realPath, multipartFile.getOriginalFilename()); // 파일명
+				String filename = multipartFile.getOriginalFilename(); // 파일명 // NAME으로 저장
+				String path = "resources/img"; // 파일경로 // path로 저장
+				FileCopyUtils.copy(multipartFile.getBytes(), file); // 파일 저장 됨
+	
+				AddfileDao adao = sqlSession.getMapper(AddfileDao.class);
+	
+				// dto 생성
+				AddfileDto addFileDto = new AddfileDto();
+				addFileDto.setName(filename);
+				addFileDto.setPath(path);
+	
+				// add_file 테이블에 insert 쿼리문
+				
+				int insertedId = adao.insert(addFileDto);
+	
+				// 방금 addFile 테이블에 저장되 었던 id 를 reviews_dto.file_id 에 넣기
+				dto.setFile_id(insertedId);
+	
+				rdao.writeOk2(dto);
+	
+				// 파일 없는 경우
+			} else {
+				rdao.writeOk1(dto);
+			}
+			return "redirect:/reviews/list";	
+//		}
+		// if content의 내용이  없는 경우
+//		else("name='content'" ==null) {
+//			return "/reviews/write";
+//		}
+}
+		
+		
+		
+	
 	
 	/* 후기 리스트 페이지 */
 	@RequestMapping("/reviews/list")
@@ -357,10 +367,50 @@ public class ReviewsController {
 		
 	}
 	
+	
+	/* 좋아요 누르기 */
+	@RequestMapping("/reviews/like")
+	public String like(ReviewsDto dto) {
+		ReviewsDao dao = sqlSession.getMapper(ReviewsDao.class);
+		
+		
+		
+		return "redirect:/reviews/content?review_id="+dto.getReview_id();
+	}
+	
+	
+	/* 좋아요 취소 */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping ("reviews/test")
 	public String test() {
 		return "reviews/test";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	/* 댓글 만들기 */

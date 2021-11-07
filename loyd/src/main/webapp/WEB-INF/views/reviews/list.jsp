@@ -117,7 +117,6 @@ function resizeWindow(win)    {
 						        <td>${review.review_id}</td>
 						        <td>${review.watch_id}</td>
 
-
 						        <td><a href="javascript:open_content(${review.review_id})">
 <!-- 						        	<a href=" javascript:function resizeWindow(win) "> -->
 						        

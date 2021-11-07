@@ -60,14 +60,30 @@
 
 </style>
 <script>
-function btn(){
-	if(document.writeForm.content.value==""){
-		alert('내용을 입력해주세요')
-		document.writeForm.content.focus()
+
+	// 빈칸 입력시 알람 띄우기
+	function btn(e) {
 		
-		exit;
-	}	
-}
+		var arr = $('form').serializeArray()  // serialize 연속극 // .serialize() 데이터 직렬화, serializeArray() 문자열을 배열로변환
+		
+		console.log(arr.length)  // 입력된 데이터 수 
+		
+		if(arr.length < 3 ) return alert('별점을 입력해주세요')  // 3개보다 길이 적으면
+		else if ($('textarea').val() === "") return alert('내용을 입력해주세요') // 2개보다 적으면 (별점은 입력했으나 컨텐츠 미입력시)
+		else $('form').submit()  // 제출하기
+		
+	}
+	// 연습한거(틀림)
+//  	function btn(){
+//  		if(document.writeForm.content.value==""){
+// // 	 		src="<c:url value="write" />"	
+//  			alert('내용을 입력해주세요')
+//  			document.writeForm.content.focus()
+//  			exit;
+//  			location.href="write";
+// 		}
+// 	}	
+
 </script>
 
 
@@ -78,7 +94,7 @@ function btn(){
         <p> WATCH 에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
     </div>
     <div class="container bg-light" style="height: 800px;">
-        <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
+        <form id='frm' name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
                  
             <table class="table table-bordered">
 					 <tr>
@@ -131,84 +147,10 @@ function btn(){
 	               
             </table>
             <div align="center">
-            
-            	<!-- content가 공백일때 -->
-<%--             	<c:set var="javascript:btn()" value="content" /> --%>
-            	<c:if test='javascript:btn() == null'>
-            	
-		
-                    <a onclick="javascript:btn()" class="btn btn-primary" href="write">
-                   		 작성완료zz
-                    </a>
-                    s
-                    
-                    
-                </c:if>
-                
-                
-                
-
-                <!-- content가 공백이 아닐때 -->
-<%--                 <c:set var="javascript:btn()" value="content" /> --%>
-                
-				<c:if test='javascript:btn() !=null'>
-				
-                    <a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()">
+<!--             		<a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()"> -->
+                    <a onclick="javascript:btn()" class="btn btn-primary">
                    		 작성완료
-                    </a>
-                    
-                    
-                </c:if>
-                
-                
-                
-                
-                
-                
-<%--                 <c:set var="name" value="코요" />
- 
-				<c:choose> 
-				    <c:when test="${name eq '새박'}">
-				        <a>저의 이름은 새박입니다.</a>
-				    </c:when>
-				    <c:when test="${name eq '샘샘'}">
-				        <a>저의 이름은 샘샘입니다.</a>
-				    </c:when>
-				    <c:when test="${name eq '박샘'}">
-				        <a>저의 이름은 박샘입니다.</a>
-				    </c:when>
-				    <c:otherwise>
-				        <a>내이름은 무엇인가</a>
-				    </c:otherwise>
-				</c:choose> --%>
-				                
-                
-                
-                
-                
-                
-                
-                
-                   
-<!--                 웹의 동작방식 ==  JAVA>JSTL>HTML>Javascript  -->                
-<!--                     <a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()">
-                   		 작성완료
-                    </a> -->
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                
-                
-                    
-                    
-                    
+                    </a>  
                     <a class="btn btn-outline-primary" href="javascript:history.back()">
                     	뒤로가기
                     </a>
