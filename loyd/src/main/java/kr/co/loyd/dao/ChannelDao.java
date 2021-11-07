@@ -10,6 +10,7 @@ import java.util.Map;
 public interface ChannelDao {
     // 전부 조회
     List<ChannelDto> findAll(Map<String, String> map);
+    int countAll();
     // 채널 이름으로 조회
     List<ChannelDto> findByChannelName(String channel_name);
     ChannelDto findByChannel(Integer channelId);

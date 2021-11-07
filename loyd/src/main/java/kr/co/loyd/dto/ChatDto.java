@@ -76,8 +76,4 @@ public class ChatDto extends Pageable {
         this.is_admin = is_admin;
         return this;
     }
-
-    public boolean isAdmin() {
-        return "Y".equals(is_admin);
-    }
 }

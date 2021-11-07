@@ -5,7 +5,11 @@
 <mapper namespace="kr.co.loyd.dao.ChannelDao">
 
 	<select id="findAll" parameterType="Map" resultType="kr.co.loyd.dto.ChannelDto">
-		select c.*, FOUND_ROWS() as total from channel c order by create_at desc LIMIT #{size} OFFSET #{offset}
+		select c.* from channel c order by create_at desc LIMIT #{size} offset #{offset}
+	</select>
+
+	<select id="countAll" resultType="int">
+		select count(*) from channel
 	</select>
 
 	<select id="findByChannelName" parameterType="String" resultType="kr.co.loyd.dto.ChannelDto">

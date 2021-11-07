@@ -25,4 +25,8 @@ public class Pageable {
         return this;
     }
 
+    public int getOffset() {
+        return this.offset;
+    }
+
 }

@@ -1,4 +1,4 @@
-function Chat(api_host_url, ip) {
+function Chat(api_host_url, id, isAdmin) {
     // 채팅 창에 그려질 html 들입니다.
     this.form = {
         clientMessageForm: '<div class="message message-personal">:message</div>',
@@ -96,37 +96,73 @@ function Chat(api_host_url, ip) {
     }
 
     this.loadMessage = async () => {
-        return axios({
-            method: 'get',
-            url: api_host_url + '/channel/' + ip + '/chat?page=' + closer.page + '&size=' + closer.size
-        }).then((response) => {
+        // 유저는 채널로 정보를 불러움
+        if (!isAdmin) {
+            return axios({
+                method: 'get',
+                url: api_host_url + '/channel/' + id + '/chat?page=' + closer.page + '&size=' + closer.size
+            }).then((response) => {
 
-            console.log(response);
+                console.log(response);
 
-            if (response.data.length == 0)
-                return
+                if (response.data.length == 0)
+                    return
 
-            let old_data = messages.getAll()
-            response.data.reverse()
-            console.log(old_data)
+                let old_data = messages.getAll()
+                response.data.reverse()
+                console.log(old_data)
 
-            closer.clearAll()
-            // 반대로 데이터 삽입
-            response.data.forEach(d => {
-                messages.push({
-                    type: d.is_admin == true ? 'official' : 'personal',
-                    text: d.content,
-                    date: d.create_at
+                closer.clearAll()
+                // 반대로 데이터 삽입
+                response.data.forEach(d => {
+                    messages.push({
+                        type: d.is_admin == 'Y' ? 'official' : 'personal',
+                        text: d.content,
+                        date: d.create_at
+                    })
+                })
+                old_data.forEach(d => {
+                    messages.push({
+                        type: d.type,
+                        text: d.text,
+                        date: d.date
+                    })
                 })
             })
-            old_data.forEach(d => {
-                messages.push({
-                    type: d.type,
-                    text: d.text,
-                    date: d.date
+        // 어드민은 id로 값을 불러옴
+        } else {
+            return axios({
+                method: 'get',
+                url: api_host_url + '/channel/id/' + id + '/chat?page=' + closer.page + '&size=' + closer.size
+            }).then(response => {
+
+                console.log(response);
+
+                if (response.data.length == 0)
+                    return
+
+                let old_data = messages.getAll()
+                response.data.reverse()
+                console.log(old_data)
+
+                closer.clearAll()
+                // 반대로 데이터 삽입
+                response.data.forEach(d => {
+                    messages.push({
+                        type: d.is_admin == 'Y' ? 'official' : 'personal',
+                        text: d.content,
+                        date: d.create_at
+                    })
+                })
+                old_data.forEach(d => {
+                    messages.push({
+                        type: d.type,
+                        text: d.text,
+                        date: d.date
+                    })
                 })
             })
-        })
+        }
     }
 
     this.insertMessage = () => {
@@ -135,25 +171,51 @@ function Chat(api_host_url, ip) {
         if (msgElement.value == null || msgElement.value == '')
             return
 
-        axios({
-            method: 'post',
-            url: api_host_url + '/channel/' + ip + '/chat',
-            data: {
-                creater: ip,
-                content: msgElement.value,
-                is_admin: 'N'
-            }
-        }).then((response) => {
-            if (response.status != 200) {
+        if (!isAdmin) {
+            axios({
+                method: 'post',
+                url: api_host_url + '/channel/' + id + '/chat',
+                data: {
+                    creater: id,
+                    content: msgElement.value,
+                    is_admin: 'N'
+                }
+            }).then((response) => {
+                msgElement.value = ''
+                this.updateScrollbar();
+                return
+            }).catch(error => {
+                console.log(error)
+                if (error.response.status == 409) {
+                    alert('이미 종료된 채널 입니다.')
+                    return;
+                }
+
                 alert('관리자에게 메세지 전달이 되지 않았습니다. 조금 있다가 다시 시도해주세요')
-                return;
-            }
+            });
+        } else {
+            axios({
+                method: 'post',
+                url: api_host_url + '/channel/id/' + id + '/chat',
+                data: {
+                    creater: id,
+                    content: msgElement.value,
+                    is_admin: 'Y'
+                }
+            }).then((response) => {
+                msgElement.value = ''
+                this.updateScrollbar();
+                return
+            }).catch(error => {
+                console.log(error)
+                if (error.response.status ==    409) {
+                    alert('이미 종료된 채널 입니다.')
+                    return;
+                }
 
-            msgElement.value = ''
-            return
-        });
-
-        this.updateScrollbar();
+                alert('사용자에게 메세지 전달이 되지 않았습니다. 조금 있다가 다시 시도해주세요')
+            });
+        }
     }
 
     // 방금 들어온 데이터를 채팅 창에 그립니다.
@@ -180,7 +242,7 @@ function Chat(api_host_url, ip) {
     }
 
     // 임시 데이터를 삽입합니다.
-    this.insertMessageByAdmin = () => {
+    this.fakeMessage = () => {
         let messageContainer = document.querySelector('.messages-content')
         messageContainer.innerHTML += this.form.adminLoadingMessageForm
         this.updateScrollbar();
@@ -215,40 +277,87 @@ function Chat(api_host_url, ip) {
         console.log(doing, payload)
         if (doing == "CREATE") {
             messages.push({
-                type: payload.is_admin == true ? 'official' : 'personal',
+                type: payload.is_admin == 'Y' ? 'official' : 'personal',
                 text: payload.content,
                 date: payload.create_at,
             })
+            closer.updateScrollbar()
         }
 
+        if (doing == "CLOSE") {
+            messages.push({
+                type: payload.is_admin == 'Y' ? 'official' : 'personal',
+                text: payload.content,
+                date: payload.create_at,
+            })
+            closer.updateScrollbar()
+            closer.removeAllEventListeners()
+
+            alert('관리자에 의해 상담이 종료 되었습니다!')
+        }
     }
 
-    // 로드 시점에 맞춰 기본 데이터 세팅 & 이벤트 부착
-    window.addEventListener("load", function(event) {
-
+    // 이벤트 부착
+    this.addEventListeners = () => {
         // 스크롤 바 이벤트 부착
         let content = document.querySelector(".messages-content");
 
         content.addEventListener("scroll", event => {
             if (content.scrollTop == 0) {
                 closer.page += 1
-                closer.loadMessage()
+                closer.loadMessage(false)
             }
         });
 
+        let opener = document.querySelector('.open-button')
 
+        if (opener != null) {
+            opener.addEventListener('click', event => {
+                let chat = document.querySelector(".chat-container .chat")
+
+                if (chat.classList.contains('open')) {
+                    chat.classList.remove('open')
+                    opener.classList.remove('side')
+                } else {
+                    chat.classList.add('open')
+                    opener.classList.add('side')
+                }
+            })
+        }
 
         // 이벤트 부착
         let submitButton = document.querySelector('.message-submit')
         submitButton.addEventListener('click', closer.insertMessage)
         let messageInput = document.querySelector('.message-input')
-        messageInput.addEventListener('keyup', closer.insertMessage)
+        messageInput.addEventListener('keyup', event => {
+            let key = event.key || event.keyCode
+            if (key === 'Enter' || key === 13) {
+                closer.insertMessage()
+                closer.updateScrollbar()
+            }
+        })
+    }
 
+    // 이벤트 제거
+    this.removeAllEventListeners = () => {
+        let content = document.querySelector(".messages-content");
+        let opener = document.querySelector('.open-button')
+        let submitButton = document.querySelector('.message-submit')
+        let messageInput = document.querySelector('.message-input')
+
+        if (content != null) content.replaceWith(content.cloneNode(true))
+        if (opener != null) opener.replaceWith(opener.cloneNode(true))
+        if (submitButton != null) submitButton.replaceWith(submitButton.cloneNode(true))
+        if (messageInput != null)  messageInput.replaceWith(messageInput.cloneNode(true))
+    }
+
+    // 초기 데이터 세팅
+    this.init = () => {
         // 메세지 로드
         closer.loadMessage().then(d => {
             closer.updateScrollbar()
         })
-    });
+    }
 }
 
 

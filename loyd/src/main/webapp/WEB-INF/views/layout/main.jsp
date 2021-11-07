@@ -43,31 +43,53 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        let websocket = null
-        let client_ipaddress = "192.168.0.1"
-        let chat_server_host = ''
-        let chat_connection_request_url = '/socket/connect/url'
-        let chat_connection = '/websocket/endpoint'
-        let chat = null
 
-        $.getScript("/resources/js/chat.js", function () {
-            chat = new Chat(chat_server_host, client_ipaddress)
+        function startChat() {
+            let websocket = null
+            let client_ipaddress = null
+            let chat_server_host = ''
+            let chat_connection_request_url = '/socket/connect/url'
+            let chat_connection = '/websocket/endpoint'
+            let client_ipaddress_request = '/channel/client/ip'
+            let chat = null
 
             $.get(
-                chat_server_host + chat_connection_request_url + '?ip=' + client_ipaddress,
+                client_ipaddress_request,
                 {},
                 function (data, status) {
-                    if (status == 'success') {
-                        $.getScript("/resources/js/real_time_client.js", function () {
-                            // 웹 소켓 연결
-                            websocket = new RealTimeClient(chat_server_host, chat);
-                            websocket.init(chat_connection, data.realTimeToken)
-                            websocket.subscribe('/chat/' + client_ipaddress)
-                        })
-                    }
+                    client_ipaddress = data
+
+                    $.getScript("/resources/js/chat.js", function () {
+                        chat = new Chat(chat_server_host, client_ipaddress)
+
+                        $.get(
+                            chat_server_host + chat_connection_request_url + '?ip=' + client_ipaddress,
+                            {},
+                            function (data, status) {
+                                if (status == 'success') {
+                                    $.getScript("/resources/js/real_time_client.js", function () {
+                                        // 웹 소켓 연결
+                                        websocket = new RealTimeClient(chat_server_host, chat);
+                                        websocket.init(chat_connection, data.realTimeToken)
+                                        websocket.subscribe('/chat/' + client_ipaddress)
+
+                                        // 로드 시점에 맞춰 기본 데이터 세팅 & 이벤트 부착
+                                        window.addEventListener("load", function(event) {
+                                            chat.addEventListeners()
+                                            chat.init()
+                                        });
+                                    })
+                                }
+                            }
+                        );
+                    });
                 }
-            );
-        });
+            )
+        }
+
+        startChat()
+
+
     </script>
 
     <%-- 요청한 page 의 <head></head> 에 작성했던 내용이 온다 --%>

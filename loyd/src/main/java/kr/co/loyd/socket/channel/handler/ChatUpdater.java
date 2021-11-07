@@ -21,7 +21,7 @@ public class ChatUpdater {
         data.put("type", "create");
         data.put("chat_id", chatDto.getChat_id());
         data.put("content", chatDto.getContent());
-        data.put("is_admin", chatDto.isAdmin());
+        data.put("is_admin", chatDto.getIs_admin());
         data.put("create_at", chatDto.getCreate_at());
 
         SubscriptionHub.send(channel, Event.CREATE, JsonUtils.toJson(data));
