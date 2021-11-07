@@ -159,23 +159,43 @@ a:hover {
 #right-content #content-enquiry #enquiry-itembox #enquiry-col-titl,
 #right-content #content-enquiry #enquiry-itembox #enquiry-view-titl {width: 50%;}
 #right-content #content-enquiry #enquiry-itembox #enquiry-col-date,
-#right-content #content-enquiry #enquiry-itembox #enquiry-view-date {width: 15%;}
-#right-content #content-enquiry #enquiry-itembox #enquiry-col-resu,
-#right-content #content-enquiry #enquiry-itembox #enquiry-view-resu {width: 10%;}
+#right-content #content-enquiry #enquiry-itembox #enquiry-view-date {width: 25%;}
+
 
 #right-content #paging {
 	margin: auto;
 	padding-top: 30px;
 	text-align: center;
 }
+
+#login-locate {
+	margin: auto;
+	width: 800px;
+	padding-top: 300px;
+	text-align: center;
+}
+
+#button {
+	text-align: right;
+	padding: 20px;
+}
+
+.btn-primary{
+	background: #133c2b;
+	border: none;
+}
 </style>
+
 </head>
 <body>
 
 <c:if test="${email == null }">
 
-	로그인하시오
 	<!-- 로그인 페이지로 이동하기 -->
+	<div id="login-locate"> 
+		<span style="font-size: 24px;"> 로그인이 필요한 페이지 입니다.</span><br>
+		<a href="../mber/login"> 로그인 페이지로 이동</a>
+	</div>
 	
 </c:if>
 
@@ -249,7 +269,6 @@ a:hover {
 							<div id="enquiry-col-type"> 유형</div>
 							<div id="enquiry-col-titl"> 제목</div>
 							<div id="enquiry-col-date"> 등록일</div>
-							<div id="enquiry-col-resu"> 처리결과</div>
 						</div>
 						
 						<c:forEach items="${enquiry }" var="enquiry">
@@ -263,9 +282,13 @@ a:hover {
 								<div id="enquiry-view-date"> ${enquiry.writeday }
 									<%-- <fmt:formatDate pattern="yyyy-MM-dd" type="both" value="${enquiry.writeday }"/>  --%>
 								</div>
-								<div id="enquiry-view-resu"> </div>
 							</div>
 						</c:forEach>
+					</div>
+					<div id="button">
+						<div class="form-group">
+		 					<a class="btn btn-primary" href="../qna/write" onclick="enquiry()"> 문의 작성하러가기</a>
+						</div>
 					</div>
 				</div>
 			</div>

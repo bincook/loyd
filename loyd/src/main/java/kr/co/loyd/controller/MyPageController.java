@@ -64,6 +64,9 @@ public class MyPageController {
 
     	int index = (page -1) *10;
     	int page_cnt = mydao.page_cnt(memberId);
+    	
+    	System.out.println(page_cnt);
+    	
     	int pstart = page /10; // 1~9까지는 0, 10은 1
     	if(page %10 == 0)
     		
@@ -89,9 +92,6 @@ public class MyPageController {
     	}
     	
     	Object email = session.getAttribute("email");
-    	
-    	System.out.println(email);
-    	System.out.println(memberId);
     	
     	ArrayList<MypageDto> list = mydao.order_list(memberId, field, word, index);
     	

@@ -15,8 +15,14 @@ h1 {
 	font-family: ;
 	text-spacing: -0.1em;
 }
+
+a,
+a:hover {
+	color: #000;
+}
+
 #container {
-	width: 880px;
+	width: 1100px;
 	margin: auto;
 	padding: 0;
 }
@@ -40,6 +46,11 @@ h1 {
 #Odetail-form #Odetail-receive-content #Odetail-receive-header {
 	display: flex;
 	flex-direction: row;
+	border: 1px solid #eee;
+}
+
+#Odetail-form #Odetail-item-content #Odetail-item-header {
+	border: none;
 }
 
 #Odetail-order-header #Odetail-order-name,
@@ -48,16 +59,24 @@ h1 {
 #Odetail-order-header #Odetail-order-pay,
 #Odetail-receive-header #Odetail-receive-name,
 #Odetail-receive-header #Odetail-receive-phone,
-#Odetail-receive-header #Odetail-receive-zip,
 #Odetail-receive-header #Odetail-receive-addr1,
-#Odetail-receive-header #Odetail-receive-addr2,
-#Odetail-receive-header #Odetail-receive-msg {
-	width: 20%;
+#Odetail-receive-header #Odetail-receive-addr2{
+	width: 15%;
 	background: #ccc;
 	padding: 12px 20px; 
 	color: #000;
 	font-weight: bold;
 }
+
+#Odetail-receive-header #Odetail-receive-zip,
+#Odetail-receive-header #Odetail-receive-msg {
+	width: 15%;
+	background: #ccc;
+	padding: 12px 20px; 
+	color: #000;
+	font-weight: bold;
+}
+
 
 #Odetail-order-header #Odetail-order-name-form,
 #Odetail-order-header #Odetail-order-email-form,
@@ -65,12 +84,24 @@ h1 {
 #Odetail-order-header #Odetail-order-pay-form,
 #Odetail-receive-header #Odetail-receive-name-form,
 #Odetail-receive-header #Odetail-receive-phone-form,
-#Odetail-receive-header #Odetail-receive-zip-form,
 #Odetail-receive-header #Odetail-receive-addr1-form,
-#Odetail-receive-header #Odetail-receive-addr2-form,
-#Odetail-receive-header #Odetail-receive-msg-form {
-	width: 80%;
+#Odetail-receive-header #Odetail-receive-addr2-form{
+	width: 35%;
 	padding: 12px 20px; 
+}
+
+#Odetail-receive-header #Odetail-receive-zip-form,
+#Odetail-receive-header #Odetail-receive-msg-form {
+	width: 70%;
+	padding: 12px 20px;
+}
+
+#Odetail-item-header #Odetail-item-picture {
+	padding: 5px 20px;
+}
+
+#Odetail-item-header #Odetail-item-name {
+	padding-top: 15px;
 }
 
 </style>
@@ -87,9 +118,7 @@ h1 {
 			<div id="Odetail-order-header">
 				<div id="Odetail-order-name"> 주문자 이름</div>
 				<div id="Odetail-order-name-form"> ${order_detail.order_name }</div>
-			</div>
 			
-			<div id="Odetail-order-header">
 				<div id="Odetail-order-email"> 주문자 이메일</div>
 				<div id="Odetail-order-email-form"> ${order_detail.email }</div>
 			</div>
@@ -97,9 +126,7 @@ h1 {
 			<div id="Odetail-order-header">
 				<div id="Odetail-order-phone"> 주문자 전화번호</div>
 				<div id="Odetail-order-phone-form"> ${order_detail.order_phone }</div>
-			</div>
 			
-			<div id="Odetail-order-header">
 				<div id="Odetail-order-pay"> 결제 방식</div>
 				<div id="Odetail-order-pay-form"> ${order_detail.pay }</div>
 			</div>
@@ -108,8 +135,13 @@ h1 {
 		<div id="Odetail-item-content">
 			<c:forEach items="${order_d }" var="order">
 				<div id="Odetail-item-header">
-					<div id="Odetail-item-picture"> <img src="${order.picture }" height="150px"></div>
-					<div id="Odetail-item-name"> ${order.name }</div>
+					<div id="Odetail-item-picture"> 
+						<img src="${order.picture }" height="50px">
+					</div>
+					
+					<div id="Odetail-item-name"> 
+						<a href="item_detail?id=${order.id }"> ${order.name }</a>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
@@ -118,9 +150,7 @@ h1 {
 			<div id="Odetail-receive-header">
 				<div id="Odetail-receive-name"> 수령인 이름</div>
 				<div id="Odetail-receive-name-form"> ${order_detail.rec_name }</div>
-			</div>
 			
-			<div id="Odetail-receive-header">
 				<div id="Odetail-receive-phone"> 수령인 번호</div>
 				<div id="Odetail-receive-phone-form"> ${order_detail.rec_phone }</div>
 			</div>
@@ -133,9 +163,7 @@ h1 {
 			<div id="Odetail-receive-header">
 				<div id="Odetail-receive-addr1"> 수령인 주소 1</div>
 				<div id="Odetail-receive-addr1-form"> ${order_detail.addr1 }</div>
-			</div>
 			
-			<div id="Odetail-receive-header">
 				<div id="Odetail-receive-addr2"> 수령인 주소 2</div>
 				<div id="Odetail-receive-addr2-form"> ${order_detail.addr2 }</div>
 			</div>

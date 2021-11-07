@@ -19,7 +19,7 @@
 }
 
 div {
-	box-sizing: bwishlist-box;
+	box-sizing: border-box;
     margin: 0;
     padding: 0;
     bwishlist: 0;
@@ -165,6 +165,23 @@ a:hover {
 	padding-top: 30px;
 	text-align: center;
 }
+
+#button {
+	text-align: right;
+	padding: 20px;
+}
+
+.btn-primary{
+	background: #133c2b;
+	border: none;
+}
+
+#login-locate {
+	margin: auto;
+	width: 800px;
+	padding-top: 300px;
+	text-align: center;
+}
 </style>
 
 </head>
@@ -172,11 +189,13 @@ a:hover {
 
 <c:if test="${email == null }">
 
-	로그인을 하시오.
 	<!-- 로그인 페이지로 이동하기 -->
-
+	<div id="login-locate"> 
+		<span style="font-size: 24px;"> 로그인이 필요한 페이지 입니다.</span><br>
+		<a href="../mber/login"> 로그인 페이지로 이동</a>
+	</div>
+	
 </c:if>
-
 <c:if test="${email != null }">
 	<!-- 본체 큰 틀 -->
 	<div id="container">
@@ -248,7 +267,7 @@ a:hover {
 						<div id="wishlist-header">
 							<div id="wishlist-col-numb"> 주문번호</div>
 							<div id="wishlist-col-item"> 상품명</div>
-							<div id="wishlist-col-pric"> 가격(수량)</div>
+							<div id="wishlist-col-pric"> 가격</div>
 							<div id="wishlist-col-date"> 날짜</div>
 						</div>
 						
@@ -257,13 +276,22 @@ a:hover {
 							<div id="wishlist-view-header">
 								<div id="wishlist-view-numb"> ${wish.id }</div>
 								<div id="wishlist-view-item"> 
-									<img src="${wish.picture }" height="40px"> ${wish.name }</div>
+									<img src="${wish.picture }" height="40px"> 
+									<a href="item_detail?id=${wish.watch_id }"> ${wish.name }</a>
+								</div>
 								<div id="wishlist-view-pric"> 
 									<fmt:formatNumber value="${wish.price }" pattern="#,###" />원 								</div>
 								<div id="wishlist-view-date"> ${wish.datetime }</div>
 							</div>
 						</c:forEach>
 					</div>
+					
+					<div id="button">
+						<div class="form-group">
+		 					<a class="btn btn-primary" href="../order/product_list"> 상품 더 보러가기</a>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
