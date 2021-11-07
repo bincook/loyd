@@ -72,6 +72,13 @@ public class ChatController {
         }}));
     }
 
+    @RequestMapping(value = "/id/{channelId}", method = RequestMethod.GET)
+    public @ResponseBody ChannelDto getChannelInfo(
+            @PathVariable(value = "channelId") Integer channelId
+    ) {
+        return channelDao.findByChannel(channelId);
+    }
+
 
     // 채팅 리스트
     @RequestMapping(value = "/{channel}/chat", method = RequestMethod.GET)

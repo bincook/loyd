@@ -100,7 +100,7 @@ function Chat(api_host_url, id, isAdmin) {
         if (!isAdmin) {
             return axios({
                 method: 'get',
-                url: api_host_url + '/channel/' + id + '/chat?page=' + closer.page + '&size=' + closer.size
+                url: api_host_url + 'channel/' + id + '/chat?page=' + closer.page + '&size=' + closer.size
             }).then((response) => {
 
                 console.log(response);
@@ -133,7 +133,7 @@ function Chat(api_host_url, id, isAdmin) {
         } else {
             return axios({
                 method: 'get',
-                url: api_host_url + '/channel/id/' + id + '/chat?page=' + closer.page + '&size=' + closer.size
+                url: api_host_url + 'channel/id/' + id + '/chat?page=' + closer.page + '&size=' + closer.size
             }).then(response => {
 
                 console.log(response);
@@ -174,7 +174,7 @@ function Chat(api_host_url, id, isAdmin) {
         if (!isAdmin) {
             axios({
                 method: 'post',
-                url: api_host_url + '/channel/' + id + '/chat',
+                url: api_host_url + 'channel/' + id + '/chat',
                 data: {
                     creater: id,
                     content: msgElement.value,
@@ -196,7 +196,7 @@ function Chat(api_host_url, id, isAdmin) {
         } else {
             axios({
                 method: 'post',
-                url: api_host_url + '/channel/id/' + id + '/chat',
+                url: api_host_url + 'channel/id/' + id + '/chat',
                 data: {
                     creater: id,
                     content: msgElement.value,
@@ -291,10 +291,19 @@ function Chat(api_host_url, id, isAdmin) {
                 date: payload.create_at,
             })
             closer.updateScrollbar()
+            alert('관리자에 의해 상담이 종료 되었습니다!')
+
             closer.removeAllEventListeners()
 
-            alert('관리자에 의해 상담이 종료 되었습니다!')
+            if (!isAdmin) {
+                closer.closeChat()
+            }
         }
+    }
+
+    this.closeChat = () => {
+        let chat = document.querySelector(".chat-container .chat")
+        chat.classList.remove('open')
     }
 
     // 이벤트 부착

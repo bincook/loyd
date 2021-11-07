@@ -47,10 +47,10 @@
         function startChat() {
             let websocket = null
             let client_ipaddress = null
-            let chat_server_host = ''
-            let chat_connection_request_url = '/socket/connect/url'
-            let chat_connection = '/websocket/endpoint'
-            let client_ipaddress_request = '/channel/client/ip'
+            let chat_server_host = '<c:url value ="/" />'
+            let chat_connection_request_url = 'socket/connect/url'
+            let chat_connection = 'websocket/endpoint'
+            let client_ipaddress_request = '<c:url value ="/" />channel/client/ip'
             let chat = null
 
             $.get(
@@ -59,7 +59,7 @@
                 function (data, status) {
                     client_ipaddress = data
 
-                    $.getScript("/resources/js/chat.js", function () {
+                    $.getScript("<c:url value ="/" />resources/js/chat.js", function () {
                         chat = new Chat(chat_server_host, client_ipaddress)
 
                         $.get(
@@ -67,17 +67,19 @@
                             {},
                             function (data, status) {
                                 if (status == 'success') {
-                                    $.getScript("/resources/js/real_time_client.js", function () {
+                                    $.getScript("<c:url value ="/" />resources/js/real_time_client.js", function () {
                                         // 웹 소켓 연결
                                         websocket = new RealTimeClient(chat_server_host, chat);
                                         websocket.init(chat_connection, data.realTimeToken)
                                         websocket.subscribe('/chat/' + client_ipaddress)
 
                                         // 로드 시점에 맞춰 기본 데이터 세팅 & 이벤트 부착
-                                        window.addEventListener("load", function(event) {
-                                            chat.addEventListeners()
-                                            chat.init()
-                                        });
+                                        $(document).ready(
+                                            function() {
+                                                chat.addEventListeners()
+                                                chat.init()
+                                            }
+                                        )
                                     })
                                 }
                             }

@@ -6,6 +6,8 @@
 <head>
     <title>어드민 대시보드 페이지</title>
 
+    <!-- 제이쿼리 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- 부트 스트랩 -->
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css"/>">
     <!-- 채팅 -->
@@ -14,8 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <!-- ajax 요청을 위한 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/resources/js/chat.js"></script>
-    <script src="/resources/js/real_time_client.js"></script>
+    <script src="<c:url value ="/" />resources/js/chat.js"></script>
+    <script src="<c:url value ="/" />resources/js/real_time_client.js"></script>
 
     <script>
 
@@ -42,7 +44,7 @@
         function getPageData() {
             axios({
                 method: 'get',
-                url: '/channel?page=' + page + '&size=' + size
+                url: '<c:url value ="/" />channel?page=' + page + '&size=' + size
             }).then(response => {
                 console.log(response)
                 data = []
@@ -101,9 +103,10 @@
             let chat_container = document.querySelector('.chat')
             if (!chat_container.classList.contains('open')) chat_container.classList.add('open')
             let client_ipaddress = channelName.split("/")[channelName.split("/").length - 1]
-            let chat_server_host = ''
-            let chat_connection_request_url = '/socket/connect/url'
-            let chat_connection = '/websocket/endpoint'
+            let chat_server_host = '<c:url value ="/" />'
+            let chat_connection_request_url = 'socket/connect/url'
+            let chat_connection = 'websocket/endpoint'
+            let channel_info = 'channel/id/'
 
             if (chat != null) {
                 chat.removeAllEventListeners()
@@ -114,25 +117,34 @@
                 websocket.unsubscribe(last_subscribe_channel)
             }
 
-            chat = new Chat(chat_server_host, channelId, true)
 
-            // 소켓 연결 주소 get
             $.get(
-                chat_server_host + chat_connection_request_url + '?ip=' + client_ipaddress,
+                chat_server_host + channel_info + channelId,
                 {},
-                function (data, status) {
-                    if (status == 'success') {
-                        last_subscribe_channel = channelName
-                        // 웹 소켓 연결
-                        websocket = new RealTimeClient(chat_server_host, chat);
-                        websocket.init(chat_connection, data.realTimeToken)
-                        websocket.subscribe(channelName)
+                function (channelInfo, status) {
+                    if (channelInfo.closed_at == null) {
+                        // 소켓 연결 주소 get
+                        $.get(
+                            chat_server_host + chat_connection_request_url + '?ip=' + client_ipaddress,
+                            {},
+                            function (socketInfo, status) {
+                                if (status == 'success') {
+                                    chat = new Chat(chat_server_host, channelId, true)
 
-                        chat.addEventListeners()
-                        chat.init()
+                                    last_subscribe_channel = channelName
+                                    // 웹 소켓 연결
+                                    websocket = new RealTimeClient(chat_server_host, chat);
+                                    websocket.init(chat_connection, socketInfo.realTimeToken)
+                                    websocket.subscribe(channelName)
+
+                                    chat.addEventListeners()
+                                    chat.init()
+                                }
+                            }
+                        );
                     }
                 }
-            );
+            )
         }
 
         function closeChannel(node, channelId) {
@@ -141,7 +153,7 @@
             if (next) {
                 axios({
                     method: 'post',
-                    url: '/channel/close/id/' + channelId,
+                    url: '<c:url value ="/" />channel/close/id/' + channelId,
                     data: {}
                 }).then(response => {
                     node.parentNode.innerText = '상담 완료'
@@ -150,10 +162,11 @@
         }
 
         // 로드 시점에 맞춰 기본 데이터 세팅
-        window.addEventListener("load", function() {
-            getPageData()
-        });
-
+        $(document).ready(
+            function() {
+                getPageData()
+            }
+        )
 
     </script>
 </head>
