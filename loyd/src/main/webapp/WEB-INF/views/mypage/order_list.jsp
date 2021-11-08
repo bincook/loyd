@@ -159,22 +159,55 @@ a:hover {
 #right-content #content-order-list #order-list-itembox #order-col-date {width: 20%;}
 #right-content #content-order-list #order-list-itembox #order-col-enquiry {width: 12%;}
 #right-content #content-order-list #order-list-itembox #order-view-numb {width: 8%;padding-top: 13px;}
-#right-content #content-order-list #order-list-itembox #order-view-item {width: 50%}
+#right-content #content-order-list #order-list-itembox #order-view-item {width: 50%; display: flex;}
 #right-content #content-order-list #order-list-itembox #order-view-date {width: 20%;padding-top: 13px;}
 #right-content #content-order-list #order-list-itembox #order-view-enquiry {width: 12%;padding-top: 13px;}
+
+#order-view-item #order-view-item-img {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 410px;
+	height: 50px;
+}
+
+#order-view-item #order-view-item-count {
+	width: 200px;
+	padding-top: 13px;
+}
 
 #right-content #paging {
 	margin: auto;
 	padding-top: 30px;
 	text-align: center;
 }
+
+#login-locate {
+	margin: auto;
+	width: 800px;
+	padding-top: 300px;
+	text-align: center;
+}
+
+#button {
+	text-align: right;
+	padding: 20px;
+}
+
+.btn-primary{
+	background: #133c2b;
+	border: none;
+}
 </style>
 </head>
 <body>
 <c:if test="${email == null }">
 
-	로그인하시오
 	<!-- 로그인 페이지로 이동하기 -->
+	<div id="login-locate"> 
+		<span style="font-size: 24px;"> 로그인이 필요한 페이지 입니다.</span><br>
+		<a href="../mber/login"> 로그인 페이지로 이동</a>
+	</div>
 	
 </c:if>
 
@@ -253,7 +286,7 @@ a:hover {
 					 	<input type="hidden" name="email" value="${email }">
 						<select name="field">
 							<option value="wt.name"> 상품명</option>
-							<option value="ol.id"> 주문번호 </option>
+							<option value="ol.order_no"> 주문번호 </option>
 						</select>
 						
 						<input type="text" name="word" value="${word }">
@@ -270,22 +303,39 @@ a:hover {
 					<div id="order-list-title"> 주문 내역</div>
 					<div id="order-list-itembox">
 						<div id="order-list-header">
+							<div id="order-col-date"> 주문날짜</div>
 							<div id="order-col-numb"> 주문번호</div>
-							<div id="order-col-item"> 상품명</div>
-							<div id="order-col-date"> 날짜</div>
+							<div id="order-col-item"> 주문 상품명</div>
 							<div id="order-col-enquiry"> &nbsp;</div>
 						</div>
 						
-						<c:forEach items="${list }" var="mydto">
-							<div id="order-view-header">
-								<div id="order-view-numb"> ${mydto.order_no }</div>
-								<div id="order-view-item"> <img src="${mydto.picture }" height="50px"> ${mydto.name }</a></div>
-								<div id="order-view-date"> ${mydto.order_date }</div>
-								<div id="order-view-enquiry"> 
-									<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
+							<c:forEach items="${list }" var="mydto">
+								<div id="order-view-header">
+									<div id="order-view-date"> ${mydto.order_date }</div>
+									<div id="order-view-numb"> ${mydto.order_no }</div>
+									<div id="order-view-item"> 
+									
+										<div id="order-view-item-img">
+										<img src="${mydto.picture }" height="50px"> ${mydto.name }</div>
+										
+										<c:if test="${mydto.cnt -1 != 0 }">
+										<div id="order-view-item-count">
+											外 (${mydto.cnt - 1 })	
+										</div>
+										</c:if>
+									</div>
+									
+									<div id="order-view-enquiry"> 
+										<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
+									</div>
 								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
+					</div>
+					
+					<div id="button">
+						<div class="form-group">
+		 					<a class="btn btn-primary" href="../order/product_list"> 상품 더 보러가기</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -312,10 +362,10 @@ a:hover {
 				
 				<!-- 현재페이지 색은 다르게 => 빨강 -->
 					<c:if test="${page != i}"> 
-						<a href="order_list?email=${email }&page=${i}"> ${i} </a>
+						<a href="order_list?page=${i}"> ${i} </a>
 					</c:if>
 					<c:if test="${page == i}"> 
-						<a href="order_list?email=${email }&page=${i}" style="color:red"> ${i} </a>
+						<a href="order_list?page=${i}" style="color:red"> ${i} </a>
 					</c:if>
 					
 				</c:forEach>

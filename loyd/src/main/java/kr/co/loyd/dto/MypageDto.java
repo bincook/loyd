@@ -7,7 +7,7 @@ public class MypageDto {
 	private String orderday, name, picture, brand, category, content, kind, email, title, pwd, qnatype, secret, datetime, writeday;
 	
 //	table `order_detail`
-	private String order_name, order_phone, rec_name, rec_phone, zip, addr1, addr2, pay, msg, order_date;
+	private String order_name, order_phone, rec_name, rec_phone, zip, addr1, addr2, pay, msg, order_date, cnt;
 	private int order_id, order_list_id, order_no;
 	
 //	table `member`
@@ -216,6 +216,12 @@ public class MypageDto {
 	}
 	public void setOrder_no(int order_no) {
 		this.order_no = order_no;
+	}
+	public String getCnt() {
+		return cnt;
+	}
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
 	}
 	
 	
