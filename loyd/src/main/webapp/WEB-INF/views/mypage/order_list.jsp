@@ -165,7 +165,8 @@ a:hover {
 
 #order-view-item #order-view-item-img {
 	text-overflow: ellipsis;
-	overflow-y: hidden;
+	overflow: hidden;
+	white-space: nowrap;
 	width: 410px;
 	height: 50px;
 }

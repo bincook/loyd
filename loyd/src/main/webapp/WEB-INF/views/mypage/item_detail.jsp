@@ -152,7 +152,7 @@ function history() {
 				<div id="product-content"> 상세설명 </div>
 				<div id="product-content-form"> ${list.content }</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 </div>
 
