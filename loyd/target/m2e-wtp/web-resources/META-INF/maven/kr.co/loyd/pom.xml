@@ -195,11 +195,6 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>servlets.com</groupId>
-			<artifactId>cos</artifactId>
-			<version>05Nov2002</version>
-		</dependency>
 
 
 		<!-- 웹소켓을 위한 라이브러리 -->

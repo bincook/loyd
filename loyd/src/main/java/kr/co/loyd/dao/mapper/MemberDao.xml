@@ -26,6 +26,10 @@
 		delete from member where id = #{id}
 	</delete>
 	<!-- 조건 + 페이징 -->
+	
+	<select id="get_email" parameterType="kr.co.loyd.dto.MemberDto">
+	 	select email from member where email=#{param1}
+	</select>
 
 	<!-- 관리자가 회원정보 상세조회 -->
 	<select id="listdetail" resultType="kr.co.loyd.dto.MemberDto">

@@ -42,8 +42,7 @@
 </style>
 <script> 
   window.onload = function() {
-		 var errorMessage = "<%=request.getParameter("error")%>
-	"
+		 var errorMessage = "<%=request.getParameter("error")%>"
 
 		if (errorMessage != "null")
 			alert(errorMessage)
@@ -53,9 +52,7 @@
 
 		$('input[value=' + category + ']').prop('checked', 'checked')
 		$('input[value=' + kind + ']').prop('checked', 'checked')
-		/*  	 $('input[value='!= + submit + ']').attr("disabled", true); */
 		$('input').attr('disabled', true)
-
 	}
 
 	function changeImg(input) {

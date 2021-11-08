@@ -23,9 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import kr.co.loyd.dao.AdminDao;
 import kr.co.loyd.dao.CartDao;
 import kr.co.loyd.dao.MemberDao;
@@ -273,7 +270,7 @@ public class AdminController {
 
 			// String fileName = multi.getFilesystemName("picture");
 			// System.out.println("fileName" + fileName);
-
+		
 			WatchDto wdto = new WatchDto();
 			wdto.setName(request.getParameter("name"));
 			wdto.setBrand(request.getParameter("brand"));
@@ -285,14 +282,14 @@ public class AdminController {
 			wdto.setKind(request.getParameter("kind"));
 
 			WatchDao wdao = sqlSession.getMapper(WatchDao.class);
-			wdao.upload_ok(wdto);
-
-			// 파일이 없을 때
-		} else {
-			String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
-
-			return "redirect:/admin/watch/content?id=" + id + "&error=" + encodeResult;
+			wdao.update_ok(wdto);				
 		}
+		 else {
+				String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
+
+				return "redirect:/admin/watch/content?id=" + id + "&error=" + encodeResult;
+			}
+
 
 		return "redirect:/admin/watch/watch_list";
 	}

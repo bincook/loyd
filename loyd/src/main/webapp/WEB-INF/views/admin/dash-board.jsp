@@ -21,7 +21,7 @@
 </script>
 <style>
  #holder{
- padding:60px;
+ padding:50px;
  }
  #first{
   margin:auto;
@@ -36,7 +36,7 @@
  }
  #side{
  background:pink;
- border:dotted 1px blue;
+ border:dotted 2px blue;
  border-radius:10px;
  display:inline;
  float:right;
@@ -57,13 +57,12 @@
 	 	 <li>오늘의 스케줄 : </li>	 	
 	 	 </ul>
 	  </div>	  
-<div>
- 
+<div> 
 		<div>
 			<div style="width:400px" class="second">
 				<canvas Id="myChart"></canvas>		
 			</div>
-			<div style="width:500px"  class="second">
+			<div style="width:500px"  class="second" >
 				<canvas Id="myChart2"></canvas>
 			</div>
 		</div>

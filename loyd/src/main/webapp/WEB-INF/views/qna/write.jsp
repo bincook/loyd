@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -91,37 +92,56 @@
 		document.getElementById("text_view").style.visibility = "visible"; 		
 	}
 	
-	 onclick="check_email()"
+/* 유효성검사하고싶은.. 	 */ 
 		 
-		 function check_pwd(){ //방금 입력한 pwd와 qna pwd와 같은지 비교! 
+		 function check_email(){ 
 			 var chk=new XMLHttpRequest();
-			 var pwd=document.qna.pwd.value;
-		 	chk.open("get","list?pwd="+pwd); //qna테이블로 보내서 비교..
+			 var radio=document.qna.user_id.value; // email
+		 	chk.open("get","/mber/check?email="+email); //mbercontroller에서 email check!
 		 	chk.send();	
 			chk.onreadystatechange= function()
 			{
 			if(chk.readyState==4)
 				{
 				alert(chk.responseText);
+				if(chk.responseText==1)
+					{
+					alert(" 유")
+					document.getElementById("text_view").InnerText="";
+					}
+				else
+					{
+					alert("없어요")					
+					}
 				}
 			}
 		}
-	 
-	 
+}
+
+/* 	회원인 경우 라디오 체크 시 메일주소 세팅 */
+ $(function(){
+	  $('input[type="radio"]').click(function(){
+	    if ($(this).is(':checked'))
+	    {   	
+			document.getElementById("yes").style.display = "table-row";
+			document.getElementById("no").style.display = "none";
+	    }
+	  });
+	});
 
 </script>
 </head>
 <body>
 
 	<div id=holder>
-		<form method="post" action="insert_ok">
+		<form name="qna" method="post" action="insert_ok" onsubmit="return check_email()">
 
 			<input type="hidden" name="watch_id" value="${ dto.id }">			
 
 			<!--상품 상세의 id값  -->
 			<div id="first">
 				<div id="left">
-					<input class="btn btn-outline-secondary" type="reset" value="수정취소">
+					<input class="btn btn-outline-secondary" type="reset" value="작성취소">
 				</div>
 				<div id="sub">문의내용 작성</div>
 				<div id="right" class="form-group">
@@ -177,13 +197,34 @@
 					</div>
 					<p>
 				</div>
-
 			</tr>
+
+<div >
+<%-- 
+<c:if test="${email!=null}">			
 				<div class="form-group" ><a href="check"></a>
-			<input class="form-control" type="text" name="email" placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
+			<input class="form-control" type="text" name="email" id="radyo" value="${email}" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
 					<span class="mail_check"></span>	
 				</div>	
-					<input type="radio" name="user_mail" value="등록된 이메일">등록된 이메일로 받기<p>			
+					<input type="radio" name="user_email" value="0" id="radio_mail">등록된 이메일로 받기<p>	
+					<input class="form-control" type="text" name="user_email2"  placeholder="${email}" size="30" style="visibility: hidden"> <br>
+</c:if>		
+ 		--%>
+ <c:if test="${email!=null}">			
+				<div class="form-group" ><a href="check"></a>
+			<input class="form-control" type="text" name="email" id="no" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
+					<span class="mail_check"></span>	
+				</div>	
+					<input type="radio" name="user_email" value="0" id="radio_mail">등록된 이메일로 받기<p>	
+					<input class="form-control" type="text" name="user_email2" id="yes" placeholder="${email}" size="30" style="display:none"> <br>
+</c:if>		
+<c:if test="${email==null}">		
+			<div class="form-group" ><a href="check"></a>
+			<input class="form-control" type="text" name="email" placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
+					<span class="mail_check"></span>	 
+				</div>	
+</c:if>	
+</div>
 			
 			<div onclick="check2()">
 					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 email로 알림받기

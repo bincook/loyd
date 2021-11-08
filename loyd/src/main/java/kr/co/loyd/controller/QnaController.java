@@ -28,11 +28,13 @@ public class QnaController {
 	private final String module = "/qna";
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String write( Model model, HttpServletRequest request, QnaDto dto) {
-
+	public String write( Model model, HttpServletRequest request, QnaDto dto,HttpSession session) {
+		String email = (String) session.getAttribute("email");		
+	
+		model.addAttribute("get_email", email);
 		model.addAttribute("dto", dto );
 		
-		return "qna/write";
+		return "/qna/write";
 	}
 	
 /*	
@@ -112,7 +114,7 @@ public class QnaController {
 			model.addAttribute("nav_type", "");
 		}
 
-		return "/qna/list";
+		return "/list&page="+page;
 
 	}
 }

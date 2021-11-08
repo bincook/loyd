@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>QnA list</title>
 <style>
 body {
 	font-size: 10px;
@@ -24,9 +24,7 @@ body {
 	width: 150px;
 	border-bottom: 2px dotted pink;
 }
-.dote_box{
-box-shadow: 0px -2px 9px 1px blue;
-}
+
 </style>
 <script>
 	function choice(opt) {
@@ -60,7 +58,6 @@ box-shadow: 0px -2px 9px 1px blue;
 
 </head>
 <body>
-
 	<ul class="nav nav-tabs">
 		<li class="nav-item"><a
 			class="nav-link <%=request.getAttribute("nav_type") != "list" ? "active" : ""%>"
@@ -71,8 +68,6 @@ box-shadow: 0px -2px 9px 1px blue;
 		<li class="nav-item"><a class="nav-link" data-toggle="tab"
 			href="#zxc">채팅상담</a></li>
 	</ul>
-
-
 	<div class="tab-content">
 
 		<div
@@ -92,7 +87,7 @@ box-shadow: 0px -2px 9px 1px blue;
 			<p>
 			<div id="first">
 				<div id="left">
-					<form name="qna">
+					<form name="qna" >
 						<input type="checkbox" name="secret" onclick="check()">
 						비밀글 제외
 				</div>
@@ -181,15 +176,6 @@ box-shadow: 0px -2px 9px 1px blue;
   	 </c:if>
 
 		</div>
-
-
-
-
-
-		<div class="tab-pane fade" id="zxc"></div>
-
-
-
 	</div>
 </body>
 </html>
