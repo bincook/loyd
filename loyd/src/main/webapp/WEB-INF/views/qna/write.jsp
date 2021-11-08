@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,7 +42,7 @@
 	
 	td {
 		width: 100px;
-		border: 2px dotted #FFD9EC;
+		border: 3px dotted #FFD9EC;
 	}
 	
 	.gray3 {
@@ -49,7 +50,8 @@
 	}
 	
 	.dot {
-		border: 1px dotted #FFD9EC;
+		border: 3px dotted #FFD9EC;
+
 	}
 
 </style>
@@ -82,13 +84,19 @@
 			});
 		}
 	}
+/* 	pwd 안내문구 */
+	function text(){
+		document.getElementById("text_view").style.visibility = "visible"; 
+		
+	}
 </script>
 </head>
 <body>
+
 	<div id=holder>
 		<form method="post" action="insert_ok">
 
-			<input type="hidden" name="watch_id" value="${watch_id}">
+			<input type="hidden" name="watch_id" value="${ dto.id }">			
 
 			<!--상품 상세의 id값  -->
 			<div id="first">
@@ -103,7 +111,7 @@
 			</div>
 			<table border="1" align="center" class="dot">
 				<tr align="center">
-					<sapn class="gray3">문의유형 선택!</sapn>
+					<sapn class="gray3">문의유형 선택!?</sapn>
 					<td><i class="bi bi-smartwatch"></i><br> 상품<input
 						type="radio" name="qnatype" value="상품"></td>
 					<td><i class="bi bi-truck"></i><br> 배송<input type="radio"
@@ -142,15 +150,19 @@
 									placeholder="비밀번호를 입력해주세요" size="30"><br>
 							</div>
 
-							<input class="btn btn-outline-info" type="button" value="입력확인"><br>
-
-							나중에 답변 확인 시 방금 입력한 비밀번호와 일치해야 답변내용을 볼 수 있어요^^!
+							<input class="btn btn-outline-info" type="button" value="입력확인" onclick="text()"><br>
+			
+						<div id="text_view" style="visibility: hidden">나중에 답변 확인 시 방금 입력한 비밀번호와 일치해야 답변내용을 볼 수 있어요^^</div>	
 						</div>
 					</div>
 					<p>
 				</div>
 
 			</tr>
+				<div class="form-group">
+								<input class="form-control" type="text" name="email"
+									placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
+				</div>
 			<div onclick="check2()">
 				답변완료시 알림받으시겠어요?
 				<p>
@@ -160,7 +172,7 @@
 					<div id="ctn_show2">
 						<div class="form-group">
 							<input class="form-control" type="text" name="email"
-								placeholder="답변받을  email주소를 입력해주세요" size="30">
+								placeholder="알림받을  email주소를 입력해주세요" size="30">
 						</div>
 					</div>
 				</div>

@@ -3,7 +3,7 @@
 
 <mapper namespace="kr.co.loyd.dao.QnaDao">
 
-	<insert id="insert_ok" >		
+	<insert id="insert_ok" parameterType="kr.co.loyd.dto.QnaDto">		
 		insert into 
 		qna(watch_id,content,title,pwd,secret,qnatype,email,writeday) 
 		values(#{watch_id}, #{content}, #{title},#{pwd},#{secret},#{qnatype},#{email},now())
@@ -11,7 +11,7 @@
  
  	<!--   Q&A 문의글 목록 (원래)  -->
 	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
-		select qnatype,content,email,writeday,secret from qna 
+		select pwd,qnatype,content,email,writeday,secret from qna 
 		order by secret desc, writeday desc limit #{param1},7
 	</select>
 	 

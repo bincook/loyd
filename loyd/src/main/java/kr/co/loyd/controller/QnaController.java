@@ -3,12 +3,14 @@ package kr.co.loyd.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.loyd.dao.QnaDao;
 import kr.co.loyd.dto.QnaDto;
@@ -23,10 +25,11 @@ public class QnaController {
 
 	private final String module = "/qna";
 
-	@RequestMapping(value = "/write")
-	public String write(HttpServletRequest request) {
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String write( Model model, HttpServletRequest request, QnaDto dto) {
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		model.addAttribute("dto", dto );
+		
 		return "qna/write";
 	}
 
@@ -41,13 +44,16 @@ public class QnaController {
 		} else {
 			secret = 1;
 		}
-
-		return "redirect:/qna/list";
+		
+		
+		return "redirect:/order/detail_order?nav_type=list&id="+qdto.getWatch_id();
 	}
 
 
 	@RequestMapping(value = "list")
 	public String list(Model model, HttpServletRequest request) {
+	//	String email = (String) session.getAttribute("email");
+		
 		QnaDao qdao = sqlSession.getMapper(QnaDao.class);
 
 		String nav_type = request.getParameter("nav_type");

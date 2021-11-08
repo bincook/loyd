@@ -8,17 +8,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	body {
-		font-size: 10px;
-	}
-	
-	#first #left, #first #right {
-		display: inline-block;
-	}
-	
-	#first #right {
-		align: right;
-	}
+body {
+	font-size: 10px;
+}
+
+#first #left, #first #right {
+	display: inline-block;
+}
+
+#first #right {
+	align: right;
+}
+
+.dote {
+	width: 150px;
+	border-bottom: 2px dotted pink;
+}
+.dote_box{
+box-shadow: 0px -2px 9px 1px blue;
+}
 </style>
 <script>
 	function choice(opt) {
@@ -34,6 +42,20 @@
 			$('.secret').css('display', 'initial')
 		}
 	}
+
+	function secret_view(target) {
+		target.children[0].style.display = "initial";
+	}
+	
+	function list_check(target, pwd) {
+		var password = target.value;
+	
+		if (password == pwd) {
+			target.parentElement.nextElementSibling.style.display = "initial";
+			alert(password);
+		}
+	}
+
 </script>
 
 </head>
@@ -84,17 +106,26 @@
 						<option>기타</option>
 					</select>
 				</div>
-				</form>
+
 			</div>
 			<c:forEach items="${list}" var="list">
-
+			
 				<!--   <자물쇠 아이콘> -->
 				<!-- 	체크박스가 체크되면 안보이게 -->
-				<div id="ctn_show">
+				<div id="ctn_show" class="dote">
 					<c:if test="${list.secret == 1}">
-						<div class="secret">
-							${list.qnatype}비밀글<br> 내용 : ${list.content} <br>
+						<div class="secret"  onclick="secret_view(this)" >
+							<div id="secret_pwd" style="display: none" class="dote_box">
+								<!-- qna id값 -->														
+								<input type="password" name="password"
+									placeholder="문의당시 입력한 비밀번호에요^^" onkeyup="list_check(this, '${list.pwd}')" size="22">  </br>
+								<!--사용자가 방금 입력한 pwd를 함수로  -->
+								</form>
+							</div>
+							<div id="show_text" style="display: none">
+							${list.qnatype}비밀글<br> 내용 : ${list.content} <br></div>
 							${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
+						
 						</div>
 					</c:if>
 				</div>
@@ -105,7 +136,6 @@
 	  	내용 :  ${list.content} <br>
 	  	${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
 	</c:if>
-				<hr>
 			</c:forEach>
 
 			<!-- 현재 페이지 기준 이전 10페이지 이동 -->
