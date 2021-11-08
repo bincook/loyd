@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,26 +99,48 @@ function moveTologin(){
 					<p>${reviews.name }
 				</td>
 			</tr>
+			
+			
+			
 			<tr>
-				<td colspan="2">후기내용
-					<p>${reviews.content }</td>
+			
+				<td width="200" colspan="2">
+					후기내용
+					
+
+					
+				<c:choose>
+					<c:when test="${fn:length(reviews.content) >50}">
+							<c:out value="${fn:substring(reviews.content,0,20)}"/><p>
+					</c:when>
+					<c:otherwise>
+							<c:out value="${reviews.content}" /> 
+					</c:otherwise>			
+				</c:choose>
+					
+					
+
+<%-- 					<p>${reviews.content } --%>
+					
+					
+				
+				
+				</td>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 			</tr>
 			
 			<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
-			<tr>
-<%-- 				<c:if test="${memberId != null }" > --%>
-				<c:if test="${id == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
-					<td align="center">
-						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
-					</td>
-					<td align="center">
-						<a class="btn" style="background-color:#FCFF71;" href="update?review_id=${reviews.review_id }">수정하기 </a>				
-					</td>
-				</c:if>
-					<td colspan="3" align="right">
-						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
-					</td>
-			</tr>
+
 			
 			<!-- 좋아요 기능 -->
 			<tr>
@@ -150,7 +173,23 @@ function moveTologin(){
 			</tr>
 
 			
-		</table>		
+		</table>	
+		<table>
+			<tr>
+<%-- 				<c:if test="${memberId != null }" > --%>
+				<c:if test="${id == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
+					<td style="padding-left:40px; padding-top:20px;" align="center">
+						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
+					</td>
+					<td style="padding-left:40px; padding-top:20px;" align="center">
+						<a class="btn" style="background-color:#FCFF71;" href="update?review_id=${reviews.review_id }">수정하기 </a>				
+					</td>
+				</c:if>
+					<td style="padding-left:40px; padding-top:20px;" colspan="3" align="right">
+						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
+					</td>
+			</tr>
+		</table>	
 	</div>
 	
 
