@@ -57,8 +57,14 @@ h1 {
 	padding-left: 12px;
 }
 
-#enquiry-answer {
-	position: relative;
+#button {
+	text-align: right;
+	padding: 20px;
+}
+
+.btn-primary{
+	background: #133c2b;
+	border: none;
 }
 </style>
 </head>
@@ -88,15 +94,11 @@ h1 {
 			</div>
 		</div>
 		
-		<div id="enquiry-list">
-			<span>
-				<a href="enquiry?email=${email }">목록</a>
-			</span>
+		<div id="button">
+			<div class="form-group">
+					<a class="btn btn-primary" href="../qna/write" onclick="enquiry()"> 문의 작성하러가기</a>
+			</div>
 		</div>
-	</div>
-	
-	<div id="enquiry-answer">
-		<span> 댓글내용</span>
 	</div>
 </div>
 

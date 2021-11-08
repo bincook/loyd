@@ -156,14 +156,23 @@ a:hover {
 #right-content #content-summary-order #order-view-header #order-view-pay{width: 16.6%;}
 #right-content #content-summary-order #order-view-header #order-view-more{width: 16.6%;}
 
+#login-locate {
+	margin: auto;
+	width: 800px;
+	padding-top: 300px;
+	text-align: center;
+}
 
 </style>
 </head>
 <body>
 <c:if test="${email == null }">
 
-	로그인하시오
 	<!-- 로그인 페이지로 이동하기 -->
+	<div id="login-locate"> 
+		<span style="font-size: 24px;"> 로그인이 필요한 페이지 입니다.</span><br>
+		<a href="../mber/login"> 로그인 페이지로 이동</a>
+	</div>
 	
 </c:if>
 

@@ -7,7 +7,7 @@ import kr.co.loyd.dto.MypageDto;
 
 public interface MypageDao {
 
-	public Integer page_cnt(Integer memberId);
+	public Integer page_cnt(Object email);
 	public ArrayList<MypageDto> order_list(Integer memberId, String field, String word, int index);
 	public MypageDto item_detail(String id);
 	public ArrayList<MypageDto> enquiry(Object email);
