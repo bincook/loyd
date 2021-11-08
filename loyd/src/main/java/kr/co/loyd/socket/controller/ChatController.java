@@ -62,8 +62,8 @@ public class ChatController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public @ResponseBody ChannelResponse getChannelList(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "size", defaultValue = "10") Integer size
+            @RequestParam(value = "page", defaultValue = "0") final Integer page,
+            @RequestParam(value = "size", defaultValue = "10") final Integer size
     ) {
         return new ChannelResponse(channelDao.countAll(), page, size, channelDao.findAll(new HashMap(){{
             put("page", page);
