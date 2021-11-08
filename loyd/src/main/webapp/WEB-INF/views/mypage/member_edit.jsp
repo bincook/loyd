@@ -114,8 +114,8 @@
 						<div id="edit-user-email">
 							<input type="text" name="email" value="${member.email }">
 						</div>
-					</div>
-					
+					</div> 
+					<input type="hidden" name="id" value="${member.id }">
 					<div id="edit-button">
 						<button type="submit"> 수정</button>
 					</div>

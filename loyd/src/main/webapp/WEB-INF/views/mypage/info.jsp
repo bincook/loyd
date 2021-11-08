@@ -35,6 +35,11 @@ a {
     color: #222;
 }
 
+a:hover {
+    text-decoration: none;
+    color: #222;
+}
+
 #left-side_menu {
     position: absolute;
     width: 310px;
@@ -103,6 +108,10 @@ a {
     padding-bottom: 200px;
 }
 
+#right-content #member-info {
+	padding-bottom: 20px;
+}
+
 #right-content #member-info #member-info-modify {
 	margin-bottom: 8px;
 }
@@ -134,14 +143,18 @@ a {
     font-size: 14px;
 }
 
-#right-content #content-summary-order #order-list-header #order-col-date{width: 15%;}
-#right-content #content-summary-order #order-list-header #order-col-item{width: 45%;}
-#right-content #content-summary-order #order-list-header #order-col-numb{width: 20%;}
-#right-content #content-summary-order #order-list-header #order-col-pric{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-date{width: 15%;}
-#right-content #content-summary-order #order-view-header #order-view-item{width: 45%;}
-#right-content #content-summary-order #order-view-header #order-view-numb{width: 20%;}
-#right-content #content-summary-order #order-view-header #order-view-pric{width: 20%;}
+#right-content #content-summary-order #order-list-header #order-col-date{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-numb{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-orde{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-reci{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-pay{width: 16.6%;}
+#right-content #content-summary-order #order-list-header #order-col-empty{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-date{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-numb{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-orde{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-reci{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-pay{width: 16.6%;}
+#right-content #content-summary-order #order-view-header #order-view-more{width: 16.6%;}
 
 
 </style>
@@ -175,7 +188,11 @@ a {
 						<!-- 주문정보 -->
 						<ul id="mypage-order-list">
 							<li> 
-								<a href="order_list?email=${email }"> 주문 조회</a>
+								<a href="order_list"> 주문 조회</a>
+							</li>
+							
+							<li> 
+								<a href="../cart/list?id=${id }"> 장바구니</a>
 							</li>
 						</ul>
 					</li>
@@ -187,11 +204,11 @@ a {
 						<ul id="mypage-history">
 						
 							<li>
-								<a href="enquiry?email=${email }"> 상품문의</a>
+								<a href="enquiry"> 상품문의</a>
 							</li>
 							
 							<li>
-								<a href="wishlist?email=${email }"> 내 찜</a>
+								<a href="wishlist"> 내 찜</a>
 							</li>
 						</ul>
 					</li>
@@ -216,10 +233,11 @@ a {
 				
 			<div id="member-info">
 				<div id="member-info-modify">
-					<a href="member_edit?email=${email }">내 정보 관리 ></a>
+					<a href="member_edit?email=${email }"> 내 정보 관리 ></a>
 				</div>
+				<%-- <div id="member-join-date"> 가입일 ${order_pay } </div> --%>
 				<div id="member-id">
-					<h1> ${email } 회원님</h1>
+					<h1> ${name } 회원님</h1>
 				</div>
 			</div>
 			
@@ -228,18 +246,27 @@ a {
 					<div id="order-list-title"> 주문 조회</div>
 					<div id="order-list-itembox">
 						<div id="order-list-header">
-							<div id="order-col-date"> 주문일</div>
-							<div id="order-col-item"> 주문내역</div>
+							<div id="order-col-date"> 주문일자</div>
 							<div id="order-col-numb"> 주문번호</div>
-							<div id="order-col-pric"> 가격</div>
+							<div id="order-col-orde"> 주문자</div>
+							<div id="order-col-reci"> 수령인</div>
+							<div id="order-col-pay"> 결제방식</div>
+							<div id="order-col-empty"> &nbsp;</div>
+							
 						</div>
 						<!-- 물건 보이기(반복 -->
-						<div id="order-view-header">
-							<div id="order-view-date"> 2021-11-03</div>
-							<div id="order-view-item"> 시계</div>
-							<div id="order-view-numb"> 1</div>
-							<div id="order-view-pric"> 340,000</div>
-						</div>
+						<c:forEach items="${order_pay }" var="order">
+							<div id="order-view-header">
+								<div id="order-view-date"> ${order.order_date }</div>
+								<div id="order-view-numb"> ${order.order_no }</div>
+								<div id="order-view-orde"> ${order.order_name }</div>
+								<div id="order-view-reci"> ${order.rec_name }</div>
+								<div id="order-view-pay"> ${order.pay }</div>
+								<div id="order-view-more"> 
+									<a href="order_detail?order_no=${order.order_no }"">자세히</a>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
