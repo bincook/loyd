@@ -153,12 +153,6 @@ function history() {
 				<div id="product-content-form"> ${list.content }</div>
 			</div>
 		</div>
-		
-		<div id="histort-back">
-			<div class="form-group">
-		 		<button class="btn btn-primary" type="button" onclick="history()">이전 페이지로</button>
-			</div>
-		</div>
 	</div>
 </div>
 

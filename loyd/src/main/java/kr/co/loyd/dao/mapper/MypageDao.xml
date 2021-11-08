@@ -32,8 +32,8 @@
 	
 	<select id="page_cnt" resultType="Integer">
 		SELECT ceil(count(*) /10)
-		FROM `order list`
-		WHERE member_id = #{param1 }
+		FROM `order_detail`
+		WHERE email= #{param1 } and order_no > 13
 	</select>
 	
 	<select id="enquiry" resultType="kr.co.loyd.dto.MypageDto">

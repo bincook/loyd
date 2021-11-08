@@ -308,27 +308,27 @@ a:hover {
 							<div id="order-col-enquiry"> &nbsp;</div>
 						</div>
 						
-						<c:forEach items="${list }" var="mydto">
-							<div id="order-view-header">
-								<div id="order-view-date"> ${mydto.order_date }</div>
-								<div id="order-view-numb"> ${mydto.order_no }</div>
-								<div id="order-view-item"> 
-								
-									<div id="order-view-item-img">
-									<img src="${mydto.picture }" height="50px"> ${mydto.name }</div>
+							<c:forEach items="${list }" var="mydto">
+								<div id="order-view-header">
+									<div id="order-view-date"> ${mydto.order_date }</div>
+									<div id="order-view-numb"> ${mydto.order_no }</div>
+									<div id="order-view-item"> 
 									
-									<c:if test="${mydto.cnt -1 != 0 }">
-									<div id="order-view-item-count">
-										外 (${mydto.cnt - 1 })	
+										<div id="order-view-item-img">
+										<img src="${mydto.picture }" height="50px"> ${mydto.name }</div>
+										
+										<c:if test="${mydto.cnt -1 != 0 }">
+										<div id="order-view-item-count">
+											外 (${mydto.cnt - 1 })	
+										</div>
+										</c:if>
 									</div>
-									</c:if>
+									
+									<div id="order-view-enquiry"> 
+										<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
+									</div>
 								</div>
-								
-								<div id="order-view-enquiry"> 
-									<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
-								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
 					</div>
 					
 					<div id="button">

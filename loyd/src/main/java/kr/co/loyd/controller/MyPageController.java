@@ -52,6 +52,7 @@ public class MyPageController {
     	
     	MypageDao mydao = sqlSession.getMapper(MypageDao.class);
     	Integer memberId = (Integer) session.getAttribute("id");
+    	Object email = session.getAttribute("email");
     	// 페이징 처리하기
     	int page;
     	if(request.getParameter("page")==null){
@@ -63,7 +64,7 @@ public class MyPageController {
     	}
 
     	int index = (page -1) *10;
-    	int page_cnt = mydao.page_cnt(memberId);
+    	int page_cnt = mydao.page_cnt(email);
     	
     	System.out.println(page_cnt);
     	
@@ -91,7 +92,7 @@ public class MyPageController {
     		word = request.getParameter("word");
     	}
     	
-    	Object email = session.getAttribute("email");
+    	
     	
     	ArrayList<MypageDto> list = mydao.order_list(memberId, field, word, index);
     	
