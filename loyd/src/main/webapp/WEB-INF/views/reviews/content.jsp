@@ -106,7 +106,7 @@ function moveTologin(){
 			<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
 			<tr>
 <%-- 				<c:if test="${memberId != null }" > --%>
-				<c:if test="${memberId == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
+				<c:if test="${id == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
 					<td align="center">
 						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
 					</td>
