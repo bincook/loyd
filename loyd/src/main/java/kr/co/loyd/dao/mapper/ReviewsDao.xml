@@ -49,7 +49,10 @@
 	<select id="list2" resultType="kr.co.loyd.dto.ReviewsDto">
 
 
-		SELECT r.*, m.id, m.name AS mname, af.* from reviews  r
+		SELECT r.*, m.id, m.name AS mname, af.*,
+		(select count(*) from `like` l where l.review_id = r.review_id) `like`
+		
+		from reviews  r
 		LEFT JOIN add_file af
 
 		ON r.file_id = af.id 
@@ -105,10 +108,48 @@
 		rate=#{rate}
 		where review_id=#{review_id}
 	</update>
+	
+	<!-- 좋아요(추천)기능 -->
+	<select id="likeCount" resultType="int">
+		select count(*) from `like`
+		where member_id = #{param1} and
+		review_id = #{param2}
+	</select>
+	
+	<select id="reviewLikeCount" resultType="int">
+		select count(*) from `like`
+		where review_id  = #{param1}
+	</select>
+	
+	<insert id="addLike">
+		insert into `like` (member_id, review_id )
+		values (#{param1}, #{param2})	
+	</insert>
+	
+	<delete id="subLike">
+		delete from `like`
+		where review_id = #{param2}
+		
+	</delete>
+	
+	
 
 
 	
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

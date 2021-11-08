@@ -106,7 +106,7 @@ function resizeWindow(win)    {
 		        <th width="150px">만족도</th>
 		        <th width="150">작성자 아이디</th>
 		        <th width="800px">내용</th>
-		        <th width="150">추천수</th>
+		        <th width="500">추천수</th>
 		        <th width="150">조회수</th>
 		        <th width="150">작성일</th>
 		      </tr>
@@ -140,7 +140,7 @@ function resizeWindow(win)    {
 									${review.content}
 									</a>
 								</td>
-								<td>추천수</td>
+								<td style="color:grey;">${review.like }명에게 도움이 되었어요</td>
 						        <td>${review.view}</td>
 						        <td>${review.writeday}</td>
 					      </tr>
@@ -205,7 +205,7 @@ function resizeWindow(win)    {
 	  <!-- search 기능 -->
 			<tr>
 				<!-- 로그인 했을때 -->
-		  		<c:if test="${memberId != null }" >
+		  		<c:if test="${id != null }" >
 			  		<td><a class="btn btn-primary" href="write">리뷰 작성하기</a></td>
 	  				
 	  				<td height="100px" style=padding-top:15px;>					
@@ -223,7 +223,7 @@ function resizeWindow(win)    {
 					</td>
 				</c:if>
 				<!-- 비로그인일때 -->
-				<c:if test="${memberId == null }" >
+				<c:if test="${id == null }" >
 			  		<td><a class="btn btn-primary" onclick="javascript:btn()" href="../mber/login"> 리뷰 작성하기</a></td>
 	  				
 	  				<td height="100px" style=padding-top:15px;>					

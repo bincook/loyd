@@ -68,7 +68,7 @@ public class MberController {
 		if(dto2==null) {
 			return "redirect:/"+module+"/login?chk=1";
 		}else {
-			session.setAttribute("memberId",dto2.getId() );
+			session.setAttribute("id",dto2.getId() );
 			session.setAttribute("email",dto2.getEmail() );
 			session.setAttribute("name",dto2.getName());
 

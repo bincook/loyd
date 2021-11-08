@@ -3,38 +3,32 @@ package kr.co.loyd.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.MediaType;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import kr.co.loyd.dao.AddfileDao;
-import kr.co.loyd.dao.MberDao;
+
 import kr.co.loyd.dao.ReviewsDao;
-import kr.co.loyd.dao.WatchDao;
+
 import kr.co.loyd.dto.AddfileDto;
-import kr.co.loyd.dto.MberDto;
+
 import kr.co.loyd.dto.ReviewWriteDto;
 import kr.co.loyd.dto.ReviewsDto;
-import kr.co.loyd.dto.ReviewsMultipartDto;
-import kr.co.loyd.dto.WatchDto;
+
 
 @Controller
 public class ReviewsController {
@@ -56,7 +50,7 @@ public class ReviewsController {
 		model.addAttribute("content", rdto.getContent());
 		
 		// watch 테이블에서 시게이름 가져오기
-//		model.addAttribute("memberId", 1);
+//		model.addAttribute("id", 1);
 		System.out.println("watchId");
 		
 		return "/reviews/write";
@@ -73,33 +67,17 @@ public class ReviewsController {
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 로그인을 하지않으면 로그인페이지로 이동하기
-		Object memberIdObj = session.getAttribute("memberId");  // 여기에 member  table 정보가 담겨있음
+		Object idObj = session.getAttribute("id");  // 여기에 member  table 정보가 담겨있음
 		
-		if(memberIdObj==null) {
+		if(idObj==null) {
 			return "redirect:/mber/login";
 		}
-		String memberId = ""+ memberIdObj;
-		dto.setMember_id(Integer.parseInt(memberId));
-		
-		
-//		// watch 테이블에서 시게이름 가져오기
-		// 마이페이지나 상품 상세페이지 가장 하단이 적절해보여요 (watch_id 받아오기)
-//		WatchDto wdto2 = rdao.input_watch(wdto);
-//		rdao.input_watch(wdto);
-//		session.setAttribute("watch_name", wdto2.getName());
-
-
+		String id = ""+ idObj;
+		dto.setMember_id(Integer.parseInt(id));
 		
 		// 이미지적용
 		MultipartFile multipartFile = request.getFile("name");
 		
-		
-
-		// MultipartFile multipartFile =
-		// request.getFile("localhost/loyd/reviews/list"+"file");
-		
-		// if content의 내용이 있는경우
-//		if ("name='content'" !=null) {
 		
 			// 파일 있는 경우
 			if (!multipartFile.isEmpty()) {
@@ -130,11 +108,6 @@ public class ReviewsController {
 				rdao.writeOk1(dto);
 			}
 			return "redirect:/reviews/list";	
-//		}
-		// if content의 내용이  없는 경우
-//		else("name='content'" ==null) {
-//			return "/reviews/write";
-//		}
 }
 		
 		
@@ -148,7 +121,35 @@ public class ReviewsController {
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
-		// session에서 멤버 테이블 정보 얻기
+		// 좋아요 기능
+		Integer id = (Integer) session.getAttribute("id");  // 나중에 그냥 id로 바꿔주기
+		String review_id = request.getParameter("review_id");
+		
+		// 해당 구매후기에 좋아요를 했는지 조회하기
+		// 내가 좋아요를 하면 1개, 다른사람이 좋아요를 한경우엔 id 조건때문에 0이 된다.
+		int reviewLikeCount = rdao.reviewLikeCount(review_id);  
+		
+		// 로그인유무 상관없이 좋아요 개수는 보여주기
+		model.addAttribute("likeCount", reviewLikeCount);
+		
+		// 만약 로그인을 했으면서 좋아요를 한 경우
+		if (id != null) {
+			int likeCount = rdao.likeCount(id, review_id);
+			
+			// 해당글에 좋아요 개수가 1개라도 있다면
+			if(likeCount >0) {
+				
+				// 좋아요 취소를 위한 값 model에 담기
+				model.addAttribute("isliked", true);
+				
+			// 해당글에 좋아요를 하지 않은 경우
+			} else {
+				model.addAttribute("isliked", false);
+			}
+		// 로그인을 하지 않은경우 좋아요 버튼 클릭 불가능 
+		} else {
+			model.addAttribute("isliked", false);
+		}
 
 		
 		
@@ -178,8 +179,8 @@ public class ReviewsController {
 		ArrayList <ReviewsDto> list2 = rdao.list2(field, word, index);
 		
 		model.addAttribute("reviews",list2);
-		model.addAttribute("field",field);
-		model.addAttribute("word",word);
+		model.addAttribute("field",field); // 검색필드
+		model.addAttribute("word",word);  // 검색단어
 		
 		int pstart = page / 10;
 		if(page % 10 ==0) // 1 mod 10 == 1
@@ -195,24 +196,7 @@ public class ReviewsController {
 		model.addAttribute("pstart",pstart);
 		model.addAttribute("pend",pend);
 		model.addAttribute("page_cnt",page_cnt);
-		
-		
-		
-		// reviews - member 테이블을 합친후 member_id 대신 member의 name 불러오기
-//		int memberId = Integer.parseInt(request.getParameter("member_id"));
-//		ReviewsDto dto = rdao.getmemname(memberId);
-//		model.addAttribute("getmemname",dto);
-//		System.out.println("==============" + dto);
-//		System.out.println("==============" + "getmemname");
-		
-		
-		
-		
 
-		
-		
-		
-		
 		return "/reviews/list";
 	}
 
@@ -230,22 +214,76 @@ public class ReviewsController {
 
 	/** 내용 페이지 **/
 	@RequestMapping("/reviews/content")
-	public String content(Model model, HttpServletRequest request) {
+	public String content(HttpSession session, Model model, HttpServletRequest request) {
 				
-		int review_id=Integer.parseInt(request.getParameter("review_id"));
-		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-		ReviewsDto rdto = rdao.content(review_id);
-//		rdao.content(rdto);
-		model.addAttribute("reviews",rdto);
-		
-		
-		
-		/* 댓글 페이지 */
-		// 만들려면 댓글 테이블 만들어야함!
+//		int review_id=Integer.parseInt(request.getParameter("review_id"));
 
-		return "/reviews/content";
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
+		Integer id = (Integer) session.getAttribute("id");  // 나중에 그냥 id로 바꿔주기
+		String review_id = request.getParameter("review_id");
+		
+		// 해당 구매후기에 좋아요를 했는지 조회하기
+		// 내가 좋아요를 하면 1개, 다른사람이 좋아요를 한경우엔 id 조건때문에 0이 된다.
+		int reviewLikeCount = rdao.reviewLikeCount(review_id);  // 내가 좋아요를 했는지 여부?
+		
+		// 로그인유무 상관없이 좋아요 개수는 보여주기
+		model.addAttribute("likeCount", reviewLikeCount);
+		
+		// 만약 로그인을 했으면서 좋아요를 한 경우
+		if (id != null) {
+			int likeCount = rdao.likeCount(id, review_id);
+			
+			// 해당글에 좋아요 개수가 1개라도 있다면
+			if(likeCount >0) {
+				
+				// 좋아요 취소를 위한 값 model에 담기
+				model.addAttribute("isliked", true);
+				
+			// 해당글에 좋아요를 하지 않은 경우
+			} else {
+				model.addAttribute("isliked", false);
+			}
+		// 로그인을 하지 않은경우 좋아요 버튼 클릭 불가능 
+		} else {
+			model.addAttribute("isliked", false);
+		}
+		ReviewsDto rdto = rdao.content(review_id);
+		model.addAttribute("reviews",rdto);
+		return "/reviews/content";
 	}
+	
+	@RequestMapping ("reviews/like")
+	public String like (ReviewsDto dto, HttpSession session, HttpServletRequest request) {
+		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
+		
+		// 좋아요를 누른사람
+		Integer id = (Integer) session.getAttribute("id");
+			
+		// 좋아요 할 글
+		String reviewId = request.getParameter("reviewId");
+		
+		// 좋아요 한사람인지 count 세기
+		int likeCount = rdao.likeCount(id, reviewId);
+		
+		// 좋아요를 안한 사람인 경우
+		if (likeCount <1) {
+			// 후기에 좋아요 하기
+			rdao.addLike(id,reviewId);
+		// 좋아요를 이미 한 사람인 경우
+		} else {
+			rdao.subLike(id, reviewId);
+		}
+
+		// 좋아요 기능을 만들었으니 이제 해당 페이지에 오면 좋아요 개수를 보여줘야함
+		// 그래서 /reviews/content?review_id=?? 에 다른코드를 작성함
+
+		return "redirect:/reviews/content?review_id=" + reviewId;
+
+
+	}
+	
+
 	
 	/** 삭제 페이지 **/
 	@RequestMapping("/reviews/delete")
@@ -254,7 +292,7 @@ public class ReviewsController {
 		
 		// 로그인정보와 컨텐츠 정보가 일치할때만 삭제가능하게 하기
 
-		// memberIdObj == ??? 일때 삭제 가능?
+		// idObj == ??? 일때 삭제 가능?
 		session.setAttribute("delete", dto.getMember_id());
 		
 		
@@ -292,41 +330,21 @@ public class ReviewsController {
 		
 		System.out.println("aads");
 		System.out.println(dto);
-		
-		
-		
-//		ReviewsDao dao = sqlSession.getMapper(ReviewsDao.class);
-//		System.out.println("===========================================");
-//		
-//		// 수정확인
-//		dao.update_ok(dto);
-		
-		
-		
+
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 로그인을 하지않으면 로그인페이지로 이동하기
-		Object memberIdObj = session.getAttribute("memberId");  // 여기에 멤버  table 정보가 담겨있음
+		Object idObj = session.getAttribute("id");  // 여기에 멤버  table 정보가 담겨있음
 		
-		if(memberIdObj==null) {
+		if(idObj==null) {
 			return "redirect:/mber/login";
 		}
-		String memberId = ""+ memberIdObj;
-		dto.setMember_id(Integer.parseInt(memberId));
-		
-		
-//		// watch 테이블에서 시게이름 가져오기
-		// 마이페이지나 상품 상세페이지 가장 하단이 적절해보여요 (watch_id 받아오기)
-//		WatchDto wdto2 = rdao.input_watch(wdto);
-//		rdao.input_watch(wdto);
-//		session.setAttribute("watch_name", wdto2.getName());
-
+		String id = ""+ idObj;
+		dto.setMember_id(Integer.parseInt(id));
 
 		
 		// 이미지적용
 		MultipartFile multipartFile = request.getFile("name");
-		
-		
 
 		// MultipartFile multipartFile =
 		// request.getFile("localhost/loyd/reviews/list"+"file");
@@ -346,7 +364,6 @@ public class ReviewsController {
 			addFileDto.setPath(path);
 
 			// add_file 테이블에 insert 쿼리문
-			
 			int insertedId = adao.insert(addFileDto);
 
 			// 방금 addFile 테이블에 저장되 었던 id 를 reviews_dto.file_id 에 넣기
@@ -358,85 +375,10 @@ public class ReviewsController {
 		} else {
 			rdao.update_ok1(dto);
 		}
-
-
-
-//		return "redirect:/reviews/list";	
+	
 		return "redirect:/reviews/content?review_id="+dto.getReview_id();
 
-		
 	}
-	
-	
-	/* 좋아요 누르기 */
-	@RequestMapping("/reviews/like")
-	public String like(ReviewsDto dto) {
-		ReviewsDao dao = sqlSession.getMapper(ReviewsDao.class);
-		
-		
-		
-		return "redirect:/reviews/content?review_id="+dto.getReview_id();
-	}
-	
-	
-	/* 좋아요 취소 */
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping ("reviews/test")
-	public String test() {
-		return "reviews/test";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	/* 댓글 만들기 */
-	
-	/* 수정 완성하기 */
-	
-	/* 댓글 페이지 */
-	
-	/* 테이블 필요 */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

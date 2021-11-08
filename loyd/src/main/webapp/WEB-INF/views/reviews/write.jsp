@@ -61,8 +61,10 @@
 </style>
 <script>
 
+
+
 	// 빈칸 입력시 알람 띄우기
-	function btn(e) {
+	function btn() {
 		
 		var arr = $('form').serializeArray()  // serialize 연속극 // .serialize() 데이터 직렬화, serializeArray() 문자열을 배열로변환
 		
@@ -154,6 +156,7 @@
                     <a class="btn btn-outline-primary" href="javascript:history.back()">
                     	뒤로가기
                     </a>
+                    
             </div>
         </form>
     </div>

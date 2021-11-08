@@ -69,8 +69,7 @@
 		var update_rate = $("input:radio")  // 배열
 		
 		var rate = "${update_dto.rate}"
-		
-			
+	
 		update_rate.each(function(index, input) {  // 인덱스
 			console.log(index, '|', input.value)  // console.log == jquery 에서 프린트 해보는 문법 
 			if (rate === input.value) {
@@ -82,11 +81,7 @@
 				
 		// 1. <input radio> value = rate 와 같은 경우
 		// 변수에 값이 담겨있는 상태
-		// value가 input box와 같으면 checked 로직 추가
-		// 
-		
-		
-		
+		// value가 input box와 같으면 checked 로직 추가	
 		// 2. 해당 <input radio> 에 checked="checked" 옵션을 준다
 		
 	}
@@ -106,7 +101,7 @@
 						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
 						 
 			                 <td>구매한 시계</td>
-			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
+			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주기 -->
 			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
 			                 <td colspan="3"><input name="watch_id" value="659">
 			                 	${watchId}
@@ -128,18 +123,6 @@
 							  <input type="radio" id="2-star" name="rate" value="2" /><label for="2-star" title="Not Good">2 stars</label>
 							  <input type="radio" id="1-star" name="rate" value="1" /><label for="1-star" title="Bad">1 star</label>
 							</ul>
-	                    
-	                    
-<%-- 		                    <c:forEach begin="1" end="${update_dto.rate }"> --%>
-<!-- 		                    	★ -->
-<%-- 		                    </c:forEach> --%>
-<%-- 		                    <c:forEach begin="1" end="${5-update_dto.rate }"> --%>
-<!-- 		                    	☆ -->
-<%-- 		                    </c:forEach> --%>
-
-
-
-
 						</td>
 	                </tr>
 	                <tr>
@@ -160,8 +143,6 @@
 	                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요">${update_dto.content }</textarea>
 	                    </td>
 	                </tr>
-	                
-	               
             </table>
             <div align="center">
                    <a class="btn btn-primary" href="javascript:document.updateForm.submit()">

@@ -18,8 +18,6 @@
 
 }
 
-
-
 </style>
 
 <script >
@@ -58,7 +56,9 @@ function resizeWindow(win)    {
 	win.resizeTo(wid,hei);
 }
 
-
+function moveTologin(){
+	alert('추천을 하시려면 로그인이 필요합니다')
+}
 
 
 </script>
@@ -118,60 +118,40 @@ function resizeWindow(win)    {
 						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
 					</td>
 			</tr>
+			
+			<!-- 좋아요 기능 -->
+			<tr>
+				<td colspan=2 align="center">
+					<!-- 비회원인 경우 -->
+					<c:if test="${isliked == false && email == null }">
+						<a onclick = "javascript:moveTologin()" style="color:red">
+							♡♡♡&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+					</c:if>
+					<!-- 회원이지만 좋아요를 하지 않은 경우 -->
+					<c:if test="${isliked == false && email != null}">
+						<span>
+							<a href="like?reviewId=${reviews.review_id }" style="color:red">
+								♡♡♡&nbsp;&nbsp;&nbsp;&nbsp;
+							</a>
+						</span>
+					</c:if>
+					<!-- 회원이면서 좋아요를 한 경우 -->
+					<c:if test="${isliked == true }">
+						<span>
+							<a href="like?reviewId=${reviews.review_id }" style="color:red">
+								♥♥♥&nbsp;&nbsp;&nbsp;&nbsp;
+							</a>
+						</span>	
+					</c:if>
+					<span>총 좋아요 개수 ${likeCount }개 </span>
+				
+				</td>
+			</tr>
+
+			
 		</table>		
 	</div>
-	
-	<div id="like">
-		<a href="content?review_id="${reviews.review_id }> 좋아요&nbsp;&nbsp;&nbsp;</a>
-		<span> 좋아요 한 사람의 수 </span>		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-
-<!-- 	bs4를 이용한 컨텐츠 디자인 -->
-<!-- 	<div class="card" style="width:400px"> -->
-<!-- 	  <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
-<!-- 	  <div class="card-body"> -->
-<!-- 	    <h4 class="card-title">별점</h4> -->
-
-<!-- 	    <p class="card-text">시계 아이디</p> -->
-<!-- 	    <p class="card-text">내용 1</p> -->
-<!-- 	    <p class="card-text">내용 2</p> -->
-<!-- 	    <a href="#" class="btn btn-primary">See Profile</a> -->
-<!-- 	  </div> -->
-<!-- 	</div> -->
-
-
-
-
-	<!-- 댓글 -->	
-<!-- 	<div align="center"   style="padding-top:450px"> -->
-<!-- 		<table width="400" border="1"> align="bottom" -->
-<!-- 			<!-- 회원만 작성가능, 본인만 삭제 수정 가능함 --> 
-<!-- 			<tr> -->
-<!-- 				<th>작성자</th> -->
-<!-- 				<th>작성일</th> -->
-<!-- 				<th>작성자</th> -->
-<!-- 				<th>댓글내용</th> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td>1</td> -->
-<!-- 				<td>2</td> -->
-<!-- 				<td>3</td> -->
-<!-- 				<td>4</td> -->
-<!-- 			</tr> -->
-		
-		
-<!-- 		</table> -->
-<!-- 	</div> -->
-	
-
 	
 
 </body>
