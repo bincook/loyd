@@ -1,5 +1,5 @@
 package kr.co.loyd.dto;
-
+import javax.validation.constraints.NotEmpty;
 public class QnaDto {
 
 	private long id;
@@ -7,27 +7,15 @@ public class QnaDto {
 	private String title;
 	private String content;
 	private String email;
+	@NotEmpty
 	private boolean emailChk;
 	private String pwd;
 	private String qnatype;
 	private String writeday;
 	private long watch_id;
 	
-/*	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setWatch_id(int watch_id) {
-		this.watch_id = watch_id;
-	}
-*/
-	
 	
 	private String totq;
-	
-	
-	
-	
 	
 
 	public long getId() {

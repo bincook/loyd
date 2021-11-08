@@ -51,7 +51,9 @@
 	
 	.dot {
 		border: 3px dotted #FFD9EC;
-
+	}
+	.word{
+	word-spacing:10px;
 	}
 
 </style>
@@ -86,9 +88,27 @@
 	}
 /* 	pwd 안내문구 */
 	function text(){
-		document.getElementById("text_view").style.visibility = "visible"; 
-		
+		document.getElementById("text_view").style.visibility = "visible"; 		
 	}
+	
+	 onclick="check_email()"
+		 
+		 function check_pwd(){ //방금 입력한 pwd와 qna pwd와 같은지 비교! 
+			 var chk=new XMLHttpRequest();
+			 var pwd=document.qna.pwd.value;
+		 	chk.open("get","list?pwd="+pwd); //qna테이블로 보내서 비교..
+		 	chk.send();	
+			chk.onreadystatechange= function()
+			{
+			if(chk.readyState==4)
+				{
+				alert(chk.responseText);
+				}
+			}
+		}
+	 
+	 
+
 </script>
 </head>
 <body>
@@ -140,7 +160,7 @@
 			<tr height="50">
 				<div onclick="check()">
 					<input type="checkbox" name="secret" value="1"
-						onclick="secret_qna()">비밀글로 문의하기
+						onclick="secret_qna()">비밀글 문의
 					<p>
 					<div id="secret_pwd" style="visibility: hidden">
 
@@ -159,15 +179,14 @@
 				</div>
 
 			</tr>
-				<div class="form-group">
-								<input class="form-control" type="text" name="email"
-									placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
-				</div>
+				<div class="form-group" ><a href="check"></a>
+			<input class="form-control" type="text" name="email" placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
+					<span class="mail_check"></span>	
+				</div>	
+					<input type="radio" name="user_mail" value="등록된 이메일">등록된 이메일로 받기<p>			
+			
 			<div onclick="check2()">
-				답변완료시 알림받으시겠어요?
-				<p>
-					<input type="checkbox" name="emailChk" onclick="answer()">email로
-					알림받기
+					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 email로 알림받기
 				<div id="answer_email" style="visibility: hidden">
 					<div id="ctn_show2">
 						<div class="form-group">
