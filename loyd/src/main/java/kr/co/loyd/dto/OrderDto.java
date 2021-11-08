@@ -9,7 +9,9 @@ public class OrderDto {
 	private String orderday;
 	
 	//watch_detail
-	private String path;	
+	private String path;
+	
+	private Long c;
 	
 	
 
@@ -117,6 +119,12 @@ public class OrderDto {
 	}
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+	public Long getC() {
+		return c;
+	}
+	public void setC(Long c) {
+		this.c = c;
 	}
 	
 	

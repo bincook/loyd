@@ -31,8 +31,8 @@
 	<select id="listdetail" resultType="kr.co.loyd.dto.MemberDto">
 		select id, name, email from member where ${param1} like CONCAT('%', #{param2} ,'%')
 	</select>
-	<!-- 관리자/회원 목록(페이징) -->
-	<select id="get_cnt" resultType="kr.co.loyd.dto.MemberDto">
+	<!-- 관리자/회원 목록(페이징) --> <!-- 2021.11.05 관리자페이지에서 회원 조회할 때 int 로 넘기기 때문에 사용하시는 분은 따로 만드셔서 하세요 -->
+	<select id="get_cnt" resultType="Integer">
  		select ceil(count(*)/10)as cnt from member
 	</select>
 

@@ -3,7 +3,7 @@
 
 <mapper namespace="kr.co.loyd.dao.QnaDao">
 
-	<insert id="insert_ok" >		
+	<insert id="insert_ok" parameterType="kr.co.loyd.dto.QnaDto">		
 		insert into 
 		qna(watch_id,content,title,pwd,secret,qnatype,email,writeday) 
 		values(#{watch_id}, #{content}, #{title},#{pwd},#{secret},#{qnatype},#{email},now())
@@ -11,7 +11,7 @@
  
  	<!--   Q&A 문의글 목록 (원래)  -->
 	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
-		select qnatype,content,email,writeday,secret from qna 
+		select pwd,qnatype,content,email,writeday,secret from qna 
 		order by secret desc, writeday desc limit #{param1},7
 	</select>
 	 
@@ -28,6 +28,12 @@
 	<!-- 대시보드 그래프 : 문의글 총 합계  : 한 달 전 데이터 출력ing -->
 	<select id="totq" resultType="String">
 	 	select count(*)from qna;
+	</select>
+	
+	<!-- 대시보드 그래프 : 반품/취소 문의가 가장많은 상품번호  -->
+	<select id="dash_grapq" resultType="String">
+		SELECT watch_id,count(watch_id) as c FROM qna WHERE qnatype = "상품"
+
 	</select>
 	
 	

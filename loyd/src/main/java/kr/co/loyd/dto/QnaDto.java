@@ -2,7 +2,7 @@ package kr.co.loyd.dto;
 
 public class QnaDto {
 
-	private String id;
+	private long id;
 	private String secret;
 	private String title;
 	private String content;
@@ -11,16 +11,39 @@ public class QnaDto {
 	private String pwd;
 	private String qnatype;
 	private String writeday;
-	private String watch_id;
+	private long watch_id;
+	
+/*	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setWatch_id(int watch_id) {
+		this.watch_id = watch_id;
+	}
+*/
+	
 	
 	private String totq;
+	
+	
+	
+	
+	
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getWatch_id() {
+		return watch_id;
+	}
+
+	public void setWatch_id(long watch_id) {
+		this.watch_id = watch_id;
 	}
 
 	public String getSecret() {
@@ -87,13 +110,7 @@ public class QnaDto {
 		this.writeday = writeday;
 	}
 
-	public String getWatch_id() {
-		return watch_id;
-	}
-
-	public void setWatch_id(String watch_id) {
-		this.watch_id = watch_id;
-	}
+	
 
 	public String getTotq() {
 		return totq;
