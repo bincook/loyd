@@ -56,39 +56,47 @@
   left: 2px;
 }
 
+
+
 </style>
-
-
-<!-- <script> src = "http://code.jquery.com/jquery.js"></script>
 <script>
-	var size=1;
-	function add() {
-		size ++;
-		var imgAcd = document.getElementById("imgAcd");
-		imgAcd.innerHTML = imgAcd.innerHTML + "<p class='iname'><input type='file' name='iname"+size+"'></p>";
+
+
+
+	// 빈칸 입력시 알람 띄우기
+	function btn() {
+		
+		var arr = $('form').serializeArray()  // serialize 연속극 // .serialize() 데이터 직렬화, serializeArray() 문자열을 배열로변환
+		
+		console.log(arr.length)  // 입력된 데이터 수 
+		
+		if(arr.length < 3 ) return alert('별점을 입력해주세요')  // 3개보다 길이 적으면
+		else if ($('textarea').val() === "") return alert('내용을 입력해주세요') // 2개보다 적으면 (별점은 입력했으나 컨텐츠 미입력시)
+		else $('form').submit()  // 제출하기
+		
 	}
-	function del() {
-		if(size>1) {
-			${".iname"}.eq(size-1).remove();
-			size--;
-		}
-	}
+	// 연습한거(틀림)
+//  	function btn(){
+//  		if(document.writeForm.content.value==""){
+// // 	 		src="<c:url value="write" />"	
+//  			alert('내용을 입력해주세요')
+//  			document.writeForm.content.focus()
+//  			exit;
+//  			location.href="write";
+// 		}
+// 	}	
 
-</script> -->
-
-
-
+</script>
 
 
 </head>
 <body>
-
     <div class="jumbotron">
-        <h1> {watch} 구매후기 </h1>
-        <p> {watch}에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
-      </div>
+        <h1> WATCH 구매후기 </h1>
+        <p> WATCH 에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
+    </div>
     <div class="container bg-light" style="height: 800px;">
-        <form name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
+        <form id='frm' name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
                  
             <table class="table table-bordered">
 					 <tr>
@@ -97,19 +105,16 @@
 			                 <td>구매한 시계</td>
 			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
 			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
-			                 <td colspan="3"><input name="watch_id" value="659">
-			                 	${watchId}
-			                 </td>
+<%-- 			                 <td colspan="3"><input name="" value="${watch_name.name }">${watchId.watch_id} --%>
 			                 
-		                 
+			                 
+			                 <td colspan="3"><input name="watch_id" value="659">
+			                 </td>    
                 	</tr>
 	                <tr>
-
 		                    <td>작성자</td>
-		                    <td colspan="3"><input name="member_id" value="1" placeholder="작성자 아이디 넣기"></td>  
-	
+		                    <td colspan="3"><input name="" disabled="disabled" value="${name }"></td> 
 	                </tr>
-	            
 	                <tr>
 	                    <td>만족도</td>  
 	                    <td colspan="3">
@@ -133,23 +138,25 @@
 	                        <td><input type="button" onclick="del()" value='사진삭제'></td>               
 	                    </div>
 	                </tr>
-	                <tr>
-	                    <td>내용</td>
-	                    <td colspan="3">
-	                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요"></textarea>
-	                    </td>
-	                </tr>
+	                
+		                <tr>
+		                    <td>내용</td>
+		                    <td colspan="3">
+		                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요"></textarea>
+		                    </td>
+		                </tr>
 	                
 	               
             </table>
             <div align="center">
-                   <a class="btn btn-primary" href="javascript:document.writeForm.submit()">
-                   
+<!--             		<a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()"> -->
+                    <a onclick="javascript:btn()" class="btn btn-primary">
                    		 작성완료
-                    </a>
+                    </a>  
                     <a class="btn btn-outline-primary" href="javascript:history.back()">
                     	뒤로가기
                     </a>
+                    
             </div>
         </form>
     </div>

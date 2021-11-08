@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,34 +11,68 @@
 	height: 200px;
 	padding-top: 50px;
 }
+#like {
+	padding-top: 570px;
+/* 	height: 700px; */
+	text-align: center;	
+
+}
+
 </style>
 
-<script>
+<script >
 
 function del_content() {
-	
-	if (confirm("정말 삭제하시겠습니까?")) {
-			
+	// 창을 닫을때 삭제여부 묻고 '예 ' 클릭하면 삭제되고 창 자동 새로고침.	 
+	window.opener.location.reload();
+
+	if (confirm("정말 삭제하시겠습니까?")) {	
 		$.post('delete?review_id=${reviews.review_id}', function( data ) {
-			
 			window.opener.location.reload() // opener 부모 새로고침
-			window.close()  // 자기창을 닫아라
-			
-			
-		});
-				
-	} 
+			window.close()  // 자기창을 닫아라	
+		}
+	)};
 }
+
+//버튼 누르면 부모 새로고치고 자기창 닫기
+function cnt_readnum() {
+	window.opener.location.reload() // opener 부모 새로고침
+	window.close()  // 자기창을 닫아라	
+};
+
+// // 창킬때 조회수 증가
+// 	opener.document.location.reload();
+
+// 창끌때 조회수 증가
+onbeforeunload = function() {  // beforeunload 이벤트	
+	opener.document.location.reload();
+}
+
+
+// 윈도우 창크기 변경하기(실패)
+function resizeWindow(win)    {
+	var wid = win.document.body.offsetWidth + 700;
+	var hei = win.document.body.offsetHeight + 600;        //30 과 40은 넉넉하게 하려는 임의의 값임
+	win.resizeTo(wid,hei);
+}
+
+function moveTologin(){
+	alert('추천을 하시려면 로그인이 필요합니다')
+}
+
+
 </script>
 
+
 </head>
-<body>
-	<div id="content">
-		<table width="500" height="550" align="center" border="1">
+<body onload='resizeWindow(this)'>
+
+	<div align="center" id="content"><!-- style="display: inline-block"  -->
+		<table width="600" height="550" align="center" border="1" >
 
 			<tr>
-				<td colspan="2" align="center">
-					<img width="200" 
+				<td colspan="3" align="center">
+					<img width="300" 
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
@@ -48,7 +82,7 @@ function del_content() {
 				<td>작성일
 					<p>${reviews.writeday }
 				</td>
-				<td>구매한 시계
+				<td colspan="2">구매한 시계
 					<p>${reviews.watch_id }
 				</td>
 			</tr>
@@ -60,47 +94,67 @@ function del_content() {
 					☆
 					</c:forEach>
 				</td>
-				<td>작성자
-					<p>${reviews.member_id }
+				<td colspan="2">작성자
+					<p>${reviews.name }
 				</td>
 			</tr>
 			<tr>
-				<td>후기내용
+				<td colspan="2">후기내용
 					<p>${reviews.content }</td>
 			</tr>
-		
-			<tr>	
-				<td>
-<%-- 					<a href="delete?review_id=${reviews.review_id }" onclick="javascript:void(window.close())">삭제하기</a> --%>
-					<a id="close" href="javascript:del_content()">삭제하기</a>
-				</td>
-				<td>
-					<a href="">수정하기 </a>				
+			
+			<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
+			<tr>
+<%-- 				<c:if test="${memberId != null }" > --%>
+				<c:if test="${memberId == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
+					<td align="center">
+						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
+					</td>
+					<td align="center">
+						<a class="btn" style="background-color:#FCFF71;" href="update?review_id=${reviews.review_id }">수정하기 </a>				
+					</td>
+				</c:if>
+					<td colspan="3" align="right">
+						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
+					</td>
+			</tr>
+			
+			<!-- 좋아요 기능 -->
+			<tr>
+				<td colspan=2 align="center">
+					<!-- 비회원인 경우 -->
+					<c:if test="${isliked == false && email == null }">
+						<a onclick = "javascript:moveTologin()" style="color:red">
+							♡♡♡&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+					</c:if>
+					<!-- 회원이지만 좋아요를 하지 않은 경우 -->
+					<c:if test="${isliked == false && email != null}">
+						<span>
+							<a href="like?reviewId=${reviews.review_id }" style="color:red">
+								♡♡♡&nbsp;&nbsp;&nbsp;&nbsp;
+							</a>
+						</span>
+					</c:if>
+					<!-- 회원이면서 좋아요를 한 경우 -->
+					<c:if test="${isliked == true }">
+						<span>
+							<a href="like?reviewId=${reviews.review_id }" style="color:red">
+								♥♥♥&nbsp;&nbsp;&nbsp;&nbsp;
+							</a>
+						</span>	
+					</c:if>
+					<span>총 좋아요 개수 ${likeCount }개 </span>
+				
 				</td>
 			</tr>
+
+			
 		</table>		
 	</div>
 	
 
-	<!-- bs4 -->
-	<!-- <div class="card" style="width:400px"> -->
-	<!--   <img class="card-img-top" src="/loyd/resources/img/22.PNG" alt="Card image"> -->
-	<!--   <div class="card-body"> -->
-	<!--     <h4 class="card-title">별점</h4> -->
-
-	<!--     <p class="card-text">시계 아이디</p> -->
-	<!--     <p class="card-text">내용 1</p> -->
-	<!--     <p class="card-text">내용 2</p> -->
-	<!--     <a href="#" class="btn btn-primary">See Profile</a> -->
-	<!--   </div> -->
-	<!-- </div> -->
-
-
 </body>
 </html>
-
-
-
-
 
 

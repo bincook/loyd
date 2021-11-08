@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -69,7 +69,9 @@
         </li>
       </c:if>
         
-        
+        <li class="nav-item ${reqUri == contextPath.concat("/sample") ? "active" : ""}">
+            <a href="<c:url value="/reviews/list" />" class="nav-link">reviews</a>
+        </li>
         
         
         <li class="nav-item ${reqUri == contextPath.concat("/mypage/info") ? "active" : ""}">
@@ -78,6 +80,8 @@
       <%--   <li class="nav-item ${reqUri == contextPath.concat("/sample") ? "active" : ""}">
             <a href="<c:url value="#" />" class="nav-link">Sample</a>
         </li> --%>
+
+
         <c:if test="${email==null }">
         	<li class="nav-item ${reqUri.equals(contextPath.concat("/sign-in")) ? "active" : ""}">
             <a href="<c:url value="/mber/login" />" class="nav-link">Login</a>
@@ -88,6 +92,8 @@
             <a href="<c:url value="/mber/logout" />" class="nav-link">logout</a>
             </li>
         </c:if>
+
+
     </ul>
 </div>
 

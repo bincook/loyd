@@ -1,4 +1,4 @@
-package kr.co.loyd.controller;
+﻿package kr.co.loyd.controller;
 
 import java.io.PrintWriter;
 
@@ -67,7 +67,6 @@ public class MberController {
 		
 		if(dto2==null) {
 			return "redirect:/"+module+"/login?chk=1";
-		}else{
 			
 		session.setAttribute("email",dto2.getEmail() );
 		session.setAttribute("name",dto2.getName());
@@ -131,11 +130,16 @@ public class MberController {
 		MberDao dao = sqlSession.getMapper(MberDao.class);
 		String pwd = dao.pwdfind_ok(dto);
 		
+		
+		
 		if(pwd==null) {
 			return module+"/pwdfind";
 		}else {
 			model.addAttribute("pwd",pwd);
 			return module+"/pwdfind_ok";
+			
+			
+			
 		}
 		
 		
