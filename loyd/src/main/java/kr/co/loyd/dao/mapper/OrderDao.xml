@@ -4,19 +4,113 @@
 
 <mapper namespace="kr.co.loyd.dao.OrderDao">
 	<select id="detail_order" resultType="kr.co.loyd.dto.OrderDto">
-		SELECT id,NAME,brand,(price*(1-discount)) AS price ,category,kind,picture  FROM guro_project_2.watch WHERE id = 659
+		SELECT id,NAME,brand,(price*(1-discount)) AS price ,category,kind,picture, (SELECT COUNT(*) FROM wishlist WHERE watch_id = #{param1} AND member_id = #{param2}) as like2 from watch where id = #{param1}
+		
 	</select>
 	
 	<insert id="cart_go" >
-		INSERT INTO cart (watch_id,item_count,created_at,email) VALUES (#{param1},1,now(),#{param2})
+		INSERT INTO cart (watch_id,item_count,created_at,email,member_id) VALUES (#{param1},1,now(),#{param2},#{param3})
 	</insert>
 	
 	<select id="id_check" resultType="integer">
-		select count(*) from cart where watch_id =#{param1}
+		select count(*) from cart where watch_id =#{param1} and email =#{param2}
 	</select>
 	
 	<update id="cart_plus">
 		update cart set item_count = item_count +1 where watch_id = #{param1} and email = #{param2}
 	</update>
+	
+	<select id="buy" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT 
+		  NAME,
+		  ceil(price*(1-discount))AS price,
+		  brand,
+		  category,
+		  kind,
+		  picture,
+		  id
+	     FROM watch where id =#{param1}
+	</select>
+	
+	<select id="all_price" resultType="integer">
+		WITH `order list` AS
+			(SELECT ceil(A.count*B.price*(1-B.discount)) as hap FROM `order list` A, watch B WHERE A.watch_id =  B.id and member_id =19)
+		SELECT SUM(hap) AS all_pirce  FROM `order list` 
+	</select>
+	
+	<select id="product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch limit #{param1},12
+	</select>
+	
+	<select id="men_product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch where category in ("남성","공용") limit #{param1},12
+	</select>
+	
+	<select id="women_product_list" resultType="kr.co.loyd.dto.OrderDto">
+		SELECT id,content, ceil(price*(1-discount)) AS price,picture FROM watch where category in ("여성","공용") limit #{param1},12
+	</select>
+	
+	
+	
+	
+	
+	<select id="get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch 
+	</select>
+	
+	<select id="men_get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch where category in ("남성","공용")
+	</select>
+	
+	<select id="women_get_page" resultType="integer" >
+		select ceil(count(*)/10)  from watch where category in ("여성","공용")
+	</select>
+	
+	
+	<select id="writeOrderList" parameterType="kr.co.loyd.dto.OrderDto" resultType="int">
+		INSERT INTO `order list`(watch_id, member_id, price, discount, count, orderday,order_no)  
+	    SELECT id as wid, #{member_id}, ceil(price*(1-discount)) as price, discount, 1, now(),(select max(order_no)+1 from `order list`) FROM watch WHERE id = #{watch_id}
+	    RETURNING id;
+	</select>
+
+	
+	
+	<select id="watch_detail" resultType="kr.co.loyd.dto.OrderDto">
+		select * from watch_detail where watch_id=#{param1} order by id
+	</select>
+	
+
+	
+	<insert id="writeOrderDetail" parameterType="kr.co.loyd.dto.OrderDetailDto">
+		insert into order_detail(order_name,email,order_phone,rec_name,rec_phone,zip,addr1,addr2,pay,msg,order_date,order_list_id,order_no) 
+		VALUES(#{order_name},#{email},#{order_phone},#{rec_name},#{rec_phone},#{zip},#{addr1},#{addr2},#{pay},#{msg},now(),1,(SELECT MAX(order_no) FROM `order list`))
+	</insert>
+	
+	<insert id ="like">
+		insert into wishlist(watch_id,member_id ,email,datetime) values(#{param1},#{param2},#{param3},now())
+	</insert>
+	
+
+	<delete id ="like2">
+		delete from wishlist where watch_id = #{param1} and member_id = #{param2} 
+	</delete>
+	
+	
+
+	
+
+	<!-- 대시보드 구매가격이 1,268,000원 이상인 최근 5개 목록 조회  -->
+	<select id="dash_listo" resultType="kr.co.loyd.dto.OrderDto">
+		<![CDATA[select price,orderday from `order list` WHERE price > '1,268,000' group by orderday limit 0,5]]>
+	</select>
+	<!-- 대시보드 사이드바  : 주문내역이 가장 많은 상품 3개 -->
+	<select id="orderg" resultType="integer" >
+		SELECT max(watch_id), COUNT(watch_id) AS c FROM `order list` GROUP BY watch_id ORDER BY c desc limit 0,3
+	</select>
+	<!-- 대시보드 그래프  : 한달 전 주문내역 count -->
+	<select id="grapoc" resultType="kr.co.loyd.dto.OrderDto">
+		<![CDATA[SELECT orderday,count(watch_id) as c FROM `ORDER list` WHERE orderday >= DATE_sub(NOW(),INTERVAL 13 MONTH) group by orderday]]>
+	</select>
+
 	
 </mapper>

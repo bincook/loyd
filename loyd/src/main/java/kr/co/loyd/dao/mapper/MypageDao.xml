@@ -3,26 +3,90 @@
 
 <mapper namespace="kr.co.loyd.dao.MypageDao">
 
-	<select id="order_list" resultType="kr.co.loyd.dto.MypageDto">
-		select ol.id, ol.watch_id, ol.member_id, ol.price, ol.discount, COUNT, orderday, wt.picture, wt.name
-		FROM `order list` ol
-		LEFT JOIN watch wt
-		ON wt.id = ol.watch_id
-		<!-- WHERE memb	er_id = 7 -->
-		WHERE ${param1} like concat('%',#{param2},'%')
-		ORDER BY id DESC
-		LIMIT 10
+	<select id="info" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT order_no, order_name, rec_name, pay, order_date
+		FROM `order_detail` od
+		LEFT JOIN `member` mb
+		ON mb.email = od.email
+		WHERE od.email = #{email }
+		ORDER BY order_no DESC
 	</select>
 	
-	<select id="order_detail_list" resultType="kr.co.loyd.dto.MypageDto">
+	<select id="order_list" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT ol.order_no, wt.name, od.order_date, wt.picture, count(wt.name) as cnt
+		FROM `order list` ol
+		LEFT JOIN `watch` wt
+		ON wt.id = ol.watch_id
+		LEFT JOIN `order_detail` od
+		ON ol.order_no = od.order_no
+		WHERE ol.member_id = #{param1 } and ${param2 } like concat('%',#{param3 },'%') 
+		GROUP BY ORDER_no 
+		ORDER BY ol.id DESC
+		LIMIT #{param4 }, 10
+	</select>
+	
+	<select id="item_detail" resultType="kr.co.loyd.dto.MypageDto">
 		SELECT *
-		FROM watch
+		FROM `watch`
 		WHERE id = #{param1 }
 	</select>
 	
 	<select id="page_cnt" resultType="Integer">
 		SELECT ceil(count(*) /10)
-		FROM `order list`
+		FROM `order_detail`
+		WHERE email= #{param1 } and order_no > 13
+	</select>
+	
+	<select id="enquiry" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT *
+		FROM `qna`
+		WHERE email = #{param1 }
+		ORDER BY id DESC
+	</select>
+	
+	<select id="enquiry_detail" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT *
+		FROM `qna`
+		WHERE id = #{param1 }
+	</select>	
+	
+	<select id="wishlist" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT wl.id, wt.price, wt.name, wl.datetime, wt.picture, wl.watch_id
+		FROM `wishlist` wl
+		LEFT JOIN `watch` wt
+		ON wt.id = wl.watch_id
+		WHERE email = #{param1 }
+		ORDER BY wl.id DESC
+	</select>
+	
+	<select id="member_edit" resultType="kr.co.loyd.dto.MemberDto">
+		SELECT *
+		FROM `member`
+		WHERE email = #{email }
+	</select>
+	
+	<update id="member_edit_ok" parameterType="kr.co.loyd.dto.MemberDto">
+		UPDATE `member`
+		SET name = #{name }, phone = #{phone }, email = #{email }
+		WHERE id = #{id }
+	</update>
+	
+	<select id="order_detail" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT wt.picture, wt.name, wt.id
+		FROM `order list` ol
+		LEFT JOIN `watch` wt
+		ON wt.id = ol.watch_id
+		WHERE ol.member_id = #{param1 } and ol.order_no = #{param2 }
+	</select>
+	
+	<select id="order_detail1" resultType="kr.co.loyd.dto.MypageDto">
+		SELECT order_id, order_name, od.email, order_phone, rec_name, rec_phone, zip, addr1, addr2, pay, msg, order_date, wt.picture, wt.name 
+		FROM `order_detail` od
+		LEFT JOIN `order list` ol
+		ON ol.id = od.order_list_id
+		LEFT JOIN `watch` wt
+		ON wt.id = ol.watch_id
+		WHERE od.email = #{param1 } and od.order_no = #{param2 }
 	</select>
 
 </mapper>

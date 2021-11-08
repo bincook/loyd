@@ -1,170 +1,143 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
- <style>
-  header{
-  height:70px;
-  background:#E9F4D1;
-  text-align:center;
-  color:#4D4D4D;
-  }
-  
-  #whole{
-  font-size:14px;
-  text-align:center;
-  color:#4D4D4D;
-  }
-  
-  link{
-  text-decoration:none;
-  }
-  
-  table{
-  width:500px;
-  align:center;
-  margin:auto;
-  }
-  
-  .table-search
-  {
-    margin:auto;
-	text-decoration:none;
-	border-radius:10px;
-	background-color: skyblue;
-	
-  }
-  
-   .table-search tr td:nth-child(1)
-  {
-  	padding-left: 12px;
-  }
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>íšŒì› ì¡°íšŒ</title>
+<style>
+header {
+	height: 70px;
+	background: #E9F4D1;
+	text-align: center;
+	color: #4D4D4D;
+}
 
- </style>
- 
+#whole {
+	font-size: 14px;
+	text-align: center;
+	color: #4D4D4D;
+}
+
+link {
+	text-decoration: none;
+}
+
+table {
+	width: 500px;
+	align: center;
+	margin: auto;
+}
+
+.table-search {
+	margin: auto;
+	text-decoration: none;
+	border-radius: 10px;
+	background-color: skyblue;
+}
+
+.table-search tr td:nth-child(1) {
+	padding-left: 12px;
+}
+</style>
 
 </head>
 <body>
- <div id=whole>
-  <header><h1>È¸¿ø°ü¸®</h1></header>
-   <p>
-   <div class="mb-3">
-   
-    <form name="search" method="post" action="list">
-    
-    	<input type="hidden" name="page" value="${page}" />
-   	    <select name="search_field">
-   	     <option value="sel" >¼±ÅÃ</option>
-   	     <option value="id">È¸¿ø¹øÈ£</option>
- 	     <option value="name">È¸¿øÀÌ¸§</option>
-	     <option value="email">È¸¿øÀÌ¸ŞÀÏ</option>
-   	    </select>
-   	    
-   	     <input type="text" name="search_word" placeholder="»ó¼¼ Á¶È¸">
-   	     <input type="submit"  value="°Ë»ö" size="50">
-   	</form>  	 
-   	   
-   	<table class="table-search">
-   	   	 <tr colspan="3">
-	   	 <td >È¸¿ø¹øÈ£</td>
-		 <td>È¸¿øÀÌ¸§</td>
-	 	 <td >È¸¿øÀÌ¸ŞÀÏ</td>
-   	 </tr>
-   	<c:forEach items="${searchMemberList}" var="mdto">
-   	 <tr colspan="3">
-	     <td>${mdto.id}</td>
-	     <td>${mdto.name}</td>
-	     <td>${mdto.email}</td>
-   	 </tr> 
-   	 </c:forEach>
-   </table>
- </div> 
- <div>
-   <table border="1">	 
-   	 <tr colspan="3">
-	   	 <td>È¸¿ø¹øÈ£</td>
-		 <td>È¸¿øÀÌ¸§</td>
-	 	 <td>È¸¿øÀÌ¸ŞÀÏ</td>
-   	 </tr>
-   	 
-   <c:forEach items="${list}" var="mdto">
-    <tr>
-	     <td>${mdto.id}</td>
-	     <td>${mdto.name}</td>
-	     <td>${mdto.email}</td>
-    </tr>	 
-   </c:forEach>
-   
-    <tr>
-    <td colspan="3" align="center">
-    
-    <!-- ÇöÀç ÆäÀÌÁö ±âÁØ ÀÌÀü 10ÆäÀÌÁö ÀÌµ¿ -->
-   <c:if test="${pstart !=1 }"> 
-    <a href="list?page=${page-1}"> ¢¸ </a>    
-   </c:if>
-   <c:if test="${pstart == 1}">
-    	¢¸
-   </c:if>
+	<div id=whole>
+		<header>
+		<h1>íšŒì›ê´€ë¦¬</h1>
+		</header>
+		<p>
+		<div class="mb-3">
 
-<!-- ÇöÀçÆäÀÌÁö ÀÌÀü 1ÆäÀÌÁö ÀÌµ¿ -->
-	<c:if test="${page != 1}">
-	 <a href="list?page=${page-1}"> < </a>
-	</c:if>
-	<c:if test="${page == 1}">
+			<form name="search" method="post" action="list">
+
+				<input type="hidden" name="page" value="${page}" /> 
+				<select	name="search_field">
+					<option value="sel">ì„ íƒ</option>
+					<option value="id">íšŒì›ë²ˆí˜¸</option>
+					<option value="name">íšŒì›ì´ë¦„</option>
+					<option value="email">íšŒì›ì´ë©”ì¼</option>
+				</select>
+				
+				<input type="text" name="search_word" placeholder="ìƒì„¸ ì¡°íšŒ">
+				<input type="submit" value="ê²€ìƒ‰" size="50">
+			</form>
+
+			<table class="table-search">
+				<tr colspan="3">
+					<td>íšŒì›ë²ˆí˜¸</td>
+					<td>íšŒì›ì´ë¦„</td>
+					<td>íšŒì›ì´ë©”ì¼</td>
+				</tr>
+				<c:forEach items="${searchMemberList}" var="mdto">
+					<tr colspan="3">
+						<td>${mdto.id}</td>
+						<td>${mdto.name}</td>
+						<td>${mdto.email}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		<div>
+			<table border="1">
+				<tr colspan="3">
+					<td>íšŒì›ë²ˆí˜¸</td>
+					<td>íšŒì›ì´ë¦„</td>
+					<td>íšŒì›ì´ë©”ì¼</td>
+				</tr>
+
+				<c:forEach items="${list}" var="mdto">
+					<tr>
+						<td>${mdto.id}</td>
+						<td>${mdto.name}</td>
+						<td>${mdto.email}</td>
+					</tr>
+				</c:forEach>
+
+				<tr>
+					<td colspan="3" align="center">
+						<!-- í˜„ì¬ í˜ì´ì§€ ê¸°ì¤€ ì´ì „ 10í˜ì´ì§€ ì´ë™ --> 
+						<c:if test="${pstart !=1 }">
+							<a href="list?page=${page-1}"> â—€ </a>
+						</c:if> <c:if test="${pstart == 1}">
+    	â—€
+   </c:if> <!-- í˜„ì¬í˜ì´ì§€ ì´ì „ 1í˜ì´ì§€ ì´ë™ --> <c:if test="${page != 1}">
+							<a href="list?page=${page-1}"> < </a>
+						</c:if> <c:if test="${page == 1}">
 	 <
-	</c:if>
-
-<!-- ÇöÀçÆäÀÌÁö ±âÁØÀ¸·Î ÀÌµ¿ÇÒ ¼ö ÀÖ´Â ÆäÀÌÁö  -->
-	<c:forEach begin="${pstart}" end="${pend}" var="i">
-<!-- ÇöÀçÆäÀÌÁö »öÀº ´Ù¸£°Ô => »¡°­ -->	
-	 <c:if test="${page != i}">
-	 <a href="list?page=${i}">${i}</a>
-	 </c:if>
-	 <c:if test="${page == i}">
-	 <a href="list?page=${i}" style="color:red">${i}</a>
-	 </c:if>
-	</c:forEach>						
-
- <!-- ÇöÀçÆäÀÌÁö ±âÁØ ´ÙÀ½1ÆäÀÌÁö ÀÌµ¿ -->
-  	<c:if test="${page != page_cnt}">
-  	 <a href="list?page=${page+1}"> > </a>
-  	</c:if>
-  	<c:if test="${page == page_cnt}">
+	</c:if> <!-- í˜„ì¬í˜ì´ì§€ ê¸°ì¤€ìœ¼ë¡œ ì´ë™í•  ìˆ˜ ìˆëŠ” í˜ì´ì§€  --> <c:forEach begin="${pstart}"
+							end="${pend}" var="i">
+							<!-- í˜„ì¬í˜ì´ì§€ ìƒ‰ì€ ë‹¤ë¥´ê²Œ => ë¹¨ê°• -->
+							<c:if test="${page != i}">
+								<a href="list?page=${i}">${i}</a>
+							</c:if>
+							<c:if test="${page == i}">
+								<a href="list?page=${i}" style="color: red">${i}</a>
+							</c:if>
+						</c:forEach> <!-- í˜„ì¬í˜ì´ì§€ ê¸°ì¤€ ë‹¤ìŒ1í˜ì´ì§€ ì´ë™ --> <c:if test="${page != page_cnt}">
+							<a href="list?page=${page+1}"> > </a>
+						</c:if> <c:if test="${page == page_cnt}">
   	  >
-  	</c:if>
-  	
-  	<c:if test="${page_cnt != pend}">
-  	 <a href="list?page=${pend+1}"> ¢º </a>
-  	</c:if>
-  	<c:if test="${pend_cnt == pend}">
-  	 ¢º
+  	</c:if> <c:if test="${page_cnt != pend}">
+							<a href="list?page=${pend+1}"> â–¶ </a>
+						</c:if> <c:if test="${pend_cnt == pend}">
+  	 â–¶
   	 </c:if>
-    </td>
-   </tr>
-   </table>
+					</td>
+				</tr>
+			</table>
+		</div>
 
-   <table margin-tottom="40">
-   <tr>
-    <td colspan="3" align="center">
-        <a href="dash-board">°ü¸®ÀÚ È¨À¸·Î</a>  
-    </td>
-   </tr>
-   	</table>
-   </div>
-  
- </div>
- 
-  <script>
- window.onload=function()
- {
-	 console.log("print -> ${search_field}")
-	 document.search.search_field.value="${search_field}";
-	 
- }
-</script>
+	</div>
+
+	<script>
+		window.onload = function() {
+			console.log("print -> ${search_field}")
+			document.search.search_field.value = "${search_field}";
+
+		}
+	</script>
 </body>
 </html>

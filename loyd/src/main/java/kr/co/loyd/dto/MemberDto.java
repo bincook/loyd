@@ -10,8 +10,22 @@ public class MemberDto {
     private String pwd;
     private String phone;
     private Date register_date;
+    
+    
+    private Long tot;
+    
 
-    public Long getId() {
+  
+
+	public Long getTot() {
+		return tot;
+	}
+
+	public void setTot(Long tot) {
+		this.tot = tot;
+	}
+
+	public Long getId() {
         return id;
     }
 

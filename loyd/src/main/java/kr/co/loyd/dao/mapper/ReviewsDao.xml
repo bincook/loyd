@@ -5,24 +5,32 @@
 <mapper namespace="kr.co.loyd.dao.ReviewsDao">
 
 
+	<!-- 구매 후기 보기 -->
+	<select id="one" parameterType="int" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews where Review_id = #{id}
+	</select>
 
-	<!-- 구매 후기 작성 (파일없는 경우) -->
-	<insert id="writeOk1" parameterType="kr.co.loyd.dto.ReviewWriteDto">
-		insert into
-		reviews(member_id, watch_id, content, writeday, rate)
+	<!-- 구매 후기 작성 -->
+
+	<insert id = "writeOk1" parameterType="kr.co.loyd.dto.ReviewWriteDto">
+		insert into reviews(member_id, watch_id, content, writeday, rate)
 		values(#{member_id},#{watch_id},#{content}, now(),#{rate})
-
+	
 	</insert>
 	<!-- 구매 후기 작성 (파일있는 경우) -->
 	<insert id="writeOk2" parameterType="kr.co.loyd.dto.ReviewWriteDto">
 		insert into
 		reviews(member_id, watch_id, content, writeday, rate, file_id)
 		values(#{member_id},#{watch_id},#{content}, now(),#{rate}, #{file_id})
+
 	</insert>
+	
 
-
+	
+	
 	<select id="list" resultType="kr.co.loyd.dto.ReviewsDto">
 		SELECT r.*, m.id, m.name AS mname, af.* from reviews  r
+
 		LEFT JOIN add_file af
 
 		ON r.file_id = af.id 
@@ -31,16 +39,14 @@
 		ON r.member_id = m.id
 		
 		order by review_id DESC
-		limit
-		#{param1}, 10
-
+		limit #{param1}, 9
+		 
 	</select>
-
+	
 	<update id="readnum"> <!-- result, parameter -->
 		update reviews set view=view+1 where review_id=#{param1}
 	</update>
 	
-	<!-- 페이징 카운트 --><!-- 조건 + 페이징 -->
 	<select id="get_pagecount" resultType="Integer">
 		select ceil (count(*)/10) from reviews where ${param1} like concat('%', #{param2} ,'%')				
 	</select>
@@ -66,7 +72,6 @@
 		limit
 		#{param3}, 10
 	</select>
-	
 
 	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
 
@@ -132,10 +137,20 @@
 		
 	</delete>
 	
+	<!-- 대시보드 목록 조회 -->
+	<select id="dash_listr" resultType="kr.co.loyd.dto.ReviewsDto">
+		select content,writeday from reviews order by writeday desc limit 0,5
+	</select>
+	
+	<!-- 대시보드 그래프 : 리뷰글 총 합계   -->
+	<select id="totr" resultType="String">
+	 	select count(*)from reviews;
+	</select>
+	
 	
 
-
 	
+
 
 </mapper>
 

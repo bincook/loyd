@@ -1,8 +1,9 @@
-package kr.co.loyd.dao;
+﻿package kr.co.loyd.dao;
 
 import java.util.ArrayList;
 
 import kr.co.loyd.dto.AddfileDto;
+import kr.co.loyd.dto.QnaDto;
 import kr.co.loyd.dto.ReviewWriteDto;
 import kr.co.loyd.dto.ReviewsDto;
 import kr.co.loyd.dto.WatchDto;
@@ -20,8 +21,14 @@ public interface ReviewsDao {
 
 	public ReviewsDto getmemname(int member_id); // 리스트에서 작성자이름 표시, member테이블의 name
 	
+
 	public void readnum(int reviewId);  // 조회수 페이지
 	public ReviewsDto content(String review_id); // content 페이지
+	/** 대시보드에 리뷰글 최근 5개 목록 조회 */
+	ArrayList<ReviewsDto> dash_listr(); 
+	/**  대시보드 그래프 : 리뷰글 총 합계 */
+	public String totr();
+
 	public void delete(int review_id); //delete 페이지
 	
 	public ReviewsDto update(int review_id);  // update 수정하기
@@ -35,6 +42,7 @@ public interface ReviewsDao {
 	public void subLike(Integer memberId, String reviewId);
 	
 	public int reviewLikeCount(String review_id);
+
 	
 }
 

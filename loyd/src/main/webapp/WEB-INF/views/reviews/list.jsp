@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -118,6 +118,8 @@ function resizeWindow(win)    {
 						        <td>${review.watch_id}</td>
 
 						        <td><a href="javascript:open_content(${review.review_id})">
+
+
 <!-- 						        	<a href=" javascript:function resizeWindow(win) "> -->
 						        
 						        		<img wdith="100" height="50"  
@@ -125,6 +127,8 @@ function resizeWindow(win)    {
 						        			onerror="this.src='/loyd/resources/watch_errimg.png'; this.style.width='50px';" >
 					        		
 					        		</a>
+
+
 					        		</a>
 						        </td>			        
 						        <td style="color: gold; text-shadow: 0.5px 0.5px #c60;">
