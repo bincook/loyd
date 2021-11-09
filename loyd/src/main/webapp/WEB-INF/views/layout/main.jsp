@@ -31,7 +31,68 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 
+
+
     <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />">
+
+    <!-- 채팅 -->
+    <link rel="stylesheet" href="<c:url value="/resources/css/chat.css" />">
+    <!-- 소켓 -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <!-- ajax 요청을 위한 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        function startChat() {
+            let websocket = null
+            let client_ipaddress = null
+            let chat_server_host = '<c:url value ="/" />'
+            let chat_connection_request_url = 'socket/connect/url'
+            let chat_connection = 'websocket/endpoint'
+            let client_ipaddress_request = '<c:url value ="/" />channel/client/ip'
+            let chat = null
+
+            $.get(
+                client_ipaddress_request,
+                {},
+                function (data, status) {
+                    client_ipaddress = data
+
+                    $.getScript("<c:url value ="/" />resources/js/chat.js", function () {
+                        chat = new Chat(chat_server_host, client_ipaddress)
+
+                        $.get(
+                            chat_server_host + chat_connection_request_url + '?ip=' + client_ipaddress,
+                            {},
+                            function (data, status) {
+                                if (status == 'success') {
+                                    $.getScript("<c:url value ="/" />resources/js/real_time_client.js", function () {
+                                        // 웹 소켓 연결
+                                        websocket = new RealTimeClient(chat_server_host, chat);
+                                        websocket.init(chat_connection, data.realTimeToken)
+                                        websocket.subscribe('/chat/' + client_ipaddress)
+
+                                        // 로드 시점에 맞춰 기본 데이터 세팅 & 이벤트 부착
+                                        $(document).ready(
+                                            function() {
+                                                chat.addEventListeners()
+                                                chat.init()
+                                            }
+                                        )
+                                    })
+                                }
+                            }
+                        );
+                    });
+                }
+            )
+        }
+
+        startChat()
+
+
+    </script>
 
     <%-- 요청한 page 의 <head></head> 에 작성했던 내용이 온다 --%>
     <decorator:head />
@@ -47,7 +108,30 @@
             <%-- 요청한 page 의 <body></body> 에 작성했던 내용이 온다 --%>
             <decorator:body />
         </div>
-    </div>
 
+        <!-- 채팅 html -->
+        <div class="chat-container">
+            <div class="open-button">
+                <i class="bi bi-app"></i>
+            </div>
+
+            <div class="chat">
+                <div class="chat-title">
+                    <h1>Fabio Ottaviani</h1>
+                    <h2>Supah</h2>
+                    <figure class="avatar">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>
+                </div>
+                <div class="messages">
+                    <div class="messages-content"></div>
+                </div>
+                <div class="message-box">
+                    <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button type="submit" class="message-submit">Send</button>
+                </div>
+                <div class="bg"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

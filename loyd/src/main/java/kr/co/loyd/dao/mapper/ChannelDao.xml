@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.co.loyd.dao.ChannelDao">
+
+	<select id="findAll" parameterType="Map" resultType="kr.co.loyd.dto.ChannelDto">
+		select c.* from channel c order by create_at desc LIMIT #{size} offset #{offset}
+	</select>
+
+	<select id="countAll" resultType="int">
+		select count(*) from channel
+	</select>
+
+	<select id="findByChannelName" parameterType="String" resultType="kr.co.loyd.dto.ChannelDto">
+		select * from channel where channel_name = #{channel_name}
+	</select>
+
+	<select id="findByChannel" parameterType="int" resultType="kr.co.loyd.dto.ChannelDto">
+		select * from channel where channel_id = #{channel_id}
+	</select>
+
+	<select id="findByChannelNameAndClosedAtIsNull" parameterType="String" resultType="kr.co.loyd.dto.ChannelDto">
+		select * from channel where channel_name = #{channel_name} and closed_at is null
+	</select>
+
+	<select id="findAllWithClosedAtIsNull" resultType="kr.co.loyd.dto.ChannelDto">
+		select * from channel where closed_at is null
+	</select>
+
+	<insert id="create" parameterType="kr.co.loyd.dto.ChannelDto" useGeneratedKeys="true" keyProperty="channel_id">
+		insert into channel
+	 	(channel_name, create_at)
+		values(#{channel_name}, sysdate())
+	</insert>
+
+	<update id="deleteByChannelId" parameterType="int">
+		update channel
+		set closed_at = sysdate()
+		where channel_id = #{channel_id}
+	</update>
+
+	<update id="deleteByChannelNameAndCloseAtIsNotNull" parameterType="String">
+		update channel
+		set closed_at = sysdate()
+		where channel_name = #{channel_name} and closed_at is null
+	</update>
+
+</mapper>
