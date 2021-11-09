@@ -5,6 +5,9 @@
   <pattern>/mber/pwdfind</pattern>
   <pattern>/mber/emailfind</pattern>
   <pattern>/cart/change</pattern>
+  <pattern>/mber/emailfind_ok</pattern>
+  <pattern>/mber/pwdfind_ok</pattern>
+  <pattern>/reviews/content*</pattern>
  </excludes>
 
  <!-- 기본 패턴 -->

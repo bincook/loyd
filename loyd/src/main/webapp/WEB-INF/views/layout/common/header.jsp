@@ -70,7 +70,7 @@
       </c:if>
         
         <li class="nav-item ${reqUri == contextPath.concat("/sample") ? "active" : ""}">
-            <a href="<c:url value="/reviews/list" />" class="nav-link">reviews</a>
+            <a href="<c:url value="/reviews/list" />" class="nav-link">Reviews</a>
         </li>
         
         
@@ -89,7 +89,7 @@
         </c:if>
         <c:if test="${email!=null }">
         	<li class="nav-item ${reqUri.equals(contextPath.concat("/sign-in")) ? "active" : ""}">
-            <a href="<c:url value="/mber/logout" />" class="nav-link">logout</a>
+            <a href="<c:url value="/mber/logout" />" class="nav-link">Logout</a>
             </li>
         </c:if>
 
