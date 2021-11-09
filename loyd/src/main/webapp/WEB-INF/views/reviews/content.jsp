@@ -18,7 +18,27 @@
 	text-align: center;	
 
 }
+.target {
+	/* 한 줄 자르기 */
+	display: inline-block;
+	width: 450px;
 
+	white-space: nowrap;
+ 	overflow: auto; 
+	text-overflow: ellipsis;
+	
+	/* 여러 줄 자르기 추가 스타일*/
+	white-space: normal;
+	line-height: 1.2;
+	height:10em;
+	text-align: left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	
+	
+}
 </style>
 
 <script >
@@ -66,24 +86,24 @@ function moveTologin(){
 
 
 </head>
-<body onload='resizeWindow(this)'>
+<body>
 
 	<div align="center" id="content"><!-- style="display: inline-block"  -->
-		<table width="600" height="550" align="center" border="1" >
+		<table width="600" height="700" align="center" border="1" >
 
 			<tr>
 				<td colspan="3" align="center">
-					<img width="300" 
+					<img width="300" width="300" 
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
 				</td>
 			</tr>
 			<tr>
-				<td>작성일
+				<td align="center" height="10px">작성일
 					<p>${reviews.writeday }
 				</td>
-				<td colspan="2">구매한 시계
+				<td  align="center" colspan="2">구매한 시계
 					<p>${reviews.watch_id }
 				</td>
 			</tr>
@@ -95,52 +115,16 @@ function moveTologin(){
 					☆
 					</c:forEach>
 				</td>
-				<td colspan="2">작성자
-					<p>${reviews.name }
+				<td align="center" height="10px" colspan="2">작성자
+					<p>${reviews.mname }
 				</td>
 			</tr>
-			
-			
-			
 			<tr>
 			
-				<td width="200" colspan="2">
-					후기내용
-					
-
-					
-				<c:choose>
-					<c:when test="${fn:length(reviews.content) >50}">
-							<c:out value="${fn:substring(reviews.content,0,20)}"/><p>
-					</c:when>
-					<c:otherwise>
-							<c:out value="${reviews.content}" /> 
-					</c:otherwise>			
-				</c:choose>
-					
-					
-
-<%-- 					<p>${reviews.content } --%>
-					
-					
-				
-				
-				</td>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+				<td class="target" width="200" colspan="2">
+					후기내용<p>${reviews.content }
+				</td>			
 			</tr>
-			
-			<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
-
 			
 			<!-- 좋아요 기능 -->
 			<tr>
@@ -175,6 +159,7 @@ function moveTologin(){
 			
 		</table>	
 		<table>
+		<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
 			<tr>
 <%-- 				<c:if test="${memberId != null }" > --%>
 				<c:if test="${id == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
