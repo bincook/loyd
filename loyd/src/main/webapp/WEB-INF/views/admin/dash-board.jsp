@@ -39,7 +39,8 @@
  border:dotted 2px blue;
  border-radius:10px;
  display:inline;
- float:right;
+ position: absolute;
+ right: 150px;
  margin:0;
  padding:30px 30px 100px;
  width:300px;
@@ -72,7 +73,7 @@
 			<div class="card" style="width: 300px">
 				<div class="card-header">
 
-					<a href="/loyd/qna/list" class="stretched-link">QnA </a> <span>
+					<a href="#" class="stretched-link">QnA </a> <span>
 						최근 문의글 </span>
 				</div>
 				<div class="card-body">
@@ -99,9 +100,18 @@
 				<div class="card-body">
 					<table class="table">
 						<thead>
+						
+						
+						
 							<c:forEach items="${dash_listr}" var="list">
-								<tr>
-									<th>${list.content}</th>
+								<tr >
+									<th>
+									
+									
+										<div style="height:30px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 125px" >
+										${list.content}
+										</div>	
+									</th>
 									<th>${list.writeday}</th>
 								</tr>
 							</c:forEach>

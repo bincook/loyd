@@ -1,14 +1,18 @@
 package kr.co.loyd.dto;
-import javax.validation.constraints.NotEmpty;
+import java.util.regex.Pattern;
+
+import javax.validation.constraints.Email;
 public class QnaDto {
 
 	private long id;
-	private String secret;
+	private int secret;
 	private String title;
 	private String content;
+	
+	@Email(regexp = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$")
 	private String email;
-	@NotEmpty
-	private boolean emailChk;
+	
+	private Boolean emailChk;
 	private String pwd;
 	private String qnatype;
 	private String writeday;
@@ -34,11 +38,13 @@ public class QnaDto {
 		this.watch_id = watch_id;
 	}
 
-	public String getSecret() {
+	
+
+	public int getSecret() {
 		return secret;
 	}
 
-	public void setSecret(String secret) {
+	public void setSecret(int secret) {
 		this.secret = secret;
 	}
 
@@ -107,8 +113,5 @@ public class QnaDto {
 	public void setTotq(String totq) {
 		this.totq = totq;
 	}
-	
-	
-		
 	
 }

@@ -2,14 +2,19 @@ package kr.co.loyd.controller;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.UnexpectedTypeException;
+import javax.validation.Valid;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,9 +33,9 @@ public class QnaController {
 	private final String module = "/qna";
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String write( Model model, HttpServletRequest request, QnaDto dto,HttpSession session) {
+	public String write( Model model, HttpServletRequest request, QnaDto dto, HttpSession session) {
 		String email = (String) session.getAttribute("email");		
-	
+		
 		model.addAttribute("get_email", email);
 		model.addAttribute("dto", dto );
 		
@@ -59,7 +64,9 @@ public class QnaController {
 	}*/
 
 	@RequestMapping("insert_ok")
-	public String insert_ok(QnaDto qdto, HttpServletRequest request) {
+	public String insert_ok(@Valid QnaDto qdto, HttpServletRequest request) {
+
+			
 		QnaDao qdao = sqlSession.getMapper(QnaDao.class);
 		qdao.insert_ok(qdto);
 

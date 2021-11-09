@@ -1,40 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here2222</title>
+<title>QnA list</title>
+<style>
+body {
+	font-size: 14px;
+}
+
+#first #left, #first #right {
+	display: inline-block;
+}
+
+#first #right {
+	align: right;
+}
+
+.dote {
+	width: 150px;
+	border-bottom: 2px dotted pink;
+}
+
+</style>
 <script>
+	function choice(opt) {
+		opt;
+	}
+
 	function check() {
-		alert("회원만 이용가능합니다");
+
+		var checkedInput = $("input:checked")
+		if (checkedInput.val()) {
+			$('.secret').css('display', 'none')
+		} else {
+			$('.secret').css('display', 'initial')
+		}
 	}
 
-	function check2() {
-		alert("장바구니로 이동하였습니다");
+	function secret_view(target) {
+		target.children[0].style.display = "initial";
 	}
+	
+	function list_check(target, pwd) {
+		var password = target.value;
+	
+		if (password == pwd) {
+			target.parentElement.nextElementSibling.style.display = "initial";
+			alert(password);
+		}
+	}
+
 </script>
+
 </head>
-
 <body>
-	<script>
-		function choice(opt) {
-			opt;
-		}
-
-		function check() {
-
-			var checkedInput = $("input:checked")
-			if (checkedInput.val()) {
-				$('.secret').css('display', 'none')
-			} else {
-				$('.secret').css('display', 'initial')
-
-			}
-		}
-	</script>
-
 	<ul class="nav nav-tabs">
 		<li class="nav-item"><a
 			class="nav-link <%=request.getAttribute("nav_type") != "list" ? "active" : ""%>"
@@ -42,97 +65,29 @@
 		<li class="nav-item"><a
 			class="nav-link <%=request.getAttribute("nav_type") == "list" ? "active" : ""%>"
 			data-toggle="tab" href="#list">Q&A</a></li>
-
+		<li class="nav-item"><a class="nav-link" data-toggle="tab"
+			href="#zxc">채팅상담</a></li>
 	</ul>
-
-
-
-
 	<div class="tab-content">
 
 		<div
 			class="tab-pane fade  <%=request.getAttribute("nav_type") != "list" ? "show active" : ""%> "
 			id="detail">
-			<div class="container mt-5 text-center">
-				<table style="width: 1200px; height: 500px;"
-					class="table table-hover" align="center">
-					<tbody>
-						<tr>
-							<th scope="col">상품정보</th>
-
-							<c:if test="${dto.like2 ==0 }">
-								<th><a href="like?id=${dto.id}"><button id="like">♡</button></a></th>
-							</c:if>
-							<c:if test="${ dto.like2 >= 1}">
-								<th><a href="like2?id=${dto.id}"><button id="like">♥</button></a></th>
-							</c:if>
-						</tr>
-						<tr>
-							<td align="center">
-								<div>
-									<div class="d-inline-block mr-4">
-										<img src="${dto.picture }" width="400px">
-									</div>
-									<div class="d-inline-block">
-										<h3>${dto.name }</h3>
-										<h4>
-											<small>${dto.brand }</small>
-										</h4>
-										<br>
-										<h2>
-											<small>${String.format("%,d",dto.price) }원</small>
-										</h2>
-										<br>
-										<h4>
-											<small>${dto.category }/${dto.kind } </small>
-										</h4>
-									</div>
-								</div>
-							</td>
-						</tr>
-
-
-						<tr>
-
-							<td align="center"><c:forEach items="${dlist }" var="dto">
-									<div class="d-inline-block">
-										<img src="${dto.path }">
-									</div>
-								</c:forEach></td>
-
-						</tr>
-						<tr>
-							<td align="center"><c:if test="${email==null }">
-									<span>
-										<button onclick="check()">CART</button>
-										<button onclick="check()">BUY</button>
-									</span>
-								</c:if> <c:if test="${email!=null }">
-									<span> <a href="cart_go?id=${dto.id }"><button
-												onclick="check2()">CART</button></a> <a href="buy?id=${dto.id}"><button>BUY</button></a>
-									</span>
-								</c:if></td>
-						</tr>
-
-
-
-					</tbody>
-				</table>
-			</div>
+			<!-- include  상세 이미지   소스넣기 -->
+		   <%@ include file="detail.jsp"%> 
 		</div>
 
-
-	<div
+		<div
 			class="tab-pane fade <%=request.getAttribute("nav_type") == "list" ? "show active" : ""%>"
 			id="list">
 			<div class="form-group">
-				<a href="/loyd/qna/write?id=${dto.id }"><input class="btn btn-primary"
-					type="button" value="상품 문의하기"></a>
+				<a href="/loyd/qna/write?id=${dto.id}"><input class="btn btn-primary" type="button"	value="상품 문의하기"></a>
+				
 			</div>
 			<p>
 			<div id="first">
 				<div id="left">
-					<form name="qna">
+					<form name="qna" >
 						<input type="checkbox" name="secret" onclick="check()">
 						비밀글 제외
 				</div>
@@ -146,17 +101,26 @@
 						<option>기타</option>
 					</select>
 				</div>
-				</form>
+
 			</div>
 			<c:forEach items="${list}" var="list">
-
+			
 				<!--   <자물쇠 아이콘> -->
 				<!-- 	체크박스가 체크되면 안보이게 -->
-				<div id="ctn_show">
+				<div id="ctn_show" class="dote">
 					<c:if test="${list.secret == 1}">
-						<div class="secret">
-							${list.qnatype}비밀글<br> 내용 : ${list.content} <br>
+						<div class="secret"  onclick="secret_view(this)" >
+							<div id="secret_pwd" style="display: none" class="dote_box">
+								<!-- qna id값 -->														
+								<input type="password" name="password"
+									placeholder="문의당시 입력한 비밀번호에요^^" onkeyup="list_check(this, '${list.pwd}')" size="22">  </br>
+								<!--사용자가 방금 입력한 pwd를 함수로  -->
+								</form>
+							</div>
+							<div id="show_text" style="display: none">
+							${list.qnatype}비밀글<br> 내용 : ${list.content} <br></div>
 							${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
+						
 						</div>
 					</c:if>
 				</div>
@@ -167,13 +131,11 @@
 	  	내용 :  ${list.content} <br>
 	  	${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
 	</c:if>
-				<hr>
 			</c:forEach>
 
 			<!-- 현재 페이지 기준 이전 10페이지 이동 -->
 			<c:if test="${pstart !=1 }">
-				<a href="detail_order?page=${page-1}&nav_type=list&id=${dto.id}">
-					◀ </a>
+				<a href="detail_order?id=${dto.id}&page=${page-1}&nav_type=list"> ◀ </a>
 			</c:if>
 			<c:if test="${pstart == 1}">
     	◀
@@ -181,8 +143,7 @@
 
 			<!-- 현재페이지 이전 1페이지 이동 -->
 			<c:if test="${page != 1}">
-				<a href="detail_order?page=${page-1}&nav_type=list&id=${dto.id}">
-					< </a>
+				<a href="detail_order?id=${dto.id}&page=${page-1}&nav_type=list"> < </a>
 			</c:if>
 			<c:if test="${page == 1}">
 	 <
@@ -192,40 +153,28 @@
 			<c:forEach begin="${pstart}" end="${pend}" var="i">
 				<!-- 현재페이지 색은 다르게 => 빨강 -->
 				<c:if test="${page != i}">
-					<a href="detail_order?page=${i}&nav_type=list&id=${dto.id}">${i}</a>
+					<a href="detail_order?id=${dto.id}&page=${i}&nav_type=list">${i}</a>
 				</c:if>
 				<c:if test="${page == i}">
-					<a href="detail_order?page=${i}&nav_type=list&id=${dto.id}"
-						style="color: red">${i}</a>
+					<a href="detail_order?id=${dto.id}&page=${i}&nav_type=list" style="color: red">${i}</a>
 				</c:if>
 			</c:forEach>
 
 			<!-- 현재페이지 기준 다음1페이지 이동 -->
 			<c:if test="${page != page_cnt}">
-				<a href="detail_order?page=${page+1}&nav_type=list&id=${dto.id}">
-					> </a>
+				<a href="detail_order?id=${dto.id}&page=${page+1}&nav_type=list"> > </a>
 			</c:if>
 			<c:if test="${page == page_cnt}">
   	  >
   	</c:if>
-
 			<c:if test="${page_cnt != pend}">
-				<a href="detail_order?page=${pend+1}&nav_type=list&id=${dto.id}">
-					▶ </a>
+				<a href="detail_order?id=${dto.id}&page=${pend+1}&nav_type=list"> ▶ </a>
 			</c:if>
 			<c:if test="${page_cnt == pend}">
   	 ▶
   	 </c:if>
 
 		</div>
-
-
-	
-
 	</div>
-
-
-
-
 </body>
 </html>

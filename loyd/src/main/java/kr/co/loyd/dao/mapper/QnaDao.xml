@@ -9,11 +9,22 @@
 		values(#{watch_id}, #{content}, #{title},#{pwd},#{secret},#{qnatype},#{email},now())
 	</insert>
  
- 	<!--   Q&A 문의글 목록 (원래)  -->
+ 	
+ 	
+<!--  	 Q&A 문의글 목록 (원래) 
 	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
 		select pwd,qnatype,content,email,writeday,secret from qna 
-		order by secret desc, writeday desc limit #{param1},7
+		order by secret desc,writeday desc limit #{param1},7
+	</select> 
+ -->
+	 	<!--   Q&A 문의글 목록 (test)  -->
+	<select id="list" resultType="kr.co.loyd.dto.QnaDto">
+		select pwd,qnatype,content,email,writeday,secret 
+		from qna order by secret DESC, writeday DESC LIMIT 0,7
 	</select>
+	
+	
+	
 	 
 	<!--  Q&A 문의글 목록(페이징) -->
 	<select id="get_cnt" resultType="Integer">

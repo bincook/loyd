@@ -74,7 +74,6 @@ body {
 			class="tab-pane fade  <%=request.getAttribute("nav_type") != "list" ? "show active" : ""%> "
 			id="detail">
 			<!-- include  상세 이미지   소스넣기 -->
-			<%--   <%@include file="../loyd/order/detail_order.jsp"%> --%>
 		</div>
 
 		<div

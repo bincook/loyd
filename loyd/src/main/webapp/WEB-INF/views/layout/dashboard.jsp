@@ -12,8 +12,49 @@
         <%-- 요청한 page 의 <title></title> 에 작성했던 내용이 온다 --%>
         <decorator:title />
     </title>   
+    
+         <style>
+    
+      .menu {
+      background:pink;
+      width:100px;
+      list-style-type:none;
+      margin:0;
+      padding:0;
+      border-radius:10px;
+      position:fixed;
+      right: 0
+      }
+
+      .menu li a{
+      display:block;
+      color:#000000;
+      padding:8px;
+      text-align:center;
+      text-decoration:none;
+      font-weight:bold;
+      }
+      
+      .menu li a.current{
+      background:indypink;
+      color:white;
+      }
+      .menu li a:hover:not(.current){
+      background:indypink; 
+      color:white;
+      }
+      
+     </style>
 </head>
 <body>
+
+	<ul class="menu">
+	  <li><a href="/loyd/admin/dash-board">대시보드</a></li>
+	  <li><a href="/loyd/admin/member/list">회원관리</a></li>
+	  <li><a href="/loyd/admin/watch/upload">상품등록</a></li>
+	  <li><a href="/loyd/admin/watch/watch_list">상품목록</a></li>
+	  <li><a href="/loyd/channel/customer/chat">채팅상담</a></li>
+	</ul>
 
 
  <!-- 부트스트랩 -->
