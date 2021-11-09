@@ -39,7 +39,8 @@
  border:dotted 2px blue;
  border-radius:10px;
  display:inline;
- float:right;
+ position: absolute;
+ right: 150px;
  margin:0;
  padding:30px 30px 100px;
  width:300px;
@@ -72,7 +73,7 @@
 			<div class="card" style="width: 300px">
 				<div class="card-header">
 
-					<a href="/loyd/qna/list" class="stretched-link">QnA </a> <span>
+					<a href="#" class="stretched-link">QnA </a> <span>
 						최근 문의글 </span>
 				</div>
 				<div class="card-body">
@@ -99,9 +100,18 @@
 				<div class="card-body">
 					<table class="table">
 						<thead>
+						
+						
+						
 							<c:forEach items="${dash_listr}" var="list">
-								<tr>
-									<th>${list.content}</th>
+								<tr >
+									<th>
+									
+									
+										<div style="height:30px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 125px" >
+										${list.content}
+										</div>	
+									</th>
 									<th>${list.writeday}</th>
 								</tr>
 							</c:forEach>
@@ -131,18 +141,20 @@
 				</div>
 			</div>
 
-			<div class="card" style="width: 300px">
+			<div class="card" style="width: 500px">
 				<div class="card-header">
 
-					<a href="/loyd/order/product_list" class="stretched-link">order
+					<a href="/loyd/order/product_list" class="stretched-link">주문량 높은 회원
 					</a> <span> 최근 </span>
 				</div>
 				<div class="card-body">
 					<table class="table">
 						<thead>
 							<c:forEach items="${dash_listo}" var="list">
+							
 								<tr>
-									<th>${list.price}</th>
+									<th>${list.order_name } 님의 소비금액</th>
+									<th>${String.format("%,d",list.price)} 원</th>
 								</tr>
 							</c:forEach>
 						</thead>
@@ -197,7 +209,7 @@
 				labels : [
 					<c:forEach items="${orderc }" var="ic"  varStatus="i" >
 					"${ic.orderday }" <c:if test="${!i.last}">,</c:if>
-				</c:forEach>
+					</c:forEach>
 		
 				],
 				datasets : [ {

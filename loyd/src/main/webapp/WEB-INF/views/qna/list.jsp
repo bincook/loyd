@@ -74,7 +74,6 @@ body {
 			class="tab-pane fade  <%=request.getAttribute("nav_type") != "list" ? "show active" : ""%> "
 			id="detail">
 			<!-- include  상세 이미지   소스넣기 -->
-			<%--   <%@include file="../loyd/order/detail_order.jsp"%> --%>
 		</div>
 
 		<div
@@ -118,7 +117,9 @@ body {
 								</form>
 							</div>
 							<div id="show_text" style="display: none">
+							제목: ${list.title}<br>
 							${list.qnatype}비밀글<br> 내용 : ${list.content} <br></div>
+							${list.title}<br>
 							${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
 						
 						</div>
@@ -128,7 +129,9 @@ body {
 				<!--  <돋보기 아이콘> -->
 				<c:if test="${list.secret == 0}">
 	  	${list.qnatype}	  일반글  <br>
+	  	제목: ${list.title}<br>
 	  	내용 :  ${list.content} <br>
+	  		
 	  	${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
 	</c:if>
 			</c:forEach>

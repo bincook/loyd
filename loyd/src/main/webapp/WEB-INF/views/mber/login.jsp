@@ -44,6 +44,9 @@
 				 <a href="javascript:emailfind();">이메일찾기</a>
 				 <a href="javascript:pwdfind();">비밀번호찾기</a><p>
 				 <a href="join" style="align:center;">회원가입</a>
+				 
+				
+				 
 	 		</form>
  		</div>
  	</div>

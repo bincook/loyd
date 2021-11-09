@@ -195,7 +195,7 @@ public class AdminController {
 		int recod = (page - 1) * 7;
 
 		ArrayList<WatchDto> watch_list = wdao.watch_list(recod);
-		int pstart = page / 5;
+		int pstart = page / 10;
 		if (page % 10 == 0)
 			pstart = pstart - 1;
 		pstart = (pstart * 10) + 1;

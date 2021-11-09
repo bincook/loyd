@@ -59,13 +59,22 @@
 
 </style>
 <script>
-	function secret_qna() {
-		document.getElementById("secret_pwd").style.visibility = "visible";
+	function secret_qna(target) {
+		
+		if (target.value == 0) {
+			target.value = 1
+			document.getElementById("secret_pwd").style.visibility = "visible";
+		} else {
+			target.value = 0
+			document.getElementById("secret_pwd").style.visibility = "hidden";
+		}
+	
 	}
 	function answer() {
 		document.getElementById("answer_email").style.visibility = "visible";
 	}
 	function check() {
+		console.log('실행중')
 		var checkedInput = $("input:checked")
 		if (checkedInput.length < 1) {
 			document.getElementById("ctn_show").style.visibility = "hidden";
@@ -87,12 +96,24 @@
 			});
 		}
 	}
+	function check3() {
+		var checkedInput = $("input:checked")
+		if (checkedInput.length < 1) {
+			document.getElementById("ctn_show3").style.visibility = "hidden";
+		} else {
+			document.getElementById("ctn_show3").style.visibility = "visible";
+			document.getElementById("ctn_show4").style.visibility = "hidden"; 
+			$('#chkBox:checked').each(function() {
+				alert($(this).val());
+			});
+		}
+	}
 /* 	pwd 안내문구 */
 	function text(){
 		document.getElementById("text_view").style.visibility = "visible"; 		
 	}
 	
-/* 유효성검사하고싶은.. 	 */ 
+/* 유효성검사하고싶은.. 	 
 		 
 		 function check_email(){ 
 			 var chk=new XMLHttpRequest();
@@ -117,7 +138,7 @@
 			}
 		}
 }
-
+*/
 /* 	회원인 경우 라디오 체크 시 메일주소 세팅 */
  $(function(){
 	  $('input[type="radio"]').click(function(){
@@ -129,14 +150,41 @@
 	  });
 	});
 
+/* form 유효성 검사 */
+function chk6(){
+
+	var form  = document.qna;
+	
+	// 기본 이메일 
+	var email = form.email.value
+	
+	// 다른 이메일로 받기 체크
+	if ("${email}" && form.user_email.checked) {
+		email  = form.user_email2.value
+	}
+	
+	if (!$('input:radio:checked').length) {
+		alert('문의유형을 선택해주세요')
+	} else if(!form.title.value){
+		alert("제목을 써주세요.");
+	}else if(!form.content.value){
+		alert("내용을 써주세요");
+	} else if (email.indexOf('@')==-1){
+		alert('이메일 작성하지 않았거나 올바르지 않습니다')		
+	}else{
+		form.submit();
+	}
+}
+
+
 </script>
 </head>
 <body>
 
 	<div id=holder>
-		<form name="qna" method="post" action="insert_ok" onsubmit="return check_email()">
+		<form name="qna" method="post" action="insert_ok">
 
-			<input type="hidden" name="watch_id" value="${ dto.id }">			
+			<input type="hidden" name="watch_id" value="<%= request.getParameter("id") %>"/>	
 
 			<!--상품 상세의 id값  -->
 			<div id="first">
@@ -145,7 +193,7 @@
 				</div>
 				<div id="sub">문의내용 작성</div>
 				<div id="right" class="form-group">
-					<input class="btn btn-primary" type="submit" value="작성완료">
+					<input class="btn btn-primary" type="button"  id ="abcd" onclick = "chk6()" value="작성완료">
 
 				</div>
 			</div>
@@ -178,9 +226,9 @@
 			</div>
 
 			<tr height="50">
-				<div onclick="check()">
-					<input type="checkbox" name="secret" value="1"
-						onclick="secret_qna()">비밀글 문의
+				<div>
+					<input type="checkbox" name="secret" value="0"
+						onclick="secret_qna(this)">비밀글 문의
 					<p>
 					<div id="secret_pwd" style="visibility: hidden">
 
@@ -200,16 +248,16 @@
 			</tr>
 
 <div >
-<%-- 
+
 <c:if test="${email!=null}">			
-				<div class="form-group" ><a href="check"></a>
-			<input class="form-control" type="text" name="email" id="radyo" value="${email}" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
+				<div class="form-group" >
+			<input class="form-control" type="text" name="email" value="${email}" id="ctn_show4" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
 					<span class="mail_check"></span>	
 				</div>	
-					<input type="radio" name="user_email" value="0" id="radio_mail">등록된 이메일로 받기<p>	
-					<input class="form-control" type="text" name="user_email2"  placeholder="${email}" size="30" style="visibility: hidden"> <br>
+					<input type="checkbox" name="user_email" id="user_email" onclick="check3()">다른 이메일로 답변받기<p>	
+					<input class="form-control" type="text" name="user_email2" id="ctn_show3" placeholder="답변받을 email주소를 입력해주세요" size="30" style="visibility: hidden"> <br>
 </c:if>		
- 		--%>
+ <%-- 	
  <c:if test="${email!=null}">			
 				<div class="form-group" ><a href="check"></a>
 			<input class="form-control" type="text" name="email" id="no" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
@@ -217,22 +265,24 @@
 				</div>	
 					<input type="radio" name="user_email" value="0" id="radio_mail">등록된 이메일로 받기<p>	
 					<input class="form-control" type="text" name="user_email2" id="yes" placeholder="${email}" size="30" style="display:none"> <br>
-</c:if>		
+</c:if>	
+--%>	
 <c:if test="${email==null}">		
 			<div class="form-group" ><a href="check"></a>
-			<input class="form-control" type="text" name="email" placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
+			<input class="form-control" type="text" name="email" placeholder="답변받을 email주소를 입력해주세요"  id ="ctn_show10" size="30" ><br>
 					<span class="mail_check"></span>	 
 				</div>	
 </c:if>	
+
 </div>
 			
 			<div onclick="check2()">
-					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 email로 알림받기
+					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 카톡으로 알림받기
 				<div id="answer_email" style="visibility: hidden">
 					<div id="ctn_show2">
 						<div class="form-group">
-							<input class="form-control" type="text" name="email"
-								placeholder="알림받을  email주소를 입력해주세요" size="30">
+							<input class="form-control" type="text" name="email2"
+								placeholder="알림받을  카톡id 또는 전화번호를 입력해주세요" size="30">
 						</div>
 					</div>
 				</div>
