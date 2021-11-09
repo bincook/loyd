@@ -287,7 +287,7 @@ a:hover {
 					</div>
 					<div id="button">
 						<div class="form-group">
-		 					<a class="btn btn-primary" href="../qna/write" onclick="enquiry()"> 문의 작성하러가기</a>
+		 					<a class="btn btn-primary" href="../qna/list" onclick="enquiry()"> 문의 작성하러가기</a>
 						</div>
 					</div>
 				</div>

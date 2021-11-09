@@ -121,7 +121,8 @@
 			</div>
 		</div>
 
-		<div
+
+	<div
 			class="tab-pane fade <%=request.getAttribute("nav_type") == "list" ? "show active" : ""%>"
 			id="list">
 			<div class="form-group">
@@ -219,7 +220,7 @@
 		</div>
 
 
-		<div class="tab-pane fade" id="zxc"></div>
+	
 
 	</div>
 

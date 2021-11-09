@@ -1,5 +1,6 @@
 package kr.co.loyd.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.loyd.dao.MberDao;
 import kr.co.loyd.dao.QnaDao;
 import kr.co.loyd.dto.QnaDto;
 import kr.co.loyd.dto.WatchDto;
@@ -26,12 +28,35 @@ public class QnaController {
 	private final String module = "/qna";
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String write( Model model, HttpServletRequest request, QnaDto dto) {
-
+	public String write( Model model, HttpServletRequest request, QnaDto dto,HttpSession session) {
+		String email = (String) session.getAttribute("email");		
+	
+		model.addAttribute("get_email", email);
 		model.addAttribute("dto", dto );
 		
-		return "qna/write";
+		return "/qna/write";
 	}
+	
+/*	
+	@RequestMapping("/check")
+	public void check(PrintWriter out ,HttpServletRequest request) {
+		
+		String email = request.getParameter("email");
+		MberDao mdao=sqlSession.getMapper(MberDao.class);
+		int chk = mdao.get_check(email);
+			if(chk==0)
+			{
+				mdao.get_check(email);
+				return "/qna/list";
+			}
+		out.print(chk);
+	}
+	*/
+/*
+	@RequestMapping(value="/valid",method=RequestMethod.POST)
+	public ResponseEntity email(@RequestBody @Valid Email email) {
+		
+	}*/
 
 	@RequestMapping("insert_ok")
 	public String insert_ok(QnaDto qdto, HttpServletRequest request) {
@@ -89,7 +114,7 @@ public class QnaController {
 			model.addAttribute("nav_type", "");
 		}
 
-		return "/qna/list";
+		return "/list&page="+page;
 
 	}
 }

@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,7 +52,9 @@
 	
 	.dot {
 		border: 3px dotted #FFD9EC;
-
+	}
+	.word{
+	word-spacing:10px;
 	}
 
 </style>
@@ -86,22 +89,59 @@
 	}
 /* 	pwd 안내문구 */
 	function text(){
-		document.getElementById("text_view").style.visibility = "visible"; 
-		
+		document.getElementById("text_view").style.visibility = "visible"; 		
 	}
+	
+/* 유효성검사하고싶은.. 	 */ 
+		 
+		 function check_email(){ 
+			 var chk=new XMLHttpRequest();
+			 var radio=document.qna.user_id.value; // email
+		 	chk.open("get","/mber/check?email="+email); //mbercontroller에서 email check!
+		 	chk.send();	
+			chk.onreadystatechange= function()
+			{
+			if(chk.readyState==4)
+				{
+				alert(chk.responseText);
+				if(chk.responseText==1)
+					{
+					alert(" 유")
+					document.getElementById("text_view").InnerText="";
+					}
+				else
+					{
+					alert("없어요")					
+					}
+				}
+			}
+		}
+}
+
+/* 	회원인 경우 라디오 체크 시 메일주소 세팅 */
+ $(function(){
+	  $('input[type="radio"]').click(function(){
+	    if ($(this).is(':checked'))
+	    {   	
+			document.getElementById("yes").style.display = "table-row";
+			document.getElementById("no").style.display = "none";
+	    }
+	  });
+	});
+
 </script>
 </head>
 <body>
 
 	<div id=holder>
-		<form method="post" action="insert_ok">
+		<form name="qna" method="post" action="insert_ok" onsubmit="return check_email()">
 
 			<input type="hidden" name="watch_id" value="${ dto.id }">			
 
 			<!--상품 상세의 id값  -->
 			<div id="first">
 				<div id="left">
-					<input class="btn btn-outline-secondary" type="reset" value="수정취소">
+					<input class="btn btn-outline-secondary" type="reset" value="작성취소">
 				</div>
 				<div id="sub">문의내용 작성</div>
 				<div id="right" class="form-group">
@@ -140,7 +180,7 @@
 			<tr height="50">
 				<div onclick="check()">
 					<input type="checkbox" name="secret" value="1"
-						onclick="secret_qna()">비밀글로 문의하기
+						onclick="secret_qna()">비밀글 문의
 					<p>
 					<div id="secret_pwd" style="visibility: hidden">
 
@@ -157,17 +197,37 @@
 					</div>
 					<p>
 				</div>
-
 			</tr>
-				<div class="form-group">
-								<input class="form-control" type="text" name="email"
-									placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
-				</div>
+
+<div >
+<%-- 
+<c:if test="${email!=null}">			
+				<div class="form-group" ><a href="check"></a>
+			<input class="form-control" type="text" name="email" id="radyo" value="${email}" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
+					<span class="mail_check"></span>	
+				</div>	
+					<input type="radio" name="user_email" value="0" id="radio_mail">등록된 이메일로 받기<p>	
+					<input class="form-control" type="text" name="user_email2"  placeholder="${email}" size="30" style="visibility: hidden"> <br>
+</c:if>		
+ 		--%>
+ <c:if test="${email!=null}">			
+				<div class="form-group" ><a href="check"></a>
+			<input class="form-control" type="text" name="email" id="no" placeholder="답변받을 email주소를 입력해주세요" size="30"> <br>
+					<span class="mail_check"></span>	
+				</div>	
+					<input type="radio" name="user_email" value="0" id="radio_mail">등록된 이메일로 받기<p>	
+					<input class="form-control" type="text" name="user_email2" id="yes" placeholder="${email}" size="30" style="display:none"> <br>
+</c:if>		
+<c:if test="${email==null}">		
+			<div class="form-group" ><a href="check"></a>
+			<input class="form-control" type="text" name="email" placeholder="답변받을 email주소를 입력해주세요" size="30"><br>
+					<span class="mail_check"></span>	 
+				</div>	
+</c:if>	
+</div>
+			
 			<div onclick="check2()">
-				답변완료시 알림받으시겠어요?
-				<p>
-					<input type="checkbox" name="emailChk" onclick="answer()">email로
-					알림받기
+					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 email로 알림받기
 				<div id="answer_email" style="visibility: hidden">
 					<div id="ctn_show2">
 						<div class="form-group">

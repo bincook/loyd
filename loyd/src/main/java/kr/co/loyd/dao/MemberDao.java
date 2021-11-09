@@ -29,5 +29,7 @@ public interface MemberDao {
 	
 	/** 대시보드 그래프 : 총 회원 수*/
 	public String tot();
+	
+	public String get_email();
 
 }
