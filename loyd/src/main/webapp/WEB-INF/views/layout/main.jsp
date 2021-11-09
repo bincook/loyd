@@ -126,31 +126,17 @@
                     <div class="messages-content"></div>
                 </div>
                 <div class="message-box">
-                    <textarea onkeyup="game(this)" type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <div contenteditable="true" data-content-editable-leaf="true" onkeyup="game(this)" type="text" class="message-input" placeholder="Type message..."></div>
                     <button id="btn" type="submit" class="message-submit">Send</button>
                 </div>
                 <div class="bg"></div>
             </div>
         </div>
     </div>
-    http://localhost/loyd/213.
     <script>
     function game(target) {
-    	
 
-    		console.log(target.value.match("@"))
-        	if (target.value.match("@")) {
 
-            	navigator.clipboard.readText().then(data => {
-            		if (!data.match(/png|jpg|jpeg/)) {
-            			target.value = target.value.replace('@', '')
-            			return alert('올바르지 않은 주소입니다')
-            		}    
-            		target.value = target.value.replace('@','<p class="mt-3"><img width="259" height="194" src="' + data + '"/></p>')
-        			target.value = target.value.replace(';','')
-        			$('#btn').click()
-            	})
-        	}
     	
     }
     </script>

@@ -168,7 +168,7 @@ function Chat(api_host_url, id, isAdmin) {
     this.insertMessage = () => {
         let msgElement = document.querySelector('.message-input')
 
-        if (msgElement.value == null || msgElement.value == '')
+        if (msgElement.innerHTML == null || msgElement.innerHTML == '')
             return
 
         if (!isAdmin) {
@@ -177,11 +177,11 @@ function Chat(api_host_url, id, isAdmin) {
                 url: api_host_url + 'channel/' + id + '/chat',
                 data: {
                     creater: id,
-                    content: msgElement.value,
+                    content: msgElement.innerHTML,
                     is_admin: 'N'
                 }
             }).then((response) => {
-                msgElement.value = ''
+                msgElement.innerHTML = ''
                 this.updateScrollbar();
                 return
             }).catch(error => {
@@ -199,11 +199,11 @@ function Chat(api_host_url, id, isAdmin) {
                 url: api_host_url + 'channel/id/' + id + '/chat',
                 data: {
                     creater: id,
-                    content: msgElement.value,
+                    content: msgElement.innerHTML,
                     is_admin: 'Y'
                 }
             }).then((response) => {
-                msgElement.value = ''
+                msgElement.innerHTML = ''
                 this.updateScrollbar();
                 return
             }).catch(error => {
@@ -338,13 +338,68 @@ function Chat(api_host_url, id, isAdmin) {
         let submitButton = document.querySelector('.message-submit')
         submitButton.addEventListener('click', closer.insertMessage)
         let messageInput = document.querySelector('.message-input')
-        messageInput.addEventListener('keyup', event => {
+        messageInput.addEventListener('keypress', event => {
             let key = event.key || event.keyCode
-            if (key === 'Enter' || key === 13) {
+            if ((key === 'Enter' || key === 13) && event.shiftKey === false) {
+                event.preventDefault();
                 closer.insertMessage()
                 closer.updateScrollbar()
+                messageInput.innerText = ''
             }
         })
+        messageInput.addEventListener('paste', event => {
+            let obj = (event.clipboardData || window.clipboardData)
+            console.log('typpe-> ' ,obj.items[0].type)
+            let paste = obj.getData('text');
+            console.log(obj)
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return false;
+            selection.deleteFromDocument();
+
+            // selection.getRangeAt(0).insertNode(document.createTextNode( paste ));
+            // e.preventDefault()
+        });
+
+        var ctrlDown = false,
+            ctrlKey = 17,
+            cmdKey = 91,
+            vKey = 86,
+            cKey = 67,
+            eKey = 13;
+
+        // $(messageInput)
+        // .keyup(function(e) {
+        //     let target = e.target
+        //     if (target.innerText.match("@")) {
+        //
+        //         navigator.clipboard.readText().then(data => {
+        //             if (!data.match(/png|jpg|jpeg/)) {
+        //                 target.innerHTML = target.innerHTML.replace('@', '')
+        //                 return alert('올바르지 않은 주소입니다')
+        //             }
+        //             target.innerHTML = target.innerHTML.replace('@', '<p class="mt-3">""<img width="259" height="194" src="' + data + '"/></p>')
+        //             // $('#btn').click()
+        //         })
+        //     }
+        // });
+
+
+        // $(messageInput)
+        // .keydown(function(e) {
+        //     if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+        // }).keyup(function(e) {
+        //     if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+        // });
+        //
+        // $(messageInput).keydown(function(e) {
+        //     if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
+        // });
+        //
+        // // Document Ctrl + C/V
+        // $(messageInput).keydown(function(e) {
+        //     if (ctrlDown && (e.keyCode == cKey)) console.log("Document catch Ctrl+C");
+        //     if (ctrlDown && (e.keyCode == vKey))    console.log("Document catch Ctrl+V");
+        // });
     }
 
     // 이벤트 제거

@@ -99,7 +99,6 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-
 .messages-content::-webkit-scrollbar {
     width: 10px;
 }
@@ -162,6 +161,11 @@
     background: linear-gradient(120deg, #248a52, #257287);
     border-radius: 10px 10px 0 10px;
 }
+.messages .message.message-personal img {
+    width: 259px;
+    height: 194px;
+}
+
 .messages .message.message-personal::before {
     left: auto;
     right: 0;
@@ -177,6 +181,9 @@
     transform: scale(0);
     transform-origin: 0 0;
     animation: bounce 500ms linear both;
+}
+.new {
+    padding-top: 44px !important;
 }
 .messages .message.loading::before {
     position: absolute;
@@ -252,9 +259,16 @@
     font-size: 11px;
     height: 17px;
     margin: 0;
-    padding-right: 20px;
+    padding-right: 30px;
     width: 265px;
 }
+
+.message-box .message-input img  {
+    width: 50px;
+    height: 50px;
+}
+
+
 .message-box textarea:focus:-webkit-placeholder {
     color: transparent;
 }
