@@ -66,12 +66,13 @@
 </head>
 <body>
 <div id="whole">
-  <header><h1>관리자 상품 상세</h1></header>
+  <header><h1>관리자 상품 수정</h1></header>
+  	<form method="post" action="update_ok" enctype="multipart/form-data">
    <table>
    
     <tr>
 	  <td class="p-4">
-		<form method="post" action="update_ok" enctype="multipart/form-data">
+	
 		<input type="hidden" name="id" value="${wdto.id}" /> 
 		 <td>
 			<div id="imgArea" class="form-group">			
@@ -129,10 +130,11 @@
 			<input class="btn" style="background-color:#FCFF71;" type="submit" value="수정완료">
 		</div>
 			</td>  
-		 </form>
+	
 	   </td> 
 	 </tr>
    </table>   
+   	 </form>
  </div>
 </body>
 </html>

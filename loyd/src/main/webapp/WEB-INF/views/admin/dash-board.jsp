@@ -45,6 +45,10 @@
  padding:30px 30px 100px;
  width:300px;
  }
+ 
+ .card tr th:nth-child(1) {
+	vertical-align: middle
+}
 
 </style>
 </head>
@@ -63,7 +67,9 @@
 			<div style="width:400px" class="second">
 				<canvas Id="myChart"></canvas>		
 			</div>
-			<div style="width:500px"  class="second" >
+			<div style="width:500px; margin-left: 200px"  class="second" >
+			
+			
 				<canvas Id="myChart2"></canvas>
 			</div>
 		</div>
@@ -81,7 +87,12 @@
 						<thead>
 							<c:forEach items="${dash_listq}" var="list">
 								<tr>
-									<th>${list.content}</th>
+									<th>
+ 										<div  style="height:30px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width: 125px">									
+										${list.content}
+										</div>
+									</th>
+									
 									<th>${list.writeday}</th>
 								</tr>
 							</c:forEach>
@@ -121,7 +132,7 @@
 			</div>
 
 
-			<div class="card" style="width: 300px">
+			<div class="card" style="width: 520px">
 				<div class="card-header">
 
 					<a href="/loyd/cart/list" class="stretched-link">cart </a> <span>
@@ -132,8 +143,8 @@
 						<thead>
 							<c:forEach items="${dash_listc}" var="list">
 								<tr>
-									<th>${list.created_at}</th>
-									<th>${list.email}</th>
+									<th style="width: 120px">${list.brand}</th>
+									<th>${list.name}</th>
 								</tr>
 							</c:forEach>
 						</thead>
@@ -213,7 +224,7 @@
 		
 				],
 				datasets : [ {
-					label : '# of Votes',
+					label : '올 해 판매량',
 					data : [
 						<c:forEach items="${orderc }" var="ic"  varStatus="i">
 						${ic.c } <c:if test="${!i.last}">,</c:if>

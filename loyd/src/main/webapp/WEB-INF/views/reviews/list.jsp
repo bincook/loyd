@@ -72,7 +72,7 @@ window.onload=function() {
 
 // 윈도우 content로 이동하기
 function open_content (review_id) {
-	var window2 = window.open('readnum?review_id='+review_id, '','width=700,height=900') // 모달 다이얼로그
+	var window2 = window.open('readnum?review_id='+review_id, '','width=1100,height=900') // 모달 다이얼로그
 } 
 
 
@@ -233,9 +233,8 @@ function resizeWindow(win)    {
 			<tr>
 				<!-- 로그인 했을때 -->
 		  		<c:if test="${id != null }" >
-			  		<td><a class="btn btn-primary" href="write">리뷰 작성하기</a></td>
 	  				
-	  				<td height="100px" style=padding-top:15px;>					
+	  				<td height="100px" align="center">					
 				    	<form name="search" method="post" action="list">		    	
 				    		<select name="field">
 				    			<!-- 나중에 마이페이지 주문내역목록 ( watch_id ) -> 받아서 

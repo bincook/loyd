@@ -151,14 +151,17 @@ a:hover {
 	text-align: start;
 }
 
-#right-content #content-wishlist #wishlist-itembox #wishlist-col-numb {width: 10%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-numb {width: 8%;line-height: auto;}
 #right-content #content-wishlist #wishlist-itembox #wishlist-col-item {width: 50%}
 #right-content #content-wishlist #wishlist-itembox #wishlist-col-pric {width: 20%;line-height: auto;}
-#right-content #content-wishlist #wishlist-itembox #wishlist-col-date {width: 20%;line-height: auto;}
-#right-content #content-wishlist #wishlist-itembox #wishlist-view-numb {width: 10%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-date {width: 15%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-col-qna {width: 10%;line-height: auto;}
+
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-numb {width: 8%;line-height: auto;}
 #right-content #content-wishlist #wishlist-itembox #wishlist-view-item {width: 50%}
 #right-content #content-wishlist #wishlist-itembox #wishlist-view-pric {width: 20%;line-height: auto;}
-#right-content #content-wishlist #wishlist-itembox #wishlist-view-date {width: 20%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-date {width: 15%;line-height: auto;}
+#right-content #content-wishlist #wishlist-itembox #wishlist-view-qna {width: 10%;line-height: auto;}
 
 #right-content #paging {
 	margin: auto;
@@ -269,6 +272,8 @@ a:hover {
 							<div id="wishlist-col-item"> 상품명</div>
 							<div id="wishlist-col-pric"> 가격</div>
 							<div id="wishlist-col-date"> 날짜</div>
+							<div id="wishlist-col-qna"> 문의</div>
+							
 						</div>
 						
 						<c:forEach items="${wishlist }" var="wish">
@@ -283,12 +288,11 @@ a:hover {
 									<fmt:formatNumber value="${wish.price }" pattern="#,###" />원 								</div>
 								<div id="wishlist-view-date"> ${wish.datetime }</div>
 
-								<div id="wishlist-view-enquiry"> 
-									<a href="../qna/write?watch_id=${wish.watch_id }">
+								<div id="wishlist-view-qna"> 
+									<a href="../qna/write?id=${wish.watch_id }">
 										문의보내기
 									</a>
 								</div>
-								
 							</div>
 						</c:forEach>
 					</div>

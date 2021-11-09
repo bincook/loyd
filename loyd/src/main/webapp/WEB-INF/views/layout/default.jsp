@@ -10,7 +10,7 @@
         <%-- 요청한 page 의 <title></title> 에 작성했던 내용이 온다 --%>
         <decorator:title />
     </title>
-
+<link rel="icon" href="<c:url value="/resources/favicon.png" />" type="image/x-icon">
     <!-- 사이트 메시 요약 블로그 https://cofs.tistory.com/273 -->
 
     <!-- 파비콘 -->

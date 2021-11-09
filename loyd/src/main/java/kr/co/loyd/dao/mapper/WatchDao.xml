@@ -50,10 +50,10 @@
     </select>   
 
 	
-	<insert id="update_ok" parameterType="kr.co.loyd.dto.WatchDto">
+	<update id="update_ok" parameterType="kr.co.loyd.dto.WatchDto">
 		update watch set name=#{name},brand=#{brand},price=#{price},category=#{category},
-		content=#{content},discount=#{discount},picture=#{picture},kind=#{kind} where id=#{id}
-    </insert>
+		content=#{content},discount=#{discount}<if test="picture != null">,picture=#{picture}</if>,kind=#{kind} where id=#{id}
+    </update>
 
 	
 	

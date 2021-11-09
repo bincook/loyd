@@ -72,27 +72,6 @@
 		select ceil (count(*)/10) from reviews where ${param1} like concat('%', #{param2} ,'%')				
 	</select>
 	
-	<!-- 검색기능 -->
-	<select id="list2" resultType="kr.co.loyd.dto.ReviewsDto">
-
-
-		SELECT r.*, m.id, m.name AS mname, af.*,
-		(select count(*) from `like` l where l.review_id = r.review_id) `like`
-		
-		from reviews  r
-		LEFT JOIN add_file af
-
-		ON r.file_id = af.id 
-
-		LEFT JOIN member m
-		ON r.member_id = m.id
-
-
-		where r.${param1} like concat('%', #{param2}, '%')
-		order by review_id DESC
-		limit
-		#{param3}, 10
-	</select>
 
 	<select id="content" resultType="kr.co.loyd.dto.ReviewsDto">
 

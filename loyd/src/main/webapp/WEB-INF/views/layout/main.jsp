@@ -10,7 +10,7 @@
         <%-- 요청한 page 의 <title></title> 에 작성했던 내용이 온다 --%>
         <decorator:title />
     </title>
-
+<link rel="icon" href="<c:url value="/resources/favicon.png" />" type="image/x-icon">
     <!-- 사이트 메시 요약 블로그 https://cofs.tistory.com/273 -->
 
     <!-- 파비콘 -->
@@ -126,12 +126,33 @@
                     <div class="messages-content"></div>
                 </div>
                 <div class="message-box">
-                    <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
-                    <button type="submit" class="message-submit">Send</button>
+                    <textarea onkeyup="game(this)" type="text" class="message-input" placeholder="Type message..."></textarea>
+                    <button id="btn" type="submit" class="message-submit">Send</button>
                 </div>
                 <div class="bg"></div>
             </div>
         </div>
     </div>
+    http://localhost/loyd/213.
+    <script>
+    function game(target) {
+    	
+
+    		console.log(target.value.match("@"))
+        	if (target.value.match("@")) {
+
+            	navigator.clipboard.readText().then(data => {
+            		if (!data.match(/png|jpg|jpeg/)) {
+            			target.value = target.value.replace('@', '')
+            			return alert('올바르지 않은 주소입니다')
+            		}    
+            		target.value = target.value.replace('@','<p class="mt-3"><img width="259" height="194" src="' + data + '"/></p>')
+        			target.value = target.value.replace(';','')
+        			$('#btn').click()
+            	})
+        	}
+    	
+    }
+    </script>
 </body>
 </html>

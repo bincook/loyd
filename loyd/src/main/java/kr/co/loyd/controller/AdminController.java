@@ -257,7 +257,7 @@ public class AdminController {
 		String imgPath = "resources/img";
 		String path = request.getRealPath(imgPath);
 		MultipartFile multipartFile = request.getFile("picture");
-
+		WatchDto wdto = new WatchDto();
 		// 파일이 있는 경우
 		if (!multipartFile.isEmpty()) {
 			File file = new File(path, multipartFile.getOriginalFilename()); // 파일명
@@ -271,26 +271,23 @@ public class AdminController {
 			// String fileName = multi.getFilesystemName("picture");
 			// System.out.println("fileName" + fileName);
 		
-			WatchDto wdto = new WatchDto();
+			wdto.setPicture(imgPath + "/" + fileName);
+		}
+		
+			String idStr = request.getParameter("id");
+			wdto.setId(Integer.parseInt(idStr));
 			wdto.setName(request.getParameter("name"));
 			wdto.setBrand(request.getParameter("brand"));
 			wdto.setPrice(Integer.parseInt(request.getParameter("price")));
 			wdto.setCategory(request.getParameter("category"));
 			wdto.setContent(request.getParameter("content"));
 			wdto.setDiscount(Double.parseDouble(request.getParameter("discount")));
-			wdto.setPicture(imgPath + "/" + fileName);
 			wdto.setKind(request.getParameter("kind"));
 
 			WatchDao wdao = sqlSession.getMapper(WatchDao.class);
-			wdao.update_ok(wdto);				
-		}
-		 else {
-				String encodeResult = URLEncoder.encode("첨부파일을 등록해주세요", "utf-8");
-
-				return "redirect:/admin/watch/content?id=" + id + "&error=" + encodeResult;
-			}
-
-
+			wdao.update_ok(wdto);			
+			
+			
 		return "redirect:/admin/watch/watch_list";
 	}
 

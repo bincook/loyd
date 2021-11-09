@@ -282,18 +282,12 @@ a:hover {
 								<div id="enquiry-view-date"> ${enquiry.writeday }
 									<%-- <fmt:formatDate pattern="yyyy-MM-dd" type="both" value="${enquiry.writeday }"/>  --%>
 								</div>
-								<div id="enquiry-view-date"> ${enquiry.writeday }
-								 <a href="../reviews/write?watch_id=${enquiry.watch_id }">확인</a>
-									<%-- <fmt:formatDate pattern="yyyy-MM-dd" type="both" value="${enquiry.writeday }"/>  --%>
-								</div>
+								
 							</div>
 						</c:forEach>
 					</div>
-					<div id="button">
-						<div class="form-group">
-		 					<a class="btn btn-primary" href="/loyd/order/detail_order?nav_type=list&id=660" onclick="enquiry()"> 문의 작성하러가기</a>
-						</div>
-					</div>
+					
+					
 				</div>
 			</div>
 		</div>

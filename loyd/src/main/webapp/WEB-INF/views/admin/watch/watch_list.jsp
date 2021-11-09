@@ -182,7 +182,7 @@
 				<tr>
 					<td colspan="10" align="center">
 						<!-- 현재 페이지 기준 이전 10페이지 이동 --> <c:if test="${pstart !=1 }">
-							<a href="wwatch_list?page=${page-1}"> ◀ </a>
+							<a href="watch_list?page=${pstart-1}"> ◀ </a>
 						</c:if> <c:if test="${pstart == 1}">
     	◀
    </c:if> <!-- 현재페이지 이전 1페이지 이동 --> <c:if test="${page != 1}">

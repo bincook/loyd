@@ -98,8 +98,7 @@
 
 	<!-- 대시보드에 cart 최근 5개 목록 조회  -->
 	<select id="dash_listc" resultType="kr.co.loyd.dto.CartDto">
-	 	<![CDATA[select email,created_at from cart order by id desc limit 0,5]]>  
-		<!-- select email,created_at from cart  -->
+	 	select name, brand, email,created_at from cart c JOIN watch w ON c.watch_id = w.id  order BY c.id desc limit 0,5  
 	</select>
 
 

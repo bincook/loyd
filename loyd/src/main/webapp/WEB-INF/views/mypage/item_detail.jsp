@@ -98,7 +98,7 @@
 	background: #133c2b;
 }
 
-#histort-back {
+#historyback {
 	padding-top: 20px;
 	text-align: center;
 }
