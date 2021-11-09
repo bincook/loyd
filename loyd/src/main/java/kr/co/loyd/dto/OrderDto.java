@@ -3,7 +3,7 @@ package kr.co.loyd.dto;
 public class OrderDto {
 
 	private int id,price,discount,order_no ,like2;
-	private String name,brand,category,content,picture,kind;
+	private String name,brand,category,content,picture,kind,order_name;
 	
 	private int member_id, watch_id,chong,all_price;
 	private String orderday;
@@ -16,6 +16,12 @@ public class OrderDto {
 	
 
 	
+	public String getOrder_name() {
+		return order_name;
+	}
+	public void setOrder_name(String order_name) {
+		this.order_name = order_name;
+	}
 	public int getLike2() {
 		return like2;
 	}

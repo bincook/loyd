@@ -141,18 +141,20 @@
 				</div>
 			</div>
 
-			<div class="card" style="width: 300px">
+			<div class="card" style="width: 500px">
 				<div class="card-header">
 
-					<a href="/loyd/order/product_list" class="stretched-link">order
+					<a href="/loyd/order/product_list" class="stretched-link">주문량 높은 회원
 					</a> <span> 최근 </span>
 				</div>
 				<div class="card-body">
 					<table class="table">
 						<thead>
 							<c:forEach items="${dash_listo}" var="list">
+							
 								<tr>
-									<th>${list.price}</th>
+									<th>${list.order_name } 님의 소비금액</th>
+									<th>${String.format("%,d",list.price)} 원</th>
 								</tr>
 							</c:forEach>
 						</thead>
@@ -207,7 +209,7 @@
 				labels : [
 					<c:forEach items="${orderc }" var="ic"  varStatus="i" >
 					"${ic.orderday }" <c:if test="${!i.last}">,</c:if>
-				</c:forEach>
+					</c:forEach>
 		
 				],
 				datasets : [ {

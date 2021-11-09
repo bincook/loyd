@@ -98,8 +98,8 @@ public class QnaController {
 
 		int recod = (page - 1) * 7;
 
-		ArrayList<QnaDto> list = qdao.list(recod);
-		int pstart = page / 5;
+		
+		int pstart = page / 10;
 		if (page % 10 == 0)
 			pstart = pstart - 1;
 		pstart = (pstart * 10) + 1;
@@ -108,7 +108,7 @@ public class QnaController {
 		int page_cnt = qdao.get_cnt();
 		if (pend > page_cnt)
 			pend = page_cnt;
-
+		ArrayList<QnaDto> list = qdao.list(recod);
 		model.addAttribute("pstart", pstart);
 		model.addAttribute("pend", pend);
 		model.addAttribute("page_cnt", page_cnt);

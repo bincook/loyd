@@ -59,13 +59,22 @@
 
 </style>
 <script>
-	function secret_qna() {
-		document.getElementById("secret_pwd").style.visibility = "visible";
+	function secret_qna(target) {
+		
+		if (target.value == 0) {
+			target.value = 1
+			document.getElementById("secret_pwd").style.visibility = "visible";
+		} else {
+			target.value = 0
+			document.getElementById("secret_pwd").style.visibility = "hidden";
+		}
+	
 	}
 	function answer() {
 		document.getElementById("answer_email").style.visibility = "visible";
 	}
 	function check() {
+		console.log('실행중')
 		var checkedInput = $("input:checked")
 		if (checkedInput.length < 1) {
 			document.getElementById("ctn_show").style.visibility = "hidden";
@@ -141,7 +150,31 @@
 	  });
 	});
 
+/* form 유효성 검사 */
+function chk6(){
 
+	var form  = document.qna;
+	
+	// 기본 이메일 
+	var email = form.email.value
+	
+	// 다른 이메일로 받기 체크
+	if ("${email}" && form.user_email.checked) {
+		email  = form.user_email2.value
+	}
+	
+	if (!$('input:radio:checked').length) {
+		alert('문의유형을 선택해주세요')
+	} else if(!form.title.value){
+		alert("제목을 써주세요.");
+	}else if(!form.content.value){
+		alert("내용을 써주세요");
+	} else if (email.indexOf('@')==-1){
+		alert('이메일 작성하지 않았거나 올바르지 않습니다')		
+	}else{
+		form.submit();
+	}
+}
 
 
 </script>
@@ -193,9 +226,9 @@
 			</div>
 
 			<tr height="50">
-				<div onclick="check()">
+				<div>
 					<input type="checkbox" name="secret" value="0"
-						onclick="secret_qna()">비밀글 문의
+						onclick="secret_qna(this)">비밀글 문의
 					<p>
 					<div id="secret_pwd" style="visibility: hidden">
 
@@ -241,43 +274,15 @@
 				</div>	
 </c:if>	
 
-<script>
-function chk6(){
-
-	var form  = document.qna;
-	
-	// 기본 이메일 
-	var email = form.email.value
-	
-	// 다른 이메일로 받기 체크
-	if (user_email.checked) {
-		email  = form.user_email2.value
-	}
-	
-	if (!$('input:radio:checked').length) {
-		alert('문의유형을 선택해주세요')
-	} else if(!form.title.value){
-		alert("제목을 써주세요.");
-	}else if(!form.content.value){
-		alert("내용을 써주세요");
-	} else if (email.indexOf('@')==-1){
-		alert('이메일 작성하지 않았거나 올바르지 않습니다')		
-	}else{
-		form.submit();
-	}
-}
-
-</script>
-
 </div>
 			
 			<div onclick="check2()">
-					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 email로 알림받기??
+					<input type="checkbox" name="emailChk" onclick="answer()">답변완료시 카톡으로 알림받기
 				<div id="answer_email" style="visibility: hidden">
 					<div id="ctn_show2">
 						<div class="form-group">
 							<input class="form-control" type="text" name="email2"
-								placeholder="알림받을  email주소를 입력해주세요" size="30">
+								placeholder="알림받을  카톡id 또는 전화번호를 입력해주세요" size="30">
 						</div>
 					</div>
 				</div>

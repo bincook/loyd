@@ -82,7 +82,6 @@ body {
 			id="list">
 			<div class="form-group">
 				<a href="/loyd/qna/write?id=${dto.id}"><input class="btn btn-primary" type="button"	value="상품 문의하기"></a>
-				
 			</div>
 			<p>
 			<div id="first">
@@ -118,7 +117,11 @@ body {
 								</form>
 							</div>
 							<div id="show_text" style="display: none">
-							${list.qnatype}비밀글<br> 내용 : ${list.content} <br></div>
+							${list.qnatype}비밀글<br>
+							
+							 내용 : ${list.content} <br>
+							 </div>
+							 제목: ${list.title}<br>
 							${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
 						
 						</div>
@@ -128,11 +131,13 @@ body {
 				<!--  <돋보기 아이콘> -->
 				<c:if test="${list.secret == 0}">
 	  	${list.qnatype}	  일반글  <br>
+	  	 제목: ${list.title}<br>
 	  	내용 :  ${list.content} <br>
 	  	${list.email.substring(0,list.email.indexOf("@")-2)}****/${list.writeday}
 	</c:if>
 			</c:forEach>
 
+<div>
 			<!-- 현재 페이지 기준 이전 10페이지 이동 -->
 			<c:if test="${pstart !=1 }">
 				<a href="detail_order?id=${dto.id}&page=${page-1}&nav_type=list"> ◀ </a>
@@ -175,6 +180,7 @@ body {
   	 </c:if>
 
 		</div>
+	</div>
 	</div>
 </body>
 </html>
