@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -152,7 +152,14 @@ function history() {
 				<div id="product-content"> 상세설명 </div>
 				<div id="product-content-form"> ${list.content }</div>
 			</div>
-		</div>		
+		</div>
+		
+		<div id="historyback">
+			<a class="btn btn-primary" href="javascript:window.history.back()"> 뒤로가기</a>
+			<a class="btn btn-primary" href="../reviews/list"> 리뷰보러가기</a>
+			<a class="btn btn-primary" href="../reviews/write?watch_id=${list.id }&watch_name=${list.name}">리뷰 작성하기</a>
+		</div>	
+
 	</div>
 </div>
 

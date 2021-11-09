@@ -3,7 +3,7 @@ package kr.co.loyd.dto;
 public class ReviewWriteDto {
 
 	private int review_id, member_id, watch_id, rate, file_id; 
-	private String content;
+	private String content, name;
 	
 	
 	public int getReview_id() {

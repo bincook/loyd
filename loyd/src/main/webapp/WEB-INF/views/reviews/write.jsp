@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -105,15 +105,22 @@
 			                 <td>구매한 시계</td>
 			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
 			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
-<%-- 			                 <td colspan="3"><input name="" value="${watch_name.name }">${watchId.watch_id} --%>
-			                 
-			                 
-			                 <td colspan="3"><input name="watch_id" value="659">
-			                 </td>    
+
+			                 <td colspan="3">
+			                 <input name="watch_id" value="${watchId }" type=hidden>
+			                 	${watchName}
+			                 </td>
+
                 	</tr>
 	                <tr>
 		                    <td>작성자</td>
-		                    <td colspan="3"><input name="" disabled="disabled" value="${name }"></td> 
+
+		                    <td colspan="3">
+		                    <input type="hidden" name="member_id" value="${ id}" />	
+		                    ${name }
+		                    </td>  
+	
+
 	                </tr>
 	                <tr>
 	                    <td>만족도</td>  

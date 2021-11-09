@@ -1,4 +1,4 @@
-package kr.co.loyd.dao;
+﻿package kr.co.loyd.dao;
 
 import java.util.ArrayList;
 
@@ -35,14 +35,12 @@ public interface ReviewsDao {
 	public void update_ok1(ReviewWriteDto dto);  // 파일이 없는경우(수정)
 	public void update_ok2(ReviewWriteDto dto);  // 파일이 있는경우(수정)
 
-	
 	// 좋아요 구현
 	public int likeCount(Integer memberId, String reviewId); 
 	public void addLike(Integer memberId, String reviewId);
 	public void subLike(Integer memberId, String reviewId);
-	
 	public int reviewLikeCount(String review_id);
-
+	public ReviewsDto writePage(String watch_id);
 	
 }
 

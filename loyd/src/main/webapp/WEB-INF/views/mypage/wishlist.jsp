@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -282,6 +282,13 @@ a:hover {
 								<div id="wishlist-view-pric"> 
 									<fmt:formatNumber value="${wish.price }" pattern="#,###" />원 								</div>
 								<div id="wishlist-view-date"> ${wish.datetime }</div>
+
+								<div id="wishlist-view-enquiry"> 
+									<a href="../qna/write?watch_id=${wish.watch_id }">
+										문의보내기
+									</a>
+								</div>
+								
 							</div>
 						</c:forEach>
 					</div>
