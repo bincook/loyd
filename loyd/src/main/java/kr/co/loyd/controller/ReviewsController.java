@@ -1,4 +1,4 @@
-package kr.co.loyd.controller;
+﻿package kr.co.loyd.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,15 +44,19 @@ public class ReviewsController {
 		
 		
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
-
+		String watch_id = request.getParameter("watch_id");
+		String watch_name = request.getParameter("watch_name");
 //		 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
 		model.addAttribute("watchId", rdto.getWatch_id());
 		model.addAttribute("content", rdto.getContent());
+		model.addAttribute("watchName", watch_name);
 		
 		// watch 테이블에서 시게이름 가져오기
 //		model.addAttribute("id", 1);
 		System.out.println("watchId");
 		
+		// 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
+
 		return "/reviews/write";
 	}
 	
@@ -62,6 +66,7 @@ public class ReviewsController {
 
 	/** 리뷰 작성 ok */
 	@RequestMapping("/reviews/write_ok")
+
 	public String write_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
