@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,7 +18,27 @@
 	text-align: center;	
 
 }
+.target {
+	/* 한 줄 자르기 */
+	display: inline-block;
+	width: 450px;
 
+	white-space: nowrap;
+ 	overflow: auto; 
+	text-overflow: ellipsis;
+	
+	/* 여러 줄 자르기 추가 스타일*/
+	white-space: normal;
+	line-height: 1.2;
+	height:10em;
+	text-align: left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	
+	
+}
 </style>
 
 <script >
@@ -65,24 +86,24 @@ function moveTologin(){
 
 
 </head>
-<body onload='resizeWindow(this)'>
+<body>
 
 	<div align="center" id="content"><!-- style="display: inline-block"  -->
-		<table width="600" height="550" align="center" border="1" >
+		<table width="600" height="700" align="center" border="1" >
 
 			<tr>
 				<td colspan="3" align="center">
-					<img width="300" 
+					<img width="300" width="300" 
 					src="<c:url value="/${reviews.path}/${reviews.name }" />"
 					onerror="this.src='/loyd/resources/watch_errimg.png'; 
 								this.style.width='200px';">
 				</td>
 			</tr>
 			<tr>
-				<td>작성일
+				<td align="center" height="10px">작성일
 					<p>${reviews.writeday }
 				</td>
-				<td colspan="2">구매한 시계
+				<td  align="center" colspan="2">구매한 시계
 					<p>${reviews.watch_id }
 				</td>
 			</tr>
@@ -94,29 +115,15 @@ function moveTologin(){
 					☆
 					</c:forEach>
 				</td>
-				<td colspan="2">작성자
-					<p>${reviews.name }
+				<td align="center" height="10px" colspan="2">작성자
+					<p>${reviews.mname }
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">후기내용
-					<p>${reviews.content }</td>
-			</tr>
 			
-			<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
-			<tr>
-<%-- 				<c:if test="${memberId != null }" > --%>
-				<c:if test="${memberId == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
-					<td align="center">
-						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
-					</td>
-					<td align="center">
-						<a class="btn" style="background-color:#FCFF71;" href="update?review_id=${reviews.review_id }">수정하기 </a>				
-					</td>
-				</c:if>
-					<td colspan="3" align="right">
-						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
-					</td>
+				<td class="target" width="200" colspan="2">
+					후기내용<p>${reviews.content }
+				</td>			
 			</tr>
 			
 			<!-- 좋아요 기능 -->
@@ -150,7 +157,24 @@ function moveTologin(){
 			</tr>
 
 			
-		</table>		
+		</table>	
+		<table>
+		<!-- 로그인값과 일치할 경우에만 수정, 삭제 버튼이 보이기 -->
+			<tr>
+<%-- 				<c:if test="${memberId != null }" > --%>
+				<c:if test="${id == reviews.member_id}" >  <!-- 세션에 저장된 값 == 리뷰를 쓴 사람의 member_id -->
+					<td style="padding-left:40px; padding-top:20px;" align="center">
+						<a class="btn" style="background-color:#FCFF71;" id="close" href="javascript:del_content()">삭제하기</a>
+					</td>
+					<td style="padding-left:40px; padding-top:20px;" align="center">
+						<a class="btn" style="background-color:#FCFF71;" href="update?review_id=${reviews.review_id }">수정하기 </a>				
+					</td>
+				</c:if>
+					<td style="padding-left:40px; padding-top:20px;" colspan="3" align="right">
+						<a class="btn btn-primary" href="javascript:cnt_readnum()">창닫기</a>
+					</td>
+			</tr>
+		</table>	
 	</div>
 	
 

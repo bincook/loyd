@@ -1,6 +1,11 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,6 +58,10 @@
   top: 2px;
   left: 2px;
 }
+#sapce {
+	padding-left: 170px;
+	padding-right: 170px;
+}
 
 </style>
 <script>
@@ -78,15 +87,17 @@ function resizeWindow(win)    {
  function btn(){
 	alert('로그인이 필요합니다')
 }	
-	
+
+
 	
 </script>
 
 
 </head>
-<body onload='resizeWindow(this)'>
 
+<body>
 
+	<div id="sapce">
 	<!-- 타이틀 부분 -->
 	    <table width="500" align="center" border="1">
 			<div class="container">
@@ -102,11 +113,10 @@ function resizeWindow(win)    {
 		      <tr>
 		        <th>글번호</th>
 		        <th>시계이름</th>
-		        <th width="110px">이미지</th>
-		        <th width="150px">만족도</th>
-		        <th width="150">작성자 아이디</th>
-		        <th width="800px">내용</th>
-		        <th width="500">추천수</th>
+		        <th width="100px">이미지</th>
+		        <th width="250px">만족도</th>
+		        <th width="150">작성자</th>
+		        <th width="400px">내용</th>
 		        <th width="150">조회수</th>
 		        <th width="150">작성일</th>
 		      </tr>
@@ -140,11 +150,24 @@ function resizeWindow(win)    {
 								       </c:forEach>
 						        </td>
 						        <td>${review.mname}</td><!-- member_id말고 mname으로 가져오기 -->
-								<td><a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
-									${review.content}
-									</a>
+						        
+
+								<td>
+									<c:choose>
+										<c:when test="${fn:length(review.content) >50}">
+											<a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
+												<c:out value="${fn:substring(review.content,0,20)}"/>....
+											</a>
+										</c:when>
+										<c:otherwise>
+											<a href="javascript:open_content(${review.review_id}); resizeWindow(win)">
+												<c:out value="${review.content}" /> 
+											</a>
+										</c:otherwise>			
+									</c:choose>
+									<p style="color:grey;">${review.like }명에게 도움이 되었어요</p>
 								</td>
-								<td style="color:grey;">${review.like }명에게 도움이 되었어요</td>
+
 						        <td>${review.view}</td>
 						        <td>${review.writeday}</td>
 					      </tr>
@@ -254,8 +277,9 @@ function resizeWindow(win)    {
 
 		
 
-
+</div>
 </body>
+
 </html>
 
 
