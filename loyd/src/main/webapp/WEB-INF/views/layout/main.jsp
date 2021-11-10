@@ -126,7 +126,7 @@
                     <div class="messages-content"></div>
                 </div>
                 <div class="message-box">
-                    <div contenteditable="true" data-content-editable-leaf="true" onkeyup="game(this)" type="text" class="message-input" placeholder="Type message..."></div>
+                    <div contenteditable="true" data-content-editable-leaf="true" type="text" class="message-input" placeholder="Type message..."></div>
                     <button id="btn" type="submit" class="message-submit">Send</button>
                 </div>
                 <div class="bg"></div>
@@ -134,11 +134,7 @@
         </div>
     </div>
     <script>
-    function game(target) {
 
-
-    	
-    }
     </script>
 </body>
 </html>

@@ -182,9 +182,6 @@
     transform-origin: 0 0;
     animation: bounce 500ms linear both;
 }
-.new {
-    padding-top: 44px !important;
-}
 .messages .message.loading::before {
     position: absolute;
     top: 50%;

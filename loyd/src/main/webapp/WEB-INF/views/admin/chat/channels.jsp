@@ -207,7 +207,7 @@
                                 <div class="messages-content"></div>
                             </div>
                             <div class="message-box">
-                                <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+                                <div style="text-align: left" contenteditable="true" data-content-editable-leaf="true" type="text" class="message-input" placeholder="Type message..."></div>
                                 <button type="submit" class="message-submit">Send</button>
                             </div>
                             <div class="bg"></div>
