@@ -155,7 +155,7 @@
 			<div class="card" style="width: 500px">
 				<div class="card-header">
 
-					<a href="/loyd/order/product_list" class="stretched-link">주문량 높은 회원
+					<a href="/loyd/admin/member/list" class="stretched-link">주문량 높은 회원
 					</a> <span> 최근 </span>
 				</div>
 				<div class="card-body">
