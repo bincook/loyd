@@ -3,9 +3,27 @@ package kr.co.loyd.dto;
 public class ReviewsDto {
 	
 	private int review_id, member_id, watch_id, rate, view, file_id, id, like;
-	private String content, writeday, name, path, mname;
+	private String content, writeday, name, path, mname, wname, brand, category;
 	
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getWname() {
+		return wname;
+	}
+	public void setWname(String wname) {
+		this.wname = wname;
+	}
 	public int getLike() {
 		return like;
 	}

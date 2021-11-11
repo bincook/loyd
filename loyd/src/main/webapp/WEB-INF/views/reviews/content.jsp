@@ -32,7 +32,6 @@
 }
 #like {
 	padding-top: 570px;
-/* 	height: 700px; */
 	text-align: center;	
 
 }
@@ -54,13 +53,11 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 5;
 	-webkit-box-orient: vertical;
-	
-	
 }
 </style>
 
-<script >
 
+<script >
 function del_content() {
 	// 창을 닫을때 삭제여부 묻고 '예 ' 클릭하면 삭제되고 창 자동 새로고침.	 
 	window.opener.location.reload();
@@ -75,8 +72,8 @@ function del_content() {
 
 //버튼 누르면 부모 새로고치고 자기창 닫기
 function cnt_readnum() {
-	window.opener.location.reload() // opener 부모 새로고침
-	window.close()  // 자기창을 닫아라	
+	window.opener.location.reload() 
+	window.close()  
 };
 
 // // 창킬때 조회수 증가
@@ -87,18 +84,9 @@ onbeforeunload = function() {  // beforeunload 이벤트
 	opener.document.location.reload();
 }
 
-
-// 윈도우 창크기 변경하기(실패)
-function resizeWindow(win)    {
-	var wid = win.document.body.offsetWidth + 700;
-	var hei = win.document.body.offsetHeight + 600;        //30 과 40은 넉넉하게 하려는 임의의 값임
-	win.resizeTo(wid,hei);
-}
-
 function moveTologin(){
 	alert('추천을 하시려면 로그인이 필요합니다')
 }
-
 
 </script>
 

@@ -128,11 +128,9 @@
 	                <tr>
 	                    <td>이미지 첨부하기</td>
 	                    <div id="imgAcd">
-<!-- 	                    <td><input type="file" name="iname1"></td> -->
 							<td>        		
 								<p class="iname"><input type="file" name="name" value="imgtest"></p>
-							</td>
-	                        
+							</td> 
 	                        <td><input type="button" onclick="add()" value='사진추가'></td>
 	                        <td><input type="button" onclick="del()" value='사진삭제'></td>               
 	                    </div>
@@ -140,7 +138,8 @@
 	                <tr>
 	                    <td>내용</td>
 	                    <td colspan="3">
-	                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요">${update_dto.content }</textarea>
+	                        <textarea id="textarea" cols="110" name="content" rows="5" 
+	                        			placeholder="후기를 입력해주세요">${update_dto.content }</textarea>
 	                    </td>
 	                </tr>
             </table>

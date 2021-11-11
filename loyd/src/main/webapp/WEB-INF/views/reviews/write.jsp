@@ -67,7 +67,7 @@
 	function btn() {
 		
 		var arr = $('form').serializeArray()  // serialize 연속극 // .serialize() 데이터 직렬화, serializeArray() 문자열을 배열로변환
-		
+	
 		console.log(arr.length)  // 입력된 데이터 수 
 		
 		if(arr.length < 3 ) return alert('별점을 입력해주세요')  // 3개보다 길이 적으면
@@ -75,6 +75,7 @@
 		else $('form').submit()  // 제출하기
 		
 	}
+	
 	// 연습한거(틀림)
 //  	function btn(){
 //  		if(document.writeForm.content.value==""){
@@ -96,31 +97,22 @@
         <p> WATCH 에서 구매하신 상품에 대한 고객님의 따뜻한 후기를 남겨주세요.</p>
     </div>
     <div class="container bg-light" style="height: 800px;">
-        <form id='frm' name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">
-                 
+        <form id='frm' name="writeForm" method="post" action="write_ok" enctype="multipart/form-data">   
             <table class="table table-bordered">
-					 <tr>
-						 <!-- 나중에 hidden 으로 감싸주거나 상품 아이디를 뿌려줄 때 -->
-						 
-			                 <td>구매한 시계</td>
-			                 <!-- 나중에 value 부분만 ${watch_id} 로 바꿔주면 될 것 같아요 -->
-			                 <!-- 마이페이지 주문내역목록 ( watch_id ) -> 에서 - > 구매후기 write ( watch_id ) 넘겨주기 -->
-
-			                 <td colspan="3">
-			                 <input name="watch_id" value="${watchId }" type=hidden>
-			                 	${watchName}
-			                 </td>
-
+					 <tr>			 
+		                 <td>구매한 시계</td>
+		                 <td colspan="3">
+		                 <input name="watch_id" value="${watchId }" type=hidden>
+		                 	${watchName}
+		                 </td>
                 	</tr>
 	                <tr>
-		                    <td>작성자</td>
+	                    <td>작성자</td>
 
-		                    <td colspan="3">
-		                    <input type="hidden" name="member_id" value="${ id}" />	
-		                    ${name }
-		                    </td>  
-	
-
+	                    <td colspan="3">
+	                    <input type="hidden" name="member_id" value="${ id}" />	
+	                    ${name }
+	                    </td>  
 	                </tr>
 	                <tr>
 	                    <td>만족도</td>  
@@ -136,39 +128,28 @@
 	                <tr>
 	                    <td>이미지 첨부하기</td>
 	                    <div id="imgAcd">
-<!-- 	                    <td><input type="file" name="iname1"></td> -->
 							<td>
 								<p class="iname"><input type="file" name="name" value="imgtest"></p>
-							</td>
-	                        
-	                        <td><input type="button" onclick="add()" value='사진추가'></td>
-	                        <td><input type="button" onclick="del()" value='사진삭제'></td>               
+							</td>                  
 	                    </div>
-	                </tr>
-	                
+	                </tr> 
 		                <tr>
 		                    <td>내용</td>
 		                    <td colspan="3">
 		                        <textarea id="textarea" cols="110" name="content" rows="5" placeholder="후기를 입력해주세요"></textarea>
 		                    </td>
 		                </tr>
-	                
-	               
             </table>
             <div align="center">
-<!--             		<a onclick="javascript:btn()" class="btn btn-primary" href="javascript:document.writeForm.submit()"> -->
                     <a onclick="javascript:btn()" class="btn btn-primary">
                    		 작성완료
                     </a>  
                     <a class="btn btn-outline-primary" href="javascript:history.back()">
                     	뒤로가기
                     </a>
-                    
             </div>
         </form>
     </div>
-
-
 
 </body>
 </html>

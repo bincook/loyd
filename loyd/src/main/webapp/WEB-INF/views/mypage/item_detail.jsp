@@ -157,7 +157,6 @@ function history() {
 		<div id="historyback">
 			<a class="btn btn-primary" href="javascript:window.history.back()"> 뒤로가기</a>
 			<a class="btn btn-primary" href="../reviews/list"> 리뷰보러가기</a>
-			<a class="btn btn-primary" href="../reviews/write?watch_id=${list.id }&watch_name=${list.name}">리뷰 작성하기</a>
 		</div>	
 
 	</div>

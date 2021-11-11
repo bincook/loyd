@@ -40,23 +40,18 @@ public class ReviewsController {
 	@RequestMapping("/reviews/write")
 	public String writePage(ReviewsDto rdto, HttpServletRequest request, Model model, HttpSession session) {
 		
-		// 세션에 있는 member id로 가져오기, session이 없을경우 다시 로그인 페이지로 이동
-		
-		
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		String watch_id = request.getParameter("watch_id");
 		String watch_name = request.getParameter("watch_name");
-//		 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
+		
+		// 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
+		// watch 테이블에서 시게이름 가져오기
 		model.addAttribute("watchId", rdto.getWatch_id());
 		model.addAttribute("content", rdto.getContent());
 		model.addAttribute("watchName", watch_name);
 		
-		// watch 테이블에서 시게이름 가져오기
-//		model.addAttribute("id", 1);
-		System.out.println("watchId");
+//		System.out.println("watchId" + watch_id);
 		
-		// 작성된 리뷰를 담는 기능 (페이지로 보낼 명령)
-
 		return "/reviews/write";
 	}
 	
@@ -72,13 +67,13 @@ public class ReviewsController {
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 로그인을 하지않으면 로그인페이지로 이동하기
-		Object idObj = session.getAttribute("id");  // 여기에 member  table 정보가 담겨있음
+		Integer id = (Integer) session.getAttribute("id");  // 여기에 member table의 값 담음 (MemberController.java)
 		
-		if(idObj==null) {
+		if(id==null) {
 			return "redirect:/mber/login";
 		}
-		String id = ""+ idObj;
-		dto.setMember_id(Integer.parseInt(id));
+//		String id = ""+ idObj;
+		dto.setMember_id(id);
 		
 		// 이미지적용
 		MultipartFile multipartFile = request.getFile("name");

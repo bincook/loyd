@@ -13,12 +13,16 @@
 	</select>
 	
 	<select id="order_list" resultType="kr.co.loyd.dto.MypageDto">
-		SELECT ol.order_no, wt.name, od.order_date, wt.picture, count(wt.name) as cnt
+		SELECT ol.order_no, wt.name, wt.id AS wid, od.order_date, wt.picture, count(wt.name) as cnt
+		
 		FROM `order list` ol
+		
 		LEFT JOIN `watch` wt
 		ON wt.id = ol.watch_id
+		
 		LEFT JOIN `order_detail` od
 		ON ol.order_no = od.order_no
+		
 		WHERE ol.member_id = #{param1 } and ${param2 } like concat('%',#{param3 },'%') 
 		GROUP BY ORDER_no 
 		ORDER BY ol.id DESC
