@@ -329,7 +329,7 @@ a:hover {
 										<a href="order_detail?id=${id }&order_no=${mydto.order_no }"> 주문 상세</a>
 									</div>	
 									<div id="order-view-enquiry">
-										<a href="../reviews/write?watch_id=${mydto.id }&watch_name=${mydto.name}">리뷰 작성하기</a>
+										<a href="../reviews/write?watch_id=${mydto.wid }&watch_name=${mydto.name}">리뷰 작성하기</a>
 									</div>	
 								</div>
 							</c:forEach>

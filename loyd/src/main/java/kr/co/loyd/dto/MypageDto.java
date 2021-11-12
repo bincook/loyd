@@ -2,7 +2,7 @@ package kr.co.loyd.dto;
 
 public class MypageDto {
 
-	private int id, price, watch_id, member_id, count;
+	private int id, price, watch_id, member_id, count, wid;
 	private double discount;
 	private String orderday, name, picture, brand, category, content, kind, email, title, pwd, qnatype, secret, datetime, writeday;
 	
@@ -10,9 +10,17 @@ public class MypageDto {
 	private String order_name, order_phone, rec_name, rec_phone, zip, addr1, addr2, pay, msg, order_date, cnt;
 	private int order_id, order_list_id, order_no;
 	
-//	table `member`
 	private String register_date;
+
 	
+//	table `member`
+	
+	public int getWid() {
+		return wid;
+	}
+	public void setWid(int wid) {
+		this.wid = wid;
+	}
 	public String getWriteday() {
 		return writeday;
 	}
