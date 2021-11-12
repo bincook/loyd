@@ -50,14 +50,9 @@ public class ReviewsController {
 		model.addAttribute("content", rdto.getContent());
 		model.addAttribute("watchName", watch_name);
 		
-//		System.out.println("watchId" + watch_id);
-		
+		//System.out.println("watchId" + watch_id);		
 		return "/reviews/write";
 	}
-	
-	
-	
-	
 
 	/** 리뷰 작성 ok */
 	@RequestMapping("/reviews/write_ok")
@@ -66,13 +61,12 @@ public class ReviewsController {
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
-		// 로그인을 하지않으면 로그인페이지로 이동하기
+		// session에서 id값 가져오기, 로그인을 하지않으면 로그인페이지로 이동
 		Integer id = (Integer) session.getAttribute("id");  // 여기에 member table의 값 담음 (MemberController.java)
 		
 		if(id==null) {
 			return "redirect:/mber/login";
 		}
-//		String id = ""+ idObj;
 		dto.setMember_id(id);
 		
 		// 이미지적용

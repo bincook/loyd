@@ -4,8 +4,15 @@
 
 <mapper namespace="kr.co.loyd.dao.ReviewsDao">
 
-	<!-- 구매 후기 작성 -->
 
+	<!-- 구매 후기 보기(없어도될?) -->
+	<select id="one" parameterType="int" resultType="kr.co.loyd.dto.ReviewsDto">
+		select * from reviews where Review_id = #{id}
+	</select>
+	
+
+
+	<!-- 구매 후기 작성 -->
 	<insert id = "writeOk1" parameterType="kr.co.loyd.dto.ReviewWriteDto">
 		insert into reviews(member_id, watch_id, content, writeday, rate)
 		values(#{member_id},#{watch_id},#{content}, now(),#{rate})
@@ -16,28 +23,28 @@
 		insert into
 		reviews(member_id, watch_id, content, writeday, rate, file_id)
 		values(#{member_id},#{watch_id},#{content}, now(),#{rate}, #{file_id})
-
 	</insert>
 	
+	
 	<select id="list2" resultType="kr.co.loyd.dto.ReviewsDto">
-		SELECT r.*, m.id, m.name AS mname, af.*, w.id AS wid, w.name AS wname, w.brand, w.category,
-		(select count(*) from `like` l where l.review_id = r.review_id) `like`
-		
-		from reviews  r
-		
-		LEFT JOIN add_file af
-		ON r.file_id = af.id 
-		
-		LEFT JOIN member m
-		ON r.member_id = m.id
-		
-		LEFT JOIN  watch w
-		ON r.watch_id = w.id
-		
-		where r.${param1} like concat('%', #{param2}, '%')
-		order by review_id DESC
-		limit
-		#{param3}, 10
+        SELECT r.*, m.id, m.name AS mname, af.*, w.id AS wid, w.name AS wname, w.brand, w.category,
+        (select count(*) from `like` l where l.review_id = r.review_id) `like`
+        
+        from reviews  r
+        
+        LEFT JOIN add_file af
+        ON r.file_id = af.id 
+        
+        LEFT JOIN member m
+        ON r.member_id = m.id
+        
+        LEFT JOIN  watch w
+        ON r.watch_id = w.id
+        
+        where r.${param1} like concat('%', #{param2}, '%')
+        order by review_id DESC
+        limit
+        #{param3}, 10
    </select>
 	
 	
