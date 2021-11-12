@@ -116,7 +116,7 @@ public class ReviewsController {
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 좋아요 기능
-		Integer id = (Integer) session.getAttribute("id");  // 나중에 그냥 id로 바꿔주기
+		Integer id = (Integer) session.getAttribute("id");  // member_id -> id로 변경
 		String review_id = request.getParameter("review_id");
 		
 		// 해당 구매후기에 좋아요를 했는지 조회하기
@@ -144,22 +144,19 @@ public class ReviewsController {
 		} else {
 			model.addAttribute("isliked", false);
 		}
-
 		
 		
-		// 검색
+		// 검색 + 페이징
 		int page;
 		String field, word;
 		
 		// 검색한 키워드 기준으로 목록 생성
-		// 페이지징
 		if (request.getParameter("page")==null) {
 			page = 1;
 		}
 		else {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
-		
 		int index = (page -1) *10;
 		field = request.getParameter("field");
 		word = request.getParameter("word");
@@ -210,7 +207,7 @@ public class ReviewsController {
 	@RequestMapping("/reviews/content")
 	public String content(HttpSession session, Model model, HttpServletRequest request) {
 				
-//		int review_id=Integer.parseInt(request.getParameter("review_id"));
+		//int review_id=Integer.parseInt(request.getParameter("review_id"));
 
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
@@ -219,7 +216,7 @@ public class ReviewsController {
 		
 		// 해당 구매후기에 좋아요를 했는지 조회하기
 		// 내가 좋아요를 하면 1개, 다른사람이 좋아요를 한경우엔 id 조건때문에 0이 된다.
-		int reviewLikeCount = rdao.reviewLikeCount(review_id);  // 내가 좋아요를 했는지 여부?
+		int reviewLikeCount = rdao.reviewLikeCount(review_id);  // 내가 좋아요를 했는지 여부
 		
 		// 로그인유무 상관없이 좋아요 개수는 보여주기
 		model.addAttribute("likeCount", reviewLikeCount);
@@ -268,13 +265,10 @@ public class ReviewsController {
 		} else {
 			rdao.subLike(id, reviewId);
 		}
-
 		// 좋아요 기능을 만들었으니 이제 해당 페이지에 오면 좋아요 개수를 보여줘야함
 		// 그래서 /reviews/content?review_id=?? 에 다른코드를 작성함
 
 		return "redirect:/reviews/content?review_id=" + reviewId;
-
-
 	}
 	
 
@@ -283,27 +277,20 @@ public class ReviewsController {
 	@RequestMapping("/reviews/delete")
 	public String delete(HttpSession session, ReviewsDto dto, HttpServletRequest request) {
 
-		
 		// 로그인정보와 컨텐츠 정보가 일치할때만 삭제가능하게 하기
 
 		// idObj == ??? 일때 삭제 가능?
 		session.setAttribute("delete", dto.getMember_id());
-		
 		
 		int review_id = Integer.parseInt(request.getParameter("review_id"));
 		
 		System.out.println("review Id -> " + review_id);
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		rdao.delete(review_id);
-		
-		//삭제전 비밀번호 다시한번더 묻기
-		
-		
-		return "redirect:/reviews/list";
 
+		return "redirect:/reviews/list";
 	}
-	
-	
+
 	//** 수정 페이지 **//
 	@RequestMapping ("/reviews/update")
 	public String update(Model model, HttpServletRequest request) {
@@ -313,11 +300,9 @@ public class ReviewsController {
 		ReviewsDto rdto = rdao.update(review_id);   // content에선 review_id로 썼었음 
 		model.addAttribute("update_dto",rdto);	
 	
-		return "/reviews/update";
-		
+		return "/reviews/update";	
 	}
 
-	
 	//** 수정_ok 페이지 **//*
 	@RequestMapping ("/reviews/update_ok")
 	public String update_ok(HttpSession session, ReviewWriteDto dto, MultipartHttpServletRequest request) throws IOException {
@@ -328,13 +313,12 @@ public class ReviewsController {
 		ReviewsDao rdao = sqlSession.getMapper(ReviewsDao.class);
 		
 		// 로그인을 하지않으면 로그인페이지로 이동하기
-		Object idObj = session.getAttribute("id");  // 여기에 멤버  table 정보가 담겨있음
+		Integer id = (Integer) session.getAttribute("id");  // 여기에 멤버  table 정보가 담겨있음
 		
-		if(idObj==null) {
+		if(id==null) {
 			return "redirect:/mber/login";
 		}
-		String id = ""+ idObj;
-		dto.setMember_id(Integer.parseInt(id));
+		dto.setMember_id(id);
 
 		
 		// 이미지적용
