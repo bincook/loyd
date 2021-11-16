@@ -2,11 +2,14 @@ package kr.co.loyd.controller;
 
 import java.io.PrintWriter;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +20,58 @@ import kr.co.loyd.dto.MberDto;
 @Controller
 @RequestMapping("/mber")
 public class MberController {
+	
+	
+	
     private final String module = "mber";
     @Autowired
     private SqlSession sqlSession;
+    @Autowired
+	private JavaMailSender mailSender;
+    
+    @RequestMapping(value = "/mailSending")
+	public String mailSending(HttpServletRequest request) {
 
-    @RequestMapping("join")
+		String setfrom = "silberrook@naver.com";
+		String tomail = request.getParameter("tomail"); // 받는 사람 이메일
+		String title = request.getParameter("title"); // 제목
+		String content = request.getParameter("content"); // 내용
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
+					true, "UTF-8");
+
+			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+			messageHelper.setTo(tomail); // 받는사람 이메일
+			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			messageHelper.setText(content); // 메일 내용
+
+			mailSender.send(message);
+		} catch (Exception e) {
+			System.out.println(e);
+			return "redirect:/mail";
+		}
+
+		return "redirect:/";
+	}
+   
+    
+    @RequestMapping("mail")
+   public String mail() {
+
+       return "/mail";
+   }
+    
+      @RequestMapping("join")
     public String join() {
 
         return module + "/join";
     }
+    
+    
+
+  
 
     @RequestMapping("join_ok")
     public String join_ok(MberDto dto) {
